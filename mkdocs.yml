@@ -9,7 +9,7 @@ repo_name: webtech
 repo_url: https://github.com/jfreiheit/webtech
 
 # Copyright
-copyright: Copyright &copy; 2022 Jörn Freiheit
+copyright: Copyright &copy; 2024 Jörn Freiheit
 
 # Configuration
 theme:
@@ -33,8 +33,6 @@ extra_css:
 
 # Extensions
 markdown_extensions:
-  - attr_list
-  - md_in_html
   - admonition
   - footnotes
   - pymdownx.arithmatex
@@ -43,13 +41,16 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
   - pymdownx.inlinehilite
+  - pymdownx.keys
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
+  - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -60,6 +61,8 @@ markdown_extensions:
       guess_lang: false
   - toc:
       permalink: true
+  - attr_list
+  - md_in_html
 
 #Navigation
 nav:
@@ -79,4 +82,5 @@ nav:
     - Deployment: deployment.md 
     - Übungen: uebungen.md
     - Promises: promises.md 
+    - Service Worker: serviceworker.md
     - Werkzeuge: tools.md

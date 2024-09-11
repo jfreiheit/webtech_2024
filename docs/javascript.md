@@ -189,7 +189,13 @@ Dieses erste Beispiel zeigt mehrere interssante Punkte:
 - Ereignisse, an die man sich anmelden und auf die reagiert werden kann und
 - es gibt Funktionen, die den Inhalt und den Style von Elementen ändern
 
-Wir schauen uns zunächst Ereignisse an, auf die reagiert werden kann.
+Wir schauen uns zunächst Ereignisse an, auf die reagiert werden kann. Zuvor betrachten wir nur noch kurz eine andere Möglichkeit, auf die Elemente zuzugreifen, nämlich mittels `querySelector(css_selector)` und `querySelectorAll(css_selector)`:
+
+#### `querySelector()` und `querySelectorAll()`
+
+Die Funktion `document.querySelector(css_selector)` gibt das erste HTML-Element zurück, das dem `css_selector` entspricht. Die Syntax für `css_selector` entspricht genau der in CSS für Slektoren verwendeten Syntax. Das bedeutet, dass z.B. `document.querySelector("ul")` das erste `<ul>`-Element im HTML-Code zurückgibt, `document.querySelector("#main")` gibt das Element mit der `id="main"` zurück und `document.querySelector(".red")` gibt das erste Element mit `class="red"` zurück. Die Selektoren können, wie bei CSS auch hier beliebig komplex sein, z.B. `document.querySelector("div.user-panel.main input[name='login']")` (siehe [hier](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)).
+
+Die Funktion `doument.querySelectorAll(css_selector)` gibt eine [NodeList](https://developer.mozilla.org/en-US/docs/Web/API/NodeList)) zurück, die dem CSS-Selektor `css_selector` entsprechen. `doument.querySelector(css_selector)` enspricht somit `doument.querySelectorAll(css_selector)[0]`. Für `querySelectorAll()` siehe [hier](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll).
 
 ### HTML-Ereignisse 
 
@@ -618,7 +624,7 @@ Hervorgehoben sind wieder die Zeilen, in dennen sich etwas geändert hat.
 - Zeile `12`: Der Funktion `cloneFunc()` kann nun nicht mehr das `img`-Objekt selbst übergeben werden (da wir in `addEventListener()` nur die Referenz auf die Funktion übergeben). Deswegen verwenden wir auch hier wieder das automatisch übergebene `event` und ermitteln das `target` des ausgelösten Ereignisses (Zeile `14`).
 - Zeilen `31-46`: Die Funktion `createAllElements()` erzeugt zunächst ein `img`-Knoten mit allen erforderlichen Attributen. Außerdem wird dieser Knoten auch noch an das `dblclick`-Ereignis angemeldet und die Referenz auf die Funktion `cloneFunc` als Event-Handler übergeben. In Zeile `44` wird dieser `img`-Knoten dem `<body>` hinzugefügt, und zwar vor dem `<script>`-Element. Außerdem wird noch unser `<div>` mit der `id="div1"` erzeugt und ebenfalls vor dem `<script>`-Element (und hinter das `<img>`-Element) eingefügt. 
 
-Es entsteht die exakt gleiche Webseite wie in dem Beispiel davor (siehe Beispiel aus [**addEventListener**](./javascript/#addeventlistener)).
+Es entsteht die exakt gleiche Webseite wie in dem Beispiel davor (siehe Beispiel aus [**addEventListener**](#addeventlistener)).
 
 
 ## Ein Beispielformular mit Elementerzeugung
@@ -732,7 +738,7 @@ Globale Variablen, also Variablen, die von allen Funktionen geteilt werden (in a
 
 ### Objekte
 
-Objekte in JavaScript werden in *JavaScript Object Notation* beschrieben. Wir werden darauf noch [**genauer eingehen**](../json/#javascript-object-notation-json), zeigen hier aber schonmal ein einfaches Beispiel zur Einführung:
+Objekte in JavaScript werden in *JavaScript Object Notation* beschrieben. Wir werden darauf noch [**genauer eingehen**](angular2.md#javascript-object-notation-json), zeigen hier aber schonmal ein einfaches Beispiel zur Einführung:
 
 ```javascript
 let person={vorname:"Maria", nachname: "Musterfrau"};
@@ -1158,7 +1164,7 @@ Eine *Promise* ist das Ergebnis einer asynchronen Operation. Es gibt vier Status
 | `resolved` | die asynchrone Operation wurde **erfolgreich beendet** |
 | `rejected` | die asynchrone Operation **ist fehlgeschlagen** |
 
-Um das Prinzip einer Promise zu erläutern, schauen wir uns ein Beispiel aus [**Node.js --> Eine Movie-Datenbank**](./node/#eine-movie-datenbank) an:
+Um das Prinzip einer Promise zu erläutern, schauen wir uns ein Beispiel aus [**Node.js --> Eine Movie-Datenbank**](https://www.rheinwerk-verlag.de/nodejs-das-umfassende-handbuch/) an:
 
 ```javascript
 function getAll() {
@@ -1179,7 +1185,7 @@ Die asynchrone Funktion enthält ebenfalls eine Callback-Funktion. Hier wurden a
 !!! note "return new Promise()"
 	Wir merken uns also: die `getAll()`-Funktion gibt ein `Promise`-Objekt zurück.
 
-Wie kann eine solche Promise nun verwendet werden? Dazu schauen wir uns erneut das Beispiel aus [**Node.js --> Eine Movie-Datenbank**](./node/#eine-movie-datenbank) an:
+Wie kann eine solche Promise nun verwendet werden? Dazu schauen wir uns erneut das Beispiel aus [**Node.js --> Eine Movie-Datenbank**](https://www.rheinwerk-verlag.de/nodejs-das-umfassende-handbuch/) an:
 
 ```javascript
 function listAction(request, response) {

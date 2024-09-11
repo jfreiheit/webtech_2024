@@ -145,7 +145,7 @@ Dieses Mal heißt unser `Promise`-Objekt `promise` und die beiden *Callback* -Fu
 
 ### Promises in Arrow-Notation
 
-Weil wir es mitlerweile häufig sehen und weil wir uns auch angewöhnen wollen, diese selbst zu benutzen, hier das gleiche Beispiel nochmal in [Arrow-Notation](../serviceworker/#arrow-notation-verwenden):
+Weil wir es mitlerweile häufig sehen und weil wir uns auch angewöhnen wollen, diese selbst zu benutzen, hier das gleiche Beispiel nochmal in [Arrow-Notation](serviceworker.md#arrow-notation-verwenden):
 
 ```javascript linenums="1"
 let promise = new Promise((resolve, reject) => {
@@ -164,7 +164,7 @@ promise.then(
 console.log('Ausgabe B');
 ```
 
-Es ist auch noch zu erwähnen, dass Sie nur selten selbst *Promises* erstellen, sondern diese viel häufiger nutzen werden. Das heißt, Sie werden nicht so häufig *producing code*, sondern viel häufiger *consuming code* schreiben. Beispielsweise gibt die [Registrierung](../serviceworker/#registrierung-eines-service-workers) eines *service workers* ein *Promise* zurück:
+Es ist auch noch zu erwähnen, dass Sie nur selten selbst *Promises* erstellen, sondern diese viel häufiger nutzen werden. Das heißt, Sie werden nicht so häufig *producing code*, sondern viel häufiger *consuming code* schreiben. Beispielsweise gibt die [Registrierung](serviceworker.md#registrierung-eines-service-workers) eines *service workers* ein *Promise* zurück:
 
 ```javascript linenums="1"
 // scope defaults to the path the script sits in

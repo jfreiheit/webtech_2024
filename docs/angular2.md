@@ -4,7 +4,7 @@ In diesem Kapitel geht es darum, wie wir innerhalb einer Komponente mit TypeScri
 
 ## JavaScript Object Notation (JSON)
 
-Eine kurze Einführung zu Objekten in JavaScript haben wir bereits im [**JavaScript-Kapitel**](../javascript/#objekte) gegeben. Dort haben wir auch gesagt, dass wir auf die Notation solcher Objekte in JavaScript nochmal genauer eingehen wollen. Dies geschieht hier. *JavaScript Object Notation (JSON)* ist ein Datenaustauschformat, das einerseits einfach für Menschen zu lesen und zu schreiben ist und andererseits gut von Maschinen *geparst* (analysiert) und erzeugt werden kann. Ein Objekt in JSON beginnt mit einer geschweiften Klammer `{` und endet mit `}`. JSON besteht im wesentlichen aus Schlüssel-Werte-Paaren, die durch Komma getrennt sind. 
+Eine kurze Einführung zu Objekten in JavaScript haben wir bereits im [**JavaScript-Kapitel**](javascript.md#javascript) gegeben. Dort haben wir auch gesagt, dass wir auf die Notation solcher Objekte in JavaScript nochmal genauer eingehen wollen. Dies geschieht hier. *JavaScript Object Notation (JSON)* ist ein Datenaustauschformat, das einerseits einfach für Menschen zu lesen und zu schreiben ist und andererseits gut von Maschinen *geparst* (analysiert) und erzeugt werden kann. Ein Objekt in JSON beginnt mit einer geschweiften Klammer `{` und endet mit `}`. JSON besteht im wesentlichen aus Schlüssel-Werte-Paaren, die durch Komma getrennt sind. 
 
 ```bash
 {
@@ -681,7 +681,7 @@ Eine Interpolation kann auch Ausdrücke enthalten, die aufgelöst werden, z.B.
 <p>1 + 2 = {{1 + 2}}.</p>
 ```
 
-Man kann mithilfe einer [Direktive](./#direktiven) durch ein Array laufen und jedes einzelne Element mithilfe von Interpolation ausgeben:
+Man kann mithilfe einer [Direktive](#direktiven) durch ein Array laufen und jedes einzelne Element mithilfe von Interpolation ausgeben:
 
 ``` javascript
 @Component({
@@ -769,7 +769,7 @@ In dem Beispiel wurde einem Textfeld die Elementreferenz `id` zugewiesen (kann j
 
 ### [Property Bindings]
 
-Insbesondere, wenn Attributen von HTML-Elementen Werte zugeordnet werden sollen (so wie beim `imgUrl`-Beispiel des Abschnitts [**{{Interpolation}}**](./#interpolation)), spricht man von *property binding*. Property binding spielt eine große Rolle beim Datenfluss von Eltern-Komponenten auf Kind-Komponenten. Die generelle Idee dabei ist, dass mithilfe von *property binding* Werte (Daten) an Attribute von HTML-Elementen bindet. Diese HTML-Elemente können auch Komponenten sein.
+Insbesondere, wenn Attributen von HTML-Elementen Werte zugeordnet werden sollen (so wie beim `imgUrl`-Beispiel des Abschnitts [**{{Interpolation}}**](#interpolation)), spricht man von *property binding*. Property binding spielt eine große Rolle beim Datenfluss von Eltern-Komponenten auf Kind-Komponenten. Die generelle Idee dabei ist, dass mithilfe von *property binding* Werte (Daten) an Attribute von HTML-Elementen bindet. Diese HTML-Elemente können auch Komponenten sein.
 
 Wir betrachten zunächst die unterschiedlichen Arten (Notationen) von property binding:
 
@@ -777,7 +777,7 @@ Wir betrachten zunächst die unterschiedlichen Arten (Notationen) von property b
 <element [property]="ausdruck"></element>
 ```
 
-D.h. ein *ausdruck* wird übergeben, der zu einem Wert aufgelöst wird und dieser Wert wird dem Attribut `property` übergeben. Betrachten wir nochmals das letzte Beispiel aus dem Abschnitt [**{{Interpolation}}**](./#interpolation)). Bei diesem Beispiel haben wir Interpolation verwendet, um dem Attribut `src` des HTML-Elementes `img` einen Wert zuzuweisen. Das exakt gleiche Verhalten lässt sich auch mittels *property bindings* erzeugen:
+D.h. ein *ausdruck* wird übergeben, der zu einem Wert aufgelöst wird und dieser Wert wird dem Attribut `property` übergeben. Betrachten wir nochmals das letzte Beispiel aus dem Abschnitt [**{{Interpolation}}**](#interpolation)). Bei diesem Beispiel haben wir Interpolation verwendet, um dem Attribut `src` des HTML-Elementes `img` einen Wert zuzuweisen. Das exakt gleiche Verhalten lässt sich auch mittels *property bindings* erzeugen:
 
 ``` html
 <img [src]="imgUrl" />
@@ -969,7 +969,7 @@ In der `AppComponent` (das kann natürlich eine beliebige Komponente sein), wird
 
 Mithilfe von *event binding* wird die Behandlung des Ereignisses `myEvent` an die Methode `handleEventFromEventsComponent()` gebunden. In dieser Methode erfolgt hier einfach nur eine Ausgabe auf die Konsole. 
 
-Interessant ist, dass wir dadurch die Möglichkeit haben, Daten von der Kindkomponente zur Elternkomponente fließen zu lassen. Dazu übergeben wir diese Daten als `payload` des Ereignisses. Dafür typisieren wir `EventEmitter` mit dem Typ, von dem wir Daten übergeben wollen (z.B. `Book` - siehe [Bücher-App](./books/#event-binding)). Die beiden obigen Beispiele sehen dann wie folgt aus (zuerst wieder `EventsComponent`): 
+Interessant ist, dass wir dadurch die Möglichkeit haben, Daten von der Kindkomponente zur Elternkomponente fließen zu lassen. Dazu übergeben wir diese Daten als `payload` des Ereignisses. Dafür typisieren wir `EventEmitter` mit dem Typ, von dem wir Daten übergeben wollen (z.B. `Book` - siehe [Bücher-App](books.md#event-binding)). Die beiden obigen Beispiele sehen dann wie folgt aus (zuerst wieder `EventsComponent`): 
 
 === ".html"
     ``` html
@@ -1020,11 +1020,11 @@ Die Elternkomponente (hier wieder `AppComponent` kann diese Daten, die von der K
     }
     ``` 
 
-Wichtig beim *event binding* der Elternkomponente ist, dass der *payload* des Ereignisses mit `$event` übergeben wird (siehe auch [Native DOM-Ereignisse](./#native-dom-ereignisse)). 
+Wichtig beim *event binding* der Elternkomponente ist, dass der *payload* des Ereignisses mit `$event` übergeben wird (siehe auch [Native DOM-Ereignisse](#native-dom-ereignisse)). 
 
 !!! success "Zusammenfassung"
     In den letzten drei Abschnitten Interpolation, Property Binding und Event Binding haben wir uns mit Datenfluss beschäftigt. Interpolation wird verwendet, um innerhalb einer Komponente die in der TypeScript-Klasse definierten Daten im Template darzustellen. Mithilfe von Property Binding kann die aufrufende Komponente (Elternkomponente) der aufgerufenen Kopmponente (Kindkomponente) Daten übergeben. Mithilfe von Event Binding kann die Kindkomponente der Elternkomponente mithilfe eines eigenen Ereignisses Daten übergeben.
-    Für die Anwendung dieser Konzepte schauen Sie sich [**Bücher-App-->Datenfluss zwischen Komponenten**](./books/#datenfluss-zwischen-komponenten) an. 
+    Für die Anwendung dieser Konzepte schauen Sie sich [**Bücher-App-->Datenfluss zwischen Komponenten**](books.md#datenfluss-zwischen-komponenten) an. 
 
 
 ### Direktiven
@@ -1035,7 +1035,7 @@ In Angular gibt es 3 Arten sogenannter *Direktiven* (engl. *Directives*):
 - Attributdirektiven (Attribute Directives)
 - Strukturdirektiven (Structural-Direktives)
 
-Komponentendirektiven sind die meistverwendete Art und bereits in [**Angular --> Kompnenten**](./#komponenten) betrachtet. Attribut- und Strukturdirektiven können als HTML-Attribute verstanden werden, die dem HTML-Element ein zusätzliches Verhalten hinzufügt. Attributdirektiven wirken sich das innere Verhalten eines HTML-Elementes aus (z.B. können damit CSS-Eigenschaften geändert, hinzugefügt oder gelöscht werden). Mit Strukturdirektiven kann die Struktur des DOMs geändert werden (z.B. können ganze HTML-Elemente dem DOM-Baum hinzugefügt werden).
+Komponentendirektiven sind die meistverwendete Art und bereits in [**Angular --> Kompnenten**](angular.md#komponenten) betrachtet. Attribut- und Strukturdirektiven können als HTML-Attribute verstanden werden, die dem HTML-Element ein zusätzliches Verhalten hinzufügt. Attributdirektiven wirken sich das innere Verhalten eines HTML-Elementes aus (z.B. können damit CSS-Eigenschaften geändert, hinzugefügt oder gelöscht werden). Mit Strukturdirektiven kann die Struktur des DOMs geändert werden (z.B. können ganze HTML-Elemente dem DOM-Baum hinzugefügt werden).
 
 #### Strukturdirektiven
 
@@ -1062,7 +1062,7 @@ Die Direktive `*ngIf` wird also wie ein Attribut des `<p>`-Elementes behandelt. 
 
 Das nicht dargestellte Element ist auch nicht Teil des DOMs! Es ist also nicht einfach nur auf `hide` gesetzt, sondern es ist gar nicht im DOM vorhanden. 
 
-Intern wird aus der `*ngIf`-Direktive übrigens ein sogenanntes [*Property-Binding*](./#property-bindings):
+Intern wird aus der `*ngIf`-Direktive übrigens ein sogenanntes [*Property-Binding*](#property-bindings):
 
 ```html
 <ng-template [ngIf]="true">

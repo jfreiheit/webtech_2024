@@ -249,7 +249,7 @@ Postman ist eine Anwendung, um Schnittstellen (*Application Programming Interfac
 
 ![Postman](./files/27_postman.png)
 
-Neben der `GET`-Anfrage sind folgende weitere Anfragen (siehe auch [**HTML --> HTTP**](./html/#http)) möglich:
+Neben der `GET`-Anfrage sind folgende weitere Anfragen (siehe auch [**HTML --> HTTP**](html.md#http-vertiefung)) möglich:
 
 - `POST` - sendet Daten zur Verarbeitung an den Webserver
 - `PUT` - lädt existierende Daten (eine Datei) auf den Server
@@ -258,7 +258,7 @@ Neben der `GET`-Anfrage sind folgende weitere Anfragen (siehe auch [**HTML --> H
 
 ## Node.js
 
-[Node.js](https://nodejs.org/en/) ist eine JavaScript-Laufzeitumgebung. Node.js reagiert auf Ereignisse und antwortet asynchron. Das bedeutet, dass die Ausführung einer Ereignisbearbeitung nicht zum Blockieren der Laufzeitumgebung führt, sondern nebenläufig weitere Ereignisse eintreffen können, die ebenfalls asynchron behandelt werden. Dies geschieht mithilfe des *Callback-Patterns*. Callbacks sind Funktionen, die anderen Funktionen als Parameter übergeben werden (siehe [JavaScript --> Callback-Funktionen](./javascript/#callback-funktionen)). 
+[Node.js](https://nodejs.org/en/) ist eine JavaScript-Laufzeitumgebung. Node.js reagiert auf Ereignisse und antwortet asynchron. Das bedeutet, dass die Ausführung einer Ereignisbearbeitung nicht zum Blockieren der Laufzeitumgebung führt, sondern nebenläufig weitere Ereignisse eintreffen können, die ebenfalls asynchron behandelt werden. Dies geschieht mithilfe des *Callback-Patterns*. Callbacks sind Funktionen, die anderen Funktionen als Parameter übergeben werden (siehe [JavaScript --> Callback-Funktionen](javascript.md#callback-funktionen)). 
 
 ## Angular
 
@@ -343,7 +343,7 @@ Package                      Version
     
 ```
 
-Jetzt können wir unser [erstes Angular-Projekt](./angular/#erstes-projekt-erstellen) erstellen. 
+Jetzt können wir unser [erstes Angular-Projekt](angular.md#erstes-projekt-erstellen) erstellen. 
 
 ### Update @angular/cli
 
@@ -502,3 +502,13 @@ kill -9 9138
 ```
 
 im Terminal ein. `9138` ist die `PID` des entsprechenden Prozesses.
+
+
+### https für localhost
+
+- für Mac siehe [hier](https://medium.com/@jonsamp/how-to-set-up-https-on-localhost-for-macos-b597bcf935ee)
+
+### https für Webserver
+
+- siehe [hier](https://letsencrypt.org/getting-started/)
+- siehe [hier](https://certbot.eff.org/)

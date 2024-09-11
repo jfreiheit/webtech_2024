@@ -27,7 +27,7 @@ Folgende Endpunkte soll die REST-API zur Verfügung stellen:
 |`DELETE /users/:id` |löscht den `user` mit `_id == id` |
 |`PUT /users/:id` |ändert Daten von `user` mit `_id == id` |
 
-Wir gehen wie in [REST-API (MongoDB)](../backend/#rest-api-mongodb) vor und erstellen uns ein `Node.js`-Projekt:
+Wir gehen wie in [REST-API (MongoDB)](backend.md#rest-api-mongodb) vor und erstellen uns ein `Node.js`-Projekt:
 
 ```bash
 mkdir backend
@@ -107,7 +107,7 @@ Die Verbindungsdaten zur MongoDB stehen in der `.env`-Datei unter `DB_CONNECTION
 	module.exports = router;
 	```
 
-In der `routes/users.js` sind zunächst nur die beiden Endpunkte `GET /users` und `POST /users` definiert. Wir wollen uns gleich um den Endpunkt `POST /users` nochmal gesondert kümmern. Derzeit ist er so implementiert, wie wir es auch bereits in [REST-API (MongoDB)](../backend/#c-create)	hatten. Ehe wir diese Implementierung nochmal genauer betrachten zunächst noch das zugehörige Model:
+In der `routes/users.js` sind zunächst nur die beiden Endpunkte `GET /users` und `POST /users` definiert. Wir wollen uns gleich um den Endpunkt `POST /users` nochmal gesondert kümmern. Derzeit ist er so implementiert, wie wir es auch bereits in [REST-API (MongoDB)](backend.md#c-create)	hatten. Ehe wir diese Implementierung nochmal genauer betrachten zunächst noch das zugehörige Model:
 
 === "models/users.js"
 	```js linenums="1"
@@ -258,7 +258,7 @@ Existiert ein solcher Eintrag jedoch, wird das `password` dieses Eintrages mit d
 
 ### Daten ändern
 
-Für das Ändern der Daten haben wir bereits die Standardfunktion betrachtet, siehe [U - update](../backend/#u-update). Bei der Nutzerverwaltung kommt jedoch die Anforderung hinzu, dass das Ändern der Daten (selbst das Ändern des Passwortes) nur dann möglich sein soll, wenn das (alte) Passwort korrekt übermittelt wird. 
+Für das Ändern der Daten haben wir bereits die Standardfunktion betrachtet, siehe [U - update](backend.md#u-update). Bei der Nutzerverwaltung kommt jedoch die Anforderung hinzu, dass das Ändern der Daten (selbst das Ändern des Passwortes) nur dann möglich sein soll, wenn das (alte) Passwort korrekt übermittelt wird. 
 
 Sollte ein neues Passwort übermittelt werden (Eigenschaft `newPassoword`), kann vorher im Frontend geprüft werden (z.B. durch doppelte Eingabe), ob es "korrekt" ist.
 
@@ -921,7 +921,7 @@ Die Tabelle sieht dann wie folgt aus:
 
 ### Guard für den Komponentenzugriff - Logged in
 
-In [Routen absichern mit Guards](../routing/#routen-absichern-mit-guards) haben wir bereits die Grundidee von *Guards* vorgestellt. Wir wollen diese hier anwenden und beschränken uns dabei auf den *Guard-Typ* `CanActivate`. Wir wollen sicherstellen, dass die `HomeComponent` nur aktiviert werden kann, wenn man eingelogged ist und die `RegisterComponent` nur dann, wenn man als `admin` eingelogged ist, um das Prinzip zu verdeutlichen. Wir erstellen uns also einen `CanActivate`-Guard (im Ordner `guards`):
+In [Routen absichern mit Guards](routing.md#routen-absichern-mit-guards) haben wir bereits die Grundidee von *Guards* vorgestellt. Wir wollen diese hier anwenden und beschränken uns dabei auf den *Guard-Typ* `CanActivate`. Wir wollen sicherstellen, dass die `HomeComponent` nur aktiviert werden kann, wenn man eingelogged ist und die `RegisterComponent` nur dann, wenn man als `admin` eingelogged ist, um das Prinzip zu verdeutlichen. Wir erstellen uns also einen `CanActivate`-Guard (im Ordner `guards`):
 
 ```bash
 ng g guard shared/authguard --implements CanActivate

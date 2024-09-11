@@ -1,6 +1,6 @@
 # Frontend-Backend-Anbindung
 
-Wir haben jetzt ein Backend, das als REST-Server funngiert. Über die Endpunkte der REST-API können wir auf die einzelnen Funktionen des Backends zugreifen, um die Daten in der [MongoDB](../backend/#rest-api) (oder der [PostgreSQL](../backend_pg/#rest-api-postgresql)) zu manipulieren (erzeugen, lesen, ändern und löschen - CRUD). Unser [Frontend](../routing/#routing-und-services) stellt zur Zeit nur einen [Daten-Service](../routing/#services) zur Verfügung, der die Daten client-seitig verwaltet. Dies wollen wir jetzt ändern. Das Frontend soll mit dem Backend kommunizieren, um die Daten zu nutzen, die das Backend zur Verfügung stellt. 
+Wir haben jetzt ein Backend, das als REST-Server funngiert. Über die Endpunkte der REST-API können wir auf die einzelnen Funktionen des Backends zugreifen, um die Daten in der [MongoDB](backend.md#rest) (oder der [PostgreSQL](backend_pg.md#rest-api-postgresql)) zu manipulieren (erzeugen, lesen, ändern und löschen - CRUD). Unser [Frontend](routing.md#routing-und-services) stellt zur Zeit nur einen [Daten-Service](routing.md#services) zur Verfügung, der die Daten client-seitig verwaltet. Dies wollen wir jetzt ändern. Das Frontend soll mit dem Backend kommunizieren, um die Daten zu nutzen, die das Backend zur Verfügung stellt. 
 
 Wir werden uns ein **neues** Frontend erstellen und dabei die einzelnen Schritte genauer untersuchen (bzw. wiederholen). Das hat folgende Vorteile:
 
@@ -135,7 +135,7 @@ Die Routen sollten ebenfalls funktionieren, d.h. wenn Sie auf die Menüeinträge
 
 ## Service für HTTP
 
-Wir bereits beim [Routing](../routing/#routing-und-services)-Thema eingeführt, erstellen wir auch nun wieder einen [Service](../routing/#services) zur Verwaltung der Daten. Dieses Mal sind die Daten aber nicht direkt im Code, sondern wir greifen mit dem Service auf das Backend zu, vielmehr auf die Endpunkte des Backends:
+Wir bereits beim [Routing](routing.md#routing-und-services)-Thema eingeführt, erstellen wir auch nun wieder einen [Service](routing.md#services) zur Verwaltung der Daten. Dieses Mal sind die Daten aber nicht direkt im Code, sondern wir greifen mit dem Service auf das Backend zu, vielmehr auf die Endpunkte des Backends:
 
 |Methode |URL |Bedeutung |
 |--------|----|----------|
@@ -334,9 +334,9 @@ In unserer `TableComponent` wollen wir die `getAll()`-Funktion unseres Backend-S
   }
   ```
 
-Zunächst binden wir den `BackendService` mittels *dependency injection* in unsere Komponente ein (Zeile `13`). In einer eigenen Funktion `readAll()` rufen wir nun die `getAll()`-Funktion des `BackendService` auf (Zeile `20`). Wie in dem Abschnitt zuvor erläutert, wird diese Funktion nur durch ein `subscribe()` ausgeführt. Die `subscribe()`-Funktion "holt" das `Observer`-Objekt, welches drei sogenannte *callback*-Funktionen definiert: `next`, `error` und `complete`. [Callback-Funktionen](../javascript/#callback-funktionen) sind [hier](../javascript/#callback-funktionen) erläutert. Wir haben also drei Parameter in der `subscribe()`-Funktion, von denen jedoch nur einer (`next`) erforderlich ist. `error` und `complete` sind optional. 
+Zunächst binden wir den `BackendService` mittels *dependency injection* in unsere Komponente ein (Zeile `13`). In einer eigenen Funktion `readAll()` rufen wir nun die `getAll()`-Funktion des `BackendService` auf (Zeile `20`). Wie in dem Abschnitt zuvor erläutert, wird diese Funktion nur durch ein `subscribe()` ausgeführt. Die `subscribe()`-Funktion "holt" das `Observer`-Objekt, welches drei sogenannte *callback*-Funktionen definiert: `next`, `error` und `complete`. [Callback-Funktionen](javascript.md#callback-funktionen) sind [hier](javascript.md#callback-funktionen) erläutert. Wir haben also drei Parameter in der `subscribe()`-Funktion, von denen jedoch nur einer (`next`) erforderlich ist. `error` und `complete` sind optional. 
 
-Unter `next` erhalten wir die `response` zurück, also das angefragte Objekt. Wir verwenden dafür eine *Arrow-Funktion* (siehe [Arrow-Funktionen](../javascript/#arrow-funktionen)). Wie wir diese Funktion nennen, bleibt uns überlassen. Hier heißt sie `response`. Der Inhalt dieser Funktion ist die Zuweisung der `response` auf unsere Eigenschaft `members` vom Typ `Member[]` (definiert in Zeile `11`) und der Rückgabe der `response` (wir geben `this.members` zurück, entspricht aber genau der `response`). Die Konsolenausgabe kann natürlich auch weggelassen werden. 
+Unter `next` erhalten wir die `response` zurück, also das angefragte Objekt. Wir verwenden dafür eine *Arrow-Funktion* (siehe [Arrow-Funktionen](javascript.md#arrow-funktionen)). Wie wir diese Funktion nennen, bleibt uns überlassen. Hier heißt sie `response`. Der Inhalt dieser Funktion ist die Zuweisung der `response` auf unsere Eigenschaft `members` vom Typ `Member[]` (definiert in Zeile `11`) und der Rückgabe der `response` (wir geben `this.members` zurück, entspricht aber genau der `response`). Die Konsolenausgabe kann natürlich auch weggelassen werden. 
 
 
 ## Backend starten
@@ -476,7 +476,7 @@ Die `detail`-Komponente wird durch die Route `/member/:id` aufgerufen, wobei `:i
 Zunächst implementieren wir, dass der Datensatz von `member`, dessen `_id` in der Route übergeben wird, aus der Datenbank geholt wird. Dazu
 
 - erweiteren wir den `BackendService` um eine Funktion `getOne(id)`, die den Endpunkt `GET /members/id` der REST-API des Backends aufruft.
-- Wir nutzen diese Funktion, um in der `detail.component.ts` die Daten dieses `member` zu speichern. Dazu gehen wir wie beim [Routing mit parametrisierten Routen](../routing/#weiter-mit-parametrisierten-routen) gezeigt, vor. 
+- Wir nutzen diese Funktion, um in der `detail.component.ts` die Daten dieses `member` zu speichern. Dazu gehen wir wie beim [Routing mit parametrisierten Routen](routing.md#weiter-mit-parametrisierten-routen) gezeigt, vor. 
 
 === "backend.service.ts"
     ```ts linenums="1" hl_lines="18-20"

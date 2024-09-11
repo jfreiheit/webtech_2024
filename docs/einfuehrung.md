@@ -69,7 +69,7 @@ Die wichtigste Anfragemethode ist `GET`, denn sie wird in den allermeisten Fäll
 curl https://www.htw-berlin.de/
 ```
 
-eingeben, dann erhalten wir vom Webserver der HTW die Webseite der HTW. Für `curl` siehe [hier](../tools/#curl). Typischerweise werden die Anfragen an den Webserver aber von einem Browser aus durchgeführt. Das heißt, die Anfrage `GET https://www.htw-berlin.de/` wird von einem Browser durchgeführt, wenn wir in das URL-Eingabefeld `https://www.htw-berlin.de/` eingeben. Das prinzipielle Szenario ist also wie folgt:
+eingeben, dann erhalten wir vom Webserver der HTW die Webseite der HTW. Für `curl` siehe [hier](tools.md#curl). Typischerweise werden die Anfragen an den Webserver aber von einem Browser aus durchgeführt. Das heißt, die Anfrage `GET https://www.htw-berlin.de/` wird von einem Browser durchgeführt, wenn wir in das URL-Eingabefeld `https://www.htw-berlin.de/` eingeben. Das prinzipielle Szenario ist also wie folgt:
 
 ![http](./files/203_http.png) 
 
@@ -125,7 +125,7 @@ Ganz wichtig ist, dass das HTTProtokoll **zustandslos** ist. Das bedeutet, dass 
 
 *HTTPS* funktioniert wie HTTP, nur dass die Verbindung zwischen Browser und Webserver mittels *Transport Layer Security* ([TLS](https://de.wikipedia.org/wiki/Transport_Layer_Security)) verschlüsselt wird. 
 
-Ein Programm, welches das HTTProtokoll implementiert hat, ist [Curl](../tools/#curl). Wenn Sie Curl installiert haben und im Terminal bspw. 
+Ein Programm, welches das HTTProtokoll implementiert hat, ist [Curl](tools.md#curl). Wenn Sie Curl installiert haben und im Terminal bspw. 
 
 ```bash
 curl -v http://freiheit.f4.htw-berlin.de/WT/index.html

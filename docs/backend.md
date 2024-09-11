@@ -168,7 +168,7 @@ Das bedeutet, wir importieren `express` (Zeile `1`), erzeugen uns davon ein Obje
 app.listen([port[, host[, backlog]]][, callback])
 ```
 
-Wir übergeben als ersten Parameter die `PORT`-Nummer (`3000`) und als zweiten Parameter eine (anonyme) Funktion als sogenannten *callback*. *Callbacks* sind [hier](../promises/#callbacks) näher erläutert. Die anonyme Funktion wird durch die `listen()`-Funktion aufgerufen. Sollte ein Fehler aufgetreten sein (z.B. wenn der Port bereits belegt ist), wird der anonymen Funktion ein `error`-Objekt übergeben. Ist das der Fall, wird der Fehler auf der Konsole ausgegeben. Wird der anonymen Funktion kein Objekt übergeben, wurde der Webserver korrekt gestartet und die entsprechende Meldung erscheint auf der Konsole. 
+Wir übergeben als ersten Parameter die `PORT`-Nummer (`3000`) und als zweiten Parameter eine (anonyme) Funktion als sogenannten *callback*. *Callbacks* sind [hier](promises.md#callbacks) näher erläutert. Die anonyme Funktion wird durch die `listen()`-Funktion aufgerufen. Sollte ein Fehler aufgetreten sein (z.B. wenn der Port bereits belegt ist), wird der anonymen Funktion ein `error`-Objekt übergeben. Ist das der Fall, wird der Fehler auf der Konsole ausgegeben. Wird der anonymen Funktion kein Objekt übergeben, wurde der Webserver korrekt gestartet und die entsprechende Meldung erscheint auf der Konsole. 
 
 Die Definitionsfunktion in *Arrow-Notation* 
 
@@ -392,7 +392,7 @@ In die `package.json` wird das Paket und die entsprechende Abhängigkeit eingetr
 *Mongoose* stellt eine einfach zu verwendende Schnittstelle zwischen Node.js und MongoDB bereit. Die
 MongoDB benötigen wir aber trotzdem (wir könnten jedoch auch eine Cloud von MongoDB oder z.B. `mlab.com` verwenden). Bevor wir uns mit der MongoDB verbinden, erstellen wir zunächst noch eine Datenbank. 
 
-Um Datenbanken zu erstellen, zu befüllen, anzusehen und zu verwalten, können Sie entweder [MongoDB Compass](../tools/#mongodb-compass) oder [MongoDB Shell](../tools/#mongosh-mongodb-in-der-shell) verwenden. Ich empfehle Compass, weil es komfortabler ist. Im Folgenden ist der etwas kompliziertere Weg mit der MongoDB Shell gezeigt. Der hat aber den Vorteil, dass man die queries sieht, die verwendet werden. 
+Um Datenbanken zu erstellen, zu befüllen, anzusehen und zu verwalten, können Sie entweder [MongoDB Compass](tools.md#mongodb-compass) oder [MongoDB Shell](tools.md#mongosh-mongodb-in-der-shell) verwenden. Ich empfehle Compass, weil es komfortabler ist. Im Folgenden ist der etwas kompliziertere Weg mit der MongoDB Shell gezeigt. Der hat aber den Vorteil, dass man die queries sieht, die verwendet werden. 
 
 Sollten Sie Compass verwenden, dann nennen sie Ihre Datenbank und die Collection einfach jeweils `members` und fügen die Daten mithilfe [dieser Datei](./files/members.json) ein. Das Ergebnis sieht dann so aus:
 
@@ -426,7 +426,7 @@ db.collection.insertMany(
 )
 ```
 
-Dabei sind die `<documente>` Objekte in [JavaScript Object Notation (JSON)](/angular2/#javascript-object-notation-json) und `collection` stellt einen Namen (ähnlich einer Tabelle in relationalen Datenbanken) dar. Insgesamt sieht der befehl mit unseren Daten so aus:
+Dabei sind die `<documente>` Objekte in [JavaScript Object Notation (JSON)](angular2.md#javascript-object-notation-json) und `collection` stellt einen Namen (ähnlich einer Tabelle in relationalen Datenbanken) dar. Insgesamt sieht der befehl mit unseren Daten so aus:
 
 ??? "Daten einfügen"
 		db.members.insertMany([
@@ -942,7 +942,7 @@ Wir beginnen mit der Anfrage, alle Daten aus der Datenbank auszulesen. Für die 
 	module.exports = router;
 	```
 
-Beachten Sie, dass wir dazu nun das `Member`-Model in die `routes.js` einbinden (Zeile `3`). Die Route wird mit `localhost:3000/members` definiert. Die anonyme Callback-Funktion enthält noch zwei Schlüsselwörter: `async` und `await`. Die Funktion `find()` ist ein sogenanntes *Promise* (siehe dazu [hier](../promises/#promises)). Die Funktion `find()` wird asynchron ausgeführt und "irgendwann" ist entweder das Ergebnis dieser Funktion verfügbar oder die Funktion gibt einen Fehler zurück. Auf eines der beiden wird gewartet (`await`). Nur eine als `async` deklarierte Funktion darf einen `await`-Aufruf enthalten (siehe dazu z.B. [hier](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/async_function)).
+Beachten Sie, dass wir dazu nun das `Member`-Model in die `routes.js` einbinden (Zeile `3`). Die Route wird mit `localhost:3000/members` definiert. Die anonyme Callback-Funktion enthält noch zwei Schlüsselwörter: `async` und `await`. Die Funktion `find()` ist ein sogenanntes *Promise* (siehe dazu [hier](promises.md#promises)). Die Funktion `find()` wird asynchron ausgeführt und "irgendwann" ist entweder das Ergebnis dieser Funktion verfügbar oder die Funktion gibt einen Fehler zurück. Auf eines der beiden wird gewartet (`await`). Nur eine als `async` deklarierte Funktion darf einen `await`-Aufruf enthalten (siehe dazu z.B. [hier](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/async_function)).
 
 Die Ausgabe der Werte auf die Konsole (Zeile `8`) ist natürlich nicht erforderlich und Sie können sie auch löschen, wenn Sie wollen. Wenn Sie nun in Postman `GET http://localhost:3000/members` aufrufen, erscheinen alle Einträge aus der Datenbank:
 

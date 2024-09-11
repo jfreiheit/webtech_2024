@@ -1,6 +1,6 @@
 # Deployment
 
-Das in [RxJS und Gurads](../guards/#subject-observable-observer-und-guards) erstellte Projekt zur einfachen Nutzerverwaltung soll hier deployed werden. Wir werden unterschiedliche Möglichkeiten des Deployments zeigen. Wichtig ist, dass wir das Frontend und das Backend jeweils unabhängig voneinander deployen. 
+Das in [RxJS und Gurads](guards.md#subject-observable-observer-und-guards) erstellte Projekt zur einfachen Nutzerverwaltung soll hier deployed werden. Wir werden unterschiedliche Möglichkeiten des Deployments zeigen. Wichtig ist, dass wir das Frontend und das Backend jeweils unabhängig voneinander deployen. 
 
 ## Backend-Deployment mittels Render
 

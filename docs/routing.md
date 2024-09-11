@@ -340,7 +340,7 @@ Wir wollen die Routen durch Mausklick aufrufen. Dafür bietet sich unser Navigat
 	</nav>
 	```
 
-Wir können das `routerLink`-Attribut auch unter Verwendung von [Property Binding](../angular2/#property-bindings) festlegen (dann kann Routing später sogar über Variablen erfolgen). Wenn Sie beim *Property Binding* den Wert als `String` festlegeen, dann muss dieser `String` in eigenen Hochkomma in den Wert des *Property Binding* geschrieben werden, also z.B. so:
+Wir können das `routerLink`-Attribut auch unter Verwendung von [Property Binding](angular2.md#property-bindings) festlegen (dann kann Routing später sogar über Variablen erfolgen). Wenn Sie beim *Property Binding* den Wert als `String` festlegeen, dann muss dieser `String` in eigenen Hochkomma in den Wert des *Property Binding* geschrieben werden, also z.B. so:
 
 ```js
 [routerLink]="'login'"
@@ -372,7 +372,7 @@ Wenn Sie Bootstrap verwenden, dann ist `routerLinkActive` nur für eigene CSS-Kl
 
 ### Routenparameter
 
-Häufig sollen aus einer Liste von Objekten ein einzelnes Objekt ausgewählt und dargestellt werden. Angenommen, wir wollen erneut die `staedte.json` aus [JSON und Direktiven](../angular2/#json-und-direktiven) verwenden. Wir einfachen es diesmal ein wenig und verwenden direkt das Array und beschreiben die JavaScript-Objekte nicht in JSON, sondern direkt als Objekte (der Unterschied besteht darin, dass die Schlüssel nicht in Anführungsstrichen stehen).
+Häufig sollen aus einer Liste von Objekten ein einzelnes Objekt ausgewählt und dargestellt werden. Angenommen, wir wollen erneut die `staedte.json` aus [JSON und Direktiven](angular2.md#json-und-direktiven) verwenden. Wir einfachen es diesmal ein wenig und verwenden direkt das Array und beschreiben die JavaScript-Objekte nicht in JSON, sondern direkt als Objekte (der Unterschied besteht darin, dass die Schlüssel nicht in Anführungsstrichen stehen).
 
 
 ??? "staedte als Array"

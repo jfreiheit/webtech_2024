@@ -515,7 +515,7 @@ li a:hover {
 
 ### Gewichtung der Selektoren
 
-Insbesondere, wenn Sie noch CSS-Frameworks einbinden und/oder viele CSS-Definitionen haben, stellt sich die Frage, welche der Definitionen überhaupt wirken. Eine große Hilfe sind hier die [**Entwicklertools der Browser**](./tools/#developer-tools). Im folgenden Screenshot sehen Sie die Developer tools von Chrome. Im rechten unteren Fenster sind die definierten Styles angezeigt. Die nicht wirksamen Styledefinitionen sind durchgestrichen. 
+Insbesondere, wenn Sie noch CSS-Frameworks einbinden und/oder viele CSS-Definitionen haben, stellt sich die Frage, welche der Definitionen überhaupt wirken. Eine große Hilfe sind hier die [**Entwicklertools der Browser**](tools.md#developer-tools). Im folgenden Screenshot sehen Sie die Developer tools von Chrome. Im rechten unteren Fenster sind die definierten Styles angezeigt. Die nicht wirksamen Styledefinitionen sind durchgestrichen. 
 
 ![Entwicklertools](./files/23_tools3.png)
 
