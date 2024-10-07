@@ -362,19 +362,6 @@ npm WARN postcss-modules-values@4.0.0 requires a peer of postcss@^8.1.0 but none
 
 Das liegt meistens daran, dass das Angular-CLI updated werden müsste. Für das Update von Angular gibt es eine [eigene Seite](https://update.angular.io/). Gehen Sie wie dort beschrieben vor. 
 
-## MySQL
-
-[MySQL](https://www.mysql.com/de/) ist eine relationale Datenbank und gehört zu den am meisten verwendeten relationalen Datenbanken bei Webanwendungen. Wir hätten uns auch für [PostgreSQL](https://www.postgresql.org/) entscheiden können. Für einen kurzen Vergleich von MySQL und PostgreSQL siehe [hier](https://developer.okta.com/blog/2019/07/19/mysql-vs-postgres). Informationen zur Installation von MySQL finden Sie [hier](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/). Nach der Installation finden Sie z.B. auf dem Mac unter **Systemeinstellungen --> MySQL**:
-
-![MySQL](./files/31_mysql.png)
-
-Achten Sie bei der Installation von MySQL darauf, dass Sie als Authentifizierungsmethode "Legacy Password ..." wählen! Sie müssen aber MySQL auch nicht lokal installieren, sondern können auch den Studi-Server `studi.f4.htw-berlin.de` verwenden.
-
-## phpMyadmin
-
-[`phpMyadmin`](https://www.phpmyadmin.net/) ist eine graphische Oberfläche zur Verwaltung Ihrer `MySQL`-Datenbanken. Nach erfolgreicher Installation rufen Sie im Browser `localhost/phpmyadmin` auf und haben Zugriff auf Ihre Datenbanken bzw. können diese erstellen, ändern und befüllen. 
-
-![phpmyadmin](./files/32_phpmyadmin.png)
 
 ## MongoDB
 
