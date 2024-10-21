@@ -22,9 +22,10 @@ theme:
     text: Roboto
     code: Roboto Mono
   features:
-    - navigation.instant
-#    - navigation.tabs
-    - navigation.tracking
+    - instant
+    - tabs
+    - content.code.copy
+    - navigation.footer
   favicon: img/favicon.png
   logo: img/fiw.jpg
 
