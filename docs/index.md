@@ -42,7 +42,373 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 
 ## Code aus der Vorlesung
 
-	
+
+??? question "Code Vorlesung HTML"
+	```html
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	    <title>Unsere erste Webseite</title>
+	</head>
+	<body>
+	    <h1>Überschrift 1</h1> 
+	    <h2>Überschrift 2</h2>
+	    <h3>Überschrift 3</h3>
+	    <h4>Überschrift 4</h4>
+	    <h5>Überschrift 5</h5>
+	    <h6>Überschrift 6</h6>
+	    <p>
+	        Hier kann ein langer Text stehen. Ist ein ganzer Absatz.     
+	        <img src="../images/fiw.jpg" alt="FIW-Logo" width="200px" />
+	        ganz viel anderer Text <br />
+	        und nochmehr Text
+	        Text mit ganz viel                            Platz
+	    </p>
+	    <img src="../images/fiw.jpg" alt="FIW-Logo" width="200px"/>
+	    <img src="../images/htw.jpg" alt="FIW-Logo" width="200px" />
+	    <!-- 
+	    das ist ein Kommentar
+	    -->
+	<p>ein neuer Absatz</p>
+	    <h3>Input-Elemente</h3>
+
+	    <input type="text" />
+	    <textarea></textarea>
+	    <input type="color" />
+	    <input type="datetime-local" />
+	    <input type="file" />
+
+	    <h3>Formulare</h3>
+
+	    <form>
+	        <label>Account : </label>
+	        <input type = "text" name="account" placeholder="freiheit" title="Geben Sie Ihren Accountnamen ein"/> <br />
+	        <label>Password : </label>
+	        <input type="password" name="passwort"/> <br/>
+	        <button type="submit">Login mit viel Text</button>
+	        <input type="button" value="Login">
+	    </form>
+
+	</body>
+	</html>
+	```
+
+
+??? question "Code Vorlesung CSS"
+	=== "01_cascading.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <link rel="stylesheet" href="./mystyle.css">
+		    <title>Cascading</title>
+		    <style>
+		        li {
+		            display: block;
+		        }
+
+		        #firstH2 {
+		            font-style: italic;
+		        }
+
+		        .fgYellow {
+		            color: yellow;
+		        }
+
+		        p.bgBrown {
+		            background-color: brown;
+		        }
+
+		        ol,
+		        ul {
+		            color: blue;
+		        }
+
+		        h2+article+article {
+		            color: red;
+		        }
+
+		        body {
+		            font-family:Verdana;
+		        }
+
+		        a {
+		            text-decoration: none;
+		        }
+
+		        a:link {
+		            color: red;
+		        }
+
+		        a:visited {
+		            color: darkgrey;
+		        }
+
+		        a:hover {
+		            font-weight: bold;
+		        }
+
+		        a:active {
+		            color: lightblue;
+		        }
+		    </style>
+		</head>
+		<body>
+		    <header>
+		        <h1 style="color: rgb(79, 101, 79);">Cascading Style Sheets - CSS</h1>
+		    </header>
+		    <main>
+		        <section>
+		            <h2 id="firstH2">Section 1</h2>
+		            <article>
+		                <p class="fgYellow bgBrown">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p class="fgYellow bgBrown">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <article class="bgBrown">
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <p>direktes Kind einer section</p>
+		        </section>
+		        <section>
+		            <h2>Section 2</h2>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                hallo ballo
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		        </section>
+		        <ol>
+		            <li>item 1
+		                <ul>
+		                    <li>subitem</li>
+		                    <li>subitem</li>
+		                    <li>subitem</li>
+		                </ul>
+		            </li>
+		            <li>item 2</li>
+		            <li>item 3</li>
+		            <li>item 4</li>
+		            <li>item 5</li>
+		        </ol>
+		    </main>
+		    <aside>
+		        <h2>Aside</h2>
+		        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		    </aside>
+		    <footer>
+		        <p>
+		            <a href="./02_boxmodel.html">Boxmodel</a>&nbsp;&middot;&nbsp;
+		            <a href="./03_rangfolge.html">Rangfolge</a>
+		            <a href="https://www.htw-berlin.de">HTW Berlin</a>
+
+		        </p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+	=== "02_boxmodel.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Box-Model</title>
+		</head>
+		<body>
+		    <header>
+		        <h1>Box-Model</h1>
+		    </header>
+		    <main>
+		        <img src="../images/fiw.jpg" alt="fiw logo" style="width:350px"/>
+		        <div>Das FIW-Logo hat eine Breite von 350px (width:350px).
+		            Der Inhalt dieser Box hat eine Breite von 320px.
+		            Dazu kommt padding von 10px (auf beiden Seiten)
+		            und ein Rahmen mit der Breite von 5px. Macht zusammen
+		            350px.
+		        </div>
+		    </main>
+		    <footer>
+		        <p><a href="./01_cascading.html">Einführung</a>&nbsp;&middot;&nbsp;<a href="./03_rangfolge.html">Rangfolge</a></p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+	=== "03_rangfolge.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Reihenfolge Selektoren</title>
+		</head>
+		<body>
+		    <header>
+		        <h1>Reihenfolge Wirkung Selektoren</h1>
+		    </header>
+		    <main>
+		        <h4>Test</h4>
+		        <ul id="navigation">
+		            <li><a href="./01_cascading.html" class="link">Einführung</a></li>
+		            <li><a href="./02_boxmodel.html" class="link">Boxmodel</a></li>
+		        </ul>
+		        <h4>Prinzip</h4>
+		        <dl>
+		            <dt><em>Kategorie A</em></dt>
+		            <dd>erhält den Wert 1, wenn CSS-Definitionen direkt im style-Attribut eines HTML-Elementes notiert sind</dd>
+		            <dt><em>Kategorie B</em></dt>
+		            <dd>erhält den Wert 1 bei Selektoren für Elemente mit id-Attributen</dd>
+		            <dt><em>Kategorie C</em></dt>
+		            <dd>Anzahl der von einem Selektor betroffenen Klassen und Pseudoklassen</dd>
+		            <dt><em>Kategorie D</em></dt>
+		            <dd>Anzahl der von einem Selektor betroffenen Elementnamen und Pseudo-Elemente</dd>
+		        </dl>
+		        <ol>
+		            <li>Bei der Reihenfolge der Sortierung gilt: A > B > C > D, also z.B. 1 0 0 0 vor (größer als) 0 1 2 2.</li>
+		            <li>Bei Gleichheit gilt die letzte Definition</li>
+		        </ol>
+		    </main>
+		    <footer>
+		        <p><a href="./02_boxmodel.html">Boxmodel</a>&nbsp;&middot;&nbsp;<a href="./01_cascading.html">Einführung</a></p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+	=== "04_display.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>display</title>
+		    <style>
+
+				p {
+		            color: red;
+		        }
+
+		        nav {
+		            background-color: darkgray;
+		            color: white;
+		            text-align: center; 
+		        }
+        
+		    </style>
+		</head>
+		<body>
+		<header>
+		    <nav>
+		<ul>
+		    <li><a href="./02_boxmodel.html">Boxmodel</a></li>
+		    <li><a href="./01_cascading.html">Cascading</a></li>
+		    <li><a href="#">Display</a></li>
+		    <li><a href="./05_grid">Grid</a></li>
+		</ul>
+		    </nav>
+		</header>
+		<main>
+		<h1>The display Property</h1>
+
+		<h2>display: none:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex1">none!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>
+
+		<h2>display: inline:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex2">inline!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>
+
+		<h2>display: block:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex3">block!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>
+
+		<h2>display: inline-block:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex4">neue Zeile und dann inline!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>   
+
+		<ul>
+		    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display?retiredLocale=de">Gibt noch sehr viele andere</a></li>
+		    <li><a href="./index.html">Zurück</a></li>
+		</ul>
+		</main>
+		    <footer>
+
+		    </footer>
+		</body>
+		</html>
+
+		```
+
+	=== "05_grid.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>CSS-Grid</title>
+		    <style>
+
+		        .orange {
+		            background-color: orange;
+		            opacity: 0.5;
+		            border: 2px solid gray;
+		            border-radius: 5px;
+		            padding: 30px;
+		        }
+
+		    </style>
+		</head>
+		<body>
+		    <header>
+		        <h1>CSS-Grid</h1>
+		    </header>
+		    <main class="wrapper">
+		        <div class="one orange">One</div>
+		        <div class="two orange">Two</div>
+		        <div class="three orange">Three</div>
+		        <div class="four orange">Four</div>
+		        <div class="five orange">Five</div>
+		        <div class="six orange">Six</div>
+		    </main>
+		    <footer>
+		        <p><a href="https://www.w3schools.com/cssref/pr_grid.php">grid</a></p>
+		        <p><a href="https://www.w3schools.com/cssref/pr_grid-template-columns.php">grid-template-columns</a></p>
+		        <p><a href="https://css-tricks.com/introduction-fr-css-unit/">fr - fraction</a></p>
+		        <p><a href="./index.html">Zurück</a></p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+
+
 ## Semesteraufgabe
 
 Am Ende des Kurses geben Sie eine Webanwendung ab. Diese wird bewertet und bildet die Modulnote für "WebTech" (es gibt also keine Klausur o.ä.). Überlegen Sie sich früh, was Sie implementieren wollen. Ihrer Kreativität sind keine Grenzen gesetzt. Es können 2 Studentinnen gemeinsam ein Projekt durchführen und abgeben. Sie erhalten dann (höchstwahrscheinlich) die gleiche Note. Es muss an den Commits erkennbar sein, welchen Anteil am Ergebnis jede der beiden Studentinnen hatte.
