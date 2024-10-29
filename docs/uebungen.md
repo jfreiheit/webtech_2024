@@ -1179,7 +1179,7 @@
       ![Uebung2](./files/57_uebung2_3.png) 
 
 
-??? note "Eine mögliche Lösung für Übung 2"
+??? note "Eine mögliche Lösung für Übung 2 (CSS)"
     === "uebung2/uebung2.html"
         ```html
         <!DOCTYPE html>
@@ -1598,12 +1598,153 @@
 #### Übung 3
 
 ??? question "Übungsaufgabe 3 (Grid und Einheiten)"
-    - Erstellen Sie einen `Uebung3`-Ordner und darin eine Datei `uebung3.html`. Kopieren Sie [diesen Inhalt](./files/uebung3.html) in `uebung3.html` (Rechtsklick auf die Seite und `Seitenquelltext anzeigen` - das `<script>`-Element unten können Sie löschen).
+    - Erstellen Sie einen `Uebung3`-Ordner und darin eine Datei `uebung3.html`. Kopieren Sie [diesen Inhalt](./files/uebung3.html) in `uebung3.html` (Rechtsklick auf die Seite und `Seitenquelltext anzeigen` - falls ein `<script>`-Element unten ist, können Sie es löschen; **Sie können es auch unten kopieren**).
     - Laden Sie sich [hier die Datei images.zip](./files/images.zip) herunter, entpacken Sie sie und schieben Sie den `images`-Ordner samt Inhalt in den `Uebung3`-Ordner.
     - Implementieren Sie die `uebung3.html` so, dass *ungefähr* folgendes Aussehen entsteht:
       ![Uebung3](./files/212_uebung3.png) 
     - Sie können die CSS-Eigenschaften innerhalb der `uebung3.html` im `<style>`-Element definieren oder wieder in einer externen Datei. 
     - Ziele der Übung sind die Anwendung von *CSS-Grid* (siehe z.B. [hier](https://css-tricks.com/snippets/css/complete-guide-grid/)) sowie die Verwendung von Größen und Einheiten (siehe z.B. [hier](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)). Lassen Sie Ihrer Kreativität freien Lauf!
+
+
+??? "Vorlage uebung3.html"
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Uebung 3</title>
+    </head>
+
+    <body>
+        <header>
+            <h2>STÄDTE</h2>
+        </header>
+        <main>
+
+
+            <section class="wrapper">
+                <div class="citycard">
+
+                    <div class="cityimage">
+                        <img src="./images/berlin.png" alt="Berlin">
+                    </div>
+                    <div class="cityname">
+                        <p>Berlin</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/bernau.png" alt="Bernau">
+                    </div>
+                    <div class="cityname">
+                        <p>Bernau</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/brandenburg.png" alt="Brandenburg">
+                    </div>
+                    <div class="cityname">
+                        <p>Brandenburg</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/bremen.png" alt="Bremen">
+                    </div>
+                    <div class="cityname">
+                        <p>Bremen</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/bremerhaven.png" alt="Bremerhaven">
+                    </div>
+                    <div class="cityname">
+                        <p>Bremerhaven</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/madrid.png" alt="Madrid">
+                    </div>
+                    <div class="cityname">
+                        <p>Madrid</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/magdeburg.png" alt="Magdeburg">
+                    </div>
+                    <div class="cityname">
+                        <p>Magdeburg</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/mainz.png" alt="Mainz">
+                    </div>
+                    <div class="cityname">
+                        <p>Mainz</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/mannheim.png" alt="Mannheim">
+                    </div>
+                    <div class="cityname">
+                        <p>Mannheim</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/Marburg.png" alt="Marburg">
+                    </div>
+                    <div class="cityname">
+                        <p>Marburg</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/newyork.png" alt="New York">
+                    </div>
+                    <div class="cityname">
+                        <p>New York</p>
+                    </div>
+                </div>
+
+                <div class="citycard">
+                    <div class="cityimage">
+                        <img src="./images/stockholm.png" alt="Stockholm">
+                    </div>
+                    <div class="cityname">
+                        <p>Stockholm</p>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+        <footer>
+
+        </footer>
+    </body>
+
+    </html>
+    ```
+
 
 
 
