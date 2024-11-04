@@ -850,6 +850,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#eacces-fehler-bei-installation-von-angular" class="md-nav__link">
+    <span class="md-ellipsis">
+      EACCES-Fehler bei Installation von Angular
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1122,6 +1131,15 @@
   <a href="#https-fur-webserver" class="md-nav__link">
     <span class="md-ellipsis">
       https für Webserver
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eacces-fehler-bei-installation-von-angular" class="md-nav__link">
+    <span class="md-ellipsis">
+      EACCES-Fehler bei Installation von Angular
     </span>
   </a>
   
@@ -1494,6 +1512,25 @@ ein. Den Paketmanager <code>npm</code> können Sie sich mit <code>node.js</code>
 <li>siehe <a href="https://letsencrypt.org/getting-started/">hier</a></li>
 <li>siehe <a href="https://certbot.eff.org/">hier</a></li>
 </ul>
+<h3 id="eacces-fehler-bei-installation-von-angular">EACCES-Fehler bei Installation von Angular<a class="headerlink" href="#eacces-fehler-bei-installation-von-angular" title="Permanent link">&para;</a></h3>
+<p>Wenn Sie bei der Installation von Angular mithilfe von <code>npm install -g @angular/cli</code> auf eine Fehler der Art </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>npm<span class="w"> </span>ERR!<span class="w"> </span>node<span class="w"> </span>v6.9.2
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>npm<span class="w"> </span>ERR!<span class="w"> </span>npm<span class="w">  </span>v3.10.9
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>npm<span class="w"> </span>ERR!<span class="w"> </span>path<span class="w"> </span>/usr/local/lib/node_modules
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>npm<span class="w"> </span>ERR!<span class="w"> </span>code<span class="w"> </span>EACCES
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>npm<span class="w"> </span>ERR!<span class="w"> </span>errno<span class="w"> </span>-13
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>npm<span class="w"> </span>ERR!<span class="w"> </span>syscall<span class="w"> </span>access
+</span></code></pre></div>
+<p>stoßen, dann liegt es daran, dass Ihnen Rechte zur Erstellung eines Ordners in <code>/usr/local/lib</code> fehlen. Sie sollten aber trotzdem nicht unter Verwendung von <code>sudo</code> installieren! Das führt nur zu anderen Problemen. Führen Sie stattdessen</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>mkdir<span class="w"> </span>~/.npm-global
+</span></code></pre></div>
+<p>aus und dann </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>npm<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>prefix<span class="w"> </span><span class="s1">&#39;~/.npm-global&#39;</span>
+</span></code></pre></div>
+<p>. Öffnen Sie dann Ihre <code>.zshrc</code> (oder <code>.zprofile</code> oder <code>.profile</code> oder <code>.bash</code> oder wo auch immer Sie Ihre Pfade und Aliases etc. verwalten) und fügen Sie dort </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>~/.npm-global/bin:<span class="nv">$PATH</span>
+</span></code></pre></div>
+<p>ein. Starten Sie entweder das Terminal neu oder updaten Sie die Variablen mithilfe von <code>source ~/.zshrc</code> (oder ... siehe oben). Nun sollte <code>npm install -g @angular/cli</code> funktionieren.</p>
 
 
 

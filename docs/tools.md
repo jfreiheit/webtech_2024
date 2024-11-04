@@ -499,3 +499,36 @@ im Terminal ein. `9138` ist die `PID` des entsprechenden Prozesses.
 
 - siehe [hier](https://letsencrypt.org/getting-started/)
 - siehe [hier](https://certbot.eff.org/)
+
+### EACCES-Fehler bei Installation von Angular
+
+Wenn Sie bei der Installation von Angular mithilfe von `npm install -g @angular/cli` auf eine Fehler der Art 
+
+```bash
+npm ERR! node v6.9.2
+npm ERR! npm  v3.10.9
+npm ERR! path /usr/local/lib/node_modules
+npm ERR! code EACCES
+npm ERR! errno -13
+npm ERR! syscall access
+```
+
+stoßen, dann liegt es daran, dass Ihnen Rechte zur Erstellung eines Ordners in `/usr/local/lib` fehlen. Sie sollten aber trotzdem nicht unter Verwendung von `sudo` installieren! Das führt nur zu anderen Problemen. Führen Sie stattdessen
+
+```bash
+mkdir ~/.npm-global
+```
+
+aus und dann 
+
+```bash
+npm config set prefix '~/.npm-global'
+```
+
+. Öffnen Sie dann Ihre `.zshrc` (oder `.zprofile` oder `.profile` oder `.bash` oder wo auch immer Sie Ihre Pfade und Aliases etc. verwalten) und fügen Sie dort 
+
+```bash
+export PATH=~/.npm-global/bin:$PATH
+```
+
+ein. Starten Sie entweder das Terminal neu oder updaten Sie die Variablen mithilfe von `source ~/.zshrc` (oder ... siehe oben). Nun sollte `npm install -g @angular/cli` funktionieren.

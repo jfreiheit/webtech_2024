@@ -408,6 +408,286 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 		```
 
 
+??? question "Code Vorlesung RWD"
+	=== "rwd1.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Document</title>
+		    <style>
+		        div {
+		            width: 100vw;
+		            height: 100vh;
+		            text-align: center;
+		            background-color: red;
+		            padding-top: 20%;
+		            padding-bottom: 20%;
+		            font-size: medium;
+		        }
+
+		    </style>
+		</head>
+
+		<body>
+		    <div>Ändern Sie die Breite des Browsers, um den Effekt zu sehen.</div>
+		</body>
+		</body>
+
+		</html>
+		```
+
+	=== "rwd2.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1">
+		    <title>Responsive Webdesign</title>
+		    <style>
+		        .wrapper {
+		            display: grid;
+		        }
+
+		    </style>
+		</head>
+
+		<body>
+		    <main class="wrapper small medium large">
+		        <p>
+		            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+		            sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+		            ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+		            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+		            eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+		        </p>
+		        <p>
+		            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+		            sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+		            ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+		            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+		            eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+		        </p>
+		        <p>
+		            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+		            sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+		            ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+		            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+		            eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+		        </p>
+		        <p>
+		            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+		            sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+		            ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+		            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+		            eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+		        </p>
+		    </main>
+		</body>
+
+		</html>
+
+		```
+
+
+??? question "Code Vorlesung Bootstrap"
+	=== "bootstrap.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		    <!-- <link href="../bootstrap.min.css" rel="stylesheet"> -->
+		    <title>Bootstrap</title>
+		</head>
+
+		<body>
+		    <main role="main">
+		        <div class="p-5 mb-4 bg-warning rounded-3">
+		            <div class="container-fluid py-5">
+		                <h1 class="display-5 fw-bold">Jetzt mit Bootstrap!</h1>
+		                <p class="col-md-8 fs-4">Wir verwenden jetzt Bootstrap und schauen uns mal die Anwendung ein wenig genauer an. Das Grundprinzip besteht darin, HTML-Elementen Klassen zuzuordnen. </p>
+		                <p><a class="btn btn-primary btn-lg" href="https://getbootstrap.com/docs/5.3/examples/" role="button">Bootstrap Beispiele &raquo;</a></p>
+		            </div>
+		        </div>
+
+		        <div class="container">
+		            <h2>Formular mit Validierung, ob Eingabe erfolgte (nur mit CSS - kein JavaScript!)</h2>
+		            <p>Hier wird z.B. die Klasse <code>.was-validated</code> verwendet, um zu überprüfen, ob in den Textfeldern und der Checkbox eine Eingabe erfolgt ist.</p>
+		            <form class="was-validated">
+		                <div class="form-group">
+		                    <label for="uname">Username:</label>
+		                    <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
+		                    <div class="valid-feedback">Korrekt</div>
+		                    <div class="invalid-feedback">Feld bitte ausfüllen!</div>
+		                </div>
+		                <div class="form-group">
+		                    <label for="pwd">Password:</label>
+		                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
+		                    <div class="valid-feedback">Korrekt</div>
+		                    <div class="invalid-feedback">Feld bitte ausfüllen!</div>
+		                </div>
+		                <div class="form-group form-check">
+		                    <label class="form-check-label">
+		                    <input class="form-check-input" type="checkbox" name="remember" required> Ich habe die Datenschutzerklärung gelesen und stimme ihr zu.
+		                    <div class="valid-feedback">Korrekt</div>
+		                    <div class="invalid-feedback">Hier bitte bestätigen!</div>
+		                </label>
+		                </div>
+		                <button type="submit" class="btn btn-primary">Login</button>
+		            </form>
+		        </div>
+		    </main>
+		</body>
+
+		</html>
+		```
+
+	=== "bs_grid.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+		  
+		    <title>Grid</title>
+		    <style>
+		        div div {
+		            padding: 10px;
+		        }
+		    </style>
+		</head>
+
+		<body>
+		    <main class="container pt-5 ">
+		        <h2>Wichtig ist, dass die Spaltenanzahl in einer Zeile 12 ergibt</h2>
+		        <div class="row">
+		            <div class="col-3" style="background-color: lightgrey;">
+		                <h3>col-3</h3>
+		                <p>Diesem &lt;div&gt; wurde die Klasse <code>col-3</code> zugewiesen</p>
+		            </div>
+		            <div class="col-4" style="background-color: darkgrey;">
+		                <h3>col-4</h3>
+		                <p>Diesem &lt;div&gt; wurde die Klasse <code>col-4</code> zugewiesen</p>
+		            </div>
+		            <div class="col-5" style="background-color: grey;">
+		                <h3>col-5</h3>
+		                <p>Diesem &lt;div&gt; wurde die Klasse <code>col-5</code> zugewiesen</p>
+		            </div>
+		        </div>
+		    </main>
+		</body>
+
+		</html>
+		```
+
+	=== "bs_responsive.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+		  
+		    <title>Grid</title>
+		    <style>
+		        div div {
+		            padding: 10px;
+		            margin-top: 5px;
+		            margin-bottom: 5px;
+		        }
+
+		        .row div:nth-child(odd) {
+		            background-color: lightgrey;
+		            color: black;
+		        }
+
+		        .row div:nth-child(even) {
+		            background-color: grey;
+		            color: white;
+		        }
+		    </style>
+		</head>
+
+		<body>
+		    <main class="container pt-5 ">
+		        <h2>Jetzt responsiv - ändern Sie die Monitorbreite</h2>
+		        <div class="row">
+		            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+		                <ul>
+		                    <li>xs: <code>col-12</code> 1/1</li>
+		                    <li>sm: <code>col-sm-6</code> 1/2</li>
+		                    <li>md: <code>col-md-4</code> 1/3</li>
+		                    <li>lg: <code>col-lg-3</code> 1/4</li>
+		                    <li>xl: <code>col-xl-2</code> 1/6</li>
+		                </ul>
+		            </div>
+		            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+		                <ul>
+		                    <li>xs: <code>col-12</code> 1/1</li>
+		                    <li>sm: <code>col-sm-6</code> 2/2</li>
+		                    <li>md: <code>col-md-4</code> 2/3</li>
+		                    <li>lg: <code>col-lg-3</code> 2/4</li>
+		                    <li>xl: <code>col-xl-2</code> 2/6</li>
+		                </ul>
+		            </div>
+		            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+		                <ul>
+		                    <li>xs: <code>col-12</code> 1/1</li>
+		                    <li>sm: <code>col-sm-6</code> 1/2</li>
+		                    <li>md: <code>col-md-4</code> 3/3</li>
+		                    <li>lg: <code>col-lg-3</code> 3/4</li>
+		                    <li>xl: <code>col-xl-2</code> 3/6</li>
+		                </ul>
+		            </div>
+		            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+		                <ul>
+		                    <li>xs: <code>col-12</code> 1/1</li>
+		                    <li>sm: <code>col-sm-6</code> 2/2</li>
+		                    <li>md: <code>col-md-4</code> 1/3</li>
+		                    <li>lg: <code>col-lg-3</code> 4/4</li>
+		                    <li>xl: <code>col-xl-2</code> 4/6</li>
+		                </ul>
+		            </div>
+		            <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-2">
+		                <ul>
+		                    <li>xs: <code>col-12</code> 1/1</li>
+		                    <li>sm: <code>col-sm-6</code> 1/2</li>
+		                    <li>md: <code>col-md-4</code> 2/3</li>
+		                    <li>lg: <code>col-lg-6</code> 1/2</li>
+		                    <li>xl: <code>col-xl-2</code> 5/6</li>
+		                </ul>
+		            </div>
+		            <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-2">
+		                <ul>
+		                    <li>xs: <code>col-12</code> 1/1</li>
+		                    <li>sm: <code>col-sm-6</code> 2/2</li>
+		                    <li>md: <code>col-md-4</code> 3/3</li>
+		                    <li>lg: <code>col-lg-6</code> 2/2</li>
+		                    <li>xl: <code>col-xl-2</code> 6/6</li>
+		                </ul>
+		            </div>
+		        </div>
+		    </main>
+		</body>
+
+		</html>
+
+		```
+
 
 ## Semesteraufgabe
 

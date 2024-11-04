@@ -1746,21 +1746,74 @@
     ```
 
 
+??? note "Eine mögliche Lösung für Übung 3 (Grid und Einheiten)"
+    === "uebung3.html - style-Element"
+        ```css
+        <style>
+            body {
+                margin: 1%;
+            }
 
+            header {
+                background-color: rgb(45, 93, 45);
+                color: whitesmoke;
+                padding: 2%;
+                text-align: center;
+                font-size:x-large;
+                box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+                margin-bottom: 2%;
+            }
+            .wrapper {
+                margin-top: 2%;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                column-gap: 2%;
+                row-gap: 2%;
+                margin-bottom: 2%;
+            }
+
+            .citycard {
+                display: grid;
+                grid-template-rows: 5fr 1fr;
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+            }
+
+            .cityimage {
+                text-align: center;
+                padding-top: 10%;
+            }
+
+            .cityimage img {
+                height: 80%;
+            }
+
+            .cityname {
+                font-weight: bold;
+                text-align: center;
+                text-transform: uppercase;
+                padding-top: 2%;
+            }
+
+        </style>
+        ```
 
 #### Übung 4
 
-??? question "Übungsaufgabe 4 (Bootstrap und JavaScript)"
+??? question "Übungsaufgabe 4 (Bootstrap)"
     - Erstellen Sie einen `Uebung4`-Ordner und darin eine Datei `uebung4.html`. 
     - Implementieren Sie die `uebung4.html` mithilfe von Bootstrap so, dass *ungefähr* folgendes Aussehen entsteht:
-      ![Uebung4](./files/256_uebung4.png){ width="300" }
+      ![Uebung4](./files/256_uebung4.png){ width="300" } 
+    - Ziel der Übung ist die Anwendung von *CSS-Bootstrap* und das Erstellen von Formularen.
+
+
+#### Übung 4a
+
+??? question "Übungsaufgabe 4a (JavaScript)"
+    - Erweitern Sie einen die Datei `uebung4.html` aus dem `Uebung4`-Ordner. 
     - Sind in das Formular Daten eingegeben und wird der `Registrieren`-Button gedrückt, dann erscheint mithilfe einer JavaScript-Funktion:
         ![Uebung4](./files/257_uebung4.png){ width="300" } 
     - Wird der `Abbrechen`-Button gedrückt, werden alle bereits eingegebenen Daten wieder aus den Textfeldern entfernt.   
-    - Ziele der Übung sind die Anwendung von *CSS-Bootstrap* und *JavaScript*.
-
-
-
+    - Ziel der Übung ist die Anwendung von *JavaScript*.
 
 #### Übung 5
     

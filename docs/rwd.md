@@ -144,115 +144,70 @@ Wir wollen uns noch ein zweites Beispiel anschauen. Dieses Beispiel zeigt bereit
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Responsive Webdesign</title>
     <style>
+        .wrapper {
+            display: grid;
+        }
+
         .small {
-            float: left;
-            width: 98%;
-            padding: 1%;
+            grid-template-columns: 1fr;
         }
 
         @media screen and (min-width: 800px) {
             .medium {
-                float: left;
-                width: 48%;
-                padding: 1%;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 2%;
             }
         }
 
         @media screen and (min-width: 1200px) {
             .large {
-                float: left;
-                width: 23%;
-                padding: 1%;
+                grid-template-columns: repeat(4, 1fr);
+                column-gap: 2%;
             }
         }
     </style>
 </head>
 <body>
-<p class="small medium large">
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-    no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-    amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-    labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-    et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-    sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-    sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-    magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-    Lorem ipsum dolor sit amet.
+    <main class="wrapper small medium large">
+        <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+            sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+            ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+            eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+            sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+            ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+            eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+            sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+            ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+            eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+            sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+            ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+            eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+        </p>
+    </main>
 
-    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-    consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan
-    et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis
-    dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
-</p>
-<p class="small medium large">
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-    no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-    amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-    labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-    et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-    sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-    sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-    magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-    Lorem ipsum dolor sit amet.
-
-    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-    consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan
-    et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis
-    dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
-</p>
-<p class="small medium large">
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-    no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-    amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-    labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-    et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-    sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-    sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-    magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-    Lorem ipsum dolor sit amet.
-
-    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-    consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan
-    et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis
-    dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
-</p>
-<p class="small medium large">
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-    no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-    amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-    labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-    et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-    sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-    sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-    magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-    Lorem ipsum dolor sit amet.
-
-    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-    consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan
-    et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis
-    dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
-</p>
 </body>
 </html>
 ```
 
-Der HTML-Code ist wieder einfach gehalten. Wir haben vier `<p>`-Elemente, die einen Text enthalten und denen jeweils drei Klassen zugeordnet sind: `small`, `medium` und `large`. In den CSS-Definitionen (siehe `<style>`-Element) definieren wir zunächst Eigenschaften für die Klasse `small`. Wir geben dort zwar `float:left` an, das ist aber eigentlich unsinnig, da die Breite jedes einzelnen Absatzes `100%` der Breite des Viewports ist (`widt: 98% + 2x padding: 1%`). Es würde dort auch genügen, wenn wir einfach nur `padding: 1%` definieren würden. 
+Der HTML-Code ist wieder einfach gehalten. Wir haben vier `<p>`-Elemente, die einen Text enthalten. Um diese Elemente wurde ein Container `<main>` gelegt, dem vier CSS-Klassen zugeordnet sind: `wrapper`, `small`, `medium` und `large`. Die `wrapper`-Klasse wird nur dafür verwendet, aus `main` ein Grid zu machen (`display: grid`). Auf diese Klasse hätte auch verzichtet und die `displa: grid;`-Eigenschaft in allen drei Klassen `small`, `medium` und `large` definiert werden können. In den CSS-Definitionen (siehe `<style>`-Element) definieren wir zunächst Eigenschaften für die Klasse `small`. Wir weisen dieser Klasse mithilfe von `grid-template-columns: 1fr;` ein 1-spaltiges Layout zu. 
 
-Wichtiger sind die Definitionen in den beiden Media Queries. Für eine Viewport-Breite zwischen `800px`und `1199px` definieren wir die Klasse `medium` so, dass jedes Element, dem diese Klasse zugeordnet ist (hier alle `<p>`-Elemente) umflossen werden kann (`float: left`) und eine Breite von `50%` des Viewports einnimmt. Das führt dazu, dass dann zwei Absätze nebeneinander passen. 
+Nun folgen die Definitionen für die Klassen `medium` und `large` unter Verwendung von Media Queries. Für eine Viewport-Breite zwischen `800px`und `1199px` definieren wir die Klasse `medium` so, dass das Grid ein 2-spaltiges Layout hat (`grid-template-columns: 1fr 1fr;`). Das führt dazu, dass dann zwei Absätze nebeneinander passen. 
 
-Für eine Viewport-Breite größer als `1199px` definieren wir die Klasse `large` so, dass jedes Element, dem diese Klasse zugeordnet ist (hier alle `<p>`-Elemente) umflossen werden kann (`float: left`) und eine Breite von `25%` des Viewports einnimmt. Das führt dazu, dass dann vier Absätze nebeneinander passen. 
+Für eine Viewport-Breite größer als `1199px` definieren wir die Klasse `large` so, dass das Grid ein 4-spaltiges Layout hat (`grid-template-columns: repeat(4, 1fr);`). . Das führt dazu, dass dann vier Absätze nebeneinander passen. 
 
 Führen Sie das Beispiel aus und ändern Sie Ihre Browserbreite, dann werden Sie den Effekt sehen:
 
@@ -286,14 +241,14 @@ Wenn Sie ein **CDN** verwenden, dann werden die Quellen in dem Moment geladen, i
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Title</title>
 </head>
 ```
 
-Den entsprechenden Link zum CDN finden Sie [**auf der Bootstrap-Webseite**](https://getbootstrap.com/docs/5.1/getting-started/introduction/). 
+Den entsprechenden Link zum CDN finden Sie [**auf der Bootstrap-Webseite**](https://getbootstrap.com/docs/5.3/getting-started/introduction/). 
 
-Sie können die CSS-Dateien aber auch herunterladen. Auf der [**Download Bootstrap-Webseite**](https://getbootstrap.com/docs/5.1/getting-started/download/) klicken Sie unter "Compiled CSS and JS" auf den "Download"-Button. Sie erhalten eine Datei `bootstrap-5.1.3-dist.zip`. Entpacken Sie diese Datei. Der entstehende Ordner enthält 2 Unterordner `css` und `js`. Letzterer enthält JavaScript-Dateien des Frameworks. Diese benötigen wir für unsere Zwecke hier (noch) nicht. Verschieben Sie den css-Ordner in Ihren Projekt-Ordner (z.B. `Webtech20`). Dann können Sie diese externen Dateien mit dem `<link>`-Tag wie bekannt einbinden. Der `<head>` sieht dann so aus:
+Sie können die CSS-Dateien aber auch herunterladen. Auf der [**Download Bootstrap-Webseite**](https://getbootstrap.com/docs/5.3/getting-started/download/) klicken Sie unter "Compiled CSS and JS" auf den "Download"-Button. Sie erhalten eine Datei `bootstrap-5.1.3-dist.zip`. Entpacken Sie diese Datei. Der entstehende Ordner enthält 2 Unterordner `css` und `js`. Letzterer enthält JavaScript-Dateien des Frameworks. Diese benötigen wir für unsere Zwecke hier (noch) nicht. Verschieben Sie den css-Ordner in Ihren Projekt-Ordner (z.B. `Webtech20`). Dann können Sie diese externen Dateien mit dem `<link>`-Tag wie bekannt einbinden. Der `<head>` sieht dann so aus:
 
 ```html
 <head>
