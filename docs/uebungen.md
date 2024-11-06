@@ -1810,9 +1810,12 @@
 
 ??? question "Übungsaufgabe 4a (JavaScript)"
     - Erweitern Sie einen die Datei `uebung4.html` aus dem `Uebung4`-Ordner. 
-    - Sind in das Formular Daten eingegeben und wird der `Registrieren`-Button gedrückt, dann erscheint mithilfe einer JavaScript-Funktion:
+    - Sind in das Formular Daten eingegeben und wird der `Registrieren`-Button gedrückt, dann erscheint mithilfe einer JavaScript-Funktion: <br/><br/>
         ![Uebung4](./files/257_uebung4.png){ width="300" } 
     - Wird der `Abbrechen`-Button gedrückt, werden alle bereits eingegebenen Daten wieder aus den Textfeldern entfernt.   
+    - Prüfen Sie außerdem die Eingaben (siehe [Validation](https://getbootstrap.com/docs/5.3/forms/validation/)): <br/><br/>
+        ![Uebung4](./files/293_uebung4.png){ width="300" } 
+        ![Uebung4](./files/294_uebung4.png){ width="300" } 
     - Ziel der Übung ist die Anwendung von *JavaScript*.
 
 #### Übung 5
