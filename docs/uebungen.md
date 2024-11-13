@@ -1806,6 +1806,56 @@
     - Ziel der Übung ist die Anwendung von *CSS-Bootstrap* und das Erstellen von Formularen.
 
 
+??? note "Eine mögliche Lösung für Übung 4 (Bootstrap - Formular)"
+    === "uebung4.html"
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../../styles/css/bootstrap.min.css" rel="stylesheet">
+
+        <title>Übung 4</title>
+    </head>
+    <body class="container">
+        
+        <h1 class="m-5">Teilnehmerin Registrierung</h1>
+
+        <div class="row g-3">
+            <div class="form-floating col-6">
+              <input type="text" class="form-control" id="firstName" placeholder="First name" aria-label="First name">
+              <label for="firstName">First name</label>
+              <div class="valid-feedback">
+                Korrekt!
+              </div>
+              <div class="invalid-feedback">
+                Bitte Vornamen eingeben!
+              </div>
+            </div>
+            <div class="form-floating col-6">
+                <input type="text" class="form-control" id="lastName" placeholder="Last name" aria-label="First name">
+                <label for="lastName">Last name</label>
+            </div>
+            <div class="form-floating col-6">
+                <input type="email" class="form-control" id="email" placeholder="E-Mail" aria-label="First name">
+                <label for="email">E-Mail</label>
+            </div>
+            <div class="form-floating col-6">
+                <input type="password" class="form-control" id="password" placeholder="Password" aria-label="First name">
+                <label for="password">Password</label>
+            </div>
+            <div class="col-3">
+                <button type="reset" class="btn btn-secondary">Abbrechen</button>
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-success">Registrieren</button>
+            </div>
+        </div>
+    </body>
+    </html>
+    ```
+
+
 #### Übung 4a
 
 ??? question "Übungsaufgabe 4a (JavaScript)"
@@ -1817,6 +1867,8 @@
         ![Uebung4](./files/293_uebung4.png){ width="300" } 
         ![Uebung4](./files/294_uebung4.png){ width="300" } 
     - Ziel der Übung ist die Anwendung von *JavaScript*.
+
+
 
 #### Übung 5
     

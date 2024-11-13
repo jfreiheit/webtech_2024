@@ -1,17 +1,29 @@
 # Angular
 
-[Angular](https://angular.io/) gehört neben [React.js](https://reactjs.org/) und [Vue.js](https://vuejs.org/) zu den meisteverwendeten Frameworks für die Entwicklung sogenannter *Single-Page-Applikationen*. In einer Single-Page-Applikation wird eine Seite vom Webserver geladen und diese Seite durch unterschiedliche Inhalte befüllt, je nach Nutzerinteraktion. Diese Inhalte werden in Angular durch sogenannte *Komponenten* bereitgestellt. Komponenten sind die Grundbausteine einer Angular-Anwendung. 
+[Angular](https://angular.dev/) gehört neben [React.js](https://reactjs.org/) und [Vue.js](https://vuejs.org/) zu den meisteverwendeten Frameworks für die Entwicklung sogenannter *Single-Page-Applikationen*. In einer Single-Page-Applikation wird eine Seite vom Webserver geladen und diese Seite durch unterschiedliche Inhalte befüllt, je nach Nutzerinteraktion. Diese Inhalte werden in Angular durch sogenannte *Komponenten* bereitgestellt. Komponenten sind die Grundbausteine einer Angular-Anwendung. 
 
 Das erste Release von Angular erschien 2010 (damals noch unter dem Namen AngularJS, ab Version 2 nur noch Angular). React und Vue kamen 2013 bzw. 2014 erstmalig heraus. Angular wird hauptsächlich von Google, React hauptsächlich von Facebook und Vue als Community-Version entwickelt. Alle drei Frameworks stehen unter [MIT-Lizent](https://opensource.org/licenses/MIT).
 
 Neben HTML und CSS verwendet Angular [TypeScript](https://www.typescriptlang.org/). TypeScript ist eine Obermenge von JavaScript. Das bedeutet, dass jeder JavaScript-Code auch TypeScript ist, aber nicht umgekehrt. TypeScript-Code wird compiliert und erzeugt JavaScript-Code, der vom Browser ausgeführt werden kann. Im Gegensatz zu JavaScript ist TypeScript typsicher und klar objektorientiert.  
+
+## Angular installieren
+
+Folgen Sie den Anweisungen der [Setup-local](https://angular.dev/tools/cli/setup-local)-Seite von Angular. Aber die wichtigsten Schritte sind auch hier nochmal aufgeführt. 
+
+1. Laden Sie sich [Node.js](https://nodejs.org/en/download/package-manager) herunter, wenn noch nicht geschehen, und installieren es. Es beinhaltet den Paketmanager [npm](https://www.npmjs.com/). Achten Sie darauf, dass Sie eine **gerade** Version von `Node.js` installieren (also z.B. `v22`, nicht jedoch `v23`)! Sie können testen, ob die Installation von `Node.js` (und somit auch `npm`) erfolgreich war, indem Sie `node -v` bzw. `npm -v` im terminal eingeben. In beiden Fällen sollte die jeweilige Versionsnummer angezeigt werden. 
+2. Installieren Sie die [Angular CLI](https://angular.dev/cli), indem Sie im Terminal 
+  ```bash
+  npm install -g @angular/cli
+  ```
+  eingeben. Hinweis für Windwos- (und PowerShell)-Nutzerinnen: Sollte obiger Befehl fehlschlagen, dann müssen Sie Ihre [execution policy]() 
+3. 
 
 ## Erstes Projekt erstellen
 
 Eine Angularanwendung besteht hauptsächlich aus Komponenten und
 Services. Um die Anwendung selbst sowie Komponenten und Services
 zu erstellen, wird am besten das [Command Line Interface for
-Angular (Angular CLI)](https://cli.angular.io/) verwendet.
+Angular (Angular CLI)](https://angular.dev/cli) verwendet.
 Öffnen Sie ein Terminal (Windows-Nutzerinnen sollten die
 [Git-Bash](https://gitforwindows.org/) verwenden, die Sie
 bereits mit Git installiert haben). Wechseln Sie im Terminal
@@ -296,7 +308,7 @@ Wir schauen uns ein ausführlicheres Beispiel im Folgenden an, in dem wir eine n
 
 ### Eine neue Komponente erzeugen 
 
-Mithilfe von [Angular-CLI](https://cli.angular.io/) erzeugen wir in unserer App `first` eine neue Komponente `header`. Wir wechseln dazu im Terminal in den Ordner von `first` und geben dann
+Mithilfe von [Angular-CLI](https://angular.dev/cli) erzeugen wir in unserer App `first` eine neue Komponente `header`. Wir wechseln dazu im Terminal in den Ordner von `first` und geben dann
 
 ```
 ng generate component header
@@ -595,7 +607,7 @@ Noch vor `ngOnInit` wird jedoch `ngOnChange()` aufgerufen. Nämlich genau dann, 
 
 ![Lifecycle](./files/15_lifecycle.png)
 
-Für weiterführende Informationen sei [https://angular.io/guide/lifecycle-hooks](https://angular.io/guide/lifecycle-hooks) empfohlen.
+Für weiterführende Informationen sei [https://angular.dev/guide/components/lifecycle](https://angular.dev/guide/components/lifecycle) empfohlen.
 
 ## Services
 
@@ -661,7 +673,7 @@ Der Service kann dann mittels *dependency injection* von einer Komponente verwen
     }
     ```
 
-Für weiterführende Informationen zu Services siehe [https://angular.io/guide/architecture-services](https://angular.io/guide/architecture-services). Wir werden Services ausgiebig nutzen. Für ein erstes kleines einführendes Beispiel nehmen wir an, dass folgende Datei [members.json](./files/members.json) im Ordner `src/assets` unseres Projektes liegt. Diese Datei laden wir mithilfe von `fetch()` innerhalb unserer `shared/my.service.ts`:
+Für weiterführende Informationen zu Services siehe [https://angular.dev/guide/di/creating-injectable-service](https://angular.dev/guide/di/creating-injectable-service). Wir werden Services ausgiebig nutzen. Für ein erstes kleines einführendes Beispiel nehmen wir an, dass folgende Datei [members.json](./files/members.json) im Ordner `src/assets` unseres Projektes liegt. Diese Datei laden wir mithilfe von `fetch()` innerhalb unserer `shared/my.service.ts`:
 
 === "shared/my.service.ts"
     ```javascript linenums="1"
@@ -721,7 +733,7 @@ Wir geben dieses Array zunächst einfach nur auf der Konsole aus. Wir sehen aber
 
 *Routing* ist ein wesentliches Konzept für die Entwicklung von *Single-Page-Applikationen* (SPA). Bei Single-Page-Applikationen wird genau eine Seite vom Webserver geladen (typischerweise die `index.html` und alle weiteren, sich ändernden, Inhalte und Sichten werden in diese Seite nachgeladen). Das führt zunächst auch dazu, dass es für die Seite genau eine URL gibt, um auf sie zuzugreifen (z.B. `http://www.mydomain.de` bzw. `http://www.mydomain.de/index.html`). Möchte man aber Komponenten direkt in der URL ansprechen, z.B. `http://www.mydomain.de/login` für die Login-Komponente, so benötigen wir das *Routing* von Angular.
 
-Wir betrachten hier ein Beispiel, das [https://angular.io/guide/router](https://angular.io/guide/router) entnommen ist und nur leicht abgewandelt wurde. Wir erstellen dazu zunächst ein neues Projekt `routing-lesson`. 
+Wir betrachten hier ein Beispiel, das [https://angular.dev/guide/routing/common-router-tasks](https://angular.dev/guide/routing/common-router-tasks) entnommen ist und nur leicht abgewandelt wurde. Wir erstellen dazu zunächst ein neues Projekt `routing-lesson`. 
 
 ```
 ng new routing-lesson
@@ -994,7 +1006,7 @@ In der `first.component.ts` kommen verschiedene Sachen hinzu:
 
 Wenn wir nun z.B. die URL `http://localhost:4200/first/42` eingeben, dann erscheint im Browser der Wert des Parameters (als Inhalt des `<p>`-Elementes; siehe oben `first.component.html`).
 
-Die aktuelle Implementierung von `first.component.ts` liest also während der Initialisierung der Komponente die Routenparameter aus. Finden jedoch am Parameterwert Änderungen statt, ohne dass die Komponente neu initialisiert wird, bekommt die Komponente von den Änderungen nichts mit. Die oben gezeigte Form der Implementierung ist deshalb nicht für alle Fälle geeignet. Vielmehr ist es besser auszunutzen, dass es sich bei `this.route.paramMap` (ohne `snapshot`) um ein [*Observable*](https://angular.io/guide/observables-in-angular) handelt.  
+Die aktuelle Implementierung von `first.component.ts` liest also während der Initialisierung der Komponente die Routenparameter aus. Finden jedoch am Parameterwert Änderungen statt, ohne dass die Komponente neu initialisiert wird, bekommt die Komponente von den Änderungen nichts mit. Die oben gezeigte Form der Implementierung ist deshalb nicht für alle Fälle geeignet. Vielmehr ist es besser auszunutzen, dass es sich bei `this.route.paramMap` (ohne `snapshot`) um ein [*Observable*](https://angular.dev/guide/signals/rxjs-interop) handelt.  
 
 Ein *Observable* kann so verstanden werden, dass er permanent eine bestimmte Sache beobachtet (z.B. ist der `EventEmitter` ein *Observable* und beobachtet permanent, ob das Ereignis ausgelöst wird; wenn ja, dann ruft `EventEmitter` die Funktion `emit()` auf --> siehe [Eigene Ereignisse](angular2.md#eigene-ereignisse)). Wenn sich etwas an dem beobachteten Objekt geändert hat, dann reagiert *Observable* sofort und ruft eine bestimmte Funktion auf. Das *Observable* `paramMap` beobachtet permanent die aktuelle Route und sobald sich etwas an dieser Route ändert, wird eine Funktion aufgerufen.
 
