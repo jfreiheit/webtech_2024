@@ -688,6 +688,268 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 
 		```
 
+??? question "Code Vorlesung JavaScript"
+	=== "js_vorl.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>JavaScript</title>
+		    <style>
+		        .kap {
+		            text-transform: uppercase;
+		        }
+
+		        .normal {
+		            text-transform: lowercase;
+		        }
+
+		    </style>
+		</head>
+		<body onload="init()">
+		    <main>
+		        <h4 class="kap">Ergebnisliste</h4>
+		        <ul id="ulresult">
+		            <li id="liresult1"></li>
+		        </ul>
+		        <input type="text" id="input" placeholder="Name" value="Maria" onchange="text()" onfocus="changeStyle()" onblur=""/>
+		        <button type="button" onclick="klickMich()">Klick Mich!</button>
+		    </main>
+		    <ol id="ol">
+		        
+		    </ol>
+		    <script>  
+		        let nr = 2;
+		        
+		        function klickMich() {
+
+		            console.log("Hello FIW!");
+		            let input = document.querySelector('#input');
+		            console.log("input ", input.value)
+
+		            let li1 = document.querySelector('#liresult1');
+		            if(li1.textContent == '')
+		            {
+		                let text = document.createTextNode(input.value);
+		                li1.appendChild(text)
+		            }
+		            else
+		            {
+		                let li = document.createElement('li');
+		                let text = document.createTextNode(input.value);
+		                li.appendChild(text)
+		                document.querySelector('#ulresult').appendChild(li)
+		                console.log('liresult : ', 'liresult' + nr)
+		                li.id = 'liresult' + nr;
+		                nr++;
+		                
+		            }
+		        }
+
+		        function init() {
+		            const body = document.querySelector('body');
+		            console.log('body : ', body)
+		            const bodyKids = body.children;
+		            for(let kid of bodyKids)
+		            {
+		                console.log(kid)
+		            }
+		            console.log(bodyKids[0])
+
+		            let h1 = document.createElement('h1');
+		            let h1Text = document.createTextNode('Überschrift');
+		            h1.appendChild(h1Text);
+		            h1.style.color = 'green';
+
+		            h1.addEventListener('mouseover', () => {
+		                h1.style.color = 'red';
+		                h1.classList.add('kap')
+		                h1.classList.remove('normal')
+		            })
+		            h1.addEventListener('mouseout', () => {
+		                h1.style.color = 'green';
+		                h1.classList.remove('kap')
+		                h1.classList.add('normal')
+		            })
+
+		            body.insertBefore(h1, bodyKids[0])
+
+		            let ol = document.querySelector('ol')
+		            let item1 = "Item 1"
+		            let item2 = "Item 2"
+
+		            // ol.innerHTML = '<li>' + item1 + '</li> <li>' + item2 + '</li>' ;
+		            ol.innerHTML = `<li> ${item1} </li>
+		            <li> ${item2} </li>`
+
+		        }
+
+		        function text()
+		        {
+		            console.log(' input : ', document.querySelector('#input').value)
+		        }
+
+		        function changeStyle() {
+		            let input = document.querySelector('#input');
+		            console.log('input : ', input)
+		            input.style.backgroundColor = 'lightgrey';
+		            input.style.border= '2px solid red'
+		            input.style.outline = 'none'
+		        }
+
+		    </script>
+		</body>
+		</html>
+		```
+
+	=== "js_create.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+		    <title>Javascript</title>
+		    <style>
+		        div#output {
+		            height: 300px;
+		        }
+		    </style>
+		</head>
+		<body class="container">
+		    <h1>Formular auslesen</h1>
+		    <h4>Kommentare</h4>
+
+		    <form id="form" onsubmit="return false;"> 
+		        <div class="form-floating mb-3">
+		            <input type="text" class="form-control" id="input1" placeholder="Kommentar 1" onchange="fixeInput()" />
+		            <label for="input1">Kommentar 1</label>
+		        </div>
+		    </form> 
+		    <script>
+		        let nr = 1;
+
+		        function fixeInput() {
+		            let curInputId = "input" + nr;
+		            let curInputElement = document.getElementById(curInputId);
+		            console.log(curInputElement.value);
+		            curInputElement.disabled = "true";
+
+		            let newDiv = document.createElement('div');
+		            newDiv.classList.add("form-floating", "mb-3");
+		            nr++;
+		            let newInputId = "input"+nr;
+		            let newInput = document.createElement('input');
+		            newInput.classList.add("form-control");
+		            newInput.placeholder = "Kommentar " + nr;
+		            newInput.id = newInputId;
+		            newInput.addEventListener("change", fixeInput);
+		            let newLabel = document.createElement('label');
+		            newLabel.for = newInputId;
+		            newLabel.textContent = "Kommentar " + nr;
+		            newDiv.appendChild(newInput);
+		            newDiv.appendChild(newLabel);
+		            let form = document.getElementById('form');
+		            form.appendChild(newDiv);
+
+		            newInput.focus();
+		        }
+		    </script>
+
+		</body>
+		</html>
+
+		```
+
+	=== "js_object.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+		    <title>Javascript</title>
+		    <style>
+		        div#output {
+		            height: 300px;
+		        }
+
+		        input[type=text] {
+		            border: white;
+		        }
+		    </style>
+		</head>
+		<body class="container" onload="setBackgroundColorDiv()">
+
+		    <h1>JavaScript-Objekte</h1>
+		    <div id="output">
+
+		    </div>
+		    <div class="my-3">
+		        <div class="row">
+		            <div class="col-2">
+		                <label for="hueIP" class="form-label">Hue (Farbton)</label>
+		            </div>
+		            <div class="col-2">
+		                <input type="text" class="form-range" id="hueOP" value="50" disabled>
+		            </div>
+		            <div class="col-8">
+		                <input type="range" class="form-range" min="0" max="360" id="hueIP" oninput="setBackgroundColorDiv()" value="50">
+		            </div>
+		        </div>
+		        <div class="row">
+		            <div class="col-2">
+		                <label for="satIP" class="form-label">Saturation (Sättigung)</label>
+		            </div>
+		            <div class="col-2">
+		                <input type="text" class="form-range" id="satOP" value="50" disabled>
+		            </div>
+		            <div class="col-8">
+		                <input type="range" class="form-range" min="0" max="100" id="satIP" oninput="setBackgroundColorDiv()" value="50">
+		            </div>
+		        </div>
+		        <div class="row">
+		            <div class="col-2">
+		                <label for="lightIP" class="form-label">Lightness (Helligkeit)</label>
+		            </div>
+		            <div class="col-2">
+		                <input type="text" class="form-range" id="lightOP" value="50" disabled>
+		            </div>
+		            <div class="col-8">
+		                <input type="range" class="form-range" min="0" max="100" id="lightIP" oninput="setBackgroundColorDiv()" value="50">
+		            </div>
+		        </div>
+		    </div>
+		   <script>
+		    function setBackgroundColorDiv() {
+		        let colorHSL = {
+		            hue: document.querySelector('#hueIP').value,
+		            saturation: document.querySelector('#satIP').value,
+		            lightness: document.querySelector('#lightIP').value,
+		            getColor: () => `hsl(${colorHSL.hue}, ${colorHSL.saturation}%, ${colorHSL.lightness}%)`
+		        }
+
+		        document.querySelector('#hueOP').value = colorHSL.hue;
+		        document.querySelector('#satOP').value = colorHSL.saturation;
+		        document.querySelector('#lightOP').value = colorHSL.lightness;
+
+		        let div = document.getElementById('output');
+		        div.style.backgroundColor = colorHSL.getColor();
+		    }
+
+
+		   </script>
+		</body>
+		</html>
+
+		```
+
 
 ## Semesteraufgabe
 

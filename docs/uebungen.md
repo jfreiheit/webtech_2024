@@ -1870,6 +1870,91 @@
     - Ziel der Übung ist die Anwendung von *JavaScript*.
 
 
+??? note "aktueller Stand der Lösung für Übung 4a (JavaScript) - machen wir am 20.11. weiter"
+    === "uebung4.html"
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="../../styles/css/bootstrap.min.css" rel="stylesheet">
+
+        <title>Übung 4</title>
+    </head>
+    <body class="container">
+        
+        <h1 class="m-5">Teilnehmerin Registrierung</h1>
+
+        <div class="row g-3">
+            <div class="form-floating col-6">
+              <input type="text" class="form-control" id="firstName" placeholder="First name" aria-label="First name">
+              <label for="firstName">First name</label>
+              <div class="valid-feedback">
+                Korrekt!
+              </div>
+              <div class="invalid-feedback">
+                Bitte Vornamen eingeben!
+              </div>
+            </div>
+            <div class="form-floating col-6">
+                <input type="text" class="form-control" id="lastName" placeholder="Last name" aria-label="First name">
+                <label for="lastName">Last name</label>
+            </div>
+            <div class="form-floating col-6">
+                <input type="email" class="form-control" id="email" placeholder="E-Mail" aria-label="First name">
+                <label for="email">E-Mail</label>
+            </div>
+            <div class="form-floating col-6">
+                <input type="password" class="form-control" id="password" placeholder="Password" aria-label="First name">
+                <label for="password">Password</label>
+            </div>
+            <div class="col-3">
+                <button type="reset" class="btn btn-secondary">Abbrechen</button>
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-success" onclick="submit()">Registrieren</button>
+            </div>
+        </div>
+        <h4 class="mt-5">Eingegebene Werte</h4>
+        <ul id="results" class="list-group">
+
+        </ul>
+    </body>
+    <script>
+        function submit() {
+            console.log('Button submit geklickt...');
+
+            let lastName = document.querySelector('#lastName');
+            let lastNameValue = lastName.value;
+
+            let firstName = document.querySelector('#firstName');
+            let firstNameValue = firstName.value;
+
+            let email = document.querySelector('#email');
+            let emailValue = email.value;
+
+            let password = document.querySelector('#password');
+            let passwordValue = password.value;
+
+            console.log('first name value : ', firstNameValue)
+            console.log('last name value : ', lastNameValue)
+            console.log('email value : ', emailValue)
+            console.log('password value : ', passwordValue)
+        
+            let resultsList = document.querySelector('#results');
+            resultsList.innerHTML = '<li class="list-group-item">' + firstNameValue + '</li>';
+            resultsList.innerHTML +=' <li class="list-group-item">' + lastNameValue + '</li>';
+            resultsList.innerHTML +=' <li class="list-group-item">' + emailValue + '</li>';
+            resultsList.innerHTML +=' <li class="list-group-item">' + passwordValue + '</li>';
+        }
+    </script>
+    </html>
+    ```
+
+
+
 
 #### Übung 5
     

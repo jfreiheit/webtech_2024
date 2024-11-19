@@ -15,8 +15,16 @@ Folgen Sie den Anweisungen der [Setup-local](https://angular.dev/tools/cli/setup
   ```bash
   npm install -g @angular/cli
   ```
-  eingeben. Hinweis für Windwos- (und PowerShell)-Nutzerinnen: Sollte obiger Befehl fehlschlagen, dann müssen Sie Ihre [execution policy]() 
-3. 
+  eingeben. Hinweis für Windwos- (und PowerShell)-Nutzerinnen: Sollte obiger Befehl fehlschlagen, dann müssen Sie Ihre [execution policy](https://learn.microsoft.com/de-de/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4) ändern. geben Sie dazu in Ihre Powershell
+  ```bash
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+  ```
+  ein. Sollten Sie bei der Installation der Angular-CLI `EACCES errors` erhalten (`permission denied`), dann arbeiten Sie an einem Mac ;-). Geben Sie dann im Terminal ein (Sie finden im Netz auch die Anweisung `sudo npm install -g @angular/cli` - das sollten Sie aber besser nicht machen) : 
+  ```bash
+  sudo chown -R `whoami` ~/.npm
+  sudo chown -R `whoami` /usr/local/lib/node_modules
+  ```
+  Nun sollte `npm install -g @angular/cli` jeweils funktionieren. 
 
 ## Erstes Projekt erstellen
 
@@ -39,18 +47,28 @@ ng new first
 
 ``ng`` steht für Angular. Mit dem Attribut ``new`` geben Sie an,
 dass Sie ein neues Projekt erzeugen wollen. ``first`` ist der
-Name des Projektes. Wenn Sie gefragt werden, ob Sie **Angular routing**
-verwenden möchten, geben Sie ein `y` ein. Wenn Sie nach dem **stylesheet
-format** gefragt werden, können Sie `CSS` einfach mit `Enter` bestätigen.
+Name des Projektes. Wenn Sie nach dem **stylesheet
+format** gefragt werden, können Sie `CSS` einfach mit `Enter` bestätigen. Sie können alle Anfragen mit `Enter` bestätigen, smit teilen Sie auch nicht Ihre Daten mit Google.
 
 ```bash
-? Would you like to add Angular routing? Yes
-? Which stylesheet format would you like to use? CSS
+? Would you like to share pseudonymous usage data about this project with the Angular Team
+at Google under Google's Privacy Policy at https://policies.google.com/privacy. For more
+details and how to change this setting, see https://angular.dev/cli/analytics.
+
+   no
+Global setting: disabled
+Local setting: No local workspace configuration file.
+Effective status: disabled
+? Which stylesheet format would you like to use? CSS             [ https://developer.mozilla.org/docs/Web/CSS                     ]
+? Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)? no
 ```
 
 Wenn alles geklappt hat, erhalten Sie im Terminal eine Ausgabe in der Form:
 
-![Angular-Projekt erstellt](./files/07_fertig.png)
+```bash
+✔ Packages installed successfully.
+    Successfully initialized git.
+```
 
 Es entsteht ein Ordner `first` in Ihrem Projekte-Verzeichnis. Wechseln Sie
 in dieses Verzeichnis:
@@ -69,7 +87,9 @@ aus. Damit werden alle Abhängigkeiten, die in der Datei **package.json**
 definiert sind, geladen und das **node_modules**-Verzeichnis erstellt.
 Siehe z.B. [hier](https://www.stackchief.com/tutorials/npm%20install%20%7C%20how%20it%20works).
 
-Wenn Sie Ihr Projekt mit `git` verwalten, dann ist es ratsam, das `node_modules`-Verzeichnis von der `git`-Verwaltung auszuschließen. Es wird ja immer durch `npm install` erstellt. Fügen Sie dazu in Ihre `.gitignore` die Zeile `node_modules/**` ein. Dann werden alle Inhalte aller `node_modules`-Verzeichnisse in Ihrem Repository ignoriert. 
+Wenn Sie Ihr Projekt mit `git` verwalten, dann ist es ratsam, das `node_modules`-Verzeichnis von der `git`-Verwaltung auszuschließen. Es wird ja immer durch `npm install` erstellt. In der automatisch erstellten `.gitignore` ist dafür auch bereits die Zeile `/node_modules` enthalten. Dadurch wird das `node_modules`-Verzeichnis in Ihrem Repository ignoriert. 
+
+Die Angular CLI stellt Ihr neues Projekt automatisch unter Git-Verwaltung. Wenn Ihr Ordner bereits Teil eines Git-Repositories ist, können Sie einfach `rm -rf .git` ausführen. Damit löschen Sie das `.git`-Verzeichnis im Angular-Projekt-Ordner und das Projekt selbst ist nicht mehr unter Git-Verwaltung (nur durch das übergeordnete Repositoty).
 
 Danach geben Sie
 
@@ -81,23 +101,19 @@ ein. Es werden die entsprechenden TypeScript-Dateien compiliert und es
 erscheint am Ende eine Ausgabe, wie z.B.
 
 ```bash
-✔ Browser application bundle generation complete.
+Initial chunk files | Names         |  Raw size
+polyfills.js        | polyfills     |  90.20 kB | 
+main.js             | main          |  22.64 kB | 
+styles.css          | styles        |  95 bytes | 
 
-Initial Chunk Files   | Names         |  Raw Size
-vendor.js             | vendor        |   2.12 MB | 
-polyfills.js          | polyfills     | 314.26 kB | 
-styles.css, styles.js | styles        | 209.39 kB | 
-main.js               | main          |  48.72 kB | 
-runtime.js            | runtime       |   6.51 kB | 
+                    | Initial total | 112.94 kB
 
-                      | Initial Total |   2.69 MB
+Application bundle generation complete. [1.339 seconds]
 
-Build at: 2022-11-30T09:43:56.236Z - Hash: 15a297db746e6251 - Time: 13321ms
-
-** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
-
-
-✔ Compiled successfully.
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4200/
+  ➜  press h + enter to show help
 ```
 
 Sie **müssen** jetzt immer compileren! Wenn Sie aber einmal `ng serve` ausgeführt haben, wird im Browser automatisch auf die Änderungen reagiert. Sie müssen also nicht jedes Mal neu `ng serve` eingeben, bzw. nicht jedes Mal neu auf das grüne Dreieck in Ihrer IDE klicken: ![ngserve](./files/86_ngserve.png)
@@ -123,22 +139,17 @@ ein. Folgende Seite sollte erscheinen:
 `first` auf, klappen Sie den Ordner `src` und dann den Ordner
 `app` auf. Der Projektexplorer zeigt folgendes Bild:
 
-![Projektstruktur eines Angular-Projektes](./files/02_projekt.png)
+![Projektstruktur eines Angular-Projektes](./files/02_projekt.png){: style="height:300px"}
 
 - Die meiste Arbeit wird im `src`-Ordner erledigt. Darin befindet sich (wird sich befinden) der Code unserer Anwendung.
 - Darin der wichtigste Ordner ist der `app`-Ordner.
 Hier werden wir unsere Module, Komponenten und Services hinzufügen.  
-- In dem `assets`-Ordner werden Bilder, Icons und Daten abgelegt.
 - Der `node_modules`-Ordner enthält alle benötigten
 3rd-party-libraries. Welche das sind, wird in der Datei
 `package.json` als *dependencies* definiert.
 Mithilfe des Befehls `npm install `werden alle benötigten
 Module dem Ordner `node_modules` hinzugefügt.
-- Der Ordner `environments` enthält die notwendigen
-Konfigurationsinformationen für den *development*- und den
-*production*-Modus. Wir entwickeln zunächst im
-*development*-Modus.
-- `favicon.ico`ist das Favicon - ein kleines Icon, das im
+- `public/favicon.ico`ist das Favicon - ein kleines Icon, das im
 Reiter erscheint. Wählen Sie am besten ein eigenes.
 - `index.html` ist die Hauptseite. Mithilfe von Angular
 entwickeln wir eine *Single Page Application*, d.h. es wird
@@ -154,13 +165,13 @@ eine `*.spec.ts`, aber die interessiert zunächst nicht).
 
 Öffnen Sie in Ihrer IDE die Datei `app.component.html`. Löschen
 Sie den kompletten Inhalt und lassen nur noch
-**`<router-outlet></router-outlet>`**.
+**`<router-outlet />`**.
 Fügen Sie oberhalb von **`<router-outlet></router-outlet>`**
 die Zeile **`<h1>This is app</h1>`** ein. Gehen Sie wieder zum
 Browser und schauen sich den geöffneten Tab mit der URL `localhost:4200` an.
 Es erscheint der folgende Inhalt:
 
-![Nach den Änderungen in app.component.html](./files/03_seite.png)
+![Nach den Änderungen in app.component.html](./files/03_seite.png){: style="width:150px"}
 
 Öffnen Sie die `app.component.css`-Datei und geben Sie dort
 
@@ -172,7 +183,7 @@ h1 {
 
 Nach den Änderungen in `app.component.css` erscheint der Text der Überschrift in rot:
 
-![Nach den Änderungen in app.component.css](./files/05_css1.png)
+![Nach den Änderungen in app.component.css](./files/05_css1.png){: style="width:150px"}
 
 !!! success "Zusammenfassung"
     Wir haben die die `app.component.html` geändert, um den
@@ -182,7 +193,7 @@ Nach den Änderungen in `app.component.css` erscheint der Text der Überschrift 
 
 ### Single Page Application
 
-Wenn wir eine Anwendung mit Angular erstellen, dann handelt es sich dabei um eine sogenannte *Single Page Application (SPA)*, d.h. es wird genau eine Seite vom Webserver geladen und alle Inhalte werden in diese Seite (nach-)geladen, je nach Nutzerinteraktion. Die hier geladene Seite ist die `index.html`, die in unserem Projekte-Ordner `frontend` liegt. Sie sieht so aus:
+Wenn wir eine Anwendung mit Angular erstellen, dann handelt es sich dabei um eine sogenannte *Single Page Application (SPA)*, d.h. es wird genau eine Seite vom Webserver geladen und alle Inhalte werden in diese Seite (nach-)geladen, je nach Nutzerinteraktion. Die hier geladene Seite ist die `index.html`, die in unserem Projekte-Ordner `frontend` (oder `first` oder wie auch immer Ihr Angular-Projekt heißt) liegt. Sie sieht so aus:
 
 === "index.html"
   ```html
@@ -322,7 +333,7 @@ ng g c header
 
 schreiben können. In unserer `first` App gibt es nun die Komponente `header`:
 
-![MyComponent](./files/08_mycomponent.png) 
+![MyComponent](./files/08_mycomponent.png){: style="height:250px"}
 
 Jede Angular-Komponente besteht aus vier Teilen:
 
@@ -331,53 +342,21 @@ Jede Angular-Komponente besteht aus vier Teilen:
 - den Styles (die `*.component.css`-Datei)
 - einer Testspezifikation (die `*.component.spec.ts`-Datei)
 
-Jede Komponente wird in der `app.module.ts` der gesamten Anwendung bekannt gemacht. Das erfolgt mithilfe der Eigenschaft `declarations` im Decorator `@NgModule()`:
+Klicken Sie im Projektexplorer Ihrer IDE auf die Datei `header.component.ts`, um sie zu öffnen. Sie enthält den folgenden Quelltext:
 
 ```javascript
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-
-```
-
-Das obige Listing zeigt, dass die neue Komponente `header` registriert wurde. Um dieses Eintragen in die `app.module.ts` müssen wir uns aber nicht kümmern, das erledigt die `Angular-CLI` mit der Anweisung zur Erstellung einer neuen Komponente `ng generate component newComponent`. 
-
-Doppelklicken Sie im Projektexplorer Ihrer IDE auf die Datei `header.component.ts`, um sie zu öffnen. Sie enthält den folgenden Quelltext:
-
-```javascript
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'htw-header',
+  selector: 'app-header',
+  standalone: true,
+  imports: [],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class HeaderComponent {
 
 }
-
 ```
 
 Wir ändern diese Datei zunächst nicht und öffnen auch noch die `header.component.html`. Diese enthält nur ein HTML-Element, einen Absatz:
@@ -396,12 +375,38 @@ Wir ändern auch diese Datei zunächst nicht und öffnen die `app.component.html
 Wir fügen in die Datei den Selektor `htw-header` unserer neuen `header`-Komponente als HTML-Element ein:
 
 ```html
-<htw-header></htw-header>
+<app-header></app-header>
 <h1>This is app</h1>
-<router-outlet></router-outlet>
+<router-outlet />
 ```
 
-Dieses Element dient als "Platzhalter" für das Template unserer neuen Komponente. Das bedeutet, dass in dieses Element der HTML-Code aus `header.component.html` eingefügt wird. Wechseln Sie in den Browser auf den Tab mit Ihrer Anwendung (http://localhost:4200/). Sie sehen folgendes Bild:
+Dieses Element dient als "Platzhalter" für das Template unserer neuen Komponente. Das bedeutet, dass in dieses Element der HTML-Code aus `header.component.html` eingefügt wird. Jedoch kennt die `AppComponent` unsere `HeaderComponent` noch nicht. Deshalb erhalten wir im Browser noch eine entsprechende Fehlermeldung.
+
+#### Importieren der neuen Komponente
+
+Um eine Komponente über ihren Selektor einzubinden, müssen wir diese neue Komponente in die Komponente importieren, die diese neue Komponente einbindet. In unserem Fall binden wir die `HeaderComponent` in die `AppComponent` ein (siehe oben `app.component.html`). Um die `headerComponent` in die `AppComponent` zu importieren, öffnen wir die `app.component.ts` und fügen folgende Änderungen ein:
+
+```javascript linenums="1" hl_lines="3 8"
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './header/header.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  title = 'first';
+}
+```
+
+Geben Sie am besten zuerst `HeaderComponent` in das `imports`-Array ein (zeile `8`) und wählen dann `QuickFix` aus. Dadurch entsteht Zeile `3` mit der korrekten `import`-Anweisung.
+
+
+Wechseln Sie in den Browser auf den Tab mit Ihrer Anwendung (http://localhost:4200/). Sie sehen folgendes Bild:
 
 ![mycomponent](./files/09_mycomponent1.png)
 
@@ -409,16 +414,16 @@ Oberhalb der Überschrift (`<h1>This is app</h1>`) wurde also der Absatz `<p>hea
 
 ![quelltext](./files/10_entwicklertools.png)
 
-Wir können hier die Attribute der HTML-Elemente vernachlässigen (also z.B. `_nghost-aiq-c17` oder `ng-version="13.0.1"`). Aber es wird folgende HTML-Struktur sichtbar:
+Wir können hier die Attribute der HTML-Elemente vernachlässigen (also z.B. `_nghost-ng-c31...` oder `ng-version="18.2.11"`). Aber es wird folgende HTML-Struktur sichtbar:
 
 ```html
-<htw-root>
-  <htw-header>
+<app-root>
+  <app-header>
     <p>header works!</p>
-  </htw-header>
+  </app-header>
   <h1>This is app</h1>
   <router-outlet></router-outlet>
-</htw-root>
+</app-root>
 ```
 
 Das Element `<htw-root>` fungiert als Platzhalter für die gesamte App. In dieses Element wird der gesamte Inhalt der Anwendung eingebunden (siehe `app.component.html`). Dies ist hier zunächst eine Überschrift `<h1>`, die von dem Element für die `header`-Komponente gefolgt wird. Das bedeutet, dass in das Element `<htw-header>` der Inhalt der Komponente `header` eingebunden wird. Das ist hier nur ein Absatz `<p>` (siehe dazu `header.component.html`). Das Element `<router-outlet>` soll uns an dieser Stelle noch nicht interessieren. Das wird erst interessant, wenn wir über das *Routing* in einer Angular-Anwendung sprechen.  
@@ -452,16 +457,37 @@ Um deutlich zu machen, dass sich die CSS-Definitionen für eine Komponente stets
     ```
 
 
-Wir binden die `nav`-Komponente in die `app.component.html` ein:
+Wir binden die `nav`-Komponente in die `app.component.html`:
 
 
 === "app.component.html"
     ```html
-    <htw-header></htw-header>
-    <htw-nav></htw-nav>
+    <app-header></app-header>
+    <app-nav></app-nav>
     <h1>This is app</h1>
-    <router-outlet>
-    </router-outlet>
+    <router-outlet />
+    ```
+
+und in die `app.component.ts` ein: 
+
+
+=== "app.component.ts"
+    ```js linenums="1" hl_lines="4 9"
+    import { Component } from '@angular/core';
+    import { RouterOutlet } from '@angular/router';
+    import { HeaderComponent } from './header/header.component';
+    import { NavComponent } from './nav/nav.component';
+
+    @Component({
+      selector: 'app-root',
+      standalone: true,
+      imports: [RouterOutlet, HeaderComponent, NavComponent],
+      templateUrl: './app.component.html',
+      styleUrl: './app.component.css'
+    })
+    export class AppComponent {
+      title = 'first';
+    }
     ```
 
 und erhalten folgende Seite: 
@@ -484,11 +510,31 @@ Wir binden die `main`-Komponente in die `app`-Komponente ein und die Komponenten
 
 === "app.component.html"
     ```html
-    <htw-header></htw-header>
-    <htw-nav></htw-nav>
+    <app-header></app-header>
+    <app-nav></app-nav>
     <h1>This is app</h1>
-    <htw-main></htw-main>
-    <router-outlet></router-outlet>
+    <app-main></app-main>
+    <router-outlet />
+    ```
+
+=== "app.component.ts"
+    ```js linenums="1" hl_lines="5 10"
+    import { Component } from '@angular/core';
+    import { RouterOutlet } from '@angular/router';
+    import { HeaderComponent } from './header/header.component';
+    import { NavComponent } from './nav/nav.component';
+    import { MainComponent } from './main/main.component';
+
+    @Component({
+      selector: 'app-root',
+      standalone: true,
+      imports: [RouterOutlet, HeaderComponent, NavComponent, MainComponent],
+      templateUrl: './app.component.html',
+      styleUrl: './app.component.css'
+    })
+    export class AppComponent {
+      title = 'first';
+    }
     ```
 
 === "main.component.html"
@@ -499,15 +545,33 @@ Wir binden die `main`-Komponente in die `app`-Komponente ein und die Komponenten
         </h3>
         <div id="row">
             <div id="left">
-                <htw-left>
-                </htw-left>
+                <app-left>
+                </app-left>
             </div>
             <div id="right">
-                <htw-right>
-                </htw-right>
+                <app-right>
+                </app-right>
             </div>
         </div>
     </div>
+    ```
+
+=== "main.component.ts"
+    ```js linenums="1" hl_lines="2 3 8"
+    import { Component } from '@angular/core';
+    import { LeftComponent } from './left/left.component';
+    import { RightComponent } from './right/right.component';
+
+    @Component({
+      selector: 'app-main',
+      standalone: true,
+      imports: [LeftComponent, RightComponent],
+      templateUrl: './main.component.html',
+      styleUrl: './main.component.css'
+    })
+    export class MainComponent {
+
+    }
     ```
 
 === "main.component.css"
