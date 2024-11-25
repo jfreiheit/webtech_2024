@@ -59,3 +59,7 @@
     color: #800000;
     font-weight: bold;
 }
+
+.highlight .hll {
+    background-color: #ffff005e;
+}

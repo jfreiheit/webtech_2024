@@ -1954,6 +1954,211 @@
     ```
 
 
+??? note "Eine mögliche Lösung für Übung 4a (JavaScript)"
+    === "uebung4.html"
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="../../styles/css/bootstrap.min.css" rel="stylesheet">
+
+        <title>Übung 4</title>
+        <style>
+            #korrekt {
+                display:none;
+            }
+
+            #inkorrekt {
+                display:none;
+                color: red;
+            }
+        </style>
+    </head>
+    <body class="container">
+        
+        <h1 class="m-5">Teilnehmerin Registrierung</h1>
+
+        <div class="row g-3">
+            <div class="form-floating col-6">
+              <input type="text" class="form-control" id="firstName" placeholder="First name" aria-label="First name">
+              <label for="firstName">First name</label>
+              <div class="valid-feedback">
+                Korrekt!
+              </div>
+              <div class="invalid-feedback">
+                Bitte Vornamen eingeben!
+              </div>
+            </div>
+            <div class="form-floating col-6">
+                <input type="text" class="form-control" id="lastName" placeholder="Last name" aria-label="Last name">
+                <label for="lastName">Last name</label>
+                <div class="valid-feedback">
+                    Korrekt!
+                </div>
+                <div class="invalid-feedback">
+                    Bitte Nachnamen eingeben!
+                </div>
+            </div>
+            <div class="form-floating col-6">
+                <input type="email" class="form-control" id="email" placeholder="E-Mail" aria-label="Email">
+                <label for="email">E-Mail</label>
+                <div class="valid-feedback">
+                    Korrekt!
+                </div>
+                <div class="invalid-feedback">
+                    Bitte E-Mail eingeben!
+                </div>
+            </div>
+            <div class="form-floating col-6">
+                <input type="password" class="form-control" id="password" placeholder="Password" aria-label="Password">
+                <label for="password">Password</label>
+                <div class="valid-feedback">
+                    Korrekt!
+                </div>
+                <div class="invalid-feedback">
+                    Bitte Passwort eingeben!
+                </div>
+            </div>
+            <div class="col-3">
+                <button type="reset" class="btn btn-secondary" onclick="reset()">Abbrechen</button>
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-success" onclick="submit()">Registrieren</button>
+            </div>
+        </div>
+        <div id="korrekt">
+            <h4 class="mt-5">Eingegebene Werte</h4>
+            <ul id="results" class="list-group">
+            </ul>
+        </div>
+        <div id="inkorrekt">
+            <h4 class="mt-5">Bitte Eingaben korrigieren</h4>
+        </div>
+
+    </body>
+    <script>
+        function submit() {
+            
+            console.log('Button submit geklickt...');
+
+            let lastName = document.querySelector('#lastName');
+            let lastNameValue = lastName.value;
+
+            let firstName = document.querySelector('#firstName');
+            let firstNameValue = firstName.value;
+
+            let email = document.querySelector('#email');
+            let emailValue = email.value;
+
+            let password = document.querySelector('#password');
+            let passwordValue = password.value;
+
+            if(firstNameValue == '')
+            {
+                firstName.classList.add('is-invalid')
+                firstName.classList.remove('is-valid')
+            }
+            else
+            {
+                firstName.classList.add('is-valid')
+                firstName.classList.remove('is-invalid')
+            }
+
+            if(lastNameValue == '')
+            {
+                lastName.classList.add('is-invalid')
+                lastName.classList.remove('is-valid')
+            }
+            else
+            {
+                lastName.classList.add('is-valid')
+                lastName.classList.remove('is-invalid')
+            }
+
+            if(emailValue == '' || !emailValue.includes('@') || !validateEmail(emailValue))
+            {
+                email.classList.add('is-invalid')
+                email.classList.remove('is-valid')
+            }
+            else
+            {
+                email.classList.add('is-valid')
+                email.classList.remove('is-invalid')
+            }
+
+
+            if(passwordValue == '' || !validatePassword(passwordValue))
+            {
+                password.classList.add('is-invalid')
+                password.classList.remove('is-valid')
+            }
+            else
+            {
+                password.classList.add('is-valid')
+                password.classList.remove('is-invalid')
+            }
+
+            let korrekt = (firstNameValue != '') && (lastNameValue != '') 
+                        && (emailValue != '') && validateEmail(emailValue) 
+                        && (passwordValue != '' && validatePassword(passwordValue))
+
+            console.log('first name value : ', firstNameValue)
+            console.log('last name value : ', lastNameValue)
+            console.log('email value : ', emailValue)
+            console.log('password value : ', passwordValue)
+        
+            if(korrekt)
+            {
+                document.querySelector('#inkorrekt').style.display = 'none';
+                document.querySelector('#korrekt').style.display = 'block';
+                let resultsList = document.querySelector('#results');
+                resultsList.innerHTML = `<li class="list-group-item"> ${firstNameValue} </li>
+                                        <li class="list-group-item"> ${lastNameValue} </li>
+                                        <li class="list-group-item"> ${emailValue} </li>
+                                        <li class="list-group-item"> ${passwordValue} </li>`;
+            }
+            else
+            {
+                document.querySelector('#inkorrekt').style.display = 'block';
+                document.querySelector('#korrekt').style.display = 'none';
+            }
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePassword(password) {
+            // (?=.*[az]) mind ein Kleinbuchstabe
+            // (?=.*[AZ]) mind ein Grossbuchstabe
+            // (?=.*\d)   mind eine Ziffer
+            // (?=.*[@$!%*?&]) mind. ein Sonderzeichen
+            // {8,}       mind Laenge 8
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,}$/;
+            return passwordRegex.test(password);
+        }
+
+        function reset() {
+            document.querySelector('#firstName').value = ''
+            document.querySelector('#lastName').value = ''
+            document.querySelector('#email').value = ''
+            document.querySelector('#password').value = ''
+
+            document.querySelector('#firstName').classList.remove('is-valid', 'is-invalid')
+            document.querySelector('#lastName').classList.remove('is-valid', 'is-invalid')
+            document.querySelector('#email').classList.remove('is-valid', 'is-invalid')
+            document.querySelector('#password').classList.remove('is-valid', 'is-invalid')
+        }
+
+    </script>
+    </html>
+    ```
+
+
 
 
 #### Übung 5
