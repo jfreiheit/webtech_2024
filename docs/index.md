@@ -951,6 +951,10 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 		```
 
 
+??? question "Code Vorlesung Angular Komponenten und Routen"
+	siehe [GitLab-Repo](https://gitlab.rz.htw-berlin.de/freiheit/webtech24) [angular/first](https://gitlab.rz.htw-berlin.de/freiheit/webtech24/-/tree/main/angular/first?ref_type=heads)
+
+
 ## Semesteraufgabe
 
 Am Ende des Kurses geben Sie eine Webanwendung ab. Diese wird bewertet und bildet die Modulnote für "WebTech" (es gibt also keine Klausur o.ä.). Überlegen Sie sich früh, was Sie implementieren wollen. Ihrer Kreativität sind keine Grenzen gesetzt. Es können 2 Studentinnen gemeinsam ein Projekt durchführen und abgeben. Sie erhalten dann (höchstwahrscheinlich) die gleiche Note. Es muss an den Commits erkennbar sein, welchen Anteil am Ergebnis jede der beiden Studentinnen hatte.

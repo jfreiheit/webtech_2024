@@ -2164,7 +2164,7 @@
 #### Übung 5
     
 ??? question "Übungsaufgabe 5 (JavaScript, DOM)"
-    - Laden Sie [hier](https://github.com/jfreiheit/WT23/blob/main/Uebung5.zip) die Datei `Uebung5.zip` herunter, entpacken Sie sie und schieben den Ordner `Uebung5` in Ihren Projektordner.
+    - Laden Sie [hier](https://gitlab.rz.htw-berlin.de/freiheit/webtech24/-/blob/main/Uebung5.zip) die Datei `Uebung5.zip` herunter, entpacken Sie sie und schieben den Ordner `Uebung5` in Ihren Projektordner.
     - In der Datei `uebung5.html` sind einige Dinge vorbereitet:
         - eine Tabelle mit leerem `<tbody>`. Der `<tbody>` hat die `id='tbody'`,
         - wird die Seite geladen, wird die `init()`-Funktion aufgerufen (`onload='init()'`),
@@ -2186,6 +2186,138 @@
         - **Tipp:** Sie laufen in einer Schleife durch das Array, um alle Städte auszulesen. Fügen Sie darin eine Bedingung ein, dass Sie nur die Städte der Tabelle hinzufügen, die der Filter-Eingabe entsprechen.
 
 
+
+
+??? note "Eine mögliche Lösung für Übung 5"
+    === "uebung5.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="../css/bootstrap.min.css" rel="stylesheet">
+            <title>Übung 5</title>
+            <style>
+                img {
+                    width: 50px;
+                }
+            </style>
+        </head>
+        <body class="container" onload="init()">
+            <h1>Städte</h1>
+            <div class="row my-4">
+                <div class="col-2">
+                    <label for="filter">Filter:</label>
+                </div>
+                <div class="col-10">
+                    <input type="text" class="form-control" id="filter" oninput="createTable()"/>
+                </div>     
+            </div>
+            <table class="table table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Nr</th>
+                        <th scope="col">Jahr</th>
+                        <th scope="col">Stadt</th>
+                        <th scope="col">Link</th>
+                        <th scope="col">Bild</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    
+                </tbody>
+            </table>
+            <script>
+                let staedtearr = [];
+
+                async function getStaedte() {
+
+                    const request = new Request('staedte.json', {
+                            method: 'GET',      // GET ist default
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                    const response = await fetch('staedte.json');
+                    console.log(response);
+                    return response.json();
+                }
+
+                function createTable() {
+                    let input = document.getElementById('filter').value; 
+
+                    if(staedtearr.length > 0)
+                    {
+                        let tbody = document.getElementById('tbody');
+                        tbody.innerHTML = '';
+                        let nr = 1;
+                        for(let stadtObj of staedtearr) {
+                            console.log('stadt : ', stadtObj.stadt)
+                            if(input.toLowerCase() == stadtObj.stadt.substring(0,input.length).toLowerCase()) {
+                                let tr = document.createElement('tr');
+
+                                let td1 = document.createElement('td');
+                                td1.innerText = nr++;
+                                tr.appendChild(td1);
+
+                                let td2 = document.createElement('td');
+                                td2.innerText = stadtObj.jahr;
+                                tr.appendChild(td2);
+
+                                let td3 = document.createElement('td');
+                                td3.innerText = stadtObj.stadt;
+                                tr.appendChild(td3);
+
+                                let td4 = document.createElement('td');
+                                td4.innerHTML = `<a class="btn btn-success btn-sm" href="${stadtObj.link}">Link</a>`;
+                                tr.appendChild(td4);
+
+                                let td5 = document.createElement('td');
+                                td5.innerHTML = `<img src="${stadtObj.bild}" als="${stadtObj.stadt}" />`;
+                                tr.appendChild(td5);
+
+                                tbody.appendChild(tr);
+                            }
+                        }
+                        
+                        
+                        // hier muessen jetzt die einzelnen Zeilen in die Tabelle eingelesen werden
+                        // das Staedte-Array muss ausgelesen werden (z.B. for(stadt of staedtearr)
+                        // Tipp: zunaechst einfach alle anzeigen lassen und erst dann das Filtern einbauen
+                        // Filtern: die Eingabe mit dem jeweiligen Gruendungsjahr bzw. der jeweiligen Stadt
+                        // vergleichen (siehe z.B. substring(0, input.length) und toLowerCase())
+                        // wenn match, dann entsprechende Zeile einfuegen; sonst nicht
+                    }
+                }
+
+                function init() {
+
+                    getStaedte()
+                    .then( jsonObj => {
+                        console.log( 'body --> ', jsonObj);
+                        return jsonObj.staedte;
+                    })
+                    .then (alleStaedteAlsArray => {
+                        console.log('staedte array -->', alleStaedteAlsArray);
+                        staedtearr = alleStaedteAlsArray;
+                        createTable();
+                    })
+                            
+                    // hier getStaedte() aufrufen und
+                    // staedtearr befuellen!
+                    // siehe Promises!
+
+                    
+
+                }
+
+                
+            </script>
+        </body>
+        </html>
+        ```
 
 
 
@@ -2214,11 +2346,154 @@
 
 
 
+??? note "Eine mögliche Lösung für Übung 6"
+    === "Start"
+        ```bash
+        ng new uebung6
+        cd uebung
+        ng g c header
+        ng g c nav
+        ng g c footer
+        ng g c table
+        ng g c form
+        ng serve
+        ```
+    === "app.component.html"
+        ```html
+        <app-header></app-header>
+        <app-nav></app-nav>
+        <router-outlet />
+        <app-footer></app-footer>
+        ```
+    === "app.component.css"
+        ```css
+        :host {
+            font-family:Verdana, Geneva, Tahoma, sans-serif
+        }
+        ```
+    === "app.component.ts"
+        ```js linenums="1" hl_lines="3-5 10"
+        import { Component } from '@angular/core';
+        import { RouterOutlet } from '@angular/router';
+        import { HeaderComponent } from './header/header.component';
+        import { NavComponent } from './nav/nav.component';
+        import { FooterComponent } from './footer/footer.component';
+
+        @Component({
+          selector: 'app-root',
+          standalone: true,
+          imports: [RouterOutlet, HeaderComponent, NavComponent, FooterComponent],
+          templateUrl: './app.component.html',
+          styleUrl: './app.component.css'
+        })
+        export class AppComponent {
+          title = 'uebung6';
+        }
+        ```
+    === "header.component.html"
+        ```html
+        <div class="header">
+            <h1>Uebung 6</h1>
+        </div>
+        ```
+    === "header.component.css"
+        ```css
+        .header {
+            background-color: grey;
+            padding: 1%;
+            text-align: center;
+            color: white;
+        }
+        ```
+    === "footer.component.html"
+        ```html
+        <div class="footer">
+            <p>J. Freiheit</p>
+        </div>
+        ```
+    === "footer.component.css"
+        ```css
+        .footer {
+            position: fixed;
+            bottom: 0;
+            background-color: grey;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+        ```
+    === "nav.component.html"
+        ```html
+        <div class="nav">
+            <ul>
+                <li><a routerLink="">Home</a></li>
+                <li><a routerLink="/create">Create</a></li>
+                <li><a routerLink="/read">Read</a></li>
+            </ul>
+        </div>
+        ```
+    === "nav.component.css"
+        ```css
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+          }
+          
+          li {
+            float: left;
+          }
+          
+          li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+          }
+          
+          li a:hover {
+            background-color: #111;
+          }
+        ```
+    === "nav.component.ts"
+        ```js linenums="1" hl_lines="2 7"
+        import { Component } from '@angular/core';
+        import { RouterLink } from '@angular/router';
+
+        @Component({
+          selector: 'app-nav',
+          standalone: true,
+          imports: [RouterLink],
+          templateUrl: './nav.component.html',
+          styleUrl: './nav.component.css'
+        })
+        export class NavComponent {
+
+        }
+        ```
+    === "app.routes.ts"
+        ```js linenums="1" hl_lines="2 3 6 7"
+        import { Routes } from '@angular/router';
+        import { TableComponent } from './table/table.component';
+        import { FormComponent } from './form/form.component';
+
+        export const routes: Routes = [
+            { path: 'read', component: TableComponent},
+            { path: 'create', component: FormComponent}
+        ];
+        ```
+
+
+
+
 #### Übung 7
     
 ??? question "Übungsaufgabe 7 (JSON, Direktiven, Bindings)"
-    - Erstellen Sie ein neues Angular-Projekt `Uebung7` (siehe  [hier](angular.md#erstes-projekt-erstellen)) oder nutzen Sie Ihre Implementierung aus `Uebung6`. 
-    - Erstellen Sie im `assets`-Ordner eine Datei `members.json` mit folgendem Inhalt:
+    - Nutzen Sie Ihre Implementierung aus `Uebung6`  - wenn nicht, erstellen Sie ein neues Angular-Projekt `Uebung7` (siehe  [hier](angular.md#erstes-projekt-erstellen)). 
+    - Erstellen Sie im `public`-Ordner eine Datei `members.json` mit folgendem Inhalt:
 
         ??? "assets/members.json"
 
@@ -2486,7 +2761,7 @@
 
         ![uebung7](./files/290_uebung7.png)
 
-    - Alle Bilder sind nur Anregungen, kann gerne ganz anders aussehen. Gerne können Sie auch Bootstrap einbinden und verwenden (siehe [hier](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)).
+    - Alle Bilder sind nur Anregungen, kann gerne ganz anders aussehen. Gerne können Sie auch Bootstrap einbinden und verwenden (siehe z.B. [hier](https://medium.com/@interviewpro/adding-bootstrap-to-your-angular-project-2e543ef52bef)).
 
 
 
