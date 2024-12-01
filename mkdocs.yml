@@ -77,7 +77,7 @@ nav:
     - RWD: rwd.md 
     - JavaScript: javascript.md 
     - Angular: angular.md 
-    - JSON und Direktiven: angular2.md
+    - JSON und Templates: angular2.md
     - Routing und Services: routing.md 
     - Backend (MongoDB): backend.md 
     - Backend (PostgreSQL): backend_pg.md

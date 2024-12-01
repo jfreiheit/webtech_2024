@@ -937,31 +937,17 @@ Mithilfe von `JSON.parse()` erzeugen Sie aus einem JSON ein JavaScript-Objekt. B
 }
 ```
 
-### Optionale Verkettung
 
-Der `?`-Operator wird verwendet, wenn nicht sicher ist, ob eine Eigenschaft existiert bzw. ob ein Wert für die Eigenschaft gesetzt ist. Betrachten wir folgendes Beispiel:
+### Arrow-Funktionen
 
-```js linenums="1"
-let person = {
-    vorname : "Maria",
-    nachname: "Musterfrau",
-    adresse : {
-        strasse : "Wilhelminenhofstr.",
-        nummer: 75,
-        ort: "Berlin",
-        plz: 12459
-    }
-}
+*Arrow-Funktionen* werden auch als *Lambda-Ausdrücke* bezeichnet. Eine Arrow-Funktion ist eine Kurzschreibweise für eine anonyme Funktion. Anstelle von `function()` schreibt man nur noch einen Pfeil. Enthält die anonyme Funktion sogar nur ein Argument (Parameter), kann man links vom Pfeil sogar die runden Klammern weglassen. Auch die geschweiften Klammern des Funktionskörpers können entfallen. Wenn die geschweiften Klammwern weggelassen werden, dann entspricht die rechte Seite des Pfeils dem Rückgabewert der Funktion, d.h. es kann sogar `return` weggelassen werden. Folgende Funktionsdefinitionen sind äquivalent:
+
+```js
+function(foo) = {return foo+1;}
+(foo) => {return foo+1;}
+foo => {return foo+1;}
+foo => foo+1;
 ```
-
-Dann kann der `?`-Operator z.B. so verwendet werden:
-
-```js linenums="1"
-person.adresse?.ort
-```
-
-Die Idee dahinter ist, dass auf die Eigenschaft zugegriffen werden kann, wenn sie existiert und wenn sie einen Wert besitzt. Dieser Operator vermeidet Laufzeitfehler bzw. eine Abfrage auf Existenz.  
-
  
 ### Arrays
 
@@ -1016,6 +1002,256 @@ var staedte = [
 ``` 
 
 Dann sind die Elemente des Arrays numerisch indiziert. 
+
+### Operatoren über Arrays
+
+Angenommen, wir haben obiges Objekt in `membersJSON` gespeichert, dann ist der Wert der Variable `membersArray` das darin enthaltene Array, wenn wir `let membersArray = membersJSON.members` definieren.
+
+#### `length`
+
+`length` gibt die Länge des Arrays zurück, z.B. `membersArray.length // 50`. 
+
+#### `foreach`
+
+`foreach()` ist eine Möglichkeit, für alle Elemente eines Arrays eine Funktion auszuführen, z.B.:
+
+```js
+let liste = "<ul>";
+membersArray.forEach(createListItem);
+liste += "</ul>";
+
+function createListItem(value) {
+    liste += `<li> <a href='mailto: ${value.email}'>${value.forename} ${value.surname}</a></li>`;
+}
+
+document.getElementById('listDiv').innerHTML = liste;
+```
+
+ergibt 
+
+![arrays](./files/264_arrays.png)
+
+#### `push()`
+
+Mithilfe von `push` kann einem Array ein weiteres Element hinzugefügt werden, z.B. 
+
+```js
+membersArray.push({
+        forename: "Maria",
+        surname: "Mueller",
+        email: "maria@mueller.org"
+    })
+```
+
+Wir hätten denselben Effekt auch erzielen können, indem wir 
+
+```js
+membersArray[membersArray.length] = {
+        forename: "Maria",
+        surname: "Mueller",
+        email: "maria@mueller.org"
+    }
+```
+
+geschrieben  und somit die Arraylänge als neuen Index verwendet hätten. Das Hinzufügen von Elementen über die Index-Schreibweise birgt jedoch die Gefahr des Überschreibens (wenn der Index bereits existiert) oder des Entstehens von "Löchern", wenn ein Index verwendet wird, der sich nicht an den letzten Index anschließt.
+
+#### `pop()`
+
+`pop` entfernt das letzte Element aus dem Array und gibt es zurück, z.B. 
+
+```js
+let lastElement = membersArray.pop()
+console.log(lastElement)    // das letzte Element
+console.log(membersArray)   // letzte Element ist entfernt
+```
+
+#### `shift()`
+
+`shift` entfernt das erste Element aus dem Array und gibt es zurück. Alle nachfolgenden Elemente rücken nach vorne auf, so dass der Index weiterhin mit `0` beginnt, z.B. 
+
+```js
+let firstElement = membersArray.shift()
+console.log(firstElement)    // das letzte Element
+console.log(membersArray)   // erstes Element ist entfernt und alle 
+                            // nachfolgenden Elemente sind nach 
+                            // vorne gerueckt
+```
+
+
+#### `unshift()`
+
+`unshift` fügt ein Element an die erste Stelle des Arrays ein und "shifted" alle nachfolgenden Elemente um eine Stelle nach hinten. Die `unshift()`-Funktion gibt die neue Länge des Arrays zurück, z.B. 
+
+```js
+let newLength = membersArray.unshift({
+        forename: "Maria",
+        surname: "Mueller",
+        email: "maria@mueller.org"
+    })
+```
+
+#### `delete`
+
+`delete` löscht Elemente im Array unter Angabe des Index. Allerdings hinterlässt `delete` "Löcher" im Array (Elemente, die `undefined` sind). `pop` und `shift` sind deutlich besser, da sie keine "Löcher" hinterlassen. Deshalb sollte `delete` nur vernünftig verwendet werden, nämlich indem nach `delete` die nachfolgenden Elemente nach vorne shiften. 
+
+```js
+let indexDelete = 13;
+delete membersArray[indexDelete];   // membersArray[13] nun undefined
+console.log(membersArray)           // Laenge immernoch 50
+console.log(membersArray[13])       // undefined
+for(let i = indexDelete; i < membersArray.length; i++) {
+    membersArray[i] = membersArray[i+1]     // alle nachfolgenden nach links shiften
+}
+membersArray.pop()                  // letztes Element ist undefined und wird entfernt
+```
+
+Für Löschen von Elementen aus Arrays siehe auch [hier](https://love2dev.com/blog/javascript-remove-from-array/).
+
+#### `concat()`
+
+`concat()` ist hauptsächlich dazu da, mehrere Arrays zu einem zu verschmelzen. Angenommen, Sie haben ein Array `arr1` und ein Array `arr2`. Dann können Sie `let arr3 = arr1.concat(arr2);` schreiben und in `arr3` sind dann alle Elemente aus `arr1` (zuerst) **und** `arr2` (folgend). Beachten Sie, dass `arr1` dabei unverändert bleibt, d.h. nur `arr1.concat(arr2);` hat keinen Effekt. Sie müssten dann `arr1 = arr1.concat(arr2);` schreiben. 
+
+Sie können `concat()` auch dazu verwenden, ein einzelnes Element dem Arry hinzuzufügen, z.B. 
+
+```js
+membersArray = membersArray.concat({
+        forename: "Maria",
+        surname: "Mueller",
+        email: "maria@mueller.org"
+    })
+```
+
+Sie können auch mehrere Arrays in einem Schritt miteienander verbinden, z
+
+#### `splice()`
+
+`splice()` kann verwendet werden, um entweder Elemente zu einem Array an einer bestimmten Position hinzuzufügen oder um eine bestimmte Anzahl von Elementen zu löschen. Dazu erwartet `splice()` zunächst zwei Parameter. Der erste Parameter gibt den Index an, von dem entweder gelöscht oder eingefügt werden soll. Der zweite Parameter gibt entweder die Anzahl der zu löschenden Elemente an oder er ist `0`, dann soll eingefügt werden. Ist der zweite Parameter größer als `0` und es folgen weitere Parameter, dann handelt es sich um Ersetzen von Elementen im Array. Beispiele:
+
+```js
+membersArray.splice(13, 4);              // loescht 4 Elemente beginnend bei Index 13
+membersArray.splice(13, 0, ob1, obj2);   // fuegt die beiden Objekte obj1 und obj2 ab Index 13 hinzu
+membersArray.splice(13, 2, ob1, obj2);   // ersetzt die beiden Objekte in Index 13 und 14 durch obj1 und obj2
+```
+
+Die Rückgabe von `splice()` ist das Array der gelöschten (ersetzten) Elemente. 
+
+#### `slice()`
+
+`sclice()` erzeugt ein neues Array aus einem gegebenen Array und kopiert in das neue Array die Elemente ab dem Index, der in `slice()` als Parameter übergeben wird. Wird ein zweiter Parameter angegeben, handelt es sich dabei um die Anzahl der zu kopierenden Elemente. 
+
+
+```js
+let newArray = membersArray.slice(13);    // kopiere alle Elemente ab Index 13 nach newArray
+newArray = membersArray.splice(13, 5);    // kopiere 5 Elemente ab Index 13 nach newArray
+```
+#### `sort()`
+
+`sort()` sortiert ein Array. Allerdings ist zu beachten, dass `sort()` nur korrekt funktioniert, wenn es sich bei den Elementen um Strings handelt. Zahlen würden z.B. falsch sortiert werden, da `2` z.B. größer als `10` wäre, da `"2"` lexikographisch nach `"10"` (`"1"`) käme. Um z.B. Zahlen zu sortieren, könnte der `sort()`-Funktion z.B. folgende Funktion als Callback übergeben werden:
+
+```js
+numbersArrayToBeSorted.sort(function(a, b){return b - a});
+```
+
+Damit wird eine `compare()`-Methode implementiert. Gibt diese Methode für `b-a` einen Wert größer als `0` zurück, dann ist `b` größer als `a`, gibt sie einen Wert kleiner als `0` zurück, dann ist `a` größer als `b` und wenn der Rückgabewert `0` ist, dann gilt `a == b`. 
+
+Um z.B. das `membersArray` nach der Eigenschaft `forename` zu sortieren, kann folgende Funktion verwendet werden: 
+
+```js
+membersArray.sort(function(a,b) {
+  let a1 = a.forename.toLowerCase();
+  let b1 = b.forename.toLowerCase();
+  if(a1 < b1) return -1;
+  if(a1 > b1) return 1;
+  return 0;
+});
+```
+
+In Arrow-Notation sieht die Funktion wie folgt aus:
+
+```js
+membersArray.sort((a,b) => {
+  let a1 = a.forename.toLowerCase();
+  let b1 = b.forename.toLowerCase();
+  if(a1 < b1) return -1;
+  if(a1 > b1) return 1;
+  return 0;
+});
+```
+
+Wir wandeln zunächst alle Vornamen in Strings mit Kleinbuchstaben um und implementieren dann eine `compare()`-Funktion wie oben. Sollte z.B. nach der Eigenschaft `surname` sortiert werden, müsste im Code `forename` durch `surname` ersetzt werden. 
+
+#### `map()`
+
+`map()` wird verwendet, um eine Funktion auf alle Elemente des Arrays anzuwenden. Diese Funktion wird der `map()`-Funktion als Callback übergeben. Folgender Code stellt allen E-Mailadressen aus `membersArray` ein "mailto:" voran:
+
+```js
+let mailTo = membersArray.map( (value) => {
+    return value['email'] = "mailto: " + value['email'];
+})
+```
+
+Das `mailTo`-Array enthält dann nur alle Werte der `email`-Eigenschaft, sieht also so aus:
+
+```bash
+['mailto: aanderson8@google.fr', 'mailto: abradley1c@globo.com', 'mailto: avasquezo@miibeian.gov.cn', 'mailto: aortizw@histats.com', 'mailto: anelson13@indiatimes.com', 'mailto: agardnerv@woothemes.com', 'mailto: abrooks16@bravesites.com', 'mailto: akim4@odnoklassniki.ru', 'mailto: bcoleman11@fc2.com', 'mailto: candrewsp@noaa.gov', 'mailto: dgeorge6@furl.net', 'mailto: ehicksc@pcworld.com', 'mailto: ematthews5@independent.co.uk', 'mailto: emillere@creativecommons.org', 'mailto: ecoleman15@businessweek.com', 'mailto: ewilliamsi@deliciousdays.com', 'mailto: jford14@cnet.com', 'mailto: jmarshallt@gnu.org', 'mailto: jroberts12@alibaba.com', 'mailto: jmoralesa@ovh.net', 'mailto: kroseg@pinterest.com', 'mailto: lstephens19@hugedomains.com', 'mailto: lolsonr@telegraph.co.uk', 'mailto: mevansh@pcworld.com', 'mailto: maria@mueller.org', 'mailto: maria@mueller.org', 'mailto: mmorganb@cloudflare.com', 'mailto: mthompsonz@yelp.com', 'mailto: mjohnsonj@hostgator.com', 'mailto: mrichardson1d@ihg.com', 'mailto: mporter9@europa.eu', 'mailto: mwatkins0@miibeian.gov.cn', 'mailto: nthompson3@admin.ch', 'mailto: pphillipss@1688.com', 'mailto: rmcdonald2@ihg.com', 'mailto: rcunninghamd@mac.com', 'mailto: rcruz7@unc.edu', 'mailto: rcampbell1@geocities.com', 'mailto: rbrownq@nifty.com', 'mailto: rcampbell17@eventbrite.com', 'mailto: rjordan1a@smugmug.com', 'mailto: rburton18@foxnews.com', 'mailto: sgibsony@alexa.com', 'mailto: sscottm@macromedia.com', 'mailto: ssanders1b@wikispaces.com', 'mailto: shamiltonu@state.tx.us', 'mailto: sandrewsn@google.co.jp', 'mailto: trayx@weather.com', 'mailto: vgrahamk@aol.com', 'mailto: vhawkinsf@ehow.com']
+```
+
+Wenn `mailTo` alle Objekte vollständig enthalten sollte, dann müsste die Funktion so aussehen:
+
+```js
+let mailTo = membersArray.map( (value) => {
+    value['email'] = "mailto: " + value['email'];
+    return value;
+})
+```
+
+Da es sich bei den Elementen im Array um Objekte handelt, sind auch die Einträge im `membersArray` entsprechend geändert. Das wäre bei Nicht-Objekten (z.B. Strings oder Numbers)  nicht der Fall.
+
+Die Callback-Funktion könnte auch drei Parameter erwarten: `(value, index, array)`, wobei es sich bei `array` um das Array selbst, also `membersArray` handelt.
+
+#### `filter()`
+
+Mithilfe der `filter()`-Funktion können Elemente aus einem Array gefiltert und in ein neues Array kopiert werden. Angenommen, wir wollen alle Elemente, in denen der Vorname mit `R` beginnt, herausfiltern:
+
+```js
+let forenamesStartingWithR = membersArray.filter ( (value) => {
+    if(value.forename.startsWith("R"))
+    {
+        return value;
+    }
+})
+```
+
+Dann sieht `forenamesStartingWithR` so aus:
+
+```bash
+0 : {forename: 'Raymond', surname: 'Mcdonald', email: 'mailto: rmcdonald2@ihg.com'}
+1 : {forename: 'Rebecca', surname: 'Cunningham', email: 'mailto: rcunninghamd@mac.com'}
+2 : {forename: 'Richard', surname: 'Cruz', email: 'mailto: rcruz7@unc.edu'}
+3 : {forename: 'Roy', surname: 'Campbell', email: 'mailto: rcampbell1@geocities.com'}
+4 : {forename: 'Russell', surname: 'Brown', email: 'mailto: rbrownq@nifty.com'}
+5 : {forename: 'Russell', surname: 'Campbell', email: 'mailto: rcampbell17@eventbrite.com'}
+6 : {forename: 'Ruth', surname: 'Jordan', email: 'mailto: rjordan1a@smugmug.com'}
+7 : {forename: 'Ryan', surname: 'Burton', email: 'mailto: rburton18@foxnews.com'}
+```
+
+#### Weitere Array-Funktionen
+
+Auch die folgenden Funktionen erwarten eine Callback-Funktion als Parameter.
+
+- `reduce()` reduziert ein Array auf einen einzigen Wert. Wird z.B. für ein Array aus lauter Zahlen angewendet, um die Gesamtsumme der Zahlen zu ermitteln oder den Durchschnitt. 
+- `every()` prüft, ob **alle** Elemente des Arrays eine bestimmte Bedingung erfüllen, z.B. größer als `0` sind oder ungleich `undefined`. Gibt ein `true` zurück, wenn die Bedingung für alle gilt, `false` sonst.
+- `some()` prüft, ob **mindestens ein** Element des Arrays eine bestimmte Bedingung erfüllen, z.B. größer als `0` ist oder ungleich `undefined`. Gibt ein `true` zurück, wenn die Bedingung für mindestens ein Element gilt, `false` sonst.
+- `find()` gibt das erste Element zurück, für das eine bestimmte Bedingung gilt. `find()` muss nicht zwingend eine Callback-Funktion übergeben werden, kann auch ein Wert für ein Element sein.
+- `findIndex()` gibt den Index des ersten Elementes zurück, für das die übergebene Funktion passt.
+
+Die folgenden Funktionen erwarten keine Callback-Funktion:
+
+- `includes()` prüft, ob ein Element im Array existiert. Das Element wird als Parameter übergeben. Gibt `true` zurück, wenn das Element existiert, `false` sonst.
+- `entries()` gibt ein Array aus den Schlüssel-Wertepaaren des Arrays zurück.
+- `keys()` gibt ein Array aller Schlüssel (Indizes) des Arrays zurück.
+- `indexOf()` gibt den (ersten) Index des Elementes im Array zurück, welches als Parameter übergeben wird.
+- `lastIndexOf()` gibt den (letzten) Index des Elementes im Array zurück, welches als Parameter übergeben wird.
 
 
 ### JavaScript ist dynamisch typisiert

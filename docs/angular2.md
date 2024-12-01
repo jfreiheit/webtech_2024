@@ -4,7 +4,7 @@ In diesem Kapitel geht es darum, wie wir innerhalb einer Komponente mit TypeScri
 
 ## JavaScript Object Notation (JSON)
 
-Eine kurze Einführung zu Objekten in JavaScript haben wir bereits im [**JavaScript-Kapitel**](javascript.md#javascript) gegeben. Dort haben wir auch gesagt, dass wir auf die Notation solcher Objekte in JavaScript nochmal genauer eingehen wollen. Dies geschieht hier. *JavaScript Object Notation (JSON)* ist ein Datenaustauschformat, das einerseits einfach für Menschen zu lesen und zu schreiben ist und andererseits gut von Maschinen *geparst* (analysiert) und erzeugt werden kann. Ein Objekt in JSON beginnt mit einer geschweiften Klammer `{` und endet mit `}`. JSON besteht im wesentlichen aus Schlüssel-Werte-Paaren, die durch Komma getrennt sind. 
+Eine kurze Einführung zu Objekten in JavaScript haben wir bereits im [**JavaScript-Kapitel**](javascript.md#objekte) gegeben. Dort haben wir auch gesagt, dass wir auf die Notation solcher Objekte in JavaScript nochmal genauer eingehen wollen. Dies geschieht hier. *JavaScript Object Notation (JSON)* ist ein Datenaustauschformat, das einerseits einfach für Menschen zu lesen und zu schreiben ist und andererseits gut von Maschinen *geparst* (analysiert) und erzeugt werden kann. Ein Objekt in JSON beginnt mit einer geschweiften Klammer `{` und endet mit `}`. JSON besteht im wesentlichen aus Schlüssel-Werte-Paaren, die durch Komma getrennt sind. 
 
 ```bash
 {
@@ -13,7 +13,7 @@ Eine kurze Einführung zu Objekten in JavaScript haben wir bereits im [**JavaScr
 }
 ```
 
-Die *Schlüssel* sind Strings in doppelten Hochkamma (`""`), dann folgt ein Doppelpunkt `:` und dann folgt der Wert. *Werte* können Strings, Zahlen, Wahrheitswerte, Arrays, Funktionen und Objekte (und `null`) sein. 
+Die *Schlüssel* sind Strings in doppelten Hochkamma (`""`), dann folgt ein Doppelpunkt `:` und dann folgt der Wert. *Werte* können Strings, Zahlen, Wahrheitswerte, Arrays und Objekte (und `null`) sein. 
 
 Hier ein Beispiel (erweitert [**aus**](https://wiki.selfhtml.org/wiki/JSON)):
 
@@ -34,11 +34,7 @@ Hier ein Beispiel (erweitert [**aus**](https://wiki.selfhtml.org/wiki/JSON)):
       "alter": 14,
       "schulabschluss": null
     }
-  ],
-  "biografie": function() {
-            return this.name + " ist " + this.alter + " und hat " + this.kinder.length + " Kinder.";
-  },
-
+  ]
 }
 ```
 
@@ -70,11 +66,8 @@ let georg = {
 			      "alter": 14,
 			      "schulabschluss": null
 			    }
-			  ],
-			  "biografie": function() {
-			            return this.name + " ist " + this.alter + " und hat " + this.kinder.length + " Kinder.";
-			  },
-			};
+			  ]
+			}
 ```
 
 Dann können wir auf die einzelnen Werte wie folgt zugreifen:
@@ -85,7 +78,6 @@ georg.alter 	// 47
 let kinder = georg.kinder; 	// Array aus 2 Objekten
 kinder[0].name		// "Lukas"
 kinder[1].name 		// "Lisa"
-georg.biografie()	// "Georg ist 47 und hat 2 Kinder."
 ```
 
 Man kann übrigens auch anstelle der Punktnotation ein JSON wie ein assoziatives Array auffassen und z.B. anstelle von `georg.name` über `georg['name']` auf den Wert `"Georg"` zugreifen. 
@@ -127,6 +119,133 @@ Dann ist der Zugriff über den Index (also z.B. `georg.kinder[0]`) nicht mehr m�
 georg.kinder.erstesKind.name
 georg.kinder.zweitesKind.alter
 ```
+
+### JSON.parse() und JSON.stringify()
+
+Um JavaScript-Objekte nach JSON zu konvertieren, steht die JavaScript-Funktion `JSON.stringify()` zur Verfügung. Um aus einem JSON ein JavaScript-Objekt zu machen, wird `JSON.parse()` angewendet. Bei der Konvertierung von einem Objekt nach JSON gelten zwei einfache Regeln:
+
+- in JavaScript-Objekten sind die Schlüssel nicht als Strings in `""` eingefasst, in JSON aber doch
+- in JavaScript-Objekten können die Werte auch Funktionen sein, in JSON nicht
+
+Angenommen, wir haben folgendes JavaScript-Objekt (im Unterschied zu oben, kann in Objekten eine Eigenschaft auch eine Funktion als Wert besitzen):
+
+```js
+let georgObj = {
+  name: "Georg",
+  alter: 47,
+  verheiratet: false,
+  beruf: null,
+  kinder: [
+    {
+      name: "Lukas",
+      alter: 19,
+      schulabschluss: "Gymnasium"
+    },
+    {
+      name: "Lisa",
+      alter: 14,
+      schulabschluss: null
+    }
+  ],
+  biografie: function() {
+            return this.name + " ist " + this.alter + " und hat " + this.kinder.length + " Kinder.";
+  },
+}
+```
+Wir könnten z.B. aufrufen:
+```js
+console.log(georgObj.kinder[1].name)
+console.log(georgObj.biografie())
+```
+und bekämen die Ausgaben:
+```bash
+Lisa
+Georg ist 47 und hat 2 Kinder.
+```
+
+Wir können dieses Objekt nun mithilfe von `JSON.stringify()` in ein JSON umwandeln:
+```js
+let georgJSON = JSON.stringify(georgObj)
+```
+
+Das JSON sieht dann wie folgt aus:
+```json
+{
+  "name":"Georg",
+  "alter":47,
+  "verheiratet":false,
+  "beruf":null,
+  "kinder":[
+    {
+      "name":"Lukas",
+      "alter":19,
+      "schulabschluss":"Gymnasium"
+    },
+    {
+      "name":"Lisa",
+      "alter":14,
+      "schulabschluss":null
+    }
+  ]
+}
+```
+
+Alle Schlüssel sind in `""` eingefasst und die Funktion `biografie` wurde entfernt.
+
+Wandeln wir dieses JSON wieder mithilfe von `JSON.parse()` zurück in ein Objekt
+```js
+let georgObjFromJSON = JSON.parse(georgJSON)
+```
+
+erhalten wir
+```js
+{
+  name: "Georg",
+  alter: 47,
+  verheiratet: false,
+  beruf: null,
+  kinder: [
+    {
+      name: "Lukas",
+      alter: 19,
+      schulabschluss: "Gymnasium"
+    },
+    {
+      name: "Lisa",
+      alter: 14,
+      schulabschluss: null
+    }
+  ]
+}
+```
+
+wobei das `kinder`-Array ebenfalls numerisch indiziert ist (Index `0` und `1`). Das gilt auch für das JSON.
+
+
+### Optionale Verkettung
+
+Der `?`-Operator wird verwendet, wenn nicht sicher ist, ob eine Eigenschaft existiert bzw. ob ein Wert für die Eigenschaft gesetzt ist. Betrachten wir folgendes Beispiel:
+
+```js linenums="1"
+let person = {
+    vorname : "Maria",
+    nachname: "Musterfrau",
+    adresse : {
+        strasse : "Wilhelminenhofstr.",
+        nummer: 75,
+        ort: "Berlin",
+        plz: 12459
+    }
+}
+```
+
+Dann kann der `?`-Operator z.B. so verwendet werden:
+
+```js linenums="1"
+person.adresse?.ort
+```
+
+Die Idee dahinter ist, dass auf die Eigenschaft zugegriffen werden kann, wenn sie existiert und wenn sie einen Wert besitzt. Dieser Operator vermeidet Laufzeitfehler bzw. eine Abfrage auf Existenz.  
 
 ### Viele Objekte im Array
 
@@ -392,287 +511,43 @@ Wenn Sie viele "gleiche" Objekte speichern, dann in einem Array. Die folgende Da
 
 Ein Array ist stets numerisch indiziert, d.h. Sie können unter Verwendung des Index die einzelnen Objekte auslesen. 
 
-### Operatoren über Arrays
 
-Angenommen, wir haben obiges Objekt in `membersJSON` gespeichert, dann ist der Wert der Variable `membersArray` das darin enthaltene Array, wenn wir `let membersArray = membersJSON.members` definieren.
+## Templates (Bindings)
 
-#### `length`
-
-`length` gibt die Länge des Arrays zurück, z.B. `membersArray.length // 50`. 
-
-#### `foreach`
-
-`foreach()` ist eine Möglichkeit, für alle Elemente eines Arrays eine Funktion auszuführen, z.B.:
-
-```js
-let liste = "<ul>";
-membersArray.forEach(createListItem);
-liste += "</ul>";
-
-function createListItem(value) {
-    liste += `<li> <a href='mailto: ${value.email}'>${value.forename} ${value.surname}</a></li>`;
-}
-
-document.getElementById('listDiv').innerHTML = liste;
-```
-
-ergibt 
-
-![arrays](./files/264_arrays.png)
-
-#### `push()`
-
-Mithilfe von `push` kann einem Array ein weiteres Element hinzugefügt werden, z.B. 
-
-```js
-membersArray.push({
-        forename: "Maria",
-        surname: "Mueller",
-        email: "maria@mueller.org"
-    })
-```
-
-Wir hätten denselben Effekt auch erzielen können, indem wir 
-
-```js
-membersArray[membersArray.length] = {
-        forename: "Maria",
-        surname: "Mueller",
-        email: "maria@mueller.org"
-    }
-```
-
-geschrieben  und somit die Arraylänge als neuen Index verwendet hätten. Das Hinzufügen von Elementen über die Index-Schreibweise birgt jedoch die Gefahr des Überschreibens (wenn der Index bereits existiert) oder des Entstehens von "Löchern", wenn ein Index verwendet wird, der sich nicht an den letzten Index anschließt.
-
-#### `pop()`
-
-`pop` entfernt das letzte Element aus dem Array und gibt es zurück, z.B. 
-
-```js
-let lastElement = membersArray.pop()
-console.log(lastElement)    // das letzte Element
-console.log(membersArray)   // letzte Element ist entfernt
-```
-
-#### `shift()`
-
-`shift` entfernt das erste Element aus dem Array und gibt es zurück. Alle nachfolgenden Elemente rücken nach vorne auf, so dass der Index weiterhin mit `0` beginnt, z.B. 
-
-```js
-let firstElement = membersArray.shift()
-console.log(firstElement)    // das letzte Element
-console.log(membersArray)   // erstes Element ist entfernt und alle 
-                            // nachfolgenden Elemente sind nach 
-                            // vorne gerueckt
-```
-
-
-#### `unshift()`
-
-`unshift` fügt ein Element an die erste Stelle des Arrays ein und "shifted" alle nachfolgenden Elemente um eine Stelle nach hinten. Die `unshift()`-Funktion gibt die neue Länge des Arrays zurück, z.B. 
-
-```js
-let newLength = membersArray.unshift({
-        forename: "Maria",
-        surname: "Mueller",
-        email: "maria@mueller.org"
-    })
-```
-
-#### `delete`
-
-`delete` löscht Elemente im Array unter Angabe des Index. Allerdings hinterlässt `delete` "Löcher" im Array (Elemente, die `undefined` sind). `pop` und `shift` sind deutlich besser, da sie keine "Löcher" hinterlassen. Deshalb sollte `delete` nur vernünftig verwendet werden, nämlich indem nach `delete` die nachfolgenden Elemente nach vorne shiften. 
-
-```js
-let indexDelete = 13;
-delete membersArray[indexDelete];   // membersArray[13] nun undefined
-console.log(membersArray)           // Laenge immernoch 50
-console.log(membersArray[13])       // undefined
-for(let i = indexDelete; i < membersArray.length; i++) {
-    membersArray[i] = membersArray[i+1]     // alle nachfolgenden nach links shiften
-}
-membersArray.pop()                  // letztes Element ist undefined und wird entfernt
-```
-
-Für Löschen von Elementen aus Arrays siehe auch [hier](https://love2dev.com/blog/javascript-remove-from-array/).
-
-#### `concat()`
-
-`concat()` ist hauptsächlich dazu da, mehrere Arrays zu einem zu verschmelzen. Angenommen, Sie haben ein Array `arr1` und ein Array `arr2`. Dann können Sie `let arr3 = arr1.concat(arr2);` schreiben und in `arr3` sind dann alle Elemente aus `arr1` (zuerst) **und** `arr2` (folgend). Beachten Sie, dass `arr1` dabei unverändert bleibt, d.h. nur `arr1.concat(arr2);` hat keinen Effekt. Sie müssten dann `arr1 = arr1.concat(arr2);` schreiben. 
-
-Sie können `concat()` auch dazu verwenden, ein einzelnes Element dem Arry hinzuzufügen, z.B. 
-
-```js
-membersArray = membersArray.concat({
-        forename: "Maria",
-        surname: "Mueller",
-        email: "maria@mueller.org"
-    })
-```
-
-Sie können auch mehrere Arrays in einem Schritt miteienander verbinden, z
-
-#### `splice()`
-
-`splice()` kann verwendet werden, um entweder Elemente zu einem Array an einer bestimmten Position hinzuzufügen oder um eine bestimmte Anzahl von Elementen zu löschen. Dazu erwartet `splice()` zunächst zwei Parameter. Der erste Parameter gibt den Index an, von dem entweder gelöscht oder eingefügt werden soll. Der zweite Parameter gibt entweder die Anzahl der zu löschenden Elemente an oder er ist `0`, dann soll eingefügt werden. Ist der zweite Parameter größer als `0` und es folgen weitere Parameter, dann handelt es sich um Ersetzen von Elementen im Array. Beispiele:
-
-```js
-membersArray.splice(13, 4);              // loescht 4 Elemente beginnend bei Index 13
-membersArray.splice(13, 0, ob1, obj2);   // fuegt die beiden Objekte obj1 und obj2 ab Index 13 hinzu
-membersArray.splice(13, 2, ob1, obj2);   // ersetzt die beiden Objekte in Index 13 und 14 durch obj1 und obj2
-```
-
-Die Rückgabe von `splice()` ist das Array der gelöschten (ersetzten) Elemente. 
-
-#### `slice()`
-
-`sclice()` erzeugt ein neues Array aus einem gegebenen Array und kopiert in das neue Array die Elemente ab dem Index, der in `slice()` als Parameter übergeben wird. Wird ein zweiter Parameter angegeben, handelt es sich dabei um die Anzahl der zu kopierenden Elemente. 
-
-
-```js
-let newArray = membersArray.slice(13);    // kopiere alle Elemente ab Index 13 nach newArray
-newArray = membersArray.splice(13, 5);    // kopiere 5 Elemente ab Index 13 nach newArray
-```
-#### `sort()`
-
-`sort()` sortiert ein Array. Allerdings ist zu beachten, dass `sort()` nur korrekt funktioniert, wenn es sich bei den Elementen um Strings handelt. Zahlen würden z.B. falsch sortiert werden, da `2` z.B. größer als `10` wäre, da `"2"` lexikographisch nach `"10"` (`"1"`) käme. Um z.B. Zahlen zu sortieren, könnte der `sort()`-Funktion z.B. folgende Funktion als Callback übergeben werden:
-
-```js
-numbersArrayToBeSorted.sort(function(a, b){return b - a});
-```
-
-Damit wird eine `compare()`-Methode implementiert. Gibt diese Methode für `b-a` einen Wert größer als `0` zurück, dann ist `b` größer als `a`, gibt sie einen Wert kleiner als `0` zurück, dann ist `a` größer als `b` und wenn der Rückgabewert `0` ist, dann gilt `a == b`. 
-
-Um z.B. das `membersArray` nach der Eigenschaft `forename` zu sortieren, kann folgende Funktion verwendet werden: 
-
-```js
-membersArray.sort(function(a,b) {
-  let a1 = a.forename.toLowerCase();
-  let b1 = b.forename.toLowerCase();
-  if(a1 < b1) return -1;
-  if(a1 > b1) return 1;
-  return 0;
-});
-```
-
-In Arrow-Notation sieht die Funktion wie folgt aus:
-
-```js
-membersArray.sort((a,b) => {
-  let a1 = a.forename.toLowerCase();
-  let b1 = b.forename.toLowerCase();
-  if(a1 < b1) return -1;
-  if(a1 > b1) return 1;
-  return 0;
-});
-```
-
-Wir wandeln zunächst alle Vornamen in Strings mit Kleinbuchstaben um und implementieren dann eine `compare()`-Funktion wie oben. Sollte z.B. nach der Eigenschaft `surname` sortiert werden, müsste im Code `forename` durch `surname` ersetzt werden. 
-
-#### `map()`
-
-`map()` wird verwendet, um eine Funktion auf alle Elemente des Arrays anzuwenden. Diese Funktion wird der `map()`-Funktion als Callback übergeben. Folgender Code stellt allen E-Mailadressen aus `membersArray` ein "mailto:" voran:
-
-```js
-let mailTo = membersArray.map( (value) => {
-    return value['email'] = "mailto: " + value['email'];
-})
-```
-
-Das `mailTo`-Array enthält dann nur alle Werte der `email`-Eigenschaft, sieht also so aus:
-
-```bash
-['mailto: aanderson8@google.fr', 'mailto: abradley1c@globo.com', 'mailto: avasquezo@miibeian.gov.cn', 'mailto: aortizw@histats.com', 'mailto: anelson13@indiatimes.com', 'mailto: agardnerv@woothemes.com', 'mailto: abrooks16@bravesites.com', 'mailto: akim4@odnoklassniki.ru', 'mailto: bcoleman11@fc2.com', 'mailto: candrewsp@noaa.gov', 'mailto: dgeorge6@furl.net', 'mailto: ehicksc@pcworld.com', 'mailto: ematthews5@independent.co.uk', 'mailto: emillere@creativecommons.org', 'mailto: ecoleman15@businessweek.com', 'mailto: ewilliamsi@deliciousdays.com', 'mailto: jford14@cnet.com', 'mailto: jmarshallt@gnu.org', 'mailto: jroberts12@alibaba.com', 'mailto: jmoralesa@ovh.net', 'mailto: kroseg@pinterest.com', 'mailto: lstephens19@hugedomains.com', 'mailto: lolsonr@telegraph.co.uk', 'mailto: mevansh@pcworld.com', 'mailto: maria@mueller.org', 'mailto: maria@mueller.org', 'mailto: mmorganb@cloudflare.com', 'mailto: mthompsonz@yelp.com', 'mailto: mjohnsonj@hostgator.com', 'mailto: mrichardson1d@ihg.com', 'mailto: mporter9@europa.eu', 'mailto: mwatkins0@miibeian.gov.cn', 'mailto: nthompson3@admin.ch', 'mailto: pphillipss@1688.com', 'mailto: rmcdonald2@ihg.com', 'mailto: rcunninghamd@mac.com', 'mailto: rcruz7@unc.edu', 'mailto: rcampbell1@geocities.com', 'mailto: rbrownq@nifty.com', 'mailto: rcampbell17@eventbrite.com', 'mailto: rjordan1a@smugmug.com', 'mailto: rburton18@foxnews.com', 'mailto: sgibsony@alexa.com', 'mailto: sscottm@macromedia.com', 'mailto: ssanders1b@wikispaces.com', 'mailto: shamiltonu@state.tx.us', 'mailto: sandrewsn@google.co.jp', 'mailto: trayx@weather.com', 'mailto: vgrahamk@aol.com', 'mailto: vhawkinsf@ehow.com']
-```
-
-Wenn `mailTo` alle Objekte vollständig enthalten sollte, dann müsste die Funktion so aussehen:
-
-```js
-let mailTo = membersArray.map( (value) => {
-    value['email'] = "mailto: " + value['email'];
-    return value;
-})
-```
-
-Da es sich bei den Elementen im Array um Objekte handelt, sind auch die Einträge im `membersArray` entsprechend geändert. Das wäre bei Nicht-Objekten (z.B. Strings oder Numbers)  nicht der Fall.
-
-Die Callback-Funktion könnte auch drei Parameter erwarten: `(value, index, array)`, wobei es sich bei `array` um das Array selbst, also `membersArray` handelt.
-
-#### `filter()`
-
-Mithilfe der `filter()`-Funktion können Elemente aus einem Array gefiltert und in ein neues Array kopiert werden. Angenommen, wir wollen alle Elemente, in denen der Vorname mit `R` beginnt, herausfiltern:
-
-```js
-let forenamesStartingWithR = membersArray.filter ( (value) => {
-    if(value.forename.startsWith("R"))
-    {
-        return value;
-    }
-})
-```
-
-Dann sieht `forenamesStartingWithR` so aus:
-
-```bash
-0 : {forename: 'Raymond', surname: 'Mcdonald', email: 'mailto: rmcdonald2@ihg.com'}
-1 : {forename: 'Rebecca', surname: 'Cunningham', email: 'mailto: rcunninghamd@mac.com'}
-2 : {forename: 'Richard', surname: 'Cruz', email: 'mailto: rcruz7@unc.edu'}
-3 : {forename: 'Roy', surname: 'Campbell', email: 'mailto: rcampbell1@geocities.com'}
-4 : {forename: 'Russell', surname: 'Brown', email: 'mailto: rbrownq@nifty.com'}
-5 : {forename: 'Russell', surname: 'Campbell', email: 'mailto: rcampbell17@eventbrite.com'}
-6 : {forename: 'Ruth', surname: 'Jordan', email: 'mailto: rjordan1a@smugmug.com'}
-7 : {forename: 'Ryan', surname: 'Burton', email: 'mailto: rburton18@foxnews.com'}
-```
-
-#### Weitere Array-Funktionen
-
-Auch die folgenden Funktionen erwarten eine Callback-Funktion als Parameter.
-
-- `reduce()` reduziert ein Array auf einen einzigen Wert. Wird z.B. für ein Array aus lauter Zahlen angewendet, um die Gesamtsumme der Zahlen zu ermitteln oder den Durchschnitt. 
-- `every()` prüft, ob **alle** Elemente des Arrays eine bestimmte Bedingung erfüllen, z.B. größer als `0` sind oder ungleich `undefined`. Gibt ein `true` zurück, wenn die Bedingung für alle gilt, `false` sonst.
-- `some()` prüft, ob **mindestens ein** Element des Arrays eine bestimmte Bedingung erfüllen, z.B. größer als `0` ist oder ungleich `undefined`. Gibt ein `true` zurück, wenn die Bedingung für mindestens ein Element gilt, `false` sonst.
-- `find()` gibt das erste Element zurück, für das eine bestimmte Bedingung gilt. `find()` muss nicht zwingend eine Callback-Funktion übergeben werden, kann auch ein Wert für ein Element sein.
-- `findIndex()` gibt den Index des ersten Elementes zurück, für das die übergebene Funktion passt.
-
-Die folgenden Funktionen erwarten keine Callback-Funktion:
-
-- `includes()` prüft, ob ein Element im Array existiert. Das Element wird als Parameter übergeben. Gibt `true` zurück, wenn das Element existiert, `false` sonst.
-- `entries()` gibt ein Array aus den Schlüssel-Wertepaaren des Arrays zurück.
-- `keys()` gibt ein Array aller Schlüssel (Indizes) des Arrays zurück.
-- `indexOf()` gibt den (ersten) Index des Elementes im Array zurück, welches als Parameter übergeben wird.
-- `lastIndexOf()` gibt den (letzten) Index des Elementes im Array zurück, welches als Parameter übergeben wird.
-
-
-## Bindings und Direktiven
+Unter *Templates* werden in Angular Konstrukte verstanden, die direkt in das HTML eingefügt werden. Die HTML-Syntax wird um Angular-Syntax erweitert. Nachfolgend einige Beispiele dafür. 
 
 ### {{ Interpolation }}
 
 *Interpolation* ist die einfachste Form des *data binding*. Syntaktisch erkennt man Interpolation an den doppelten geschweiften Klammern `{{ Interpolation }}`. 
 
-=== "Beispiel"
-``` javascript linenums="1"
+=== "lesson.component.ts"
+``` javascript linenums="1" hl_lines="11-12"
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-lesson',
-  template: `
-    <h1>{{ headline }}</h1>
-    <p>Hier steht {{name}}</p>
-  `,
-  styleUrls: ['./lesson.component.css']
+  standalone: true,
+  imports: [],
+  templateUrl: './lesson.component.html',
+  styleUrl: './lesson.component.css'
 })
 export class LessonComponent {
-  headline = 'Mein Titel';
-  name = 'mein Name';
+  headline = 'Hallo';
+  name = 'Jörn Freiheit';
 }
 ```
 
-Im obigen Beispiel hat die Komponente `LessonComponent` zwei Eigenschaften: `headline` und `name`. In obiger Komponente wird (zur Anschauung) sogenanntes *inline templating* verwendet, d.h. es gibt keine eigene `lesson.component.html`-Datei, in der der HTML-Code steht, sondern der HTML-Code wird direkt in die `template`-Eigenschaft der Typescript-Datei `lesson.component.ts`eingefügt (siehe Zeilen 5-8 im obigen Beispiel). Der HTML-Code wird in *backticks* eingefasst (` `` `), nicht zu verwechseln mit den einfachen Anführungsstrichen (` '' `).
+Im obigen Beispiel hat die Komponente `LessonComponent` zwei Eigenschaften (Objektvariablen): `headline` und `name`. Auf diese Eigenschaften können wir mithilfe von *Interpolation* im HTML zugreifen:
 
-Damit inline templating möglich ist, wird die Komponente mit dem Flag `-t` erzeugt (`inlineTemplate=true`), d.h. unsere Lesson-Komponente wurde mithilfe der CLI wie folgt erzeugt:
 
+=== "lesson.component.html"
+``` html
+<h1>{{ headline }} {{ name }} !</h1>
 ```
-ng g c lesson -t
+
+Es entsteht:
+```bash
+Hallo Jörn Freiheit !
 ```
 
 Eine Interpolation kann auch Ausdrücke enthalten, die aufgelöst werden, z.B.
@@ -681,196 +556,95 @@ Eine Interpolation kann auch Ausdrücke enthalten, die aufgelöst werden, z.B.
 <p>1 + 2 = {{1 + 2}}.</p>
 ```
 
-Man kann mithilfe einer [Direktive](#direktiven) durch ein Array laufen und jedes einzelne Element mithilfe von Interpolation ausgeben:
-
-``` javascript
-@Component({
-  selector: 'app-lesson',
-  template: `
-    <ol>
-      <li *ngFor="let day of weekdays">{{ day }}</li>
-    </ol>
-  `,
-  styleUrls: ['./lesson.component.css']
-})
-export class LessonComponent {
-  weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-}
+Es entsteht:
+```bash
+1 + 2 = 3
 ```
 
-Oder es ist möglich, Attributen von HTML-Elementen mithilfe von Interpolation Werte zuzuordnen:
+### [ Attributdirektiven ]
 
-``` javascript
-@Component({
-  selector: 'app-lesson',
-  template: `
-    <img src="{{ imgUrl }}" />
-  `,
-  styleUrls: ['./lesson.component.css']
-})
-export class LessonComponent {
-  imgUrl = 'https://www.dpunkt.de/common/images/cover_masterid/800/12400.jpg';
-}
-```
-
-Für unser `first`-Beispiel ist ein ganz einfaches Beispiel für die `main`-Komponente gezeigt:
-
-=== "main.component.ts"
-    ```js linenums="1" hl_lines="9"
-    import { Component, OnInit } from '@angular/core';
-
-    @Component({
-      selector: 'htw-main',
-      templateUrl: './main.component.html',
-      styleUrls: ['./main.component.css']
-    })
-    export class MainComponent implements OnInit {
-      headline = 'This is main';
-
-      constructor() { }
-
-      ngOnInit(): void {
-      }
-
-    }
-    ```
-
-=== "main.component.html"
-    ```html linenums="1" hl_lines="3"
-    <div id="main">
-      <h3>
-          {{ headline }}
-      </h3>
-      <div id="row">
-          <div id="left">
-              <htw-left>
-              </htw-left>
-          </div>
-          <div id="right">
-              <htw-right>
-              </htw-right>
-          </div>
-      </div>
-    </div>
-    ```
-
-### #Elementreferenzen
-
-Über eine *Elementreferenz*, die man im HTML-Code mittels des Rautensymbols definiert, kann in Angular sehr einfach auf das Element zugegriffen werden. Das folgende Beispiel zeigt eine solche *Elementreferenz*:
+Sie können Attribute von HTML-Elementen an Werte von Eigenschaften binden. Angenommen, Sie haben in Ihrer `*.component.ts` eine Eigenschaft `isFormValid`, die entweder `true` oder `false` sein kann, dann können Sie z.B. ein Button disablen bzw. enablen wie folgt:
 
 ```html
-<input #id type="text" value="Elementreferenz" />
-{{ id.value }}
+<button [disabled]="isFormValid">Save</button>
 ```
 
-In dem Beispiel wurde einem Textfeld die Elementreferenz `id` zugewiesen (kann jeder Name sein), erkennbar an `#id`. Über diese Elementreferenz (den Namen) lässt sich nun direkt auf dieses Element zugreifen. Im obigen Beispiel wird die `value`-Eigenschaft ausgelesen, also der Wert, der in das Textfeld eingegeben wird (oder, wie oben, vordefiniert ist). Beachten Sie jedoch, dass der Wert nicht automatisch angepasst wird, sobald eine Eingabe erfolgt. Dies muss durch ein Ereignis (z.B. `change` oder `input`) getriggert werden. 
+Oder falls Sie folgende Deklarationen in Ihrer `*.component.ts` haben:
 
-
-
-### [Property Bindings]
-
-Insbesondere, wenn Attributen von HTML-Elementen Werte zugeordnet werden sollen (so wie beim `imgUrl`-Beispiel des Abschnitts [**{{Interpolation}}**](#interpolation)), spricht man von *property binding*. Property binding spielt eine große Rolle beim Datenfluss von Eltern-Komponenten auf Kind-Komponenten. Die generelle Idee dabei ist, dass mithilfe von *property binding* Werte (Daten) an Attribute von HTML-Elementen bindet. Diese HTML-Elemente können auch Komponenten sein.
-
-Wir betrachten zunächst die unterschiedlichen Arten (Notationen) von property binding:
-
-``` html
-<element [property]="ausdruck"></element>
+```js
+  fiwLogoURL='https://corporatedesign.htw-berlin.de/files/Presse/Corporate_Design/Piktogramme_Studiengaenge/FB4_FIW.jpg'
+  imageWidth = 100
 ```
 
-D.h. ein *ausdruck* wird übergeben, der zu einem Wert aufgelöst wird und dieser Wert wird dem Attribut `property` übergeben. Betrachten wir nochmals das letzte Beispiel aus dem Abschnitt [**{{Interpolation}}**](#interpolation)). Bei diesem Beispiel haben wir Interpolation verwendet, um dem Attribut `src` des HTML-Elementes `img` einen Wert zuzuweisen. Das exakt gleiche Verhalten lässt sich auch mittels *property bindings* erzeugen:
+können Sie diese im HTML wie folgt verwenden:
 
-``` html
-<img [src]="imgUrl" />
-
-<!-- imgUrl = 'https://www.dpunkt.de/common/images/cover_masterid/800/12400.jpg'; -->
+```html
+  <img [src]="fiwLogoURL" alt="FIW-Logo" [style.width.px]="imageWidth">
 ```
 
-Das bedeutet für unser `first`-Beispiel, dass die beiden `<img>`-Definitionen gleich sind:
+Ebenso können Sie CSS-Klassen für Elemente definieren:
+
+```js
+  buttonClasses = ['btn', 'btn-primary']
+```
+
+mit folgender Verwendung:
+
+```html
+<button [disabled]="isFormValid" [class]="buttonClasses">Save</button>
+```
+
+oder z.B. sogar eine Operator wie folgt:
+
+```js
+  sichtbar = false
+```
+
+und
+
+```html
+<p [style.display]="sichtbar ? 'block' : 'none'">
+    dieser Absatz ist sichtbar bzw unsichtbar, je nach Wert von sichtbar
+</p>
+```
+
+usw. Siehe [hier](https://angular.dev/guide/templates/binding).
+
+### ( EventListener )
+
+Während wir in plain JavaScript die `on...`-Attribute für Events verwendet haben, werden in Angular die Ereignisse in runde Klammern `( )` einfasst, um sie zu behandeln, z.B.
+
+```html
+<button (click)="klickMich()">Klick Mich!</button>
+```
+
+und
+
+```js
+  klickMich(): void {
+    console.log('geklickt')
+  }
+```
+
+Angular kann dabei der Ereignisbehandlung eine Referenz auf das Ereignis übergeben. Dies erfolgt über die Variable `$event`. Damit kann das Ereignis ausgewertet werden, z.B. 
+
+```html
+<input type="text" (keyup)="eingabe($event)" />
+```
+
+und
 
 
-=== "header.component.html"
-    ```html linenums="1" hl_lines="2-3"
-    <p>header works!
-        <img src="{{ imgUrl }}" alt="{{ description }}" width="53px;" />
-        <img [src]="imgUrl" [alt]="description" width="53px;" />
-    </p>
-    ```
- 
-=== "header.component.ts"
-    ```js linenums="1" hl_lines="9-10"
-    import { Component, OnInit } from '@angular/core';
-
-    @Component({
-      selector: 'htw-header',
-      templateUrl: './header.component.html',
-      styleUrls: ['./header.component.css']
-    })
-    export class HeaderComponent implements OnInit {
-      imgUrl = '/assets/images/fiw.jpg';
-      description = 'FIW Logo';
-
-      constructor() { }
-
-      ngOnInit(): void {
-      }
-
+```js
+  eingabe(event: KeyboardEvent): void {
+    console.log(`Folgende Taste wurde geklickt: ${event.key}`);
+    if (event.key === 'Enter') {
+      console.log('Eingabe war die Enter-Taste.');
     }
-    ```
-
-
-
-Neben diesen "allgemeinen" property bindings gibt es auch noch "spezielle" property bindings, nämlich *class bindings* und *style bindings*. Bei *class bindings* wird das Präfix `class` vor die property (die entsprechende CSS-Klasse) gesetzt:
-
-``` html
-<element [class.class1]="class1enabled"
-         [class.class2]="class2enabled" ... ></element>
+  }
 ```
 
-D.h. die CSS-Klasse `class1`ist genau dann wirksam, wenn der Ausdruck `class1enabled` true ist und `class2`ist genau dann wirksam, wenn der Ausdruck `class2enabled` true ist usw.
-
-Bei den *style bindings* werden jedoch gar keine Ausdrücke, sondern Werte übergeben:
-
-``` html
-<element [style.color]
-```
-
-
-
-### (Event Bindings)
-
-In den *property bindings* haben wir gesehen, wie Werte Attributen (Eigenschaften) von Elementen zugeordnet werden können. Aus JavaScript ist auch bekannt, dass Ereignisse Attribute von Elementen sein können, z.B. `onClick`, `onKeyup`, `onChange` usw. Dabei handelt es sich um sogenannte *native DOM-Ereignisse*. Neben der Möglichkeit, solche nativen DOM-Ereigniss zu behandeln, bietet Angular auch die Möglichkeit, eigene Ereignisse zu definieren und diese zu behandeln. Wir betrachten beide Möglichkeiten und beginnen mit den nativen Ereignissen.
-
-#### Native DOM-Ereignisse
-
-In HTML sieht das unter Aufruf einer JavaScript-Funktion für die Ereignisbahandlung dann typischerweise (hier das Click-Ereignis für einen Button) wie folgt aus:
-
-=== "HTML"
-    ``` html
-    <button onClick="doSomething()">Click here!</button>
-    ```
-=== "JavaScript"
-    ``` javascript
-    function doSomething() 
-    {
-      // something to do
-    }
-    ```
-
-In Angular ist das Prinzip das gleiche, nur dass das Ereignis in runden Klammern genannt und an dieses Ereignis die Ereignisbehandlung gebunden wird (*event binding*). Das bedeutet, das Angular-Template für das obige Beispiel sieht wie folgt aus:
-
-=== "Angular-Template"
-    ``` html
-    <button (click)="doSomething()">Click here!</button>
-    ```
-=== "Angular-Typescript"
-    ``` javascript
-    export class EventsComponent {
-
-       doSomething() {
-          // something to do
-       }
-    }
-    ```
+Für mögliche Vergleiche mit Tastaturwerten siehe [hier](https://developer.mozilla.org/de/docs/Web/API/UI_Events/Keyboard_event_key_values). 
 
 Dieses Prinzip gilt für alle nativen DOM-Ereignisse. Hier ein kurzer Überblick über die wichtigsten (für eine umfangreichere Liste siehe [hier](https://developer.mozilla.org/en-US/docs/Web/Events#Standard_Events) oder [hier](https://www.w3schools.com/jsref/dom_obj_event.asp)):
 
@@ -888,25 +662,186 @@ Dieses Prinzip gilt für alle nativen DOM-Ereignisse. Hier ein kurzer Überblick
 | `submit`        | Abschicken eines Formulars                         |
 | `copy`, `paste` | Kopieren, Einfügen von Text                        |
 
-Einen kleinen Unterschied gibt es noch bei der Übergabe des Ereignisses an die das Ereignis behandelnde Funktion zu beachten. Während in plain JavaScript das Ereignis mit `event` der Funktion übergeben wird, erfolgt die Übergabe des Ereignisses in Angular mit `$event`. Beispiel:
-
-=== "Angular-Template"
-    ``` html
-    <input (change)="showPayload($event)" type="text" />
-    ```
-=== "Angular-Typescript"
-    ``` javascript
-    export class EventsComponent {
-
-      showPayload(e: Event) {
-        console.log(e);
-      }
-    }
-    ```
-
 Alle Events (in TypeScript/Angular) sind vom Typ `Event`. Es gibt noch speziellere Eventtypen, die aber alle auf dem Interface `Event` basieren, z.B. `MouseEvent`, `InputEvent`, `KeyboardEvent`, `UIEvent`, `ClipboardEvent`. Weitere Details siehe [hier](https://developer.mozilla.org/en-US/docs/Web/API/Event).
 
-Die einfache JavaScript-Attributschreibweise kann in Angular nicht verwendet werden, sondern immer nur die *event binding*-Schreibweise von Angular (mit den runden Klammern)!
+Die einfache JavaScript-Attributschreibweise (`on...`) kann in Angular nicht verwendet werden, sondern immer nur die *event binding*-Schreibweise von Angular (mit den runden Klammern)!
+
+
+## Konstrollstrukturen
+
+### Kontrollstruktur `@for`
+
+Man kann mithilfe einer [Direktive](#direktiven) durch ein Array laufen und jedes einzelne Element mithilfe von Interpolation ausgeben. Dazu führen wir eine weitere Objektvariable `wekkdays` ein, die ein Array enthält:
+
+
+=== "lesson.component.ts"
+``` javascript linenums="1" hl_lines="13"
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-lesson',
+  standalone: true,
+  imports: [],
+  templateUrl: './lesson.component.html',
+  styleUrl: './lesson.component.css'
+})
+export class LessonComponent {
+  headline = 'Hallo';
+  name = 'Jörn Freiheit';
+  weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+}
+```
+
+Im HTML kann die `@for`-Direktive nun wie folgt angewendet werden:
+
+
+=== "lesson.component.html"
+``` html linenums="1" hl_lines="4-6"
+<h1>{{ headline }} {{ name }} !</h1>
+<p>1 + 2 = {{ 1+2 }}</p>
+<ul>
+@for (day of weekdays; track $index; let idx = $index) {
+    <li>{{ idx+1 }}. Tag der Woche ist {{ day }}</li> 
+}
+</ul>
+```
+
+Es entsteht:
+```bash
+1. Tag der Woche ist Montag
+2. Tag der Woche ist Dienstag
+3. Tag der Woche ist Mittwoch
+4. Tag der Woche ist Donnerstag
+5. Tag der Woche ist Freitag
+6. Tag der Woche ist Samstag
+7. Tag der Woche ist Sonntag
+```
+
+Die `track`-Angabe ist notwendig. Hier steht nur der Index des Arrays zur Verfügung, der getracked werden kann. Wenn Sie ein Array von Objekten zur Verfügung haben, können Sie auch eine Eigenschaft der Objekte tracken. Die Verwendung des Index mithilfe von `let idx = $index` ist hingegen optional. Darin ist `idx` eine Variable, der Sie jeden beliebigen Namen geben können. Sie können diese Angabe z.B. auch noch um `let idx = $index, e = $even` oder `let idx = $index, o = $odd` erweitern und hätten dann einen `boolean`-Wert `e` bzw. `o`, der `true` ist, wenn der Index gerade (ungerade) und sonst `false` ist. Es ist auch möglich, z.B. `let idx = $index, l = $last` bzw. `let idx = $index, f = $first` anzugeben, dann kann geprüft werden, ob es sich um das erste bzw. letzte Element im Array handelt. Sie auch [hier](https://angular.dev/guide/templates/control-flow#repeat-content-with-the-for-block).
+
+Die `@for`-Kontrollstruktur kann noch um einen `@empty`-Block erweitert werden, für den Fall, dass das Array kein Element enthält:
+
+```html
+<ul>
+@for (day of weekdays; track $index; let idx = $index, f = $first) {
+    <li>{{ idx+1 }}. Tag der Woche ist {{ day }}</li> 
+} @empty {
+    <li>keine Einträge im Datenarray vorhanden</li>
+}
+</ul>
+```
+
+### Kontrollstruktur `@if`
+
+Mit Hilfe der `@if`-Kontrollstruktur kann ein Block angezeigt werden (oder nicht) in Abhängigkeit eines logischen Ausdrucks:
+
+```html
+@if(weekdays.length == 7) {
+    <p>Alle Einträge vorhanden.</p>
+} @else {
+    <p>es fehlen Einträge</p>
+}
+```
+
+Diese Kontrollstruktur kann auch verschachtelt werden (wie auch `@for`):
+
+```html
+@if(weekdays.length == 7) {
+    <p>Alle Einträge vorhanden.</p>
+} @else if(weekdays.length > 0) {
+    <p>es fehlen Einträge</p>
+} @else {
+    <p>es sind gar keine Einträge vorhanden</p> 
+}
+```
+
+Beachten Sie, dass vor dem zweiten `if` kein `@` steht.
+
+
+### Kontrollstruktur `@switch`
+
+Wie oben gezeigt, kann die `@switch`-Kontrollstruktur mit der `@if...else`-Struktur nachgebaut werden. Ein typisches Beispiel für die `@switch`-Kontrollstruktur ist das Einbinden der passenden Komponente, z.B.:
+
+```html
+@switch (userPermissions) {
+  @case ('admin') {
+    <app-admin-dashboard />
+  }
+  @case ('reviewer') {
+    <app-reviewer-dashboard />
+  }
+  @case ('editor') {
+    <app-editor-dashboard />
+  }
+  @default {
+    <app-viewer-dashboard />
+  }
+}
+```
+
+## Pipes |
+
+Pipes dienen der Nachbehandlung von Werten in der Ansicht. Genutzt werden Pipes mithilfe von `|`. Ein typisches Beispiel für Pipes ist die Umformung einer Datumsangabe mithilfe von `DatePipe`:
+
+```html
+<p>{{ haltbarkeitsdatum | date }}</p>
+```
+
+in der dazugehörigen `*.component.ts` muss `DatePipe` importiert werden:
+
+```js linenums="1" hl_lines="1 7 12"
+import { DatePipe } from '@angular/common';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-lesson',
+  standalone: true,
+  imports: [DatePipe],
+  templateUrl: './lesson.component.html',
+  styleUrl: './lesson.component.css'
+})
+export class LessonComponent {
+  haltbarkeitsdatum = '2024-12-24'
+
+}
+```
+
+Es erscheint:
+```bash
+Dec 24, 2024
+```
+
+Mit 
+
+```html
+<p>{{ haltbarkeitsdatum | date }}</p>
+```
+
+erscheint
+```bash
+24.12.2024
+```
+
+Mit `CurrencyPipe` wird ein passendes Währungssymbol eingefügt, `PercentPipe` fügt ein Prozentzeichen dahinter (und rundet) usw. Für verfügbare Pipes in Angular siehe [hier](https://angular.dev/guide/templates/pipes#built-in-pipes).
+
+Eine besondere Bedeutung hat `AsyncPipe`. Darauf kommen wir nochmal bei den Themen [Promises]() und [Observables]() zu sprechen.
+
+### #Elementreferenzen
+
+Über eine *Elementreferenz*, die man im HTML-Code mittels des Rautensymbols definiert, kann in Angular sehr einfach auf das Element zugegriffen werden. Das folgende Beispiel zeigt eine solche *Elementreferenz*:
+
+```html
+<input #id type="text" value="Elementreferenz" />
+{{ id.value }}
+```
+
+In dem Beispiel wurde einem Textfeld die Elementreferenz `id` zugewiesen (kann jeder Name sein), erkennbar an `#id`. Über diese Elementreferenz (den Namen) lässt sich nun direkt auf dieses Element zugreifen. Im obigen Beispiel wird die `value`-Eigenschaft ausgelesen, also der Wert, der in das Textfeld eingegeben wird (oder, wie oben, vordefiniert ist). Beachten Sie jedoch, dass der Wert nicht automatisch angepasst wird, sobald eine Eingabe erfolgt. Dies muss durch ein Ereignis (z.B. `change` oder `input`) getriggert werden. 
+
+
+---
+
+***der folgende Abschnitt wird noch überarbeitet, hier hat sich in den letzten Angular-Versionen einiges getan***
+___
 
 
 #### Eigene Ereignisse
@@ -1022,110 +957,8 @@ Die Elternkomponente (hier wieder `AppComponent` kann diese Daten, die von der K
 
 Wichtig beim *event binding* der Elternkomponente ist, dass der *payload* des Ereignisses mit `$event` übergeben wird (siehe auch [Native DOM-Ereignisse](#native-dom-ereignisse)). 
 
-!!! success "Zusammenfassung"
-    In den letzten drei Abschnitten Interpolation, Property Binding und Event Binding haben wir uns mit Datenfluss beschäftigt. Interpolation wird verwendet, um innerhalb einer Komponente die in der TypeScript-Klasse definierten Daten im Template darzustellen. Mithilfe von Property Binding kann die aufrufende Komponente (Elternkomponente) der aufgerufenen Kopmponente (Kindkomponente) Daten übergeben. Mithilfe von Event Binding kann die Kindkomponente der Elternkomponente mithilfe eines eigenen Ereignisses Daten übergeben.
-    Für die Anwendung dieser Konzepte schauen Sie sich [**Bücher-App-->Datenfluss zwischen Komponenten**](books.md#datenfluss-zwischen-komponenten) an. 
 
 
-### Direktiven
 
-In Angular gibt es 3 Arten sogenannter *Direktiven* (engl. *Directives*):
-
-- Komponentendirektiven (Components—directives) 
-- Attributdirektiven (Attribute Directives)
-- Strukturdirektiven (Structural-Direktives)
-
-Komponentendirektiven sind die meistverwendete Art und bereits in [**Angular --> Kompnenten**](angular.md#komponenten) betrachtet. Attribut- und Strukturdirektiven können als HTML-Attribute verstanden werden, die dem HTML-Element ein zusätzliches Verhalten hinzufügt. Attributdirektiven wirken sich das innere Verhalten eines HTML-Elementes aus (z.B. können damit CSS-Eigenschaften geändert, hinzugefügt oder gelöscht werden). Mit Strukturdirektiven kann die Struktur des DOMs geändert werden (z.B. können ganze HTML-Elemente dem DOM-Baum hinzugefügt werden).
-
-#### Strukturdirektiven
-
-Strukturdirektiven beginnen immer mit einem Stern `*`. Die bekanntesten Vertreter sind 
-
-- `*ngFor` 
-- `*ngIf`
-- `*ngSwitch`
-
-Diese sind auch in [angular.io](https://angular.io/guide/structural-directives) erläutert. Wir erläutern die darin aufgeführten Beispiele und beginnen mit `*ngIf`:
-
-```html linenums="1"
-<p *ngIf="true">
-  Expression is true and ngIf is true.
-  This paragraph is in the DOM.
-</p>
-<p *ngIf="false">
-  Expression is false and ngIf is false.
-  This paragraph is not in the DOM.
-</p>
-```
-
-Die Direktive `*ngIf` wird also wie ein Attribut des `<p>`-Elementes behandelt. Das Attribut `*ngIf` hat entweder den Wert `"true"` oder den Wert `"false"`. Ja nach Wert des Attributes wird das jeweilige `<p>`-Element in den DOM-Baum eingebunden. Also entweder das `<p>`-Element aus den Codezeilen `1`-`4` (bei Wert `"true"`) oder das `<p>`-Element aus den Codezeilen `5`-`8` (bei Wert `"false"`). In einer echten Anwendung ergibt sich der Wert des Attributes/der Direktive meistens aus dem Wert einer boole'schen Variablen oder einem anderen boole'schen Ausdruck.
-
-Das nicht dargestellte Element ist auch nicht Teil des DOMs! Es ist also nicht einfach nur auf `hide` gesetzt, sondern es ist gar nicht im DOM vorhanden. 
-
-Intern wird aus der `*ngIf`-Direktive übrigens ein sogenanntes [*Property-Binding*](#property-bindings):
-
-```html
-<ng-template [ngIf]="true">
-  <p>
-    Expression is true and ngIf is true.
-    This paragraph is in the DOM.
-  </p>
-</ng-template>
-<ng-template [ngIf]="false">
-  <p>
-    Expression is false and ngIf is false.
-    This paragraph is not in the DOM.
-  </p>
-</ng-template>
-```
-
-Die `*ngFor`-Direktive ist etwas komplexer als `*ngIf`. Für `*ngFor` benötigen wir mindestens eine Liste (oder ein Array) und eine Laufvariable, die die Werte aus der Liste annehmen kann. Im folgenden Beispiel ist `i` unsere laufvariable und `[1, 2, 3, 4, 5, 6]` unser Array.
-
-``` html
-<div *ngFor="let i of [1, 2, 3, 4, 5, 6]">
-  {{ i }}
-</div>
-``` 
-
-Für jeden Wert aus der Liste wird ein eigenes `<div>`- Element erzeugt. Der DOM-Baum sieht für obiges Beispiel also wie folgt aus (Angular-Attribute weggelassen):
-
-``` html
-<div> 1 </div>
-<div> 2 </div>
-<div> 3 </div>
-<div> 4 </div>
-<div> 5 </div>
-<div> 6 </div>
-```
-
-Außerdem stellt `*ngFor` noch einige Hilfsvariablen zur Verfügung, die ebenfalls genutzt werden können:
-
-- `index` (Index des aktuellen Elementes `0, 1, 2, ... `)
-- `first` (ist `true`, wenn *erstes* Element, sonst `false`)
-- `last` (ist `true`, wenn *letztes* Element, sonst `false`)
-- `even` (ist `true`, wenn *Index gerade*, sonst `false`)
-- `odd` (ist `true`, wenn *Index ungerade*, sonst `false`)
-
-Folgend ein komplexeres Beispiel unter Verwendung einiger Hilfsvariablen:
-
-``` html linenums="1"
-<div *ngFor="let value of [1, 2, 3, 4, 5, 6];
-                 index as i;
-                 first as f;
-                 last as l;
-                 odd as o;">
-  <div *ngIf="f">Start</div>
-  <div [style.color]="o ? 'red' : 'blue'">{{ i }} : {{ value }}</div>
-  <div *ngIf="l">Ende</div>
-</div>
-```
-
-In Zeile `1` ist unsere Laufvariable durch das Array nun `value`. Außerdem wird der jeweilige Wert von `index` in der Variablen `i` (Zeilennummer `2`)
-gespeichert, der Wert von `first` in der Variablen `f`(Zeilennummer `3`), der Wert von `last` in der Variablen `l`(Zeilennummer `4`) und der Wert von `odd` in der Variablen `o`(Zeilennummer `5`) - die Hilfsvariable `even` betrachten wir hier nicht, da deren Wert genau der Negation von `odd` entspricht. In Zeile `6` wenden wir die `*ngIf`-Direktive an: ein `<div>` mit dem Inhalt `Start` wird vor dem ersten Element aus dem Array ausgegeben. Für jedes weitere Element nicht mehr. In Zeile `7` erfolgt ein *Property Binding*: die `color`-Eigenschaft bekommt einen Wert zugewiesen. Der Wert ist jedoch abhängig davon, ob `o` wahr ist (dann Wert `red`) oder falsch (dann Wert `blue`).   Zeile `7` zeigt außerdem wie mithilfe von *Interpolation* der Wert von `i` und der Wert von `value`, getrennt mit ` : ` ausgegeben werden. Die Ausgabe ist also:
-
-![ngfor](./files/12_ngfor.png)
-
-!!! question "Aufgabe"
-    Informieren Sie sich auch über die `*ngSwitch`-Direktive. Implementieren Sie ein Beispiel, in dem Sie die 3 Direktiven `*ngIf`, `*ngFor` und `*ngSwitch` anwenden. 
 
 
