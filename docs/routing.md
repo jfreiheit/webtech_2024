@@ -438,7 +438,7 @@ Wenn Sie Bootstrap verwenden, dann ist `routerLinkActive` nur für eigene CSS-Kl
 
 ### Routenparameter
 
-Häufig sollen aus einer Liste von Objekten ein einzelnes Objekt ausgewählt und dargestellt werden. Angenommen, wir wollen erneut die `staedte.json` aus [JSON und Direktiven](angular2.md#json-und-direktiven) verwenden. Wir einfachen es diesmal ein wenig und verwenden direkt das Array und beschreiben die JavaScript-Objekte nicht in JSON, sondern direkt als Objekte (der Unterschied besteht darin, dass die Schlüssel nicht in Anführungsstrichen stehen, siehe [hier](angular2.md#jsonparse-und-jsonstringify)).
+Häufig sollen aus einer Liste von Objekten ein einzelnes Objekt ausgewählt und dargestellt werden. Angenommen, wir wollen erneut die `staedte.json` aus [JSON und Direktiven](angular2.md#json-und-direktiven) verwenden. Wir vereinfachen es ein wenig und verwenden direkt das Array und beschreiben die JavaScript-Objekte nicht in JSON, sondern direkt als Objekte (der Unterschied besteht darin, dass die Schlüssel nicht in Anführungsstrichen stehen, siehe [hier](angular2.md#jsonparse-und-jsonstringify)).
 
 
 ??? "staedte als Array"
@@ -1165,6 +1165,7 @@ Zur Vorbereitung legen wir zunächst die folgende Datei `staedte.json` im `publi
 	]
 	```
 
+In diesen Ordner kopieren wir auch den `images`-Ordner, den Sie durch Entpacken der [images.zip](./files/images_staedte.zip) erhalten - falls Sie es nicht bereits vorher ([s.o.](routing.md#routenparameter)) gemacht haben. 
 
 Mit 
 
