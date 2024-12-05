@@ -1,6 +1,84 @@
 # Callbacks und Promises
 
-Manche Konzepte sind in JavaScript bzw. TypeScript für Java-Programmiererinnen zunächst ungewöhnlich. Dazu gehören *Callbacks* und *Promises*. Diese Konzepte werden hier etwas näher beleuchtet. 
+Manche Konzepte sind in JavaScript bzw. TypeScript für Java-Programmiererinnen zunächst ungewöhnlich. Dazu gehören *Callbacks* und *Promises*. Diese Konzepte werden hier etwas näher beleuchtet. Zunächst werfen wir jedoch einen Blick auf das asynchrone Verhalten in der Abarbeitung von JavaScript, um die Konzepte zu motivieren. 
+
+Wir betrachten folgende JavaScript-Funktion 
+
+```js linenums="1"
+function asyncBehaviour() {
+
+    let a = 1;
+    let b = 1;
+
+    setTimeout(  () => {
+        console.log('timeout a = ', a)
+    }, 100)
+
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then( response => {
+        console.log(response)
+        return response.json() // Rueckgabe des body unserer Response
+    })
+    .then ( body => {
+        console.log('body', body)
+        return body[0]
+    })
+    .then( obj0 => console.log(obj0))
+
+    console.log("a = ", a)
+    console.log("b = ", b)
+
+    a = 10;
+}
+```
+
+Diese enthält bereits jeweils ein Beispiel für ein *Callback* (Zeilen `6-8`) und eine *Promise* (Zeilen `10-19`). Uns ist jedoch zunächst etwas anderes wichtig: 
+
+- In den Zeilen `3` und `4` deklarieren wir die Variablen `a` und `b` und setzen sie ajeweils uf den initialen Wert `1`.
+- In den Zeilen `6-8` rufen wir die `setTimeout()`-Funktion auf und übergeben ihr zwei Parameter: eine anonyme Funktion ohne Parameter, die eine Ausgabe auf die Konsole für den String `timeout a = ` gefolgt von Wert von `a` ausführt und als zweiten Parameter `100` Milisekunden. Um diese Zeit soll sich die Ausführung der anaonymen Funktion verzögern. 
+- In der Zeile `10` lesen wir mithilfe der `fetch()`-Funktion eine Ressource. Diese ist unter der URL `https://jsonplaceholder.typicode.com/posts` verfügbar. Zu den Details der `then()`-Funktionen kommen wir im Kapitel [Promises](promises.md#promises). Wir sehen jedoch bereits, dass auch darin Konsolenausgaben vorhanden sind (Zeilen `12`, `16` und `19`).
+- In den Zeilen `21` und `22` erfolgen die Ausgaben der Werte von `a` und `b`.
+- In Zeile `24` setzen wir einen neuen Wert für `a`, nämlich `10`. 
+
+!!! note question "Frage"
+    Was wird wie in welcher Reihenfolge ausgegeben?
+
+***Antwort:***
+
+Die ersten Ausgaben auf der Konsole sind:
+
+```bash
+a = 1
+b = 1
+```
+
+Offensichtlich werden also zunächst die Zeilen `3` und `4` und anschließend die Zeilen `21` und `22` vollständig abgearbeitet. 
+
+Die nächste Ausgabe ist:
+
+```bash
+timeout a =  10
+```
+
+Das bedeutet, es wurde zunächst Zeile `24` und erst dann Zeile `7` vollständig abgearbeitet. 
+
+Die nächste Ausgabe erfolgt durch die Abarbeitung von Zeile `12`, gefolgt von Zeile `16` und dann Zeile `19`:
+
+```bash
+Response {type: 'cors', url: 'https://jsonplaceholder.typicode.com/posts', redirected: false, status: 200, ok: true, …}
+
+body (100) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+
+{userId: 1, id: 1, title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', body: 'quia et suscipit\nsuscipit recusandae consequuntur …strum rerum est autem sunt rem eveniet architecto'}
+```
+
+Der entscheidende Punkt hier ist zunächst, dass die vollständige Abarbeitung der Anweisungen nicht sequentiell, d.h. nicht in der Reihenfolge erfolgt, in der sie aufgerufen werden. Vielmehr ist es so, dass einige Anweisungen länger brauchen als andere und dass es somit zum "Überholen" von Anweisungsabarbeitungen kommt. 
+
+Der Grund dafür liegt darin begründet, dass die Abarbeitungen von JavaScript-Anweisungen in genau einem Thread erfolgen und Anweisungen, die länger benötigen, in mehrere Einheiten aufgeteilt werden, bis sie irgendwann vollständig abgearbeitet sind. 
+
+![thread](./files/29_thread.png)
+
+Wir kommen im Detail darauf beim folgenden Thema [Callbacks](#callbacks) zu sprechen. Zunächst sei jedoch noch erwähnt, dass die Ausgaben aus den Zeilen `10-19` (Ausgaben in Zeilen `12`, `16` und `19`) sehr wohl in der aufgeführten Reihenfolge erfolgen. Dies ist genau das Prinzip hinter den [Promises](#promises). Dort wird sichergestellt, dass die Ausführungsreihenfolge eingehalten bleibt und sich keine Anweisungen "überholen".
 
 ## Callbacks
 
@@ -78,7 +156,7 @@ Die Ausgabe von `Ausgabe A` erfolgt ca. 3 Sekunden nach `Ausgabe B`. Das liegt d
 
 ![thread](./files/29_thread.png)
 
-Das problem mit diesen *Callback* ist, dass sie sehr schnell sehr unübersichtlich werden. Man spricht von der *Callback-Hölle*, in der man sehr schnell ist, sobald genügend viele *Callbacks* asynchron (nebenläufig) ausgeführt werden, diese sogar ineinander verschachtelt sind (*Callbacks* in *Callbacks*) und man gar nicht weiß, wann welche *Callbacks* beendet sind. Sobald man aber erst die Ausführung eines *Callbacks* abwarten **muss**, weil man die Resultate dieses *Callbacks* weiterverarbeiten möchte, entstehen wieder synchrone Aufrufe und der Vorteil der asynchronen Abarbeitung ist dahin. Um dieses Problem zu lösen, wurden *Promises* entwickelt. 
+Das Problem mit diesen *Callbacks* ist, dass sie sehr schnell sehr unübersichtlich werden. Man spricht von der *Callback-Hölle*, in der man sehr schnell ist, sobald genügend viele *Callbacks* asynchron (nebenläufig) ausgeführt werden, diese sogar ineinander verschachtelt sind (*Callbacks* in *Callbacks*) und man gar nicht weiß, wann welche *Callbacks* beendet sind. Sobald man aber erst die Ausführung eines *Callbacks* abwarten **muss**, weil man die Resultate dieses *Callbacks* weiterverarbeiten möchte, entstehen wieder synchrone Aufrufe und der Vorteil der asynchronen Abarbeitung ist dahin. Um dieses Problem zu lösen, wurden *Promises* entwickelt. 
 
 ## Promises
 
@@ -270,6 +348,8 @@ promise
 console.log('Ausgabe B');
 ```
 
+Das Abfangen des Fehlerfalls mithilfe von `catch()` hat den Vorteil, dass wir zunächst beliebig viele `then()`-Verkettungen durchführen können und egal, in welchem `then()` ein Fehler auftritt, wir fangen ihn mit `catch()` (am Ende) auf. Würden wir in jedem `then()` auch noch den jeweiligen Fehler behandeln, wäre der Code noch viel unübersichtlicher (als er sowieso schon ist). Die Unübersichtlichkeit der `then()`-Verkettungen hat zu folgender Entwicklung geführt: 
+
 ### async/await
 
 Die Verkettung von `.then()`-Pfaden kann zu unübersichtlichem Code führen. Deshalb wurden die Schlüsselwörter `async` und `await` eingeführt (siehe z.B. [hier](https://javascript.info/async-await), [hier](https://www.mediaevent.de/javascript/async-await.html), [hier](https://www.w3schools.com/js/js_async.asp) oder [hier](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)).
@@ -325,7 +405,7 @@ bzw., wenn der übergebene Dateiname nicht `index.html` entspricht:
 
 
 ```js
-makeRequest('index1.html')               // jectect-Fall
+makeRequest('index1.html')               // rectect-Fall
 .then( response => {
     console.log('response received');
     console.log(response)
@@ -374,7 +454,7 @@ async function testPromises() {
 }
 ```
 
-Dies erzeugt jeweils die gleichen Ausgaben wie oben gezeigt. 
+Dies erzeugt jeweils die gleichen Ausgaben wie oben gezeigt. Generell ist die Verwendung von `async/await` oft übersichtlicher als `then()`-Verkettungen. Das Konzept `async/await` verliert etwas an Übersichtlichkeit, wenn Fehler abgefangen werden (dann im `try/catch`-Block). Manchmal kann `async/await` jedoch gar nicht verwendet werden, nämlich genau dann, wenn die Funktion nicht einfach als `async` deklariert werden kann. Das ist z.B. bei den Lifecyclehooks von Angular der Fall (z.B. `ngOnInit()`). 
 
 
 

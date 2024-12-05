@@ -15,10 +15,10 @@
         <link rel="canonical" href="http://freiheit.f4.htw-berlin.de/webtech/angular/">
       
       
-        <link rel="prev" href="../javascript/">
+        <link rel="prev" href="../promises/">
       
       
-        <link rel="next" href="../angular2/">
+        <link rel="next" href="../templates/">
       
       
       <link rel="icon" href="../img/favicon.png">
@@ -346,6 +346,46 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../objekte/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objekte und JSON
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../promises/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Promises
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -613,11 +653,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../angular2/" class="md-nav__link">
+      <a href="../templates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    JSON und Templates
+    Templates
   </span>
   
 
@@ -638,6 +678,26 @@
   
   <span class="md-ellipsis">
     Routing und Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Datenfluss und Signals
   </span>
   
 
@@ -758,26 +818,6 @@
   
   <span class="md-ellipsis">
     Übungen
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../promises/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Promises
   </span>
   
 
@@ -2146,7 +2186,7 @@ Inhalt der dargestellten Seite anzupassen und die
 </ol>
 <p>Wenn wir nun z.B. die URL <code>http://localhost:4200/first/42</code> eingeben, dann erscheint im Browser der Wert des Parameters (als Inhalt des <code>&lt;p&gt;</code>-Elementes; siehe oben <code>first.component.html</code>).</p>
 <p>Die aktuelle Implementierung von <code>first.component.ts</code> liest also während der Initialisierung der Komponente die Routenparameter aus. Finden jedoch am Parameterwert Änderungen statt, ohne dass die Komponente neu initialisiert wird, bekommt die Komponente von den Änderungen nichts mit. Die oben gezeigte Form der Implementierung ist deshalb nicht für alle Fälle geeignet. Vielmehr ist es besser auszunutzen, dass es sich bei <code>this.route.paramMap</code> (ohne <code>snapshot</code>) um ein <a href="https://angular.dev/guide/signals/rxjs-interop"><em>Observable</em></a> handelt.  </p>
-<p>Ein <em>Observable</em> kann so verstanden werden, dass er permanent eine bestimmte Sache beobachtet (z.B. ist der <code>EventEmitter</code> ein <em>Observable</em> und beobachtet permanent, ob das Ereignis ausgelöst wird; wenn ja, dann ruft <code>EventEmitter</code> die Funktion <code>emit()</code> auf &rarr; siehe <a href="../angular2/#eigene-ereignisse">Eigene Ereignisse</a>). Wenn sich etwas an dem beobachteten Objekt geändert hat, dann reagiert <em>Observable</em> sofort und ruft eine bestimmte Funktion auf. Das <em>Observable</em> <code>paramMap</code> beobachtet permanent die aktuelle Route und sobald sich etwas an dieser Route ändert, wird eine Funktion aufgerufen.</p>
+<p>Ein <em>Observable</em> kann so verstanden werden, dass er permanent eine bestimmte Sache beobachtet (z.B. ist der <code>EventEmitter</code> ein <em>Observable</em> und beobachtet permanent, ob das Ereignis ausgelöst wird; wenn ja, dann ruft <code>EventEmitter</code> die Funktion <code>emit()</code> auf &rarr; siehe <a href="../signals/#datenfluss-von-kind-an-elternkomponente">Datenfluss von Kind- an Elternkomponente</a>). Wenn sich etwas an dem beobachteten Objekt geändert hat, dann reagiert <em>Observable</em> sofort und ruft eine bestimmte Funktion auf. Das <em>Observable</em> <code>paramMap</code> beobachtet permanent die aktuelle Route und sobald sich etwas an dieser Route ändert, wird eine Funktion aufgerufen.</p>
 <p>Damit das <em>Observable</em> aber überhaupt den aktuellen Router permanent beobachtet, muss er an den Router angemeldet werden &rarr; das <em>Observable</em> "abboniert" den Router. Dies geschieht mithilfe der Funktion <code>subscribe()</code>. Dieser Funktion kann als Parameter eine Funktion übergeben werden. Diese Funktion wird aufgerufen, sobald sich am aktuellen Router etwas ändert. Wir ändern die Implementierung von <code>ngOnInit()</code> in der Klasse <code>first.component.ts</code> deshalb wie folgt:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="22:1"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><div class="tabbed-labels"><label for="__tabbed_22_1">first.component.ts</label></div>
 <div class="tabbed-content">
@@ -2559,7 +2599,7 @@ Inhalt der dargestellten Seite anzupassen und die
       <nav class="md-footer__inner md-grid" aria-label="Fußzeile" >
         
           
-          <a href="../javascript/" class="md-footer__link md-footer__link--prev" aria-label="Zurück: JavaScript">
+          <a href="../promises/" class="md-footer__link md-footer__link--prev" aria-label="Zurück: Promises">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2569,20 +2609,20 @@ Inhalt der dargestellten Seite anzupassen und die
                 Zurück
               </span>
               <div class="md-ellipsis">
-                JavaScript
+                Promises
               </div>
             </div>
           </a>
         
         
           
-          <a href="../angular2/" class="md-footer__link md-footer__link--next" aria-label="Weiter: JSON und Templates">
+          <a href="../templates/" class="md-footer__link md-footer__link--next" aria-label="Weiter: Templates">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Weiter
               </span>
               <div class="md-ellipsis">
-                JSON und Templates
+                Templates
               </div>
             </div>
             <div class="md-footer__button md-icon">

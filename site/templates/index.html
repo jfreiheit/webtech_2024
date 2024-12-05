@@ -1,0 +1,1309 @@
+
+<!doctype html>
+<html lang="de" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Lehrmaterial, Übungen, Aufgaben und Hilfen für WebTech">
+      
+      
+        <meta name="author" content="Jörn Freiheit">
+      
+      
+        <link rel="canonical" href="http://freiheit.f4.htw-berlin.de/webtech/templates/">
+      
+      
+        <link rel="prev" href="../angular/">
+      
+      
+        <link rel="next" href="../routing/">
+      
+      
+      <link rel="icon" href="../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>Templates - WebTech</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#templates-bindings" class="md-skip">
+          Zum Inhalt
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Kopfzeile">
+    <a href=".." title="WebTech" class="md-header__button md-logo" aria-label="WebTech" data-md-component="logo">
+      
+  <img src="../img/fiw.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            WebTech
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Templates
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Suche" placeholder="Suche" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Suche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Zurücksetzen" aria-label="Zurücksetzen" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Suche wird initialisiert
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jfreiheit/webtech" title="Zum Repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    webtech
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="WebTech" class="md-nav__button md-logo" aria-label="WebTech" data-md-component="logo">
+      
+  <img src="../img/fiw.jpg" alt="logo">
+
+    </a>
+    WebTech
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jfreiheit/webtech" title="Zum Repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    webtech
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../einfuehrung/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Einführung
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../html/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../css/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rwd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RWD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javascript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../objekte/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Objekte und JSON
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../promises/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Promises
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../angular/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Angular
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Inhaltsverzeichnis">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Inhaltsverzeichnis
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      {{ Interpolation }}
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attributbindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      [ Attributbindings ]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventlistener" class="md-nav__link">
+    <span class="md-ellipsis">
+      ( EventListener )
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konstrollstrukturen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Konstrollstrukturen
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Konstrollstrukturen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kontrollstruktur-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kontrollstruktur @for
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kontrollstruktur-if" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kontrollstruktur @if
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kontrollstruktur-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kontrollstruktur @switch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pipes |
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipes |">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elementreferenzen" class="md-nav__link">
+    <span class="md-ellipsis">
+      #Elementreferenzen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../routing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Routing und Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Datenfluss und Signals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backend (MongoDB)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backend_pg/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backend (PostgreSQL)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fe-be-anbindung/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frontend-Backend-Anbindung
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guards/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJS und Guards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uebungen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Übungen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serviceworker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Service Worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Werkzeuge
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Inhaltsverzeichnis">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Inhaltsverzeichnis
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      {{ Interpolation }}
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attributbindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      [ Attributbindings ]
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventlistener" class="md-nav__link">
+    <span class="md-ellipsis">
+      ( EventListener )
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konstrollstrukturen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Konstrollstrukturen
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Konstrollstrukturen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kontrollstruktur-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kontrollstruktur @for
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kontrollstruktur-if" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kontrollstruktur @if
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kontrollstruktur-switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kontrollstruktur @switch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pipes |
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipes |">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elementreferenzen" class="md-nav__link">
+    <span class="md-ellipsis">
+      #Elementreferenzen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="templates-bindings">Templates (Bindings)<a class="headerlink" href="#templates-bindings" title="Permanent link">&para;</a></h1>
+<p>Unter <em>Templates</em> werden in Angular Konstrukte verstanden, die direkt in das HTML eingefügt werden. Die HTML-Syntax wird um Angular-Syntax erweitert. Nachfolgend einige Beispiele dafür. </p>
+<h3 id="interpolation">{{ Interpolation }}<a class="headerlink" href="#interpolation" title="Permanent link">&para;</a></h3>
+<p><em>Interpolation</em> ist die einfachste Form des <em>data binding</em>. Syntaktisch erkennt man Interpolation an den doppelten geschweiften Klammern <code>{{ Interpolation }}</code>. </p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">lesson.component.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-lesson&#39;</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">  </span><span class="nx">templateUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./lesson.component.html&#39;</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">  </span><span class="nx">styleUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./lesson.component.css&#39;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="p">})</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">LessonComponent</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="hll"><span class="w">  </span><span class="nx">headline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Hallo&#39;</span><span class="p">;</span>
+</span></span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="hll"><span class="w">  </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Jörn Freiheit&#39;</span><span class="p">;</span>
+</span></span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Im obigen Beispiel hat die Komponente <code>LessonComponent</code> zwei Eigenschaften (Objektvariablen): <code>headline</code> und <code>name</code>. Auf diese Eigenschaften können wir mithilfe von <em>Interpolation</em> im HTML zugreifen:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">lesson.component.html</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{ headline }} {{ name }} !<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Es entsteht:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Hallo<span class="w"> </span>Jörn<span class="w"> </span>Freiheit<span class="w"> </span>!
+</span></code></pre></div></p>
+<p>Eine Interpolation kann auch Ausdrücke enthalten, die aufgelöst werden, z.B.</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>1 + 2 = {{1 + 2}}.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Es entsteht:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="m">1</span><span class="w"> </span>+<span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
+</span></code></pre></div></p>
+<h3 id="attributbindings">[ Attributbindings ]<a class="headerlink" href="#attributbindings" title="Permanent link">&para;</a></h3>
+<p>Sie können Attribute von HTML-Elementen an Werte von Eigenschaften binden. Angenommen, Sie haben in Ihrer <code>*.component.ts</code> eine Eigenschaft <code>isFormValid</code>, die entweder <code>true</code> oder <code>false</code> sein kann, dann können Sie z.B. ein Button disablen bzw. enablen wie folgt:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">button</span> <span class="err">[</span><span class="na">disabled</span><span class="err">]=&quot;</span><span class="na">isFormValid</span><span class="err">&quot;</span><span class="p">&gt;</span>Save<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Oder falls Sie folgende Deklarationen in Ihrer <code>*.component.ts</code> haben:</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">fiwLogoURL</span><span class="o">=</span><span class="s1">&#39;https://corporatedesign.htw-berlin.de/files/Presse/Corporate_Design/Piktogramme_Studiengaenge/FB4_FIW.jpg&#39;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nx">imageWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span>
+</span></code></pre></div>
+<p>können Sie diese im HTML wie folgt verwenden:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">&lt;</span><span class="nt">img</span> <span class="err">[</span><span class="na">src</span><span class="err">]=&quot;</span><span class="na">fiwLogoURL</span><span class="err">&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;FIW-Logo&quot;</span> <span class="err">[</span><span class="na">style</span><span class="err">.</span><span class="na">width</span><span class="err">.</span><span class="na">px</span><span class="err">]=&quot;</span><span class="na">imageWidth</span><span class="err">&quot;</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Ebenso können Sie CSS-Klassen für Elemente definieren:</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nx">buttonClasses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;btn&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;btn-primary&#39;</span><span class="p">]</span>
+</span></code></pre></div>
+<p>mit folgender Verwendung:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">&lt;</span><span class="nt">button</span> <span class="err">[</span><span class="na">disabled</span><span class="err">]=&quot;</span><span class="na">isFormValid</span><span class="err">&quot;</span> <span class="err">[</span><span class="na">class</span><span class="err">]=&quot;</span><span class="na">buttonClasses</span><span class="err">&quot;</span><span class="p">&gt;</span>Save<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>oder z.B. sogar eine Operator wie folgt:</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nx">sichtbar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+</span></code></pre></div>
+<p>und</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">&lt;</span><span class="nt">p</span> <span class="err">[</span><span class="na">style</span><span class="err">.</span><span class="na">display</span><span class="err">]=&quot;</span><span class="na">sichtbar</span> <span class="err">?</span> <span class="err">&#39;</span><span class="na">block</span><span class="err">&#39;</span> <span class="na">:</span> <span class="err">&#39;</span><span class="na">none</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    dieser Absatz ist sichtbar bzw unsichtbar, je nach Wert von sichtbar
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>usw. Siehe <a href="https://angular.dev/guide/templates/binding">hier</a>.</p>
+<h3 id="eventlistener">( EventListener )<a class="headerlink" href="#eventlistener" title="Permanent link">&para;</a></h3>
+<p>Während wir in plain JavaScript die <code>on...</code>-Attribute für Events verwendet haben, werden in Angular die Ereignisse in runde Klammern <code>( )</code> einfasst, um sie zu behandeln, z.B.</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">klickMich</span><span class="err">()&quot;</span><span class="p">&gt;</span>Klick Mich!<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>und</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nx">klickMich</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;geklickt&#39;</span><span class="p">)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Angular kann dabei der Ereignisbehandlung eine Referenz auf das Ereignis übergeben. Dies erfolgt über die Variable <code>$event</code>. Damit kann das Ereignis ausgewertet werden, z.B. </p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="err">(</span><span class="na">keyup</span><span class="err">)=&quot;</span><span class="na">eingabe</span><span class="err">($</span><span class="na">event</span><span class="err">)&quot;</span> <span class="p">/&gt;</span>
+</span></code></pre></div>
+<p>und</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nx">eingabe</span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="nx">KeyboardEvent</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Folgende Taste wurde geklickt: </span><span class="si">${</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;Enter&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Eingabe war die Enter-Taste.&#39;</span><span class="p">);</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Für mögliche Vergleiche mit Tastaturwerten siehe <a href="https://developer.mozilla.org/de/docs/Web/API/UI_Events/Keyboard_event_key_values">hier</a>. </p>
+<p>Dieses Prinzip gilt für alle nativen DOM-Ereignisse. Hier ein kurzer Überblick über die wichtigsten (für eine umfangreichere Liste siehe <a href="https://developer.mozilla.org/en-US/docs/Web/Events#Standard_Events">hier</a> oder <a href="https://www.w3schools.com/jsref/dom_obj_event.asp">hier</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Ereignis</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>click</code></td>
+<td>Mausklick auf das Element</td>
+</tr>
+<tr>
+<td><code>change</code></td>
+<td>Der Inhalt/Wert eines Elementes hat sich geändert</td>
+</tr>
+<tr>
+<td><code>mouseover</code></td>
+<td>die Maus wird über das Element bewegt</td>
+</tr>
+<tr>
+<td><code>mouseout</code></td>
+<td>die Maus wird vom Element wegbewegt</td>
+</tr>
+<tr>
+<td><code>keydown</code></td>
+<td>eine Taste der Tastatur wird gedrückt</td>
+</tr>
+<tr>
+<td><code>keyup</code></td>
+<td>Loslassen einer Taste</td>
+</tr>
+<tr>
+<td><code>load</code></td>
+<td>der Browser hat die Seite vollständig geladen</td>
+</tr>
+<tr>
+<td><code>focus</code></td>
+<td>Fokussieren des Elements (z.B. Anklicken)</td>
+</tr>
+<tr>
+<td><code>blur</code></td>
+<td>Verlieren des Fokus (z.B. Klick außerhalb)</td>
+</tr>
+<tr>
+<td><code>submit</code></td>
+<td>Abschicken eines Formulars</td>
+</tr>
+<tr>
+<td><code>copy</code>, <code>paste</code></td>
+<td>Kopieren, Einfügen von Text</td>
+</tr>
+</tbody>
+</table>
+<p>Alle Events (in TypeScript/Angular) sind vom Typ <code>Event</code>. Es gibt noch speziellere Eventtypen, die aber alle auf dem Interface <code>Event</code> basieren, z.B. <code>MouseEvent</code>, <code>InputEvent</code>, <code>KeyboardEvent</code>, <code>UIEvent</code>, <code>ClipboardEvent</code>. Weitere Details siehe <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event">hier</a>.</p>
+<p>Die einfache JavaScript-Attributschreibweise (<code>on...</code>) kann in Angular nicht verwendet werden, sondern immer nur die <em>event binding</em>-Schreibweise von Angular (mit den runden Klammern)!</p>
+<h2 id="konstrollstrukturen">Konstrollstrukturen<a class="headerlink" href="#konstrollstrukturen" title="Permanent link">&para;</a></h2>
+<p>Kontrollstrukturen zählen zu den <em>templates</em>. Auch diese werden in den HTML-Code eingefügt und bewirken entweder eine iterative (<code>@for</code>) oder eine selektive (<code>@if</code> bzw. <code>@switch</code>) Abarbeitung des HTML-Codes.</p>
+<h3 id="kontrollstruktur-for">Kontrollstruktur <code>@for</code><a class="headerlink" href="#kontrollstruktur-for" title="Permanent link">&para;</a></h3>
+<p>Man kann mithilfe einer <em>Kontrollstruktur</em> <code>@for</code> durch ein Array laufen und jedes einzelne Element mithilfe von Interpolation ausgeben. Dazu führen wir eine weitere Objektvariable <code>wekkdays</code> ein, die ein Array enthält:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">lesson.component.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span>
+<span class="normal"><a href="#__codelineno-16-11">11</a></span>
+<span class="normal"><a href="#__codelineno-16-12">12</a></span>
+<span class="normal"><a href="#__codelineno-16-13">13</a></span>
+<span class="normal"><a href="#__codelineno-16-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-lesson&#39;</span><span class="p">,</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">  </span><span class="nx">templateUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./lesson.component.html&#39;</span><span class="p">,</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">  </span><span class="nx">styleUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./lesson.component.css&#39;</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="p">})</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">LessonComponent</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">  </span><span class="nx">headline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Hallo&#39;</span><span class="p">;</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="w">  </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Jörn Freiheit&#39;</span><span class="p">;</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="hll"><span class="w">  </span><span class="nx">weekdays</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;Montag&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dienstag&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mittwoch&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Donnerstag&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Freitag&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Samstag&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sonntag&#39;</span><span class="p">];</span>
+</span></span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Im HTML kann die <code>@for</code>-Direktive nun wie folgt angewendet werden:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">lesson.component.html</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="language-html highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span>
+<span class="normal"><a href="#__codelineno-17-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{ headline }} {{ name }} !<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>1 + 2 = {{ 1+2 }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="hll">@for (day of weekdays; track $index; let idx = $index) {
+</span></span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="hll">    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>{{ idx+1 }}. Tag der Woche ist {{ day }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span> 
+</span></span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="hll">}
+</span></span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Es entsteht:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="m">1</span>.<span class="w"> </span>Tag<span class="w"> </span>der<span class="w"> </span>Woche<span class="w"> </span>ist<span class="w"> </span>Montag
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="m">2</span>.<span class="w"> </span>Tag<span class="w"> </span>der<span class="w"> </span>Woche<span class="w"> </span>ist<span class="w"> </span>Dienstag
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="m">3</span>.<span class="w"> </span>Tag<span class="w"> </span>der<span class="w"> </span>Woche<span class="w"> </span>ist<span class="w"> </span>Mittwoch
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="m">4</span>.<span class="w"> </span>Tag<span class="w"> </span>der<span class="w"> </span>Woche<span class="w"> </span>ist<span class="w"> </span>Donnerstag
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="m">5</span>.<span class="w"> </span>Tag<span class="w"> </span>der<span class="w"> </span>Woche<span class="w"> </span>ist<span class="w"> </span>Freitag
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="m">6</span>.<span class="w"> </span>Tag<span class="w"> </span>der<span class="w"> </span>Woche<span class="w"> </span>ist<span class="w"> </span>Samstag
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="m">7</span>.<span class="w"> </span>Tag<span class="w"> </span>der<span class="w"> </span>Woche<span class="w"> </span>ist<span class="w"> </span>Sonntag
+</span></code></pre></div></p>
+<p>Die <code>track</code>-Angabe ist notwendig. Hier steht nur der Index des Arrays zur Verfügung, der getracked werden kann. Wenn Sie ein Array von Objekten zur Verfügung haben, können Sie auch eine Eigenschaft der Objekte tracken. Die Verwendung des Index mithilfe von <code>let idx = $index</code> ist hingegen optional. Darin ist <code>idx</code> eine Variable, der Sie jeden beliebigen Namen geben können. Sie können diese Angabe z.B. auch noch um <code>let idx = $index, e = $even</code> oder <code>let idx = $index, o = $odd</code> erweitern und hätten dann einen <code>boolean</code>-Wert <code>e</code> bzw. <code>o</code>, der <code>true</code> ist, wenn der Index gerade (ungerade) und sonst <code>false</code> ist. Es ist auch möglich, z.B. <code>let idx = $index, l = $last</code> bzw. <code>let idx = $index, f = $first</code> anzugeben, dann kann geprüft werden, ob es sich um das erste bzw. letzte Element im Array handelt. Sie auch <a href="https://angular.dev/guide/templates/control-flow#repeat-content-with-the-for-block">hier</a>.</p>
+<p>Die <code>@for</code>-Kontrollstruktur kann noch um einen <code>@empty</code>-Block erweitert werden, für den Fall, dass das Array kein Element enthält:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>@for (day of weekdays; track $index; let idx = $index, f = $first) {
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>{{ idx+1 }}. Tag der Woche ist {{ day }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span> 
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>} @empty {
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>keine Einträge im Datenarray vorhanden<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>}
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<h3 id="kontrollstruktur-if">Kontrollstruktur <code>@if</code><a class="headerlink" href="#kontrollstruktur-if" title="Permanent link">&para;</a></h3>
+<p>Mit Hilfe der <code>@if</code>-Kontrollstruktur kann ein Block angezeigt werden (oder nicht) in Abhängigkeit eines logischen Ausdrucks:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>@if(weekdays.length == 7) {
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Alle Einträge vorhanden.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>} @else {
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>es fehlen Einträge<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>}
+</span></code></pre></div>
+<p>Diese Kontrollstruktur kann auch verschachtelt werden (wie auch <code>@for</code>):</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>@if(weekdays.length == 7) {
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Alle Einträge vorhanden.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>} @else if(weekdays.length &gt; 0) {
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>es fehlen Einträge<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>} @else {
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>es sind gar keine Einträge vorhanden<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> 
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>}
+</span></code></pre></div>
+<p>Beachten Sie, dass vor dem zweiten <code>if</code> kein <code>@</code> steht.</p>
+<h3 id="kontrollstruktur-switch">Kontrollstruktur <code>@switch</code><a class="headerlink" href="#kontrollstruktur-switch" title="Permanent link">&para;</a></h3>
+<p>Wie oben gezeigt, kann die <code>@switch</code>-Kontrollstruktur mit der <code>@if...else</code>-Struktur nachgebaut werden. Ein typisches Beispiel für die <code>@switch</code>-Kontrollstruktur ist das Einbinden der passenden Komponente, z.B.:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>@switch (userPermissions) {
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>  @case (&#39;admin&#39;) {
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="p">&lt;</span><span class="nt">app-admin-dashboard</span> <span class="p">/&gt;</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>  }
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>  @case (&#39;reviewer&#39;) {
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    <span class="p">&lt;</span><span class="nt">app-reviewer-dashboard</span> <span class="p">/&gt;</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>  }
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>  @case (&#39;editor&#39;) {
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>    <span class="p">&lt;</span><span class="nt">app-editor-dashboard</span> <span class="p">/&gt;</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>  }
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>  @default {
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>    <span class="p">&lt;</span><span class="nt">app-viewer-dashboard</span> <span class="p">/&gt;</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>  }
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>}
+</span></code></pre></div>
+<h2 id="pipes">Pipes |<a class="headerlink" href="#pipes" title="Permanent link">&para;</a></h2>
+<p>Pipes dienen der Nachbehandlung von Werten in der Ansicht. Genutzt werden Pipes mithilfe von <code>|</code>. Ein typisches Beispiel für Pipes ist die Umformung einer Datumsangabe mithilfe von <code>DatePipe</code>:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ haltbarkeitsdatum | date }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>in der dazugehörigen <code>*.component.ts</code> muss <code>DatePipe</code> importiert werden:</p>
+<div class="language-js highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-24-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-24-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-24-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-24-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-24-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-24-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-24-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-24-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-24-10">10</a></span>
+<span class="normal"><a href="#__codelineno-24-11">11</a></span>
+<span class="normal"><a href="#__codelineno-24-12">12</a></span>
+<span class="normal"><a href="#__codelineno-24-13">13</a></span>
+<span class="normal"><a href="#__codelineno-24-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">DatePipe</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/common&#39;</span><span class="p">;</span>
+</span></span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-lesson&#39;</span><span class="p">,</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7"></a><span class="hll"><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">DatePipe</span><span class="p">],</span>
+</span></span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8"></a><span class="w">  </span><span class="nx">templateUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./lesson.component.html&#39;</span><span class="p">,</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9"></a><span class="w">  </span><span class="nx">styleUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./lesson.component.css&#39;</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10"></a><span class="p">})</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">LessonComponent</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12"></a><span class="hll"><span class="w">  </span><span class="nx">haltbarkeitsdatum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2024-12-24&#39;</span>
+</span></span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13"></a>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Es erscheint:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Dec<span class="w"> </span><span class="m">24</span>,<span class="w"> </span><span class="m">2024</span>
+</span></code></pre></div></p>
+<p>Mit </p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ haltbarkeitsdatum | date }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>erscheint
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="m">24</span>.12.2024
+</span></code></pre></div></p>
+<p>Mit <code>CurrencyPipe</code> wird ein passendes Währungssymbol eingefügt, <code>PercentPipe</code> fügt ein Prozentzeichen dahinter (und rundet) usw. Für verfügbare Pipes in Angular siehe <a href="https://angular.dev/guide/templates/pipes#built-in-pipes">hier</a>.</p>
+<p>Eine besondere Bedeutung hat <code>AsyncPipe</code>. Darauf kommen wir nochmal bei den Themen <a href="">Promises</a> und <a href="">Observables</a> zu sprechen.</p>
+<h3 id="elementreferenzen">#Elementreferenzen<a class="headerlink" href="#elementreferenzen" title="Permanent link">&para;</a></h3>
+<p>Über eine <em>Elementreferenz</em>, die man im HTML-Code mittels des Rautensymbols definiert, kann in Angular sehr einfach auf das Element zugegriffen werden. Das folgende Beispiel zeigt eine solche <em>Elementreferenz</em>:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="p">&lt;</span><span class="nt">input</span> <span class="err">#</span><span class="na">id</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Elementreferenz&quot;</span> <span class="p">/&gt;</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>{{ id.value }}
+</span></code></pre></div>
+<p>In dem Beispiel wurde einem Textfeld die Elementreferenz <code>id</code> zugewiesen (kann jeder Name sein), erkennbar an <code>#id</code>. Über diese Elementreferenz (den Namen) lässt sich nun direkt auf dieses Element zugreifen. Im obigen Beispiel wird die <code>value</code>-Eigenschaft ausgelesen, also der Wert, der in das Textfeld eingegeben wird (oder, wie oben, vordefiniert ist). Beachten Sie jedoch, dass der Wert nicht automatisch angepasst wird, sobald eine Eingabe erfolgt. Dies muss durch ein Ereignis (z.B. <code>change</code> oder <code>input</code>) getriggert werden. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Fußzeile" >
+        
+          
+          <a href="../angular/" class="md-footer__link md-footer__link--prev" aria-label="Zurück: Angular">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Zurück
+              </span>
+              <div class="md-ellipsis">
+                Angular
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../routing/" class="md-footer__link md-footer__link--next" aria-label="Weiter: Routing und Services">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Weiter
+              </span>
+              <div class="md-ellipsis">
+                Routing und Services
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Jörn Freiheit
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["instant", "tabs", "content.code.copy", "navigation.footer"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "In Zwischenablage kopiert", "clipboard.copy": "In Zwischenablage kopieren", "search.result.more.one": "1 weiteres Suchergebnis auf dieser Seite", "search.result.more.other": "# weitere Suchergebnisse auf dieser Seite", "search.result.none": "Keine Suchergebnisse", "search.result.one": "1 Suchergebnis", "search.result.other": "# Suchergebnisse", "search.result.placeholder": "Suchbegriff eingeben", "search.result.term.missing": "Es fehlt", "select.version": "Version ausw\u00e4hlen"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

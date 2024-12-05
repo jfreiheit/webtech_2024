@@ -426,7 +426,7 @@ db.collection.insertMany(
 )
 ```
 
-Dabei sind die `<documente>` Objekte in [JavaScript Object Notation (JSON)](angular2.md#javascript-object-notation-json) und `collection` stellt einen Namen (ähnlich einer Tabelle in relationalen Datenbanken) dar. Insgesamt sieht der befehl mit unseren Daten so aus:
+Dabei sind die `<documente>` Objekte in [JavaScript Object Notation (JSON)](objekte.md#javascript-object-notation-json) und `collection` stellt einen Namen (ähnlich einer Tabelle in relationalen Datenbanken) dar. Insgesamt sieht der befehl mit unseren Daten so aus:
 
 ??? "Daten einfügen"
 		db.members.insertMany([

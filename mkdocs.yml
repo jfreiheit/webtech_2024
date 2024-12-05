@@ -76,15 +76,17 @@ nav:
     - CSS: css.md
     - RWD: rwd.md 
     - JavaScript: javascript.md 
+    - Objekte und JSON: objekte.md 
+    - Promises: promises.md 
     - Angular: angular.md 
-    - JSON und Templates: angular2.md
+    - Templates: templates.md
     - Routing und Services: routing.md 
+    - Datenfluss und Signals: signals.md
     - Backend (MongoDB): backend.md 
     - Backend (PostgreSQL): backend_pg.md
     - Frontend-Backend-Anbindung: fe-be-anbindung.md 
     - RxJS und Guards: guards.md 
     - Deployment: deployment.md 
     - Übungen: uebungen.md
-    - Promises: promises.md 
     - Service Worker: serviceworker.md
     - Werkzeuge: tools.md

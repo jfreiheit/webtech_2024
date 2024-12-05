@@ -17,7 +17,7 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 | 5. | 04.-08.11.2024 | [RWD (responsive Webdesign)](rwd.md#responsive-web-design) | [Übung 4](uebungen.md#ubung-4) | - | 11.11.2024 | 
 | 6. | 11.-15.11.2024 | [JavaScript (DOM)](javascript.md#javascript) | [Übung 5](uebungen.md#ubung-5) | Datenmodell | 18.11.2024 | 
 | 7. | 18.-22.11.2024 | [Angular (Einführung und Komponenten)](angular.md#angular) | [Übung 6](uebungen.md#ubung-6) | Schnittstelle | 25.11.2024 | 
-| 8. | 25.-29.11.2024 | [Angular (Bindings und Direktiven) + JSON](angular2.md#json-und-direktiven) | [Übung 7](uebungen.md#ubung-7) | Frontend (c+r)| 02.12.2024 | 
+| 8. | 25.-29.11.2024 | [Templates (Bindings)](templates.md#templates-bindings) | [Übung 7](uebungen.md#ubung-7) | Frontend (c+r)| 02.12.2024 | 
 | 9. | 02.-06.12.2024 | [Angular (Routing und Services)](routing.md#routing-und-services) | [Übung 8](uebungen.md#ubung-8) | Frontend (u+d)| 09.12.2024 | 
 | 10. | 09.-13.12.2024 | [Node.js + Express (REST-Server + MongoDB)](backend.md#rest-api-mongodb) |  [Übung 9](uebungen.md#ubung-9)| Frontend fertig | 16.12.2024 | 
 | | | | | | | |
@@ -953,6 +953,11 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 
 ??? question "Code Vorlesung Angular Komponenten und Routen"
 	siehe [GitLab-Repo](https://gitlab.rz.htw-berlin.de/freiheit/webtech24) [angular/first](https://gitlab.rz.htw-berlin.de/freiheit/webtech24/-/tree/main/angular/first?ref_type=heads)
+
+
+
+??? question "Code Vorlesung Angular Services und Temlates"
+	siehe [GitLab-Repo](https://gitlab.rz.htw-berlin.de/freiheit/webtech24) [angular/services](https://gitlab.rz.htw-berlin.de/freiheit/webtech24/-/tree/main/angular/services?ref_type=heads)
 
 
 ## Semesteraufgabe

@@ -386,7 +386,7 @@ Leider funktioniert das Routing jetzt noch nicht. Dazu müssen wir in der `nav.c
 
 
 
-Wir können das `routerLink`-Attribut auch unter Verwendung von [Attributdirektive](angular2.md#attributdirektiven) festlegen (dann kann Routing später sogar über Variablen erfolgen). Wenn Sie es als Attributdirektive gestalten (hat später einen Vorteil bei parametrisierten Routen), dann sieht es so aus:
+Wir können das `routerLink`-Attribut auch unter Verwendung von [Attributbinding](templates.md#attributbindings) festlegen (dann kann Routing später sogar über Variablen erfolgen). Wenn Sie es als Attributdirektive gestalten (hat später einen Vorteil bei parametrisierten Routen), dann sieht es so aus:
 
 ```js
 [routerLink]="['login']"
@@ -438,7 +438,93 @@ Wenn Sie Bootstrap verwenden, dann ist `routerLinkActive` nur für eigene CSS-Kl
 
 ### Routenparameter
 
-Häufig sollen aus einer Liste von Objekten ein einzelnes Objekt ausgewählt und dargestellt werden. Angenommen, wir wollen erneut die `staedte.json` aus [JSON und Direktiven](angular2.md#json-und-direktiven) verwenden. Wir vereinfachen es ein wenig und verwenden direkt das Array und beschreiben die JavaScript-Objekte nicht in JSON, sondern direkt als Objekte (der Unterschied besteht darin, dass die Schlüssel nicht in Anführungsstrichen stehen, siehe [hier](angular2.md#jsonparse-und-jsonstringify)).
+Häufig sollen aus einer Liste von Objekten ein einzelnes Objekt ausgewählt und dargestellt werden. Angenommen, wir wollen folgende `staedte.json` 
+
+
+??? "staedte,json"
+	```json
+	[
+	    {
+	        "id":1,
+	        "jahr":1237,
+	        "stadt":"Berlin",
+	        "link":"http://de.wikipedia.org/wiki/Berlin",
+	        "bild":"/assets/images/berlin.png"
+	    },
+	    {
+	        "id":2,
+	        "jahr":1624,
+	        "stadt":"New York",
+	        "link":"http://de.wikipedia.org/wiki/New_York_City",
+	        "bild":"/assets/images/newyork.png"
+	    },
+	    {
+	        "id":3,
+	        "jahr":1252,
+	        "stadt":"Stockholm",
+	        "link":"http://de.wikipedia.org/wiki/Stockholm",
+	        "bild":"/assets/images/stockholm.png"
+	    },
+	    {
+	        "id":4,
+	        "jahr":1827,
+	        "stadt":"Bremerhaven",
+	        "link":"http://de.wikipedia.org/wiki/Bremerhaven",
+	        "bild":"/assets/images/bremerhaven.png"
+	    },
+	    {
+	        "id":5,
+	        "jahr":150,
+	        "stadt":"Bremen",
+	        "link":"http://de.wikipedia.org/wiki/Bremen",
+	        "bild":"/assets/images/bremen.png"
+	    },
+	    {
+	        "id":6,
+	        "jahr":1202,
+	        "stadt":"Bernau",
+	        "link":"http://de.wikipedia.org/wiki/Bernau_bei_Berlin",
+	        "bild":"/assets/images/bernau.png"
+	    },
+	    {
+	        "id":7,
+	        "jahr":929,
+	        "stadt":"Brandenburg",
+	        "link":"http://de.wikipedia.org/wiki/Brandenburg_an_der_Havel",
+	        "bild":"/assets/images/brandenburg.png"
+	    },
+	    {
+	        "id":8,
+	        "jahr":805,
+	        "stadt":"Magdeburg",
+	        "link":"http://de.wikipedia.org/wiki/Magdeburg",
+	        "bild":"/assets/images/magdeburg.png"
+	    },
+	    {
+	        "id":9,
+	        "jahr":1222,
+	        "stadt":"Marburg",
+	        "link":"http://de.wikipedia.org/wiki/Marburg",
+	        "bild":"/assets/images/marburg.png"
+	    },
+	    {
+	        "id":10,
+	        "jahr":766,
+	        "stadt":"Mannheim",
+	        "link":"http://de.wikipedia.org/wiki/Mannheim",
+	        "bild":"/assets/images/mannheim.png"
+	    },
+	    {
+	        "id":11,
+	        "jahr":782,
+	        "stadt":"Mainz",
+	        "link":"http://de.wikipedia.org/wiki/Mainz",
+	        "bild":"/assets/images/mainz.png"
+	    }
+	]
+	```
+
+verwenden. Wir vereinfachen es und verwenden direkt das Array (von Objekten) und beschreiben die JavaScript-Objekte nicht in JSON, sondern direkt als Objekte (der Unterschied besteht darin, dass die Schlüssel nicht in Anführungsstrichen stehen, siehe [`JSON.parse()` und `JSON.stringify()`](objekte.md#jsonparse-und-jsonstringify).
 
 
 ??? "staedte als Array"
@@ -1422,7 +1508,7 @@ Angenommen, wir erweitern die `city.component.html` um zwei weitere Navigationsb
 
 
 === "cities.component.html"
-	```html linenums="2" hl_lines="12 14"
+	```html linenums="2" hl_lines="11 13"
     
     @if(city) {
         <h1>{{ city.stadt }} </h1>
