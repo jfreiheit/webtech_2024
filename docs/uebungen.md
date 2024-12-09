@@ -2491,7 +2491,7 @@
 
 #### Übung 7
     
-??? question "Übungsaufgabe 7 (JSON, Direktiven, Bindings)"
+??? question "Übungsaufgabe 7 (JSON, Templates, Service)"
     - Nutzen Sie Ihre Implementierung aus `Uebung6`  - wenn nicht, erstellen Sie ein neues Angular-Projekt `Uebung7` (siehe  [hier](angular.md#erstes-projekt-erstellen)). 
     - Erstellen Sie im `public`-Ordner eine Datei `members.json` mit folgendem Inhalt:
 
@@ -2764,6 +2764,9 @@
     - Alle Bilder sind nur Anregungen, kann gerne ganz anders aussehen. Gerne können Sie auch Bootstrap einbinden und verwenden (siehe z.B. [hier](https://medium.com/@interviewpro/adding-bootstrap-to-your-angular-project-2e543ef52bef)).
 
 
+
+??? note "Eine mögliche Lösung für Übung 7"
+    sie [WebTech-Repo](https://gitlab.rz.htw-berlin.de/freiheit/webtech24) Weiterentwicklung von [Übung 6](https://gitlab.rz.htw-berlin.de/freiheit/webtech24/-/tree/main/uebungen/uebung6?ref_type=heads)
 
 #### Übung 8
     

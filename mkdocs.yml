@@ -73,20 +73,20 @@ nav:
     - Home: index.md
     - Einführung: einfuehrung.md
     - HTML: html.md
-    - CSS: css.md
-    - RWD: rwd.md 
-    - JavaScript: javascript.md 
-    - Objekte und JSON: objekte.md 
-    - Promises: promises.md 
-    - Angular: angular.md 
-    - Templates: templates.md
-    - Routing und Services: routing.md 
-    - Datenfluss und Signals: signals.md
+    - CSS - Selektoren und Eigenschaften: css.md
+    - CSS - Responsive Web-Design: rwd.md 
+    - JavaScript - DOM und Arrays: javascript.md 
+    - JavaScript - Objekte und JSON: objekte.md 
+    - JavaScript - Promises: promises.md 
+    - Angular - Komponenten: angular.md 
+    - Angular - Templates: templates.md
+    - Angular -  Routing und Services: routing.md 
+    - Angular - Datenfluss und Signals: signals.md
     - Backend (MongoDB): backend.md 
     - Backend (PostgreSQL): backend_pg.md
-    - Frontend-Backend-Anbindung: fe-be-anbindung.md 
-    - RxJS und Guards: guards.md 
-    - Deployment: deployment.md 
+    - Front- & Backend - Anbindung: fe-be-anbindung.md 
+    - Front- & Backend - Guards: guards.md 
+    - Front- & Backend - Deployment: deployment.md 
     - Übungen: uebungen.md
     - Service Worker: serviceworker.md
     - Werkzeuge: tools.md

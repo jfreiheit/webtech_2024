@@ -1346,7 +1346,7 @@ async function asyncFunction() {
 
 Diese Funktion muss dann aufgerufen werden. Je nachdem, ob Sie `'index'` der `makeRequest()`-Funktion übergeben oder etwas anderes, erfolgt eine der beiden oben gezeigten Ausgaben. 
 
-Sie können selbst entscheiden, ob Sie `.then()`-Verkettungen verwenden wollen oder `async/ await`. Letzteres ist etwas moderner. 
+Sie können selbst entscheiden, ob Sie `.then()`-Verkettungen verwenden wollen oder `async/ await`. Letzteres ist etwas moderner und, insbesondere für die `resolve`-Fälle, übersichtlicher. Siehe auch [Promises](promises.md#promises) für weitere Details. 
 
 
 

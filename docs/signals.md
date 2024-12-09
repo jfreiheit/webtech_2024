@@ -455,6 +455,8 @@ Wichtig ist, dass das `click`-Ereignis auf den Lösch-Button in der `AllComponen
 
 ## Signals
 
-Nachdem wir *Signals* nun bereits im Einsatz als `input()`-Funktion betrachtet haben, schauen wir uns dieses Konzept nun nochmal genauer an. 
+Nachdem wir *Signals* nun bereits im Einsatz als `input()`-Funktion betrachtet haben, schauen wir uns dieses Konzept nun nochmal genauer an. Ein *Signal* ist ein Wrapper um einen beliebigen Wert, der alle Konsumenten über die Änderung des Wertes informiert. Es gibt schreibbare *Signals* (`WritableSignal`) und *read-only Signals* (`Signal`).
+
+https://www.youtube.com/watch?v=XWz8pxQWD8c
 
 

@@ -956,7 +956,7 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 
 
 
-??? question "Code Vorlesung Angular Services und Temlates"
+??? question "Code Vorlesung Angular Services und Templates"
 	siehe [GitLab-Repo](https://gitlab.rz.htw-berlin.de/freiheit/webtech24) [angular/services](https://gitlab.rz.htw-berlin.de/freiheit/webtech24/-/tree/main/angular/services?ref_type=heads)
 
 
