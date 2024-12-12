@@ -19,7 +19,7 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 | 7. | 18.-22.11.2024 | [Angular (Einführung und Komponenten)](angular.md#angular) | [Übung 6](uebungen.md#ubung-6) | Schnittstelle | 25.11.2024 | 
 | 8. | 25.-29.11.2024 | [Templates (Bindings)](templates.md#templates-bindings) | [Übung 7](uebungen.md#ubung-7) | Frontend (c+r)| 02.12.2024 | 
 | 9. | 02.-06.12.2024 | [Angular (Routing und Services)](routing.md#routing-und-services) | [Übung 8](uebungen.md#ubung-8) | Frontend (u+d)| 09.12.2024 | 
-| 10. | 09.-13.12.2024 | [Node.js + Express (REST-Server + MongoDB)](backend.md#rest-api-mongodb) |  [Übung 9](uebungen.md#ubung-9)| Frontend fertig | 16.12.2024 | 
+| 10. | 09.-13.12.2024 | [Node.js + Express (REST-Server PostgreSQL)](backend_pg.md#rest-api) |  [Übung 9](uebungen.md#ubung-9)| Frontend fertig | 16.12.2024 | 
 | | | | | | | |
 | 11. | 16.-20.12.2024 | [Angular (Anbindung ans Backend)](fe-be-anbindung.md#frontend-backend-anbindung) | [Übung 10](uebungen.md#ubung-10) | Backend ( c ) | 06.01.2025 | 
 | 12. | 06.-10.01.2025 | [Nutzerverwaltung und Material](guards.md#subject-observable-observer-und-guards) | - | Backend (r + u) | 13.01.2025 |

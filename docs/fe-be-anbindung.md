@@ -1,6 +1,6 @@
 # Frontend-Backend-Anbindung
 
-Wir haben jetzt ein Backend, das als REST-Server funngiert. Über die Endpunkte der REST-API können wir auf die einzelnen Funktionen des Backends zugreifen, um die Daten in der [MongoDB](backend.md#rest) (oder der [PostgreSQL](backend_pg.md#rest-api-postgresql)) zu manipulieren (erzeugen, lesen, ändern und löschen - CRUD). Unser [Frontend](routing.md#routing-und-services) stellt zur Zeit nur einen [Daten-Service](routing.md#services) zur Verfügung, der die Daten client-seitig verwaltet. Dies wollen wir jetzt ändern. Das Frontend soll mit dem Backend kommunizieren, um die Daten zu nutzen, die das Backend zur Verfügung stellt. 
+Wir haben jetzt ein Backend, das als REST-Server funngiert. Über die Endpunkte der REST-API können wir auf die einzelnen Funktionen des Backends zugreifen, um die Daten in der [MongoDB](backend.md#rest) (oder der [PostgreSQL](backend_pg.md#rest-api)) zu manipulieren (erzeugen, lesen, ändern und löschen - CRUD). Unser [Frontend](routing.md#routing-und-services) stellt zur Zeit nur einen [Daten-Service](routing.md#services) zur Verfügung, der die Daten client-seitig verwaltet. Dies wollen wir jetzt ändern. Das Frontend soll mit dem Backend kommunizieren, um die Daten zu nutzen, die das Backend zur Verfügung stellt. 
 
 Wir werden uns ein **neues** Frontend erstellen und dabei die einzelnen Schritte genauer untersuchen (bzw. wiederholen). Das hat folgende Vorteile:
 

@@ -1,4 +1,4 @@
-# REST-API (MongoDB)
+# REST-API
 
 Die wesentlichsten Konzepte, wie Komponenten, Services und Routing für Angular-Projekte haben wir bereits kennengelernt. Ehe wir uns weiter mit dem Frontend beschäftigen, erstellen wir einen Server, der uns die Daten liefert. Derzeit haben wir unsere Mockup-Daten noch clientseitig von einem Service verwalten lassen. Das wollen wir nun ändern. Die Daten speichern wir in einer Datenbank und stellen sie über eine REST-API bereit. 
 
@@ -77,7 +77,7 @@ git repository:
 keywords: restapi, backend
 author: J. Freiheit
 license: (ISC) 
-About to write to /Users/jornfreiheit/Sites/WT21/backend/package.json:
+About to write to /Users/jornfreiheit/WebTech/backend/package.json:
 
 {
   "name": "backend",
@@ -219,11 +219,11 @@ Beim `Router` handelt es sich um eine *Middleware* (siehe [hier](https://express
 
 In der `server.js` haben wir mit `app.use(express.json())` (Zeile `7`) angegeben, dass alle JavaScript-Objekte in der `response` nach JSON umgewandelt werden sollen. Wenn nun die URL `localhost:3000` aufgerufen wird, dann wird ein `request` ausgelöst, den wir hier mit `Hello FIW!` als `response` beantworten (Zeilen `5-8`). 
 
-Wichtig ist, dass wir `router` mit `module.exports` exportieren, damit es von anderen Modulen importiert und genutzt werden kann. Siehe dazu z.B. [hier](https://www.sitepoint.com/understanding-module-exports-exports-node-js/). Meine Empfehlung ist, **(noch) nicht** das [neue ESM6-Format](https://www.sitepoint.com/understanding-es6-modules/) zu nutzen! 
+Wichtig ist, dass wir `router` mit `module.exports` exportieren, damit es von anderen Modulen importiert und genutzt werden kann. Siehe dazu z.B. [hier](https://www.sitepoint.com/understanding-module-exports-exports-node-js/). 
 
 Noch "läuft" unser Backend aber noch nicht. Wir müssen es erst starten. 
 
-### Starten des Projektes und Installation von nodemon
+### Starten des Projektes
 
 Das Projekt lässt sich nun starten. Wir geben dazu im Terminal im `backend`-Ordner
 
@@ -246,94 +246,21 @@ angezeigt. Sie können auch Postman öffnen und `http://localhost:3000` eintrage
 ![backend](./files/92_postman.png)
 
 
-Wann immer wir jetzt jedoch etwas an der Implementierung ändern, müssen wir im Terminal zunächst den Webserver mit 
+Wann immer wir jetzt jedoch etwas an der Implementierung ändern, müssten wir im Terminal zunächst den Webserver mit 
 
 ```bash
 Strg-C		// bzw. Control-C
 ```
 
-stoppen, um ihn dann wieder mit `node server.js` zu starten. Um das zu umgehen, gibt es das Paket [nodemon](https://www.npmjs.com/package/nodemon). Da es nur sinnvoll während der Entwicklung eingesetzt werden kann (und sollte), installieren wir es als eine *development dependency*:
+stoppen, um ihn dann wieder mit `node server.js` zu starten. Um das zu umgehen, gibt es für `node` nun die Option `--watch` (siehe [hier](https://nodejs.org/docs/latest/api/cli.html#--watch)). Wenn wir unser Projekt also mit 
 
 ```bash
-npm install --save-dev nodemon
+node --watch server.js
 ```
 
-Die `package.json` sieht daraufhin so aus:
+starten, dann compiliert es stets automatisch neu sobald wir etwas am Code ändern. 
 
-=== "package.json"
-	```json linenums="1" hl_lines="18-20"
-	{
-	    "name": "backend",
-	    "version": "1.0.0",
-	    "description": "Backend REST-API",
-	    "main": "server.js",
-	    "scripts": {
-	        "test": "echo \"Error: no test specified\" && exit 1"
-	    },
-	    "keywords": [
-	        "restapi",
-	        "backend"
-	    ],
-	    "author": "J. Freiheit",
-	    "license": "ISC",
-	    "dependencies": {
-	        "express": "^4.18.2"
-	    },
-	    "devDependencies": {
-	        "nodemon": "^2.0.20"
-	    }
-	}
-	```
-
-Zur Verwendung von `nodemon` fügen wir in die `package.json` unter `"scripts"` noch die Eigenschaft `watch` (frei gewählt) und den dazugehörigen Wert `nodemon server.js` ein:
-
-=== "package.json"
-	```json linenums="1" hl_lines="7"
-	{
-	    "name": "backend",
-	    "version": "1.0.0",
-	    "description": "Backend REST-API",
-	    "main": "server.js",
-	    "scripts": {
-	        "watch": "nodemon ./server.js",
-	        "test": "echo \"Error: no test specified\" && exit 1"
-	    },
-	    "keywords": [
-	        "restapi",
-	        "backend"
-	    ],
-	    "author": "J. Freiheit",
-	    "license": "ISC",
-	    "dependencies": {
-	        "express": "^4.18.2"
-	    },
-	    "devDependencies": {
-	        "nodemon": "^2.0.20"
-	    }
-	}
-	```
-
-Nun lässt sich die Anwendung mithilfe von `nodemon` per 
-
-```bash
-npm run watch
-```
-
-starten und muss auch nicht mehr gestoppt und neu gestartet werden, wenn Änderungen an der Implementierungen durchgeführt wurden. Die Ausgabe im Terminal nach Eingabe von `npm run watch` ist ungefähr so:
-
-```bash
-
-> backend@1.0.0 watch
-> nodemon ./server.js
-
-[nodemon] 2.0.20
-[nodemon] to restart at any time, enter `rs`
-[nodemon] watching path(s): *.*
-[nodemon] watching extensions: js,mjs,json
-[nodemon] starting `node ./server.js`
-Server started and listening on port 3000 ... 
-
-```
+### Routen
 
 Hier nur zum Verständnis. Angenommen, wir ändern bspw. in der `server.js` die Zeile `8` zu 
 
@@ -349,54 +276,6 @@ router.get('/fiw', async(req, res) => {
 
 ändern, dann ist der GET-Endpunkt `localhost:3000/api/fiw`. 
 
-### Mongoose installieren
-
-[MongoDB](https://www.mongodb.com/de-de) ist die am meisten verwendete *NoSQL (not only SQL)* Datenbank. Sie basiert nicht auf Relationen, Tabellen und ihren Beziehungen zueinander (ist also keine *relationale* Datenbank), sondern speichert Dokumente in JSON-ähnlichem Format. Die [Community Edition der MongoDB](https://github.com/mongodb/mongo) ist Open Source und kostenlos verfügbar. 
-Sollten Sie mit *Visual Studio Code* arbeiten, sollten Sie sich am besten die [MongoDB for VS Code](https://code.visualstudio.com/docs/azure/mongodb)-Ereiterung installieren. 
-
-Zur Verwendung von *MongoDB* im Backend verwenden wir das Modul [Mongoose](https://mongoosejs.com/). Wir installieren *Mongoose* mithilfe von
-
-```bash
-npm install mongoose --save
-```
-
-In die `package.json` wird das Paket und die entsprechende Abhängigkeit eingetragen:
-
-=== "package.json"
-	```json linenums="1" hl_lines="18"
-	{
-	    "name": "backend",
-	    "version": "1.0.0",
-	    "description": "Backend REST-API",
-	    "main": "server.js",
-	    "scripts": {
-	        "watch": "nodemon ./server.js",
-	        "test": "echo \"Error: no test specified\" && exit 1"
-	    },
-	    "keywords": [
-	        "restapi",
-	        "backend"
-	    ],
-	    "author": "J. Freiheit",
-	    "license": "ISC",
-	    "dependencies": {
-	        "express": "^4.17.1",
-	        "mongoose": "^6.0.14"
-	    },
-	    "devDependencies": {
-	        "nodemon": "^2.0.15"
-	    }
-	}
-	```
-
-*Mongoose* stellt eine einfach zu verwendende Schnittstelle zwischen Node.js und MongoDB bereit. Die
-MongoDB benötigen wir aber trotzdem (wir könnten jedoch auch eine Cloud von MongoDB oder z.B. `mlab.com` verwenden). Bevor wir uns mit der MongoDB verbinden, erstellen wir zunächst noch eine Datenbank. 
-
-Um Datenbanken zu erstellen, zu befüllen, anzusehen und zu verwalten, können Sie entweder [MongoDB Compass](tools.md#mongodb-compass) oder [MongoDB Shell](tools.md#mongosh-mongodb-in-der-shell) verwenden. Ich empfehle Compass, weil es komfortabler ist. Im Folgenden ist der etwas kompliziertere Weg mit der MongoDB Shell gezeigt. Der hat aber den Vorteil, dass man die queries sieht, die verwendet werden. 
-
-Sollten Sie Compass verwenden, dann nennen sie Ihre Datenbank und die Collection einfach jeweils `members` und fügen die Daten mithilfe [dieser Datei](./files/members.json) ein. Das Ergebnis sieht dann so aus:
-
-![MongoDB](./files/266_mongodb.png)
 
 ### Datenbank erstellen
 

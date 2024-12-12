@@ -2773,7 +2773,7 @@
 ??? question "Übungsaufgabe 8 (REST-API mit PostgreSQL)"
 
     <ul>
-    <li>Erstellen Sie eine [REST-API](backend_pg.md#rest-api-postgresql) mit folgenden Endpunkten:</li>
+    <li>Erstellen Sie eine [REST-API](backend_pg.md#rest-api) mit folgenden Endpunkten:</li>
 
     <table>
         <thead>

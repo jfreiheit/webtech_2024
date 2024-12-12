@@ -27,7 +27,7 @@ Folgende Endpunkte soll die REST-API zur Verfügung stellen:
 |`DELETE /users/:id` |löscht den `user` mit `_id == id` |
 |`PUT /users/:id` |ändert Daten von `user` mit `_id == id` |
 
-Wir gehen wie in [REST-API (MongoDB)](backend.md#rest-api-mongodb) vor und erstellen uns ein `Node.js`-Projekt:
+Wir gehen wie in [REST-API (MongoDB)](backend.md#rest-api) vor und erstellen uns ein `Node.js`-Projekt:
 
 ```bash
 mkdir backend
