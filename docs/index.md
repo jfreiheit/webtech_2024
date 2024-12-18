@@ -960,11 +960,196 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 	siehe [GitLab-Repo](https://gitlab.rz.htw-berlin.de/freiheit/webtech24) [angular/services](https://gitlab.rz.htw-berlin.de/freiheit/webtech24/-/tree/main/angular/services?ref_type=heads)
 
 
+??? question "Code Vorlesung Backend (Postgres)"
+	=== "im Terminal"
+		```bash
+		mkdir backend
+		cd backend
+		npm init
+		npm i express
+		npm i cors
+		npm i pg
+		npm i pg-format
+		npm i dotenv
+		```
+	=== "server.js"
+		```
+		const express = require('express')
+		const cors = require('cors')
+		const routes = require('./routes')
+		const initdb = require('./initdb')
+
+		const app = express();
+		const PORT = 3000;
+
+		app.use(express.json());
+		app.use(cors());
+		app.use('/initdb', initdb)      /* einmailiges Initialisieren der Datenbank */
+		app.use('/', routes);
+
+
+		app.listen(PORT, (error) => {
+		    if(error) {
+		        console.log(error)
+		    } else {
+		        console.log(`Server started and listening on port ${PORT} ...`)
+		    }
+		})
+		```
+	=== "routes.js"
+		```
+		const express = require('express')
+		const client = require('./db')
+		const router = express.Router()
+
+		router.get('/test', async (req, res) => {
+		    res.send({ message: "Hallo FIW!"})
+		})
+
+		router.get('/members', async (req, res) => {
+		    const query = 'SELECT * FROM members;'
+
+		    const result = await client.query(query)
+		    console.log('result : ', result)
+		    res.status(200)
+		    res.send(result.rows)
+
+		})
+
+		module.exports = router;
+		```
+	=== "db.js"
+		```js
+		const pg = require('pg')
+		require('dotenv').config()
+
+		const client = new pg.Client({
+		    user: process.env.PGUSER,
+		    host: process.env.PGHOST,
+		    database: process.env.PGDATABASE,
+		    password: process.env.OCEAN_PASSWORD,   /* bei Ihnen PGPASSWORD */
+		    port: process.env.PGPORT
+		})
+
+		client.connect( error => {
+		    if(error) {
+		        console.log(error)
+		    } else {
+		        console.log('DB connected ...')
+		    }
+		})
+
+		module.exports = client;
+		```
+	=== "initdb.js"
+		```js
+		const express = require('express');
+		const client = require('./db');
+		const initdb = express.Router();
+		const format = require('pg-format');
+
+
+		initdb.get('/', async(req, res) => {
+
+		    // Anlegen der Tabelle members
+		    let query = `
+		            DROP TABLE IF EXISTS members;
+		            CREATE TABLE members(id serial PRIMARY KEY, firstname VARCHAR(50), lastname VARCHAR(50), email VARCHAR(50));
+		            `;
+
+		    try {
+		        await client.query(query)
+		        console.log("Table created successfully ...")
+		    } catch (err) {
+		        console.log(err)
+		    }
+
+		    // Befüllen der Tabelle members mit 50 Einträgen
+		    const values = [
+		        ["Catherine", "Williams", "cwilliamsl@360.cn"],
+		        ["Adam", "Anderson", "aanderson8@google.fr"],
+		        ["Susan", "Andrews", "sandrewsn@google.co.jp"],
+		        ["Catherine", "Andrews", "candrewsp@noaa.gov"],
+		        ["Alan", "Bradley", "abradley1c@globo.com"],
+		        ["Anne", "Brooks", "abrooks16@bravesites.com"],
+		        ["Russell", "Brown", "rbrownq@nifty.com"],
+		        ["Ryan", "Burton", "rburton18@foxnews.com"],
+		        ["Roy", "Campbell", "rcampbell1@geocities.com"],
+		        ["Russell", "Campbell", "rcampbell17@eventbrite.com"],
+		        ["Bonnie", "Coleman", "bcoleman11@fc2.com"],
+		        ["Ernest", "Coleman", "ecoleman15@businessweek.com"],
+		        ["Richard", "Cruz", "rcruz7@unc.edu"],
+		        ["Sean", "Cruz", "scruz10@answers.com"],
+		        ["Rebecca", "Cunningham", "rcunninghamd@mac.com"],
+		        ["Margaret", "Evans", "mevansh@pcworld.com"],
+		        ["Jeffrey", "Ford", "jford14@cnet.com"],
+		        ["Andrea", "Gardner", "agardnerv@woothemes.com"],
+		        ["Deborah", "George", "dgeorge6@furl.net"],
+		        ["Sean", "Gibson", "sgibsony@alexa.com"],
+		        ["Virginia", "Graham", "vgrahamk@aol.com"],
+		        ["Steven", "Hamilton", "shamiltonu@state.tx.us"],
+		        ["Virginia", "Hawkins", "vhawkinsf@ehow.com"],
+		        ["Edward", "Hicks", "ehicksc@pcworld.com"],
+		        ["Mark", "Johnson", "mjohnsonj@hostgator.com"],
+		        ["Ruth", "Jordan", "rjordan1a@smugmug.com"],
+		        ["Antonio", "Kim", "akim4@odnoklassniki.ru"],
+		        ["Jennifer", "Marshall", "jmarshallt@gnu.org"],
+		        ["Eric", "Matthews", "ematthews5@independent.co.uk"],
+		        ["Raymond", "Mcdonald", "rmcdonald2@ihg.com"],
+		        ["Eric", "Miller", "emillere@creativecommons.org"],
+		        ["Jonathan", "Morales", "jmoralesa@ovh.net"],
+		        ["Marie", "Morgan", "mmorganb@cloudflare.com"],
+		        ["Amanda", "Nelson", "anelson13@indiatimes.com"],
+		        ["Lisa", "Olson", "lolsonr@telegraph.co.uk"],
+		        ["Alice", "Ortiz", "aortizw@histats.com"],
+		        ["Peter", "Phillips", "pphillipss@1688.com"],
+		        ["Matthew", "Porter", "mporter9@europa.eu"],
+		        ["Tammy", "Ray", "trayx@weather.com"],
+		        ["Mark", "Richardson", "mrichardson1d@ihg.com"],
+		        ["Joan", "Roberts", "jroberts12@alibaba.com"],
+		        ["Kathleen", "Rose", "kroseg@pinterest.com"],
+		        ["Steve", "Sanders", "ssanders1b@wikispaces.com"],
+		        ["Shirley", "Scott", "sscottm@macromedia.com"],
+		        ["Lillian", "Stephens", "lstephens19@hugedomains.com"],
+		        ["Nicole", "Thompson", "nthompson3@admin.ch"],
+		        ["Marie", "Thompson", "mthompsonz@yelp.com"],
+		        ["Alan", "Vasquez", "avasquezo@miibeian.gov.cn"],
+		        ["Mildred", "Watkins", "mwatkins0@miibeian.gov.cn"],
+		        ["Eugene", "Williams", "ewilliamsi@deliciousdays.com"]
+		    ];
+		    // hierfuer muss pg-format installiert werden (wegen %L):
+		    const paramquery = format('INSERT INTO members(firstname, lastname, email) VALUES %L RETURNING *', values);
+
+
+		    try {
+		        const result = await client.query(paramquery)
+		        console.log("50 members inserted ...")
+		        res.status(200)
+		        res.send(result.rows)
+		    } catch (err) {
+		        console.log(err)
+		    }
+
+		});
+
+
+		module.exports = initdb;
+		```		
+	=== ".env"
+		```json
+		PGUSER=freiheit
+		PGHOST=psql.f4.htw-berlin.de
+		PGDATABASE=members
+		PGPASSWORD=<ihr_ocean_passwort>
+		PGPORT=5432
+		```
+
+
 ## Semesteraufgabe
 
-Am Ende des Kurses geben Sie eine Webanwendung ab. Diese wird bewertet und bildet die Modulnote für "WebTech" (es gibt also keine Klausur o.ä.). Überlegen Sie sich früh, was Sie implementieren wollen. Ihrer Kreativität sind keine Grenzen gesetzt. Es können 2 Studentinnen gemeinsam ein Projekt durchführen und abgeben. Sie erhalten dann (höchstwahrscheinlich) die gleiche Note. Es muss an den Commits erkennbar sein, welchen Anteil am Ergebnis jede der beiden Studentinnen hatte.
+Am Ende des Kurses geben Sie eine Webanwendung ab. Diese wird bewertet und bildet die Modulnote für "WebTech" (es gibt also keine Klausur o.ä.). Überlegen Sie sich früh, was Sie implementieren wollen. Ihrer Kreativität sind keine Grenzen gesetzt. Es können 2 Studentinnen gemeinsam ein Projekt durchführen und abgeben. Sie erhalten dann (höchstwahrscheinlich) die gleiche Note. Es muss an den Commits erkennbar sein, welchen Anteil am Ergebnis jede der beiden Studentinnen hatte. Beachten Sie auch dringend die Regeln zum Umgang mit KI in den folgenden Mindestanforderungen!
 
-??? question "Mindestanforderungen"
+!!! question "Mindestanforderungen"
 	Folgende Anforderungen werden an Ihr Projekt gestellt:
 
 	* das Frontend soll mit Angular entwickelt werden,
@@ -996,6 +1181,12 @@ Am Ende des Kurses geben Sie eine Webanwendung ab. Diese wird bewertet und bilde
 	
 	Nach Abgabe vereinbaren wir ein Online-Meeting, in dem Sie mir Ihre Anwendung nochmal zeigen können und ich Ihnen Fragen zu Ihrem Code stellen werde. Ist keine Prüfung, sondern eher ein fachliches Gespräch. 
 
+	**Beachten Sie folgende Regeln zum Umgang mit KI :** <br/>
+
+	1. Die Nutzung von KI bei der Erstellung der Semesterabgabe ist grundsätzlich erlaubt.
+	2. In der `README.md` muss es ein Verzeichnis der verwendeten KI-Werkzeuge geben (stichpunktartig, wofür welche KI verwendet wurde).
+	3. Ihren Code müssen Sie erklären und einfache Änderungen und Ergänzungen durchführen können. Wenn Sie mehrere/alle Fragen im Gespräch nicht beantworten können, gilt die Arbeit als Täuschungsversuch.
+
 ## Abgabe- und Gesprächstermine
 
 Die Lösung für die Semesteraufgabe pushen Sie in Ihr Respository. In einem Gespräch führen Sie die Lösung vor und wir unterhalten uns über Ihre Lösung. Dafür stehen verschiedene Termine zur Verfügung. 
@@ -1005,31 +1196,5 @@ Die Lösung für die Semesteraufgabe pushen Sie in Ihr Respository. In einem Ges
 
 Bitte tragen Sie sich in [Moodle](https://moodle.htw-berlin.de/course/view.php?id=49991) in den von Ihnen gewünschten Gesprächstermin ein! Wenn Sie im 1.PZ abgeben, tragen Sie sich im LSF zum ersten PZ zur Prüfung ein, ansonsten im 2.PZ. 
 
-### Einige Beispiele
 
-#### Mieter- und Zahlungsinformationen verwalten
-
-- ![projekte](files/224_projekte1.png)
-- ![projekte](files/225_projekte1.png)
-	
-
-#### ToDo-Liste
-
-- ![projekte](files/226_projekte2.png)
-- ![projekte](files/227_projekte2.png)
-- ![projekte](files/228_projekte2.png)	
-
-- ![projekte](files/229_projekte2.png)
-- ![projekte](files/230_projekte2.png)
-
-
-#### Dog-O-Mat
-
-- ![projekte](files/231_projekte3.png)
-
-
-#### Reiseplaner
-
-- ![projekte](files/232_projekte3.png)
-- ![projekte](files/233_projekte3.png)
 

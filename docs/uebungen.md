@@ -2829,10 +2829,6 @@
          <td>[express.js](https://expressjs.com/de/)</td>
          </tr>
          <tr>
-         <td>`npm i nodemon --save-dev`  </td>        
-         <td>[nodemon](https://www.npmjs.com/package/nodemon) </td>
-         </tr>
-         <tr>
          <td>`npm i dotenv`  </td>        
          <td>[dotenv](https://www.npmjs.com/package/dotenv) </td>
          </tr>
@@ -2846,7 +2842,7 @@
          </tr>
          <tr>
          <td>`npm i pg-format`  </td>        
-         <td>[pg-format](https://www.npmjs.com/package/pg-format) </td>
+         <td>[pg-format](https://www.npmjs.com/package/pg-format) (brauchen Sie hier aber nicht)</td>
          </tr>
         </tbody>
     </table>
