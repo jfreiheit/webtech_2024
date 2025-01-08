@@ -1137,11 +1137,18 @@ Um eine Nachricht anzeigen zu lassen, ob der Datensatz wirklich gelöscht werden
 
     ```
 
+![fe-be](./files/313_fe-be.png)
+
+
 ### C-reate -- CreateComponent
 
 Das Erstellen der `CreateComponent` ist nun nicht mehr kompliziert. Im `BackendService` wird eine `create()`-Funktion erstellt, die der `update()`-Funktion sehr ähnlich ist. Das Formular, das zur Eingabe des neuen Datensatzes benötigt wird, sieht exakt so aus, wie das Formular aus der `DetailComponent`. Es gibt somit keine zusätzlichen Hürden zu überwinden. 
 
 Ich zeige hier (siehe unten) trotzdem eine mögliche Lösung, da hier im Formular auch noch Validierung verwendet wurde. Außerdem wird ein [Toast](https://getbootstrap.com/docs/5.3/components/toasts/) angezeigt, wenn ein Datensatz erfolgreich gespeichert wurde. Das lässt sich alles aber noch beliebig erweitern und "aufhübschen".
+
+![fe-be](./files/312_fe-be.png)
+
+![fe-be](./files/314_fe-be.png)
 
 !!! success
     Wir haben nun die CRUD-Funktionen im Frontend implementiert und dafür das Frontend an das Backend vollständig angebunden. Der Entwicklungsstack Datenbank <-> Backend <-> Frontend ist damit fertig und abgeschlossen. Wir haben nun alle Voraussetzungen besprochen, um die Semesteraufgabe zu erledigen. 
