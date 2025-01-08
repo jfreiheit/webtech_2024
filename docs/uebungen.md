@@ -2876,13 +2876,27 @@
 
     - Erstellen Sie ein neues Angular-Projekt `Uebung9`.
 
-    - Fügen Sie diesem Projekt mithilfe von `ng add @angular/material` [Material Design](https://material.angular.io/guide/getting-started) hinzu. 
+    - Wechseln Sie in den `Uebung9`-Ordner und fügen Sie dem Projekt mithilfe von `ng add @angular/material@18` [Material Design](https://material.angular.io/guide/getting-started) hinzu. **Achtung:** die `@18` ist wichtig (Stand Januar 2025)! Sie werden gefragt, ob Sie `material` installieren wollen (`Enter`). Die anschließenden Fragen können Sie mit `Enter` (Theme), `Y` (Typography) und `Enter` (Animations) beantworten.  
 
-    - Erzeugen Sie mithilfe von `ng generate @angular/material:navigation nav` eine neue Komponente `nav`. Sie dazu [Navigation Schematic](https://material.angular.io/guide/schematics#navigation-schematic).
+    - Testen Sie, ob [Material Design](https://material.angular.io/guide/getting-started) funktioniert, indem Sie in der `app.component.html` alles löschen und stattdessen `<mat-slide-toggle>Toggle me!</mat-slide-toggle>` hinzufügen. In der `app.component.ts` muss das `MatSlideToggleModule` importiert werden:
 
-    - Die `app.component.html` soll nur noch `<app-nav />` enthalten (alles andere löschen, auch `<router-outlet></router-outlet>`). Fügen Sie `NavComponent` dem `imports`-Array in `app.component.ts` hinzu (`RouterOutlet` können Sie dort löschen).
+        === "app.component.ts"
+            ```js
+            import { Component } from '@angular/core';
+            import { RouterOutlet } from '@angular/router';
+            import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-    - Fügen Sie in der `nav.component.html` unter dem Kommentar `<!-- Add Content Here -->` den Selektor `<router-outlet></router-outlet>` ein. Fügen Sie `RouterOutlet` dem `imports`-Array in der `nav.component.ts` hinzu. 
+            @Component({
+              selector: 'app-root',
+              standalone: true,
+              imports: [RouterOutlet, MatSlideToggleModule],
+              templateUrl: './app.component.html',
+              styleUrl: './app.component.css'
+            })
+            export class AppComponent {
+              title = 'uebung9';
+            }
+            ```
 
     - Starten Sie das Projekt mit `ng serve`. Je nachdem, welches Farbschema Sie gewählt haben, sieht die Seite nun ungefähr so aus: 
 
