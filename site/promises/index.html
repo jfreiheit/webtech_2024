@@ -26,7 +26,7 @@
     
     
       
-        <title>JavaScript - Promises - WebTech</title>
+        <title>JavaScript - Promises und Fetch - WebTech</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              JavaScript - Promises
+              JavaScript - Promises und Fetch
             
           </span>
         </div>
@@ -382,7 +382,7 @@
           
   
   <span class="md-ellipsis">
-    JavaScript - Promises
+    JavaScript - Promises und Fetch
   </span>
   
 
@@ -393,7 +393,7 @@
         
   
   <span class="md-ellipsis">
-    JavaScript - Promises
+    JavaScript - Promises und Fetch
   </span>
   
 
@@ -479,6 +479,39 @@
   <a href="#asyncawait" class="md-nav__link">
     <span class="md-ellipsis">
       async/await
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetch-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fetch API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetch API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-anfragen-mit-fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET-Anfragen mit fetch()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-anfragen-mit-fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST-Anfragen mit fetch()
     </span>
   </a>
   
@@ -684,46 +717,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../serviceworker/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Service Worker
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../backend/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Backend (MongoDB)
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../tools/" class="md-nav__link">
         
   
@@ -828,6 +821,39 @@
   <a href="#asyncawait" class="md-nav__link">
     <span class="md-ellipsis">
       async/await
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetch-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fetch API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetch API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-anfragen-mit-fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET-Anfragen mit fetch()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-anfragen-mit-fetch" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST-Anfragen mit fetch()
     </span>
   </a>
   
@@ -1351,7 +1377,164 @@ Wir haben zwei Anweisungen: eine <code>setTimeout()</code>-Anweisung und eine <c
 </span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>Dies erzeugt jeweils die gleichen Ausgaben wie oben gezeigt. Generell ist die Verwendung von <code>async/await</code> oft übersichtlicher als <code>then()</code>-Verkettungen. Das Konzept <code>async/await</code> verliert etwas an Übersichtlichkeit, wenn Fehler abgefangen werden (dann im <code>try/catch</code>-Block). Manchmal kann <code>async/await</code> jedoch gar nicht verwendet werden, nämlich genau dann, wenn die Funktion nicht einfach als <code>async</code> deklariert werden kann. Das ist z.B. bei den Lifecyclehooks von Angular der Fall (z.B. <code>ngOnInit()</code>). </p>
+<p>Dies erzeugt jeweils die gleichen Ausgaben wie oben gezeigt. Generell ist die Verwendung von <code>async/await</code> oft übersichtlicher als <code>then()</code>-Verkettungen. Das Konzept <code>async/await</code> verliert etwas an Übersichtlichkeit, wenn Fehler abgefangen werden (dann im <code>try/catch</code>-Block). </p>
+<h2 id="fetch-api">Fetch API<a class="headerlink" href="#fetch-api" title="Permanent link">&para;</a></h2>
+<p>Die <a href="https://developer.mozilla.org/de/docs/Web/API/Fetch_API">Fetch API</a> bietet einen bequemeren und leistungsfähigeren Ersatz für <a href="https://developer.mozilla.org/de/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>. Es geht also darum, Ressourcen vom Web-Server zu holen (<em>to fetch</em>). Die Fetch API ist vollständig auf Promises aufgebaut. Die zentrale Methode der Fetch API ist <code>fetch()</code>. Das Gute an dieser Methode ist, dass sie <em>gloabl</em> ist im Sinne, dass sie nicht nur von einer Webanwendung selbst, sondern auch z.B. von einem Service Worker verwendet werden kann (sie ist im <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope">WindowOrWorkerGlobalScope</a>). Einführungen zu <code>fetch()</code> finden Sie z.B. <a href="https://developers.google.com/web/updates/2015/03/introduction-to-fetch">hier</a>, <a href="https://jakearchibald.com/2015/thats-so-fetch/">hier</a> oder <a href="https://www.mediaevent.de/javascript/fetch.html">hier</a>.</p>
+<h3 id="get-anfragen-mit-fetch">GET-Anfragen mit fetch()<a class="headerlink" href="#get-anfragen-mit-fetch" title="Permanent link">&para;</a></h3>
+<p>Wir starten mit einem einfachen Beispiel und nutzen dafür <a href="https://httpbin.org/">https://httpbin.org</a>, eine Webseite, die viele REST-Endpunkte zum Ausprobieren anbietet. Nach dem Öffnen dieser Seite im Browser, können Sie z.B. mal auf <code>Request inspection</code> klicken - dort sehen wir den Endpunkt <code>/ip</code>, den wir über ein <code>GET</code> abfragen werden:</p>
+<div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span>
+<span class="normal"><a href="#__codelineno-27-2">2</a></span>
+<span class="normal"><a href="#__codelineno-27-3">3</a></span>
+<span class="normal"><a href="#__codelineno-27-4">4</a></span>
+<span class="normal"><a href="#__codelineno-27-5">5</a></span>
+<span class="normal"><a href="#__codelineno-27-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/ip&#39;</span><span class="p">)</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2"></a><span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3"></a><span class="w">            </span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="w">                </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Wir rufen also einmal <code>fetch()</code> auf und übergeben dieser Funktion den Endpunkt, von dem eine Ressource geholt werden soll. Die <code>fetch()</code>-Funktion liefert ein <code>Promise</code>-Objekt zurück. Deshalb können wir auch direkt die <code>then()</code>-Funktion aufrufen und die <code>response</code> (ist egal, wie Sie diesen Parameter nennen) auf die Konsole ausgeben. Wenn wir diesen Code ausführen, erscheint in der Konsole:</p>
+<p><img alt="fetch" src="../files/31_fetch.png" /></p>
+<p>Wir bekommen also ein JavaScript-Objekt zurück. Wirklich interessiert sind wir aber hauptsächlich an dem <code>body</code> dieses Objektes. Um darauf geeignet zuzugreifen, konvertieren wir das Objekt zunächst in das JSON-Format mithilfe der Anweisung <code>response.json();</code>. Die <code>json()</code>-Funktion ist eine Standard-JavaScript-Funktion, welche ein JavaScript-Objekt in einen JSON umwandelt. Da <code>then()</code> selbst ein <code>Promise</code>-Objekt zurückgibt. wollen wir darauf <code>then()</code> erneut anwenden, um das Prinzip verketteter <code>then()</code>-Funktionen (verketteter asynchroner Verarbeitungen) zu zeigen:</p>
+<div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-28-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-28-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-28-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-28-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-28-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-28-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-28-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-28-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-28-10">10</a></span>
+<span class="normal"><a href="#__codelineno-28-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/ip&#39;</span><span class="p">)</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2"></a><span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3"></a><span class="w">        </span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7"></a><span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8"></a><span class="w">        </span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9"></a><span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p>In der ersten <code>then()</code>-Funktion (Zeilen <code>2-6</code>) wird also die Response der asynchronen <code>GET https://httpbin.org/ip</code>-Anfrage behandelt und darin wird diese Response in eine JSON umgewandelt (Zeile <code>4</code>). Die Rückgabe dieser <code>then()</code>-Funktion ist erneut ein <code>Promise</code>. Für dieses <code>Promise</code> ist die zweite <code>then()</code>-Funktion (Zeilen <code>7-11</code>). Diese Funktion behandelt das asynchrone Streamen des Response-Body und dessen Umwandlung in ein JSON. Das durch dieses <code>Promise</code> zurückgegebene <code>resolve</code> bezeichnen wir in unserem Beispiel als <code>data</code> und geben es auf die Konsole aus. Auf der Konsole erscheint die <code>IP</code>, von der die Anfrage erfolgte, z.B. </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="o">{</span>origin:<span class="w"> </span><span class="s2">&quot;130.193.115.48&quot;</span><span class="o">}</span>
+</span></code></pre></div>
+<p>Noch zwei kleine Verbesserungen am Code: wenn in der Arrow-Notation Ihre Funktion nur aus einer einzigen <code>return</code>-Anweisung besteht, dann können Sie die geschweiften Klammern Ihres Funktionskörpers weglassen und auch das <code>return</code>. D.h. aus</p>
+<p><div class="language-javascript highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="w">    </span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">    </span><span class="p">}</span>
+</span></code></pre></div>
+wird </p>
+<p><div class="language-javascript highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="w">    </span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+</span></code></pre></div>
+Auch das Semikolon entfällt. Das gilt aber nur für <code>return</code>-Anweisungen, nicht z.B. wenn die Funktion nur aus einer einzigen Konsolenausgabe besteht. Außerdem sollten wir auch noch ein <code>catch()</code>-Block einfügen, für den Fall, dass ein Fehler auftritt:</p>
+<div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-32-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-32-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-32-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-32-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-32-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-32-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-32-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-32-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-32-10">10</a></span>
+<span class="normal"><a href="#__codelineno-32-11">11</a></span>
+<span class="normal"><a href="#__codelineno-32-12">12</a></span>
+<span class="normal"><a href="#__codelineno-32-13">13</a></span>
+<span class="normal"><a href="#__codelineno-32-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1"></a><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/ip&#39;</span><span class="p">)</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2"></a><span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3"></a><span class="w">        </span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5"></a><span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6"></a><span class="w">        </span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7"></a><span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10"></a><span class="w">    </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span>
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11"></a><span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12"></a><span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-32-14"><a id="__codelineno-32-14" name="__codelineno-32-14"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Den Fehlerfall können Sie ausprobieren, indem Sie einfach einen Fehler in die URL einbauen.</p>
+<h3 id="post-anfragen-mit-fetch">POST-Anfragen mit fetch()<a class="headerlink" href="#post-anfragen-mit-fetch" title="Permanent link">&para;</a></h3>
+<p><code>POST</code>-Anfragen werden verwendet, um Daten an den Webserver zu senden. Typischerweise sind das Formulardaten, die z.B. in eine Datenbank eingefügt werden sollen. Wenn wir also mithilfe von <code>fetch()</code> eine <code>POST</code>-Anfrage stellen wollen, dann müssen wir zwei Dinge beachten:</p>
+<ul>
+<li>wir müssen <code>fetch()</code> explizit mitteilen, dass die verwendete HTTP-Anfrage-Methode <code>POST</code> ist und</li>
+<li>wir müssen die Daten mitschicken.</li>
+</ul>
+<p>Für ein einfaches Beispiel verwenden wir erneut <a href="https://httpbin.org/">https://httpbin.org</a>, dieses Mal aber den Endpunkt <a href="https://httpbin.org/#/HTTP_Methods/post_post">/post</a>, der uns einfach die gesendeten Daten wieder als Response unserer Abfrage zurückschickt, also einfach als "Spiegel" fungiert. Eine entsprechende <code>fetch()</code>-Anweisung könnte so aussehen:</p>
+<div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-33-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-33-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-33-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-33-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-33-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-33-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-33-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-33-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-33-10">10</a></span>
+<span class="normal"><a href="#__codelineno-33-11">11</a></span>
+<span class="normal"><a href="#__codelineno-33-12">12</a></span>
+<span class="normal"><a href="#__codelineno-33-13">13</a></span>
+<span class="normal"><a href="#__codelineno-33-14">14</a></span>
+<span class="normal"><a href="#__codelineno-33-15">15</a></span>
+<span class="normal"><a href="#__codelineno-33-16">16</a></span>
+<span class="normal"><a href="#__codelineno-33-17">17</a></span>
+<span class="normal"><a href="#__codelineno-33-18">18</a></span>
+<span class="normal"><a href="#__codelineno-33-19">19</a></span>
+<span class="normal"><a href="#__codelineno-33-20">20</a></span>
+<span class="normal"><a href="#__codelineno-33-21">21</a></span>
+<span class="normal"><a href="#__codelineno-33-22">22</a></span>
+<span class="normal"><a href="#__codelineno-33-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1"></a><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/post&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2"></a><span class="w">        </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3"></a><span class="w">        </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4"></a><span class="w">            </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5"></a><span class="w">            </span><span class="s1">&#39;Accept&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6"></a><span class="w">        </span><span class="p">},</span>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7"></a><span class="w">        </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8"></a><span class="w">            </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;just a POST mirror&#39;</span>
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9"></a><span class="w">        </span><span class="p">})</span>
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10"></a><span class="w">    </span><span class="p">})</span>
+</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11"></a><span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12"></a><span class="w">        </span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+</span><span id="__span-33-13"><a id="__codelineno-33-13" name="__codelineno-33-13"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-33-14"><a id="__codelineno-33-14" name="__codelineno-33-14"></a><span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+</span><span id="__span-33-15"><a id="__codelineno-33-15" name="__codelineno-33-15"></a><span class="w">        </span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-33-16"><a id="__codelineno-33-16" name="__codelineno-33-16"></a><span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span><span id="__span-33-17"><a id="__codelineno-33-17" name="__codelineno-33-17"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-33-18"><a id="__codelineno-33-18" name="__codelineno-33-18"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-33-19"><a id="__codelineno-33-19" name="__codelineno-33-19"></a><span class="w">    </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span>
+</span><span id="__span-33-20"><a id="__codelineno-33-20" name="__codelineno-33-20"></a><span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-33-21"><a id="__codelineno-33-21" name="__codelineno-33-21"></a><span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span><span id="__span-33-22"><a id="__codelineno-33-22" name="__codelineno-33-22"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-33-23"><a id="__codelineno-33-23" name="__codelineno-33-23"></a><span class="w">    </span><span class="p">);</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Die Zeilen <code>11-23</code> sind dabei zunächst unverändert geblieben und sehen genauso aus wie die Zeilen <code>2-14</code> aus dem obigen <code>GET</code>-Beispiel. Nur die Parameter in der <code>fetch()</code>-Funktion haben sich geändert. Der erste Parmeter lautet nun <code>'https://httpbin.org/post'</code>, da wir die Anfrage an diese URL (diesen Endpunkt) stellen. Hinzugekommen ist ein zweiter Parameter, ein JSON:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="p">{</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="w">    </span><span class="err">me</span><span class="kc">t</span><span class="err">hod</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;POST&#39;</span><span class="p">,</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="w">    </span><span class="err">headers</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="w">        </span><span class="err">&#39;Co</span><span class="kc">ntent</span><span class="mi">-</span><span class="err">Type&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;applica</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">/jso</span><span class="kc">n</span><span class="err">&#39;</span><span class="p">,</span>
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="w">        </span><span class="err">&#39;Accep</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;applica</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">/jso</span><span class="kc">n</span><span class="err">&#39;</span>
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="w">    </span><span class="err">body</span><span class="p">:</span><span class="w"> </span><span class="err">JSON.s</span><span class="kc">tr</span><span class="err">i</span><span class="kc">n</span><span class="err">gi</span><span class="kc">f</span><span class="err">y(</span><span class="p">{</span>
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a><span class="w">        </span><span class="err">message</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;jus</span><span class="kc">t</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">POST</span><span class="w"> </span><span class="err">mirror&#39;</span>
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a><span class="w">    </span><span class="p">}</span><span class="err">)</span>
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>darin legen wir zunächst mithilfe von <code>method</code> die HTTP-Anfrage-Methode fest. Standard ist <code>GET</code>, deshalb brauchten wir das in unserem ersten Beispiel nicht zu tun. Nun geben wir <code>POST</code> an. </p>
+<p>Außerdem definieren wir noch Eigenschaften für den <code>header</code>. Wir legen mithilfe von <code>Content-Type</code> fest, welches Format unsere Daten haben, die wir übermitteln, nämlich <code>application/json</code>. Außerdem legen wir mithilfe von <code>Accept</code> fest, in welchem Format wir die Daten empfangen wollen, nämlich ebenfalls im JSON-Format. Diese <code>Accept</code>-Angabe ist nicht immer notwendig. Die meisten REST-Endpunkte liefern so oder so ein JSON zurück. Das hängt von der Definition der REST-API ab. </p>
+<p>In der <code>body</code>-Eigenschaft definieren wir die Daten, die wir übertragen wollen. In diesem Fall im JSON-Format. <code>{ message: 'just a POST mirror' }</code> ist ein JavaScript-Objekt, das eine einzige Eigenschaft enthält, nämlich <code>message</code>. Mithilfe der JavaScript-Standardfunktion <code>JSON.stringify()</code> wandeln wir dieses JavaScript-Objekt in ein JSON um. Somit wird ein JSON versendet, genau wie wir es im <code>header</code> unter <code>Content-Type</code> angegeben haben. </p>
+<p>Führen wir diesen Code aus, erhalten wir auf der Konsole folgende Ausgabe: </p>
+<p><img alt="fetch" src="../files/32_fetch.png" /></p>
+<p>Man könnte jetzt meinen, dass der Zugriff auf das Response-JSON (<code>{message: "just a POST mirror"}</code>) einfach über <code>response.data</code> oder über <code>response.json</code> erfolgen kann. Dem ist aber nicht so, da es sich bei dem <code>body</code> der <code>response</code> um ein Objekt vom Typ <a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream">ReadableStream</a> handelt. Das ist einerseits gut, denn die Daten vom Server werden asynchron als Stream empfangen, andererseits ist der Zugriff auf die Daten recht aufwendig. Sie können Sie dazu <a href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams">hier</a> oder <a href="https://github.com/mdn/dom-examples/tree/master/streams/simple-pump">hier</a> oder <a href="https://github.com/mdn/dom-examples/tree/master/streams">hier</a> ausführlich informieren. </p>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>Wir kennen nun Promises und die Fetch API und können beides anwenden. Wir werden Promises von nun an permanent verwenden. Insbesondere den <em>consuming code</em> für Promises, als <code>.then().catch()</code>. Mithilfe der Fetch API werden wir alle HTTP-Anfragen an den Server stellen können, also <code>GET</code>, <code>POST</code>, <code>PUT</code> und <code>DELETE</code> und dabei das asynchrone Prinzip dieser API bestmöglich ausnutzen.  </p>
+</div>
 
 
 

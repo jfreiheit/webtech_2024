@@ -15,10 +15,6 @@
         <link rel="canonical" href="http://freiheit.f4.htw-berlin.de/webtech/serviceworker/">
       
       
-        <link rel="prev" href="../uebungen/">
-      
-      
-        <link rel="next" href="../backend/">
       
       
       <link rel="icon" href="../img/favicon.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>Service Worker - WebTech</title>
+        <title>Service Workers - WebTech</title>
       
     
     
@@ -113,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Service Worker
+              Service Workers
             
           </span>
         </div>
@@ -373,7 +369,7 @@
         
   
   <span class="md-ellipsis">
-    JavaScript - Promises
+    JavaScript - Promises und Fetch
   </span>
   
 
@@ -554,248 +550,6 @@
   
   <span class="md-ellipsis">
     Übungen
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Service Worker
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    Service Worker
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Inhaltsverzeichnis">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Inhaltsverzeichnis
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#ereignisse-auf-die-service-worker-reagieren-konnen" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ereignisse, auf die Service Worker reagieren können
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Ereignisse, auf die Service Worker reagieren können">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fetch" class="md-nav__link">
-    <span class="md-ellipsis">
-      Fetch
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#push-notifikationen" class="md-nav__link">
-    <span class="md-ellipsis">
-      Push-Notifikationen
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#notification-interaction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notification interaction
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hintergrund-synchronisation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hintergrund-Synchronisation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#service-worker-lifecycle-ereignisse" class="md-nav__link">
-    <span class="md-ellipsis">
-      Service-worker-Lifecycle-Ereignisse
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#einfaches-beispiel-service-worker" class="md-nav__link">
-    <span class="md-ellipsis">
-      Einfaches Beispiel service worker
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#web-worker-vs-service-worker" class="md-nav__link">
-    <span class="md-ellipsis">
-      Web worker vs. service worker
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Web worker vs. service worker">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#registrierung-eines-service-workers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Registrierung eines service workers
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#registrierung-eines-service-workers-in-htw-insta" class="md-nav__link">
-    <span class="md-ellipsis">
-      Registrierung eines service workers in HTW-Insta
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#service-worker-life-cycle-ereignisse-behandeln" class="md-nav__link">
-    <span class="md-ellipsis">
-      Service worker: Life-Cycle-Ereignisse behandeln
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Service worker: Life-Cycle-Ereignisse behandeln">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#service-worker-aktualisieren-und-aktivieren" class="md-nav__link">
-    <span class="md-ellipsis">
-      Service worker aktualisieren und aktivieren
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arrow-notation-verwenden" class="md-nav__link">
-    <span class="md-ellipsis">
-      Arrow-Notation verwenden
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#service-worker-andere-ereignisse-behandeln" class="md-nav__link">
-    <span class="md-ellipsis">
-      Service worker: andere Ereignisse behandeln
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#anwendung-mit-einem-android-gerat-verbinden" class="md-nav__link">
-    <span class="md-ellipsis">
-      Anwendung mit einem Android-Gerät verbinden
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#anwendung-auf-ihrem-iphone-aufrufen" class="md-nav__link">
-    <span class="md-ellipsis">
-      Anwendung auf Ihrem iPhone aufrufen
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../backend/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Backend (MongoDB)
   </span>
   
 
@@ -1488,44 +1242,6 @@
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Fußzeile" >
-        
-          
-          <a href="../uebungen/" class="md-footer__link md-footer__link--prev" aria-label="Zurück: Übungen">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Zurück
-              </span>
-              <div class="md-ellipsis">
-                Übungen
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../backend/" class="md-footer__link md-footer__link--next" aria-label="Weiter: Backend (MongoDB)">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Weiter
-              </span>
-              <div class="md-ellipsis">
-                Backend (MongoDB)
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">

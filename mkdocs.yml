@@ -77,7 +77,7 @@ nav:
     - CSS - Responsive Web-Design: rwd.md 
     - JavaScript - DOM und Arrays: javascript.md 
     - JavaScript - Objekte und JSON: objekte.md 
-    - JavaScript - Promises: promises.md 
+    - JavaScript - Promises und Fetch: promises.md 
     - Angular - Komponenten: angular.md 
     - Angular - Templates: templates.md
     - Angular -  Routing und Services: routing.md 
@@ -87,6 +87,4 @@ nav:
     - Front- & Backend - Guards: guards.md 
     - Front- & Backend - Deployment: deployment.md 
     - Übungen: uebungen.md
-    - Service Worker: serviceworker.md
-    - Backend (MongoDB): backend.md 
     - Werkzeuge: tools.md

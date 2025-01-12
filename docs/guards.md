@@ -8,356 +8,496 @@ Wir wollen am Beispiel einer Nutzerverwaltung die Verwendung von *Subject*, *Obs
 
 ![users](./files/284_users.png)
 
-Ein [Observer](https://rxjs.dev/guide/observer) konsumiert die Werte, die ein Observable liefert. Alle Funktionen des HTTP-Clients sind Observables. Sie liefern die Werte vom Backend (mittels einer `next`-Funktion). Mithilfe eines Observers werden wir diese Werte empfangen (`next`, `error`, `complete`).
+Ein [Observer](https://rxjs.dev/guide/observer) konsumiert die Werte, die ein [Observable](https://rxjs.dev/guide/observable) liefert. Alle Funktionen des HTTP-Clients sind *Observables*. Sie liefern die Werte vom Backend (mittels einer `next`-Funktion). Mithilfe eines Observers werden wir diese Werte empfangen (`next`, `error`, `complete`).
 
-Mithilfe von *Guards* wird die Verwendung von Komponenten gesteuert. Eine Komponente soll z.B. nur dann aufgerufen werden können, wenn die Nutzerin eingelogged ist. 
 
-Obwohl alle diese Konzepte zum Frontend gehören, erstellen wir uns zunächst ein Backend für die Nutzerverwaltung. 
+## Sicherheitskonzepte
 
-## REST-API zur Nutzerverwaltung (Backend)
+- Wir werden in diesem Abschnitt unterschiedliche "Sicherheitskonzepte" umsetzen. Einerseits werden wir die REST-API so gestalten, dass nicht alle Endpunkte frei verfügbar sind, sondern für einige Endpunkte nur dann eine wirksame Funktionalität ausgeführt wird, wenn sich der Aufrufer des Endpunktes als Administrator "ausweisen" kann. Wir werden dazu [JSON Web Tokens](https://jwt.io/) verwenden. 
+
+- Außerdem zeigen wir, wie wir Passworte verschlüsselt in der Datenbank ablegen und wie dann ein Passwort-Vergleich durchgeführt wird. Dazu verwenden wir [bcrypt](https://www.npmjs.com/package/bcrypt).  
+
+- Mithilfe von *Guards* wird die Verwendung von Komponenten im Frontend gesteuert. Eine Komponente soll z.B. nur dann aufgerufen werden können, wenn die Nutzerin eingelogged ist. 
+
+Der letzte Punkt betrifft das Frontend. Die ersten beiden Punkte betreffen das Backend. Damit fangen wir an. 
+
+## Abgesicherte REST-API zur Nutzerverwaltung (Backend)
 
 Folgende Endpunkte soll die REST-API zur Verfügung stellen:
 
-| Endpunkt | Beschreibung |
-|----------|--------------|
-|`GET /users` |gebe alle `user`-Einträge zurück |
-|`POST /users/register` |erstelle einen neuen `user` (`Registrierung`-Funktion)|
-|`POST /users/login` |Prüft, ob `username == name` existiert und ob das Passwort stimmt (`Login`-Funktion) |
-|`GET /users/:name` |gibt den `user` mit `username == name` zurück |
-|`DELETE /users/:id` |löscht den `user` mit `_id == id` |
-|`PUT /users/:id` |ändert Daten von `user` mit `_id == id` |
+| Endpunkt | Beschreibung | Abgesichert |
+|----------|--------------|-------------|
+|`GET /user` |gebe alle `user`-Einträge zurück | kann nur durch einen `admin` aufgerufen werden |
+|`GET /user/:username` |gibt den `user` mit `username` zurück | kann nur durch einen `admin` aufgerufen werden |
+|`POST /user/register` |erstelle einen neuen `user` (`Registrierung`-Funktion)| frei verfügbar, Registrierung jedoch nur als Rolle `user` |
+|`POST /user/login` |Prüft, ob `username` existiert und ob das Passwort stimmt (`Login`-Funktion) | frei verfügbar |
+|`DELETE /user/:id` |löscht den `user` mit `id == id` |kann nur durch einen `admin` aufgerufen werden |
+|`PUT /changepasswaord` |ändert das Passwort einer Nutzerin | frei verfügbar |
+|`PUT /setadmin` |setzt die Rolle für eine Nutzerin von `user` auf `admin` | kann nur durch einen `admin` aufgerufen werden |
 
-Wir gehen wie in [REST-API (MongoDB)](backend.md#rest-api) vor und erstellen uns ein `Node.js`-Projekt:
+Wir gehen wie in [REST-API (PostgreSQL)](backend_pg.md#rest-api) vor und erstellen uns ein `Node.js`-Projekt:
 
 ```bash
 mkdir backend
 cd backend
-npm i
-npm i express --save
-npm i nodemon --save-dev
-npm i mongoose --save
-npm i dotenv --save
-npm i cors --save
+npm init
+npm i express 
+npm i pg 
+npm i dotenv 
+npm i cors 
+npm i bcrypt
+npm i jsonwebtoken
 ```
 
 Als Einstiegspunkt wählen wir `server.js`. Diese sieht wie folgt aus:
 
 === "server.js"
 	```js linenums="1"
-	const express = require('express');
-	const cors = require('cors');
-	const userRoutes = require('./routes/users');
-	const mongoose = require('mongoose');
-	require('dotenv').config();
+	const express = require('express')
+	const cors = require('cors')
+	require('dotenv').config()
+	const routes = require('./routes')
 
-	const app = express();
-	const PORT = 3000;
+	const app = express()
+	const PORT = 3000
 
-	app.use(express.json());
-	app.use(cors());
-	app.use('/users', userRoutes);
+	app.use(express.json())
+	app.use(cors())
+	app.use('/user', routes)
 
-	// connect to mongoDB
-	mongoose.connect(process.env.DB_CONNECTION, { dbName: process.env.DB_NAME });
-	const db = mongoose.connection;
-	db.on('error', err => {
-	  console.log(err);
-	});
-	db.once('open', () => {
-	    console.log('connected to DB');
-	});
-
-	app.listen(PORT, (error) => {
-	    if (error) {
-	        console.log(error);
+	app.listen(PORT, (err) => {
+	    if(err) {
+	        console.log('backend not started', err)
 	    } else {
-	        console.log(`Server started and listening on port ${PORT} ... `);
+	        console.log(`Server started and listening on port ${PORT} ...`)
+	    }
+	})
+	```
+
+Die Verbindungsdaten zur PostgreSQL-Datenbank stehen in der `.env`-Datei. Die Verbindung zur Datenbank stellen wir im Skript `db.js` her: 
+
+=== ".env"
+	```json
+	PGUSER=<s05...>
+	PGHOST=psql.f4.htw-berlin.de
+	PGPASSWORD='ihr_passwort'
+	PGDATABASE=<name_der_datenbank_auf_ocean>
+	PGPORT=5432
+	```
+
+=== "db.js"
+	```js
+	const pg = require('pg');
+
+	const db = new pg.Client({
+	    user: process.env.PGUSER,
+	    host: process.env.PGHOST,
+	    database: process.env.PGDATABASE,
+	    password: process.env.OCEAN_PASSWORD, /* bei Ihnen PGPASSWORD */
+	    port: process.env.PGPORT,
+	});
+
+	db.connect(err => {
+	    if (err) {
+	        console.log(err);
+	    } else {
+	        console.log('Connection to DB ...');
 	    }
 	});
+
+	module.exports = db;
 	```
 
-Die Verbindungsdaten zur MongoDB stehen in der `.env`-Datei unter `DB_CONNECTION` und der Name der Datenbank steht dort unter `DB_NAME` (siehe Zeile `15`). Für die Endpunkte (Routen) haben wir einen Ordner `routes` erstellt, unter dem verschiedene `.js`-Dateien liegen können, in denen unterschiedliche Endpunkte definiert sind. Hier wird zunächst nur die `users.js` dort erstellt:
+Für die Endpunkte (Routen) erstellen wir ein Skript `routes.js`:
 
-=== "routes/users.js"
+=== "routes.js"
 	```js linenums="1"
-	const express = require('express');
+	const express = require('express')
 	const router = express.Router();
-	const User = require('../models/users');
+	const bcrypt = require('bcrypt')
+	const db = require('./db')
+	var jwt = require('jsonwebtoken');
 
-	// get all users
-	router.get('/', async(req, res) => {
-	    const allUsers = await User.find();
-	    console.log(allUsers);
-	    res.send(allUsers);
-	});
+	// call only once at the beginning - creates table users (id, username, password, email, role)
+	router.get('/createtable', async(req,res) => {
+	    await db.query('DROP TABLE IF EXISTS users; CREATE TABLE users(id serial PRIMARY KEY, username VARCHAR(50), password VARCHAR(255), email VARCHAR(50), role VARCHAR(50));')
+	    res.send({ message: `table users in database ${process.env.PGDATABASE} created`})
 
-	// post one user - register
-	router.post('/register', async(req, res) => {
-	    const newUser = new User({
-	        username: req.body.username,
-	        password: req.body.password,
-	        email: req.body.email,
-	        role: req.body.role
-	    })
-	    await newUser.save();
-	    res.send(newUser);
-	});
+	})
 
+	/* hier fügen wir im Folgenden die weiteren Endpunkte hinzu */
 
 	module.exports = router;
 	```
 
-In der `routes/users.js` sind zunächst nur die beiden Endpunkte `GET /users` und `POST /users` definiert. Wir wollen uns gleich um den Endpunkt `POST /users` nochmal gesondert kümmern. Derzeit ist er so implementiert, wie wir es auch bereits in [REST-API (MongoDB)](backend.md#c-create)	hatten. Ehe wir diese Implementierung nochmal genauer betrachten zunächst noch das zugehörige Model:
-
-=== "models/users.js"
-	```js linenums="1"
-	const mongoose = require('mongoose');
-
-	const schema = new mongoose.Schema({
-	    username: String,
-	    password: String,
-	    email: String,
-	    role: String
-	});
-
-	module.exports = mongoose.model('User', schema);
-	```
-
-Das Backend ist nun ausführbar. Es können neue `user` angelegt werden (`POST /users`) und alle `user` ausgelesen werden (`GET /users`). 
-
-![users](./files/276_users.png)
-
-Jedoch erkennen wir nun ein wesentliches Problem: die Passwörter werden lesbar gespeichert. Das wollen wir natürlich nicht. 
-
-### Passwörter verschlüsseln
-
-Wir verschlüsseln die Passwörter mithilfe von [bcrypt](https://www.npmjs.com/package/bcrypt). Dazu installieren wir uns dieses Paket zunächst
+Wir haben zunächst einen Endpunkt implementiert, den wir einmalig zum Erstellen der Tabelle `users` in der Datenbank benötigen. Wenn wir das Backend mit
 
 ```bash
-npm i bcrypt --save
+node --watch server.js
 ```
 
-und verwenden es dann wie folgt in der `routes/users.js` für den `POST /users`-Endpunkt:
+starten und den Endpunkt `GET localhost:3000/user/createtable` aufrufen (im Browser oder in Postman), dann wird in unserer Datenbank (in meinem Beispiel `users_jf`) eine Tabelle `users` mit den Spalten `id`, `username`, `password`, `email` und `role` erzeugt.
 
+![guards](./files/315_guards.png)
 
-=== "routes/users.js"
-	```js linenums="1" hl_lines="4 15 16 19 25"
-	const express = require('express');
-	const router = express.Router();
-	const User = require('../models/users');
-	const bcrypt = require('bcrypt');
+## `Registrierungs`-Endpunkt
 
-	// get all users
-	router.get('/', async(req, res) => {
-	    const allUsers = await User.find();
-	    console.log(allUsers);
-	    res.send(allUsers);
-	});
+Wir fügen unserer `routes.js` folgende Implementierung hinzu:
 
-	// post one user - register
+=== "POST /user/register in routes.js" 
+	```js linenums="14"
+	// post one user - register as role user
 	router.post('/register', async(req, res) => {
-	    bcrypt.hash(req.body.password, 10).then(
-	        async (hash) => {
-	            const newUser = new User({
-	                username: req.body.username,
-	                password: hash,
-	                email: req.body.email,
-	                role: req.body.role
-	            })
-	            await newUser.save();
-	            res.send(newUser);
-	        }).catch( err => res.status(400).json({ error: 'user not created' }))
-	});
+	    let username = req.body.username;
+	    let password = req.body.password;
+	    let hashPassword = await bcrypt.hash(password, 10);
+	    console.log('hash : ', hashPassword)
+	    let email = req.body.email;
 
-	module.exports = router;
+	    let check = await db.query('SELECT * FROM users WHERE email = $1 OR username = $2', [email, username]) 
+	    if(check.rowCount > 0) {
+	        res.status(401)
+	        res.send({ message: `E-Mail ${email} and/or username ${username} already exists`})
+	    } else {
+	        const query = `INSERT INTO users(username, password, email, role) VALUES ($1, $2, $3, $4) RETURNING *`;
+
+	        let result = await db.query(query, [username, hashPassword, email, 'user']);
+	        res.status(201)
+	        res.send(result.rows[0])
+	    }
+	})
 	```
 
-In Zeile `15` wird die `hash`-Funktion von `bcrypt` aufgerufen. Das `password` wird als erster Parameter übergeben. Die `10` ist der Wert für die `saltRounds` und ist der empfohlene Wert. Der `hash` wird erzeugt und als Wert der `password`-Eigenschaft in `newUser` und somit in der Datenbank gespeichert. 
+Erläuterungen:
+
+- zur Registrierung muss das JSON-Objekt im `body` des `requests` Werte für die Eigenschaften `username`, `password` und `email` enthalten. 
+
+- Die Registrierung wird nur dann vorgenommen, wenn weder `username` noch `email` bereits in der Datenbank enthalten sind. Wenn einer der beiden Werte bereits vorkommt, wird Status-Code `401` gesendet und die Nachricht `E-Mail ${email} and/or username ${username} already exists` (Zeilen `23-26`). 
+
+- Wir verschlüsseln die Passwörter mithilfe von [bcrypt](https://www.npmjs.com/package/bcrypt). Dazu installieren wir uns dieses Paket zunächst mit `npm i bcrypt` (siehe oben). Eingebunden wird es mithilfe von `const bcrypt = require('bcrypt')` (siehe oben).
+
+- In Zeile `18` wird die `hash()`-Funktion von `bcrypt` aufgerufen. Das `password` wird als erster Parameter übergeben. Die `10` ist der Wert für die `saltRounds` und ist der empfohlene Wert. Der `hash` wird erzeugt und als Wert der Variablen `hashPassword` zuegwiesen. Dieser Hash-Wert wird in der Datenbank gespeichert (Zeile `29)`. 
 
 ![users](./files/277_users.png)
 
-Es bleibt anzumerken, dass aus dem `hash` nicht wieder das Passwort rückerzeugt werden kann. Um sich einzuloggen, muss das einegebene Passwort mit dem `hash` verglichen werden. Dazu stellt `bcrypt` ebenfalls eine Funktion zur Verfügung. Wir kommen darauf zurück, wenn es um die `Login`-Funktion geht. 
+Es bleibt anzumerken, dass aus dem `hash` nicht wieder das Passwort rückerzeugt werden kann. Um sich einzuloggen, muss das einegebene Passwort mit dem `hash` verglichen werden. Dazu stellt `bcrypt` ebenfalls eine Funktion zur Verfügung. Diese verwenden wir beim Login. 
 
-Zunächst wollen wir noch verhindern, dass sich eine Nutzerin mit einem bereits bekannten `username` bzw. mit einer bereits bekannten `email`-Adresse anmeldet. 
-
-### Doppelte `username` und `email` verhindern
-
-Doppelte Einträge in der `user`-Datenbank für `username` und/oder `email` führen zu Problemen und sollten vermieden werden. Wir passen deshalb die Funktion für das Eintragen eines neuen Datensatzes wie folgt an:
-
-
-=== "routes/users.js"
-	```js linenums="1" hl_lines="15-17 29-31"
-	const express = require('express');
-	const router = express.Router();
-	const User = require('../models/users');
-	const bcrypt = require('bcrypt');
-
-	// get all users
-	router.get('/', async(req, res) => {
-	    const allUsers = await User.find();
-	    console.log(allUsers);
-	    res.send(allUsers);
-	});
-
-	// post one user - register
-	router.post('/register', async(req, res) => {
-	    const existingUsername = await User.findOne( {username: req.body.username});
-	    const existingEmail = await User.findOne( {email: req.body.email});
-	    if(!existingUsername && !existingEmail) {
-	        bcrypt.hash(req.body.password, 10).then(
-	            async (hash) => {
-	                const newUser = new User({
-	                    username: req.body.username,
-	                    password: hash,
-	                    email: req.body.email,
-	                    role: req.body.role
-	                })
-	                await newUser.save();
-	                res.send(newUser);
-	            }).catch( err => res.status(400).json({ error: 'user not created' }))
-	    } else {
-	        res.status(400).json({ error: 'username and/or email exist(s)' });
-	    }
-	});
-
-	module.exports = router;
-	```
-
-Es wird mithilfe von `findOne()` nach einem Eintrag gesucht, der den neuen `username` bzw. die neue `email` enthält. Wenn kein solcher Eintrag gefunden wird, ist sowohl `existingUsername` als auch `existingEmail` `null` und der neue Eintrag kann erzeugt werden. Ansonsten wird der HTTP-Status `400` mit der `error`-Meldung `username and/or email exist(s)` zurückgesendet. So wird sichergestellt, dass kein neuer `user` erstellt wird, deren `username` und/oder `email` bereits in der Datenbank existiert. 
-
-### `Login`-Funktion
+## `Login`-Endpunkt
 
 Eine `Login`-Funktion soll überprüfen, ob ein `username` existiert und ob das dazugehörige `password` korrekt ist. Dazu müssen beide Informationen mit dem *Request* übermittelt werden. Deshalb wird als Anfragemethode `POST` verwendet. Um diesen `POST`-Endpunkt vom vorherigen Endpunkt zu unterscheiden, wird der URL anstelle von `/register` hier `/login` angehängt. 
 
-Die Implementierung dieser Funktion in der `routes/users.js` könnte wie folgt aussehen:
+Die Implementierung dieser Funktion in der `routes.js` könnte wie folgt aussehen:
 
 
-=== "routes/users.js"
-	```js linenums="34"
-	// post username and password - login
+=== "POST /user/login in routes.js"
+	```js linenums="35"
+	// post one user - login
 	router.post('/login', async(req, res) => {
-	    const existingUsername = await User.findOne( {username: req.body.username});
-	    if(existingUsername) {
-	        bcrypt.compare(req.body.password, existingUsername.password).then((result) => {
-	            if(result) {
-	                res.status(201).json({ message: 'logged in' });
-	            } else {
-	                res.status(204).send(); // wrong password
-	            }
-	        })
-	        .catch( (err) => res.status(400).json({ error: 'something went wrong' })) // never happens
-	    } else {
-	        res.status(400).json({ error: 'username does not exist' });
-	    }
-	});
-	```
+	    let username = req.body.username;
+	    let password = req.body.password;
 
-Es wird zunächst geprüft, ob es überhaupt einen passenden `username` in der Datenbank gibt. Da `username` nicht doppelt vorkommen kann, muss auch nur `findOne()` verwendet werden. Existiert ein solcher EIntrag nicht, wird HTTP-Status `400` zurückgesendet mit der `error`-Message `username does not exist`.
-
-Existiert ein solcher Eintrag jedoch, wird das `password` dieses Eintrages mit dem `password` aus dem *Request* unter Verwendung der `compare`-Funktion von `bcrypt` miteinander verglichen. Sind die Passwärter gleich ist das `result == true`. Dann wird der Status-Code `201` zusammen mit der `message: logged in` gesendet. Ist jedoch `result == false`, dann war das Passwort falsch und es wird der Statuscode `204` (`no content`) zurückgesendet. 
-
-### Daten ändern
-
-Für das Ändern der Daten haben wir bereits die Standardfunktion betrachtet, siehe [U - update](backend.md#u-update). Bei der Nutzerverwaltung kommt jedoch die Anforderung hinzu, dass das Ändern der Daten (selbst das Ändern des Passwortes) nur dann möglich sein soll, wenn das (alte) Passwort korrekt übermittelt wird. 
-
-Sollte ein neues Passwort übermittelt werden (Eigenschaft `newPassoword`), kann vorher im Frontend geprüft werden (z.B. durch doppelte Eingabe), ob es "korrekt" ist.
-
-Es ist fraglich, ob es überhaupt möglich sein soll, den `username` zu ändern. Generell ist jedoch beim Ändern des `username` und beim Ändern der `email` darauf zu achten, dass die jeweils neuen Werte nicht bereits existieren. 
-
-Zu beachten ist auch, dass der Endpunkt die `_id` enthält. Das bedeutet, dass der Datensatz zuvor aus der Datenbank ausgelesen werden musste, d.h. er muss zwingend bereits existieren. Nur die Angabe von z.B. `username` würde die Sicherheit reduzieren. 
-
-Die Funktion ist somit recht komplex und könnte z.B. wie folgt aussehen:
-
-
-=== "routes/users.js"
-	```js linenums="51"
-	// update one user
-	router.put('/:id', async(req, res) => {
-	    try {
-	        const user = await User.findOne({ _id: req.params.id })
-	        if(user && req.body.password) {
-	            bcrypt.compare(req.body.password, user.password)
-	            .then( async(result) => 
-	            {
-	                if(result) {
-
-	                    if (req.body.newPassword) {
-	                        bcrypt.hash(req.body.newPassword, 10)
-	                        .then( 
-	                            async(hash) => {
-	                                console.log('new hash', hash)
-	                                await User.updateOne({ _id: req.params.id }, { password: hash });
-	                            }
-	                        );
-	                    }
-
-	                    if (req.body.username) {
-	                        const nameExists = await User.findOne({ username: req.body.username })
-	                        if(!nameExists) await User.updateOne({ _id: req.params.id }, { username: req.body.username });
-	                        else res.status(400).json({ error: 'username exists' });
-	                    }
-
-	                    if (req.body.email) {
-	                        const emailExists = await User.findOne({ email: req.body.email })
-	                        if(!emailExists) await User.updateOne({ _id: req.params.id }, { email: req.body.email });
-	                        else res.status(400).json({ error: 'email exists' });
-	                    }
-
-	                    if (req.body.role) {
-	                        await User.updateOne({ _id: req.params.id }, { role: req.body.role });
-	                    }
-
-	                    res.status(200).send()
-
-	                } else {
-	                    res.status(204).send(); // wrong password
-	                }
-
-	            })
-	        } else {
-	            res.status(204).send(); // wrong _id or no password
+	    let result = await db.query('SELECT * FROM users WHERE username = $1', [username]) 
+	    if(result.rowCount > 0) {
+	        const user = result.rows[0];
+	        const match = await bcrypt.compare(password, user.password);
+	        if(match) {
+	            const userWithoutPassword = {id: user.id, username: user.username, role: user.role, email: user.email};
+	            const token = jwt.sign(userWithoutPassword, username);
+	            res.status(200)
+	            res.send({token: token, user: userWithoutPassword })
 	        }
-	    } catch {
-	        res.status(404)
-	        res.send({ error: "User does not exist!" })
-	    }
-	});
-	```
-
-- Zunächst wird geprüft, ob überhaupt ein `user` mit der aufgerufenen `id` existiert und ob das `password` mitgeschickt wird (Zeile `55`). Nur dann wird überhaupt weitergeprüft. Ansonsten werden die Zeilen `94-96` ausgeführt (HTTP-Status `204` gesendet).
-- In Zeile `56` wird geprüft, ob das mitgeschickte `password` dem für `user` gespeicherten `password` entspricht. Das geschieht mithilfe der `compare()`-Funktion von `bcrypt`. Ist das `password` nicht korrekt, werden die Zeilen `89-91` ausgeführt (HTTP-Status `204` gesendet).
-- Ist das `password` korrekt, wird geprüft, welche der Daten geändert werden sollen. Dazu wird jeweils geschaut, ob `newPassword` (Zeilen `61-69`), `username` (Zeilen `71-75`), `email` (Zeilen `77-81`) oder `role` (Zeilen `83-85`) mitgesendet werden. Falls ja, wird jeweils der Datensatz mithilfe von `updateOne()` aktualisiert. 
-
-### `user` löschen und lesen
-
-Die beiden Funktionen zum Löschen und Lesen einer Nutzerin sind so, wie wir sie bereits kennen:
-
-=== "routes/users.js"
-	```js linenums="103"
-	// get one user via username
-	router.get('/:name', async(req, res) => {
-	    const user = await User.findOne({ username: req.params.name });
-	    if(user) {
-	        res.send(user);
+	        else {
+	            res.status(401)
+	            res.send({ message: "username/password wrong"}) /* hier weiß man Passwort falsch */
+	        }
 	    } else {
-	        res.status(404);
-	        res.send({
-	            error: "User does not exist!"
-	        });
+	        res.status(401)
+	        res.send({ message: "username/password wrong"})     /* hier weiß man, username falsch */
 	    }
 	})
+	```
 
-	// delete one user via id
-	router.delete('/:id', async(req, res) => {
+
+Erläuterungen: 
+
+- Es wird zunächst geprüft, ob es überhaupt einen passenden `username` in der Datenbank gibt (Zeile `40`). Existiert ein solcher EIntrag nicht, wird HTTP-Status `401` zurückgesendet mit der Meldung `username/password wrong`. Man könnte hier natürlich auch konkreter `username does not exist` zurückgeben, aber zu viele Details bei einem fehlerhaften Login-Versuch sind kein guter Datenschutz.  
+
+- Existiert ein Eintrag für `username`, wird das `password` dieses Eintrages mit dem `password` aus dem *Request* unter Verwendung der `compare()`-Funktion von `bcrypt` miteinander verglichen (Zeile `43`). Sind die Passwärter gleich, ist `match == true`. 
+
+- Für den Fall, dass `match==true` ist, wird die Nutzerin eingelogged. Dafür wird mithilfe des `jsonwebtoken`-Paketes ein solcher `JSON Web Token (jwt)` erzeugt. Dies geschieht mithilfe der `sign()`-Funktion. Der Token enthält die Daten über die Nutzerin (außer das gehashte Passwort) als *payload*. Als Sicherheitsschlüssel wird hier der `username` verwendet (siehe [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)). 
+
+- Für den Fall, dass `match==false` ist, stimmte das Passwort nicht. Auch hier geben wir `401` und `username/password wrong` zurück und geben keine weiteren Informationen preis. 
+
+![guards](./files/316_guards.png)
+
+![guards](./files/317_guards.png)
+
+## Read all
+
+Das Auslesen aller Nutzerinnen soll nur einem Nutzer in der Rolle `admin` möglich sein. Wir haben derzeit keine Möglichkeit, einen `admin`-Nutzer zu kreieren. Wir werden zwar später noch einen Endpunkt implementieren, der für eine Nutzerin die Rolle `user` in die Rolle `admin` wechselt, aber auch dies wird nur einem `admin` möglich sein. Wir benötigen also einmalig einen Nutzer in der Rolle `admin` in unserer Tabelle. Diesen können wir entweder über 
+
+- [pgAdmin](https://www.pgadmin.org/) oder
+- [psql](https://www.timescale.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows) 
+
+direkt in die Tabelle mit z.B. `INSERT INTO users(username, password, email, role) VALUES ("admin1", hashPassword, "admin1@test.de", "admin")` einrichten. Das `hasPassword` lässt sich z.B. auf [bcrypt.online](https://bcrypt.online/) erzeugen. Oder wir passen den Endpunkt `GET /user/createtablle` kurz wie folgt an:
+
+```js
+// call only once at the beginning - creates table users (id, username, password, email, role)
+router.get('/createtable', async(req,res) => {
+    const password = await bcrypt.hash('pass1234', 10)
+    const query = `INSERT INTO users(username, password, email, role) VALUES ($1, $2, $3, $4);`
+    await db.query('DROP TABLE IF EXISTS users;')
+    await db.query('CREATE TABLE users(id serial PRIMARY KEY, username VARCHAR(50), password VARCHAR(255), email VARCHAR(50), role VARCHAR(50));')
+    await db.query(query, ["admin1", password, "admin1@test.de", "admin"])
+    res.send({ message: `table users in database ${process.env.PGDATABASE} created`})
+})
+```
+
+Dann sollten wir ihn aber nach einmaliger Ausführung auch wieder aus unserem Backend entfernen.
+
+Nun haben wir eine Nutzerin in der `admin`-Rolle und erzeugen beim Einloggen (wie für alle Nutzerinnen beim Einloggen) ein JSON-Web-Token (jwt).
+
+### JSON-Web-Token (JWT)
+
+
+Über JSON-Web-Tokens (JWT) können Sie sich [hier](https://jwt.io/introduction) und aber auch in dem frei verfügbaren [Handbuch](https://auth0.com/resources/ebooks/jwt-handbook) informieren. JWT ist ein offener [Standard](https://datatracker.ietf.org/doc/html/rfc7519) und dient dem sicheren Informationsaustausch zwischen zwei Parteien. Am häufigsten wird JWT zur Autorisierung, d.h. zur Überprüfung von Zugriffsrechten genutzt. 
+
+!!! info "Autorisierung vs. Authentififizierung"
+	Durch **Authentifizierung** wird bestätigt, dass Benutzer diejenigen sind, die sie zu sein vorgeben, während diese Benutzer per **Autorisierung** die Erlaubnis erhalten, auf Ressourcen zuzugreifen.
+
+Um eine Ressource nutzen zu können, autorisiert man den Zugriff mithilfe eines Tokens. Wenn wir einen Endpunkt einer REST-API nutzen wollen, dann senden wir diesen Token im `header` des Requests mit. Zunächst muss der Token jedoch erzeugt werden. Dies passiert beim Login. Wir schauen uns einen solchen Token im Detail an:
+
+Ein JWT besteht aus 
+
+- einem *Header*,
+- einem *Paload* und
+- einer *Signatur*.
+
+Der *Header* enthält zwei Einträge: den Typ des Tokens (`JWT`) und den Algorithmus, der zum Signieren des Tokens verwendet wird, z.B. [HMAC SH265](https://de.wikipedia.org/wiki/HMAC) oder [RSA](https://de.wikipedia.org/wiki/RSA-Kryptosystem). Ein Beispiel für den *Header*  könnte sein:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+Der *Payload* enthält typischerweise Daten über den Nutzer, z.B.
+
+```json
+{
+  "username": "muster",
+  "email": "muster@test.de",
+  "role": "admin"
+}
+```
+
+Die *Signatur* verschlüsselt den *Header* und den *Payload* mit dem angegebenen Signaturalgorithmus und verwendet dabei ein `secret`. Dieses `secret` kann ein öffentlicher Schlüssel oder einfach ein alphanumerischer String sein. 
+
+Zur Erzeugung und Prüfung von JWT verwenden wir in unserem Backend das [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)-Paket. Zur Erzeugung des Tokens stellt dieses Package die Funktion `sign()` zur Verfügung. 
+
+Wir zeigen zunächst nochmal den Code, der beim `Login` zur Erstellung des Tokens führt:
+
+=== "aus POST /user/login"
+	```js linenums="48"
+    const userWithoutPassword = {id: user.id, username: user.username, role: user.role, email: user.email};
+    const token = jwt.sign(userWithoutPassword, username);
+    res.status(200)
+    res.send({token: token, user: userWithoutPassword })
+	```
+
+Wir verwenden darin das `userWithoutPassword`-Objekt als *Payload* des JWT und den `username` als `secret`. Wenn nun ein Endpunkt angesprochen wird, der eine Autorisierung verlangt, prüfen wir folgendes:
+
+=== "Autorisierung mit JWT"
+	```js linenums="1"
+    /* ------------------ check if caller is admin    ---- start --------------------- */
+    console.log('request headers: ', req.headers)
+    const token = req.headers['authorization'];
+    const callerusername = req.headers['username'];
+
+    if(!token) {
+        return res.status(401).send({ message: 'No token provided' });
+    }
+    try {
+        const decoded = jwt.verify(token, callerusername)
+        console.log('decoded : ', decoded)
+
+        const check = await db.query('SELECT * FROM users WHERE username=$1', [decoded.username])
+        console.log('check ', check)
+        if(check.rows[0].role!='admin') {
+            return res.status(401).send({ message: 'you are not an admin' });
+        }
+
+    } catch(err) {
+        return res.status(401).send({ message: 'Invalid token' });
+    }
+    /* ------------------ check if caller is admin    ---- end --------------------- */
+    ```
+
+Erläuterungen:
+
+- In den Zeilen `3` und `4` lesen wir den `token` und den `callerusername` aus, die beide im `header` des *requests* gesendet werden. 
+
+- Wenn im `header` unter dem Schlüssel `authorization` kein `token` gesendet wird, wird die Anfrage mit einer `401`-Response abgelehnt (Zeilen `6-8`).
+
+- Wenn ein `token` verfügbar ist, wird dieser mithilfe der Funktion `verify()` des `jsonwebtoken`-Paketes dekodiert. Dabei wird der `callerusername` als `secret` verwendet (wie beim Signieren). 
+
+- Nun fragen wir in der Datenbank an, ob es sich bei dem `callerusername` um einen `admin` handelt. Das steht zwar auch im *payload* des `token`, kann sich aber in der Zwischenzeit theoretisch geändert haben. 
+
+- Wenn es sich nicht um einen `admin` handelt, wird die Anfrage ebenfalls mit einer `401`-Response abgelehnt (Zeilen `15-17`).
+
+- Falls die `verify()`-Funktion einen Fehler geworfen hat, z.B. weil das `secret` nicht korrekt war, wird ebenfalls die Anfrage mit einer `401`-Response abgelehnt. 
+
+Erst, wenn diese Prüfungen alle erfolgreich absolviert werden, kann der nachfolgende Code ausgeführt werden. Wir werden die oben gezeigt Implementierung nun in jedem Endpunkt voranstellen, der `admin`-Rechte zur Anbfrage benötigt. 
+
+
+### Read-all-Endpunkt
+
+Der *read-all*-Endpunkt (`GET /user`) sieht demnach so aus:
+
+=== "GET /user"
+	```js linenums="63"
+	// get all users
+	router.get('/', async(req, res) => {
+
+	    /* ------------------ check if caller is admin    ---- start --------------------- */
+	    console.log('request headers: ', req.headers)
+	    const token = req.headers['authorization'];
+	    const callerusername = req.headers['username'];
+
+	    if(!token) {
+	        return res.status(401).send({ message: 'No token provided' });
+	    }
 	    try {
-	        await User.deleteOne({ _id: req.params.id })
-	        res.status(204).send()
-	    } catch {
-	        res.status(404)
-	        res.send({ error: "User does not exist!" })
+	        const decoded = jwt.verify(token, callerusername)
+	        console.log('decoded : ', decoded)
+
+	        const check = await db.query('SELECT * FROM users WHERE username=$1', [decoded.username])
+	        console.log('check ', check)
+	        if(check.rows[0].role!='admin') {
+	            return res.status(401).send({ message: 'you are not an admin' });
+	        }
+
+	    } catch(err) {
+	        return res.status(401).send({ message: 'Invalid token' });
+	    }
+	    /* ------------------ check if caller is admin    ---- end --------------------- */
+
+	    /* ------- if caller is admin, then do the following --------------------------- */
+	    const query = `SELECT * FROM users `;
+
+	    try {
+	        const result = await db.query(query)
+	        console.log(res)
+	        res.status(200)
+	        res.send(result.rows);
+	    } catch (err) {
+	        console.log(err.stack)
 	    }
 	});
 	```
+
+
+Abzüglich der Überprüfung des JWT sieht der Endpunkt also so aus, wie wir ihn bereits kennen. Das gilt im Prinzip auch für die folgenden Endpunkte.
+
+### Read one user by username
+
+Im `header` wird hier wieder unter `authorization` der JWT und unter `username` der `callerusername` erwartet. Als Parameter wird der `username` aufgerufen, dessen Daten gesendet werden, falls er existiert.
+
+=== "GET /user/:username"
+	```js linenums="103"
+	// get one user bei username
+	router.get('/:username', async(req, res) => {
+
+	    /* ------------------ check if caller is admin    ---- start --------------------- */
+	    console.log('request headers: ', req.headers)
+	    const token = req.headers['authorization'];
+	    const callerusername = req.headers['username'];
+
+	    if(!token) {
+	        return res.status(401).send({ message: 'No token provided' });
+	    }
+	    try {
+	        const decoded = jwt.verify(token, callerusername)
+	        console.log('decoded : ', decoded)
+
+	        const check = await db.query('SELECT * FROM users WHERE username=$1', [decoded.username])
+	        console.log('check ', check)
+	        if(check.rows[0].role!='admin') {
+	            return res.status(401).send({ message: 'you are not an admin' });
+	        }
+
+	    } catch(err) {
+	        return res.status(401).send({ message: 'Invalid token' });
+	    }
+	    /* ------------------ check if caller is admin    ---- end --------------------- */
+
+	    /* ------- if caller is admin, then do the following --------------------------- */
+	    const query = `SELECT * FROM users WHERE username = $1`;
+
+	    try {
+	        const username = req.params.username;
+	        const result = await db.query(query, [username])
+	        if(result.rowCount > 0) {
+	            res.status(200)
+	            res.send(result.rows[0]);
+	        } else {
+	            res.status(404)
+	            res.send({message: `user with username ${username} does not exist`});
+	        }
+	    } catch (err) {
+	        console.log(err.stack)
+	    }
+	});
+	```
+
+
+### Change password
+
+Im `body` des Requests wird der `username`, das `oldpassword` und das `newpassword` erwartet. Das `oldpassword` wird mittels `bcrypt.compare()` mit dem in der Datenbank gespeicherten Passwort verglichen. Bei Erfolg, wird das gehashte `newpassword` (`bcrypt.hash()`) in die Datenbank anstelle des alten Passwortes gespeichert. Der Endpunkt benötigt keine Autorisierung.
+
+=== "PUT /user/changepassword"
+	```js linenums="147"
+	// put ({username, oldpassword, newpassword}) - changepassword
+	router.put('/changepassword', async(req, res) => {
+	    let username = req.body.username;
+	    let oldpassword = req.body.oldpassword;
+	    let newpassword = req.body.newpassword;
+
+	    let hashPassword = await bcrypt.hash(newpassword, 10);
+	    console.log('hash : ', hashPassword)
+
+	    let result = await db.query('SELECT * FROM users WHERE username = $1', [username]) 
+	    if(result.rowCount > 0) {
+	        const user = result.rows[0];
+	        const match = await bcrypt.compare(oldpassword, user.password);
+	        if(match) {
+	            const updatequery = `UPDATE users SET 
+	            username = $1, 
+	            password = $2
+	            WHERE username=$3
+	            RETURNING *;`;
+	        
+	            const updateresult = await db.query(updatequery, [username, hashPassword, username]);
+	            console.log('updateresult : ', updateresult)
+	            res.status(200)
+	            res.send(updateresult.rows[0])
+	        }
+	        else {
+	            res.status(401)
+	            res.send({ message: "username/password wrong"})
+	        }
+	    } else {
+	        res.status(401)
+	        res.send({ message: "username/password wrong"})
+	    }
+	})
+	```
+
+
+
+
+---
 
 
 ## Registrierung und Login (Frontend)

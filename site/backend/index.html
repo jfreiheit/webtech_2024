@@ -15,10 +15,6 @@
         <link rel="canonical" href="http://freiheit.f4.htw-berlin.de/webtech/backend/">
       
       
-        <link rel="prev" href="../serviceworker/">
-      
-      
-        <link rel="next" href="../tools/">
       
       
       <link rel="icon" href="../img/favicon.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>Backend (MongoDB) - WebTech</title>
+        <title>REST-API - WebTech</title>
       
     
     
@@ -113,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Backend (MongoDB)
+              REST-API
             
           </span>
         </div>
@@ -373,7 +369,7 @@
         
   
   <span class="md-ellipsis">
-    JavaScript - Promises
+    JavaScript - Promises und Fetch
   </span>
   
 
@@ -558,242 +554,6 @@
   
 
       </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../serviceworker/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Service Worker
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Backend (MongoDB)
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    Backend (MongoDB)
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Inhaltsverzeichnis">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Inhaltsverzeichnis
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#rest" class="md-nav__link">
-    <span class="md-ellipsis">
-      REST
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ein-nodejs-projekt-mit-express" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ein Node.js-Projekt mit Express
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Ein Node.js-Projekt mit Express">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#router" class="md-nav__link">
-    <span class="md-ellipsis">
-      Router
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#starten-des-projektes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Starten des Projektes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#routen" class="md-nav__link">
-    <span class="md-ellipsis">
-      Routen
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#datenbank-erstellen" class="md-nav__link">
-    <span class="md-ellipsis">
-      Datenbank erstellen
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mongodb-in-vscode" class="md-nav__link">
-    <span class="md-ellipsis">
-      MongoDB in VSCode
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dotenv-fur-sichere-zugangsdaten" class="md-nav__link">
-    <span class="md-ellipsis">
-      Dotenv für sichere Zugangsdaten
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ein-model-erstellen" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ein Model erstellen
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zugriffe-auf-die-datenbank" class="md-nav__link">
-    <span class="md-ellipsis">
-      Zugriffe auf die Datenbank
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Zugriffe auf die Datenbank">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#r-read-all" class="md-nav__link">
-    <span class="md-ellipsis">
-      R - read all
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#c-create" class="md-nav__link">
-    <span class="md-ellipsis">
-      C - create
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#r-read-one" class="md-nav__link">
-    <span class="md-ellipsis">
-      R - read one
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#u-update" class="md-nav__link">
-    <span class="md-ellipsis">
-      U - update
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#d-delete-one" class="md-nav__link">
-    <span class="md-ellipsis">
-      D - delete one
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cross-origin-resource-sharing-cors" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cross-Origin Resource Sharing (CORS)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2391,44 +2151,6 @@ Wir fügen <code>dotenv</code> n die <code>server.js</code> ein und greifen mith
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Fußzeile" >
-        
-          
-          <a href="../serviceworker/" class="md-footer__link md-footer__link--prev" aria-label="Zurück: Service Worker">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Zurück
-              </span>
-              <div class="md-ellipsis">
-                Service Worker
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../tools/" class="md-footer__link md-footer__link--next" aria-label="Weiter: Werkzeuge">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Weiter
-              </span>
-              <div class="md-ellipsis">
-                Werkzeuge
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">

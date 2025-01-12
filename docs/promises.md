@@ -454,7 +454,150 @@ async function testPromises() {
 }
 ```
 
-Dies erzeugt jeweils die gleichen Ausgaben wie oben gezeigt. Generell ist die Verwendung von `async/await` oft übersichtlicher als `then()`-Verkettungen. Das Konzept `async/await` verliert etwas an Übersichtlichkeit, wenn Fehler abgefangen werden (dann im `try/catch`-Block). Manchmal kann `async/await` jedoch gar nicht verwendet werden, nämlich genau dann, wenn die Funktion nicht einfach als `async` deklariert werden kann. Das ist z.B. bei den Lifecyclehooks von Angular der Fall (z.B. `ngOnInit()`). 
+Dies erzeugt jeweils die gleichen Ausgaben wie oben gezeigt. Generell ist die Verwendung von `async/await` oft übersichtlicher als `then()`-Verkettungen. Das Konzept `async/await` verliert etwas an Übersichtlichkeit, wenn Fehler abgefangen werden (dann im `try/catch`-Block). 
+
+
+## Fetch API
+
+Die [Fetch API](https://developer.mozilla.org/de/docs/Web/API/Fetch_API) bietet einen bequemeren und leistungsfähigeren Ersatz für [XMLHttpRequest](https://developer.mozilla.org/de/docs/Web/API/XMLHttpRequest). Es geht also darum, Ressourcen vom Web-Server zu holen (*to fetch*). Die Fetch API ist vollständig auf Promises aufgebaut. Die zentrale Methode der Fetch API ist `fetch()`. Das Gute an dieser Methode ist, dass sie *gloabl* ist im Sinne, dass sie nicht nur von einer Webanwendung selbst, sondern auch z.B. von einem Service Worker verwendet werden kann (sie ist im [WindowOrWorkerGlobalScope](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope)). Einführungen zu `fetch()` finden Sie z.B. [hier](https://developers.google.com/web/updates/2015/03/introduction-to-fetch), [hier](https://jakearchibald.com/2015/thats-so-fetch/) oder [hier](https://www.mediaevent.de/javascript/fetch.html).
+
+### GET-Anfragen mit fetch()
+
+Wir starten mit einem einfachen Beispiel und nutzen dafür [https://httpbin.org](https://httpbin.org/), eine Webseite, die viele REST-Endpunkte zum Ausprobieren anbietet. Nach dem Öffnen dieser Seite im Browser, können Sie z.B. mal auf `Request inspection` klicken - dort sehen wir den Endpunkt `/ip`, den wir über ein `GET` abfragen werden:
+
+```javascript linenums="1"
+fetch('https://httpbin.org/ip')
+    .then(
+            response => {
+                console.log(response);
+            }
+    );
+```
+
+Wir rufen also einmal `fetch()` auf und übergeben dieser Funktion den Endpunkt, von dem eine Ressource geholt werden soll. Die `fetch()`-Funktion liefert ein `Promise`-Objekt zurück. Deshalb können wir auch direkt die `then()`-Funktion aufrufen und die `response` (ist egal, wie Sie diesen Parameter nennen) auf die Konsole ausgeben. Wenn wir diesen Code ausführen, erscheint in der Konsole:
+
+![fetch](./files/31_fetch.png)
+
+Wir bekommen also ein JavaScript-Objekt zurück. Wirklich interessiert sind wir aber hauptsächlich an dem `body` dieses Objektes. Um darauf geeignet zuzugreifen, konvertieren wir das Objekt zunächst in das JSON-Format mithilfe der Anweisung `response.json();`. Die `json()`-Funktion ist eine Standard-JavaScript-Funktion, welche ein JavaScript-Objekt in einen JSON umwandelt. Da `then()` selbst ein `Promise`-Objekt zurückgibt. wollen wir darauf `then()` erneut anwenden, um das Prinzip verketteter `then()`-Funktionen (verketteter asynchroner Verarbeitungen) zu zeigen:
+
+```javascript linenums="1"
+fetch('https://httpbin.org/ip')
+    .then(
+        response => {
+            return response.json();
+        }
+    )
+    .then(
+        data => {
+            console.log(data);
+        }
+    );
+```
+
+In der ersten `then()`-Funktion (Zeilen `2-6`) wird also die Response der asynchronen `GET https://httpbin.org/ip`-Anfrage behandelt und darin wird diese Response in eine JSON umgewandelt (Zeile `4`). Die Rückgabe dieser `then()`-Funktion ist erneut ein `Promise`. Für dieses `Promise` ist die zweite `then()`-Funktion (Zeilen `7-11`). Diese Funktion behandelt das asynchrone Streamen des Response-Body und dessen Umwandlung in ein JSON. Das durch dieses `Promise` zurückgegebene `resolve` bezeichnen wir in unserem Beispiel als `data` und geben es auf die Konsole aus. Auf der Konsole erscheint die `IP`, von der die Anfrage erfolgte, z.B. 
+
+```bash
+{origin: "130.193.115.48"}
+```
+
+Noch zwei kleine Verbesserungen am Code: wenn in der Arrow-Notation Ihre Funktion nur aus einer einzigen `return`-Anweisung besteht, dann können Sie die geschweiften Klammern Ihres Funktionskörpers weglassen und auch das `return`. D.h. aus
+
+```javascript
+    response => {
+        return response.json();
+    }
+```
+wird 
+
+```javascript
+    response => response.json()
+```
+Auch das Semikolon entfällt. Das gilt aber nur für `return`-Anweisungen, nicht z.B. wenn die Funktion nur aus einer einzigen Konsolenausgabe besteht. Außerdem sollten wir auch noch ein `catch()`-Block einfügen, für den Fall, dass ein Fehler auftritt:
+
+```javascript linenums="1"
+fetch('https://httpbin.org/ip')
+    .then(
+        response => response.json()
+    )
+    .then(
+        data => {
+            console.log(data);
+        }
+    )
+    .catch(
+        err => {
+            console.log(err);
+        }
+    );
+```
+
+Den Fehlerfall können Sie ausprobieren, indem Sie einfach einen Fehler in die URL einbauen.
+
+### POST-Anfragen mit fetch()
+
+`POST`-Anfragen werden verwendet, um Daten an den Webserver zu senden. Typischerweise sind das Formulardaten, die z.B. in eine Datenbank eingefügt werden sollen. Wenn wir also mithilfe von `fetch()` eine `POST`-Anfrage stellen wollen, dann müssen wir zwei Dinge beachten:
+
+- wir müssen `fetch()` explizit mitteilen, dass die verwendete HTTP-Anfrage-Methode `POST` ist und
+- wir müssen die Daten mitschicken.
+
+Für ein einfaches Beispiel verwenden wir erneut [https://httpbin.org](https://httpbin.org/), dieses Mal aber den Endpunkt [/post](https://httpbin.org/#/HTTP_Methods/post_post), der uns einfach die gesendeten Daten wieder als Response unserer Abfrage zurückschickt, also einfach als "Spiegel" fungiert. Eine entsprechende `fetch()`-Anweisung könnte so aussehen:
+
+```javascript linenums="1"
+fetch('https://httpbin.org/post', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            message: 'just a POST mirror'
+        })
+    })
+    .then(
+        response => response.json()
+    )
+    .then(
+        data => {
+            console.log(data);
+        }
+    )
+    .catch(
+        err => {
+            console.log(err);
+        }
+    );
+```
+
+Die Zeilen `11-23` sind dabei zunächst unverändert geblieben und sehen genauso aus wie die Zeilen `2-14` aus dem obigen `GET`-Beispiel. Nur die Parameter in der `fetch()`-Funktion haben sich geändert. Der erste Parmeter lautet nun `'https://httpbin.org/post'`, da wir die Anfrage an diese URL (diesen Endpunkt) stellen. Hinzugekommen ist ein zweiter Parameter, ein JSON:
+
+```json
+{
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+        message: 'just a POST mirror'
+    })
+}
+```
+
+darin legen wir zunächst mithilfe von `method` die HTTP-Anfrage-Methode fest. Standard ist `GET`, deshalb brauchten wir das in unserem ersten Beispiel nicht zu tun. Nun geben wir `POST` an. 
+
+Außerdem definieren wir noch Eigenschaften für den `header`. Wir legen mithilfe von `Content-Type` fest, welches Format unsere Daten haben, die wir übermitteln, nämlich `application/json`. Außerdem legen wir mithilfe von `Accept` fest, in welchem Format wir die Daten empfangen wollen, nämlich ebenfalls im JSON-Format. Diese `Accept`-Angabe ist nicht immer notwendig. Die meisten REST-Endpunkte liefern so oder so ein JSON zurück. Das hängt von der Definition der REST-API ab. 
+
+In der `body`-Eigenschaft definieren wir die Daten, die wir übertragen wollen. In diesem Fall im JSON-Format. `{ message: 'just a POST mirror' }` ist ein JavaScript-Objekt, das eine einzige Eigenschaft enthält, nämlich `message`. Mithilfe der JavaScript-Standardfunktion `JSON.stringify()` wandeln wir dieses JavaScript-Objekt in ein JSON um. Somit wird ein JSON versendet, genau wie wir es im `header` unter `Content-Type` angegeben haben. 
+
+Führen wir diesen Code aus, erhalten wir auf der Konsole folgende Ausgabe: 
+
+![fetch](./files/32_fetch.png)
+
+Man könnte jetzt meinen, dass der Zugriff auf das Response-JSON (`{message: "just a POST mirror"}`) einfach über `response.data` oder über `response.json` erfolgen kann. Dem ist aber nicht so, da es sich bei dem `body` der `response` um ein Objekt vom Typ [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) handelt. Das ist einerseits gut, denn die Daten vom Server werden asynchron als Stream empfangen, andererseits ist der Zugriff auf die Daten recht aufwendig. Sie können Sie dazu [hier](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams) oder [hier](https://github.com/mdn/dom-examples/tree/master/streams/simple-pump) oder [hier](https://github.com/mdn/dom-examples/tree/master/streams) ausführlich informieren. 
+
+!!! success
+    Wir kennen nun Promises und die Fetch API und können beides anwenden. Wir werden Promises von nun an permanent verwenden. Insbesondere den *consuming code* für Promises, als `.then().catch()`. Mithilfe der Fetch API werden wir alle HTTP-Anfragen an den Server stellen können, also `GET`, `POST`, `PUT` und `DELETE` und dabei das asynchrone Prinzip dieser API bestmöglich ausnutzen.  
+
 
 
 
