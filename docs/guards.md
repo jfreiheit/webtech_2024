@@ -400,7 +400,7 @@ Der *read-all*-Endpunkt (`GET /user`) sieht demnach so aus:
 
 Abzüglich der Überprüfung des JWT sieht der Endpunkt also so aus, wie wir ihn bereits kennen. Das gilt im Prinzip auch für die folgenden Endpunkte.
 
-### Read one user by username
+### Read one `user` by `username`
 
 Im `header` wird hier wieder unter `authorization` der JWT und unter `username` der `callerusername` erwartet. Als Parameter wird der `username` aufgerufen, dessen Daten gesendet werden, falls er existiert.
 
@@ -496,6 +496,133 @@ Im `body` des Requests wird der `username`, das `oldpassword` und das `newpasswo
 
 
 
+### Rolle `user` auf `admin` setzen
+
+Im `header` wird hier wieder unter `authorization` der JWT und unter `username` der `callerusername` erwartet, d.h. es handelt sich um einen geschützten Endpunkt. Im `body` des Requests wird der `username` der Nutzerin erwartet, deren Rolle auf `admin` gesetzt werden soll. Dies geschieht, ohne dass geprüft wird, ob die Rolle vorher `user` war.
+
+
+=== "PUT /user/setadmin"
+	```js linenums="182"
+	router.put('/setadmin', async(req, res) => {
+
+	    /* ------------------ check if caller is admin    ---- start --------------------- */
+	    console.log('request headers: ', req.headers)
+	    const token = req.headers['authorization'];
+	    const callerusername = req.headers['username'];
+
+	    if(!token) {
+	        return res.status(401).send({ message: 'No token provided' });
+	    }
+	    try {
+	        const decoded = jwt.verify(token, callerusername)
+	        console.log('decoded : ', decoded)
+
+	        const check = await db.query('SELECT * FROM users WHERE username=$1', [decoded.username])
+	        console.log('check ', check)
+	        if(check.rows[0].role!='admin') {
+	            return res.status(401).send({ message: 'you are not an admin' });
+	        }
+
+	    } catch(err) {
+	        return res.status(401).send({ message: 'Invalid token' });
+	    }
+	    /* ------------------ check if caller is admin    ---- end --------------------- */
+
+	    /* ------- if caller is admin, then do the following --------------------------- */
+	    let username = req.body.username;
+
+	    const updatequery = `UPDATE users SET 
+	    role='admin'
+	    WHERE username=$1
+	    RETURNING *;`;
+
+	    const updateresult = await db.query(updatequery, [username]);
+	    console.log('updateresult : ', updateresult)
+	    res.status(200)
+	    res.send(updateresult.rows[0])
+	})
+	```
+
+
+
+### Delete one `user` by `id`
+
+Im `header` wird hier wieder unter `authorization` der JWT und unter `username` der `callerusername` erwartet, d.h. es handelt sich um einen geschützten Endpunkt. Die `id` der zu löschenden Nutzerin wird als Parameter der Route übergeben.
+
+
+=== "DELETE /user/:id"
+	```js linenums="221"
+	// delete one user via id
+	router.delete('/:id', async(req, res) => {
+
+	    /* ------------------ check if caller is admin    ---- start --------------------- */
+	    console.log('request headers: ', req.headers)
+	    const token = req.headers['authorization'];
+	    const callerusername = req.headers['username'];
+
+	    if(!token) {
+	        return res.status(401).send({ message: 'No token provided' });
+	    }
+	    try {
+	        const decoded = jwt.verify(token, callerusername)
+	        console.log('decoded : ', decoded)
+
+	        const check = await db.query('SELECT * FROM users WHERE username=$1', [decoded.username])
+	        console.log('check ', check)
+	        if(check.rows[0].role!='admin') {
+	            return res.status(401).send({ message: 'you are not an admin' });
+	        }
+
+	    } catch(err) {
+	        return res.status(401).send({ message: 'Invalid token' });
+	    }
+	    /* ------------------ check if caller is admin    ---- end --------------------- */
+
+	    /* ------- if caller is admin, then do the following --------------------------- */
+	    try {
+	        const id = req.params.id;
+	        const query = `DELETE FROM users WHERE id=$1`;
+	        const result = await db.query(query, [id])
+	        console.log(result)
+	        if (result.rowCount == 1)
+	            res.send({ message: "User with id=" + id + " deleted" });
+	        else {
+	            res.status(404)
+	            res.send({ message: "No user found with id=" + id });
+	        }
+	    } catch (err) {
+	        console.log(err.stack)
+	    } 
+	});
+	```
+
+
+### Testen der abgesicherten Endpunkte in Postman
+
+Um die abgesicherten Endpunkte in Postman zu testen, müssen wir die benötigten Informationen im `Header` an das `request`-Objekt übergeben. Die folgenden Screenshots zeigen, wie das geht. 
+
+Wir loggen uns zunächst mit einem `admin`-Account ein:
+
+![guards](./files/318_guards.png)
+
+In der `Response` erhalten wir einen `token`. Diesen benötigen wir, um uns für die abgesicherten Endpunkte zu autorisieren:
+
+![guards](./files/319_guards.png)
+
+Wir wählen in der oberen `Request`-Hälfte den Menüpunkt `Headers` aus und geben dort den `key` `authorization` ein und dafür als Wert den `token`, den wir in der `Response` vom `Login` erhalten haben. Als zweiten Schlüssel geben wir `username` ein und als Wert den `username`, für den der `token` erzeugt wurde. Dieser `username` wurde bei der Token-Erstellung als `secret` verwendet. Obere Abbildung zeigt den Aufruf des Endpunktes `PUT /user/setadmin`. Dafür muss auch noch im `Body` des `Requests` der `username` übergeben werden, für den die Rolle auf `admin` gewechselt werden soll, z.B. 
+
+```json
+{
+    "username": "user1"
+}
+```
+
+Mit den erforderlichen Autorisierungsinformationen im Header können die abgesicherten Endpunkte in Postman getestet werden. 
+
+
+!!! success
+	Wir haben ein Backend zur Nutzerverwaltung erstellt. Es stellt die [oben](guards.md#abgesicherte-rest-api-zur-nutzerverwaltung-backend) beschriebenen Endpunkte zur Verfügung. Es ist leicht um weitere Endpunkte erweiterbar, z.B. ein weiterer Endpunkt, der aus einer Nutzerin in der Rolle `admin` die Rolle `user` zuweist. Einige der Endpunkte sind mittels [JWT](https://jwt.io/) abgesichert, so dass sie nur von als `admin` eingeloggten Nutzerinnen genutzt werden können. Wir werden nun ein dazu passendes Frontend erstellen, welches das Backend nutzen wird. 
+
 
 ---
 
@@ -508,37 +635,37 @@ Im Terminal geben wir Folgendes ein:
 
 | Terminalbefehl | Beschreibung |
 |----------------|--------------|
-|`ng new frontend --routing` | erstellt Projekt `frontend` mit Routing |
+|`ng new frontend` | erstellt Projekt `frontend` (alle Fragen mit `Enter` beantworten) |
 |`cd frontend` ||
 |`ng g c login` | erstellt Komponente `login` |
 |`ng g c home` | erstellt Komponente `home` |
+|`ng g c table` | erstellt Komponente `table` |
 |`ng g s shared/auth` | erstellt Service `auth` im Ordner `shared` |
 |`ng g i shared/user` | erstellt Interface `user` im Ordner `shared` |
-|`ng add @angular/material` | fügt [Material Design](https://material.angular.io/guide/getting-started) hinzu |
+|`ng add @angular/material@18` | fügt [Material Design](https://material.angular.io/guide/getting-started) hinzu |
 
-Nach dem Hinzufügen von *Material Design* sollte im Terminal ungefähr folgende Ausgabe erscheinen:
+**Achtung:** Das Hinzufügen von *Material Design* mithilfe von `...@18` ist wichtig (Stand Januar 2025). Es gibt zwar bereits Version `19`, aber dort gibt es noch Probleme mit Abhängigkeiten von Paketen.  Nach dem Hinzufügen von *Material Design* sollte im Terminal ungefähr folgende Ausgabe erscheinen:
 
 ```bash
-ℹ Using package manager: npm
-✔ Found compatible package version: @angular/material@15.0.4.
-✔ Package information loaded.
-
-The package @angular/material@15.0.4 will be installed and executed.
-Would you like to proceed? Yes
-✔ Packages successfully installed.
-? Choose a prebuilt theme name, or "custom" for a custom theme: Indigo/Pink        [ Preview: 
-https://material.angular.io?theme=indigo-pink ]
-? Set up global Angular Material typography styles? Yes
+(base) jornfreiheit@MB-JF frontend % ng add @angular/material@18
+✔ Determining Package Manager
+  › Using package manager: npm
+✔ Loading package information from registry
+✔ Confirming installation
+✔ Installing package
+? Choose a prebuilt theme name, or "custom" for a custom theme: Azure/Blue         [Preview: 
+https://material.angular.io?theme=azure-blue]
+? Set up global Angular Material typography styles? yes
 ? Include the Angular animations module? Include and enable animations
-UPDATE package.json (1105 bytes)
+UPDATE package.json (1122 bytes)
 ✔ Packages installed successfully.
-UPDATE src/app/app.module.ts (654 bytes)
-UPDATE angular.json (2844 bytes)
-UPDATE src/index.html (576 bytes)
+UPDATE src/app/app.config.ts (421 bytes)
+UPDATE angular.json (2778 bytes)
+UPDATE src/index.html (529 bytes)
 UPDATE src/styles.css (181 bytes)
 ```
 
-Als `prebuild theme` wurde hier `Indigo/Pink` und sowohl für die `typography styles` als auch für die `animations` wurde `y` ausgewählt.
+Als `prebuild theme` wurde hier `Azure/Blue` und sowohl für die `typography styles` als auch für die `animations` wurde `y` ausgewählt.
 
 *Material Design* bietet sogenannte [Schematics](https://material.angular.io/guide/schematics) an. Wir wählen das `navigation`-Schema und geben im Terminal ein:
 
@@ -551,77 +678,89 @@ Es entsteht eine `nav`-Komponente. Außerdem wählen wir das `address-form`-Sche
 ng generate @angular/material:address-form register
 ``` 
 
-Die `app.component.html` ändern wir wie folgt:
+Die `app.component.html` ändern wir wie folgt und in die `app.component.ts` importieren wir die `NavComponent` (dafür kann `RouterOutlet` entfernt werden):
 
 === "app.component.html"
 	```html
 	<app-nav></app-nav>
 	```
 
+=== "app.component.ts"
+	```ts
+	import { Component } from '@angular/core';
+	import { NavComponent } from './nav/nav.component';
+
+	@Component({
+	  selector: 'app-root',
+	  standalone: true,
+	  imports: [NavComponent],
+	  templateUrl: './app.component.html',
+	  styleUrl: './app.component.css'
+	})
+	export class AppComponent {
+	  title = 'frontend';
+	}
+	```
+
+
 Darin wird also nur noch die `nav`-Komponente statisch eingebunden.
 
 Ehe wir an der `nav.component.html` umfangreichere Änderungen vornehmen, defininieren wir zunächst noch folgende Routen:
 
-=== "app-routing.module.ts"
-	```js linenums="1" hl_lines="3-5 8-23"
-	import { NgModule } from '@angular/core';
-	import { RouterModule, Routes } from '@angular/router';
+=== "app.routes.ts"
+	```js linenums="1" hl_lines="2-4 8-22"
+	import { Routes } from '@angular/router';
 	import { HomeComponent } from './home/home.component';
-	import { LoginComponent } from './login/login.component';
 	import { RegisterComponent } from './register/register.component';
+	import { LoginComponent } from './login/login.component';
 
-	const routes: Routes = [
-	  {
-	    path: "",
-	    title: "Home",
-	    component: HomeComponent,
-	    pathMatch: 'full'
-	  },
-	  {
-	    path: "register",
-	    title: "Register",
-	    component: RegisterComponent
-	  },
-	  {
-	    path: "login",
-	    title: "Login",
-	    component: LoginComponent
-	  }
+	export const routes: Routes = [
+	    {
+		    path: "",
+		    title: "Home",
+		    component: HomeComponent,
+		    pathMatch: 'full'
+		  },
+		  {
+		    path: "register",
+		    title: "Register",
+		    component: RegisterComponent
+		  },
+		  {
+		    path: "login",
+		    title: "Login",
+		    component: LoginComponent
+		  }
 	];
-
-	@NgModule({
-	  imports: [RouterModule.forRoot(routes)],
-	  exports: [RouterModule]
-	})
-	export class AppRoutingModule { }
 	``` 
 
 Nun können wir die `nav.component.html` entsprechend anpassen:
 
 === "nav.component.html"
-	```html linenums="1" hl_lines="8-10 23 26"
+	```html linenums="1" hl_lines="6 8-10 24 27"
 	<mat-sidenav-container class="sidenav-container">
 	  <mat-sidenav #drawer class="sidenav" fixedInViewport
 	      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
 	      [mode]="(isHandset$ | async) ? 'over' : 'side'"
 	      [opened]="(isHandset$ | async) === false">
-	    <mat-toolbar>Menu</mat-toolbar>
+	    <mat-toolbar><a href="https://freiheit.f4.htw-berlin.de/webtech/guards/#registrierung-und-login-frontend">WebTech</a></mat-toolbar>
 	    <mat-nav-list>
-	      <a mat-list-item [routerLink]="''">Home</a>
-	      <a mat-list-item [routerLink]="'register'">Register</a>
-	      <a mat-list-item [routerLink]="'login'">Login</a>
+	      <a mat-list-item [routerLink]="['']">Home</a>
+	      <a mat-list-item [routerLink]="['register']">Register</a>
+	      <a mat-list-item [routerLink]="['login']">Login</a>
 	    </mat-nav-list>
 	  </mat-sidenav>
 	  <mat-sidenav-content>
 	    <mat-toolbar color="primary">
-	      <button
-	        type="button"
-	        aria-label="Toggle sidenav"
-	        mat-icon-button
-	        (click)="drawer.toggle()"
-	        *ngIf="isHandset$ | async">
-	        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-	      </button>
+	      @if (isHandset$ | async) {
+	        <button
+	          type="button"
+	          aria-label="Toggle sidenav"
+	          mat-icon-button
+	          (click)="drawer.toggle()">
+	          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+	        </button>
+	      }
 	      <span>Nutzerinnenverwaltung</span>
 	    </mat-toolbar>
 	    <!-- Add Content Here -->
@@ -630,11 +769,82 @@ Nun können wir die `nav.component.html` entsprechend anpassen:
 	</mat-sidenav-container>
 	``` 
 
-In den Zeilen `8-10` werden die Menüeinträge geändert und die Verweise auf `routerLinks` geändert. In Zeile `23` wird die Überschrift geändert und in Zeile `26` erscheint der Platzhalter für die per Routing eingebundenen Komponenten. 
+In den Zeilen `8-10` werden die Menüeinträge geändert und die Verweise auf `routerLinks` geändert. In Zeile `24` wird die Überschrift geändert und in Zeile `27` erscheint der Platzhalter für die per Routing eingebundenen Komponenten. Zeile `6` wurde hier nur optional als Demo geändert, kann natürlich auch bleiben.
+
+Die erforderlichen Anpassungen in der `nav.component.ts` und der `nav.component.css` sehen dann so aus:
+
+=== "nav.component.ts"
+	```js linenums="1" hl_lines="11 25 26"
+	import { Component, inject } from '@angular/core';
+	import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+	import { AsyncPipe } from '@angular/common';
+	import { MatToolbarModule } from '@angular/material/toolbar';
+	import { MatButtonModule } from '@angular/material/button';
+	import { MatSidenavModule } from '@angular/material/sidenav';
+	import { MatListModule } from '@angular/material/list';
+	import { MatIconModule } from '@angular/material/icon';
+	import { Observable } from 'rxjs';
+	import { map, shareReplay } from 'rxjs/operators';
+	import { RouterLink, RouterOutlet } from '@angular/router';
+
+	@Component({
+	  selector: 'app-nav',
+	  templateUrl: './nav.component.html',
+	  styleUrl: './nav.component.css',
+	  standalone: true,
+	  imports: [
+	    MatToolbarModule,
+	    MatButtonModule,
+	    MatSidenavModule,
+	    MatListModule,
+	    MatIconModule,
+	    AsyncPipe,
+	    RouterOutlet,
+	    RouterLink
+	  ]
+	})
+	export class NavComponent {
+	  private breakpointObserver = inject(BreakpointObserver);
+
+	  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+	    .pipe(
+	      map(result => result.matches),
+	      shareReplay()
+	    );
+	}
+	``` 
+
+=== "nav.component.css"
+	```css linenums="1" hl_lines="19-22"
+	.sidenav-container {
+	  height: 100%;
+	}
+
+	.sidenav {
+	  width: 200px;
+	}
+
+	.sidenav .mat-toolbar {
+	  background: inherit;
+	}
+
+	.mat-toolbar.mat-primary {
+	  position: sticky;
+	  top: 0;
+	  z-index: 1;
+	}
+
+	a {
+	  text-decoration: none;
+	  color: black;
+	}
+	``` 
+
+
 
 Die Anwendung sieht nun wie folgt aus (Desktop- und Mobile-Ansicht):
 
-![users](./files/278_users.png)
+![users](./files/278_users.png){ width="50%" }
 
 Die Menüeinträge funktionieren und bei der `register`-Komponente wird bereits ein recht umfangreiches Formular angezeigt (wegen des verwendeten `address-form`-Schemas).
 
@@ -644,14 +854,32 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 
 === "register.component.ts"
 	```ts linenums="1"
-	import { Component } from '@angular/core';
-	import { FormControl, FormGroup, Validators } from '@angular/forms';
+	import { Component, inject } from '@angular/core';
+
+	import { ReactiveFormsModule, FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
+	import { MatInputModule } from '@angular/material/input';
+	import { MatButtonModule } from '@angular/material/button';
+	import { MatSelectModule } from '@angular/material/select';
+	import { MatRadioModule } from '@angular/material/radio';
+	import { MatCardModule } from '@angular/material/card';
 	import { User } from '../shared/user';
+	import { MatIconModule } from '@angular/material/icon';
+
 
 	@Component({
 	  selector: 'app-register',
 	  templateUrl: './register.component.html',
-	  styleUrls: ['./register.component.css']
+	  styleUrl: './register.component.css',
+	  standalone: true,
+	  imports: [
+	    MatIconModule,
+	    MatInputModule,
+	    MatButtonModule,
+	    MatSelectModule,
+	    MatRadioModule,
+	    MatCardModule,
+	    ReactiveFormsModule
+	  ]
 	})
 	export class RegisterComponent {
 	  registerForm = new FormGroup({
@@ -665,8 +893,6 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 	  hide = true;
 	  hide2 = true;
 	  user!: User;
-
-	  constructor() {}
 
 	  onSubmit(): void {
 	    const values = this.registerForm.value;
@@ -695,9 +921,11 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 	          <mat-form-field hintLabel="Einloggen mit Nutzername und Passwort" class="full-width">
 	            <input matInput placeholder="Nutzername" formControlName="username">
 	            <mat-icon matSuffix >person_add</mat-icon>
-	            <mat-error *ngIf="registerForm.controls['username'].hasError('required')">
-	              Nutzername <strong>erforderlich</strong>
-	            </mat-error>
+	            @if(registerForm.controls['username'].hasError('required')) {
+	              <mat-error>
+	                Nutzername <strong>erforderlich</strong>
+	              </mat-error>
+	            }
 	          </mat-form-field>
 	        </div>
 	      </div>
@@ -708,9 +936,11 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 	            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
 	              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 	            </button>
-	            <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
-	              Passwort <strong>erforderlich</strong>
-	            </mat-error>
+	            @if(registerForm.controls['password'].hasError('required')) {
+	              <mat-error>
+	                Passwort <strong>erforderlich</strong>
+	              </mat-error>
+	            }
 	          </mat-form-field>
 	        </div>
 	      </div>
@@ -721,9 +951,11 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 	            <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
 	              <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
 	            </button>
-	            <mat-error *ngIf="registerForm.controls['password2'].hasError('required')">
-	              Wiederholung Passwort <strong>erforderlich</strong>
-	            </mat-error>
+	            @if(registerForm.controls['password2'].hasError('required')) {
+	              <mat-error>
+	                Wiederholung Passwort <strong>erforderlich</strong>
+	              </mat-error>
+	            }
 	          </mat-form-field>
 	        </div>
 	      </div>
@@ -733,9 +965,11 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 	          <mat-form-field hintLabel="E-Mail-Adresse zum Kontaktieren verwendet" class="full-width">
 	            <input matInput placeholder="E-Mail" formControlName="email">
 	            <mat-icon matSuffix>email</mat-icon>
-	            <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
-	              E-Mail-Adresse <strong>erforderlich</strong>
-	            </mat-error>
+	            @if(registerForm.controls['email'].hasError('required')) {
+	              <mat-error>
+	                E-Mail-Adresse <strong>erforderlich</strong>
+	              </mat-error>
+	            }
 	          </mat-form-field>
 	        </div>
 	      </div>
@@ -743,14 +977,18 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 	        <div class="col">
 	          <mat-form-field hintLabel="Wählen Sie eine der beiden Rollen aus" class="full-width">
 	            <mat-select placeholder="Rolle" formControlName="role">
-	              <mat-option *ngFor="let role of roles" [value]="role">
-	                {{ role }}
-	              </mat-option>
+	              @for(role of roles; track $index) {
+	                <mat-option [value]="role">
+	                  {{ role }}
+	                </mat-option>
+	              }
 	            </mat-select>
 	            <mat-icon matSuffix>group</mat-icon>
-	            <mat-error *ngIf="registerForm.controls['role'].hasError('required')">
-	              Rolle <strong>erforderlich</strong>
-	            </mat-error>
+	            @if(registerForm.controls['role'].hasError('required')) {
+	              <mat-error>
+	                Rolle <strong>erforderlich</strong>
+	              </mat-error>
+	            }
 	          </mat-form-field>
 	        </div>
 	      </div>
@@ -761,7 +999,6 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 	    </mat-card-actions>
 	  </mat-card>
 	</form>
-
 	```
 
 === "register.component.css"
@@ -773,9 +1010,7 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 	.shipping-card {
 	  min-width: 120px;
 	  max-width: 80%;
-	  margin-left: auto;
-	  margin-right: auto;
-	  margin: 3% auto;
+	  margin: 2% 2% auto 2%;
 	}
 
 	.mat-radio-button {
@@ -796,22 +1031,36 @@ Wir passen die durch das `address-form`-Schema erstellte `register`-Komponente a
 	.col:last-child {
 	  margin-right: 0;
 	}
-
 	```
 
 Das ergibt folgende Ansicht:
 
-![users](./files/279_users.png)
+![users](./files/279_users.png){ width="50%" }
 
 ### Service verwenden
 
-In dem `auth`-Service binden wir das Backend an und nutzen bspw. die im Registrierungsformular eingegebenen Daten, um die Nutzerin zu registrieren. 
+In dem `auth`-Service binden wir das Backend an und nutzen bspw. die im Registrierungsformular eingegebenen Daten, um die Nutzerin zu registrieren. Im Gegensatz zu [Frontend-Backend-Anbindung](fe-be-anbindung.md#frontend-backend-anbindung), wo wir nur die [Fetch-API]() zum Aufruf der Endpunkte verwendet haben, zeigen wir hier einmal die Verwendung des [HTTP Client](https://angular.dev/guide/http)-Moduls. Wir verwenden hier aber das *HTTP-Client-Modul* mit der *Fetch-API* (und nicht mit [XMLHttpRequest](https://developer.mozilla.org/de/docs/Web/API/XMLHttpRequest)). Dazu binden wir das [HTTP-Client-Modul](https://angular.dev/guide/http/setup#configuring-features-of-httpclient) wie folgt in die `app.config.ts` ein: 
+
+=== "app.config.ts"
+	```js linenums="1" hl_lines="6 13"
+	import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+	import { provideRouter } from '@angular/router';
+
+	import { routes } from './app.routes';
+	import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+	import { provideHttpClient, withFetch } from '@angular/common/http';
+
+	export const appConfig: ApplicationConfig = {
+	  providers: [
+	    provideZoneChangeDetection({ eventCoalescing: true }), 
+	    provideRouter(routes), 
+	    provideAnimationsAsync(), 
+	    provideHttpClient(withFetch(),)]
+	};
+	```
 
 !!! warning "Achtung!"
-
-	Nicht vergessen, das `HttpClientModule` in der `app.module.ts` zu importieren (unter `imports` eintragen und `import { HttpClientModule } from '@angular/common/http';` einfügen lassen)!
-
-	Wichtig ist auch, dass das Backend läuft!
+	Nicht vergessen, dass das Backend läuft!
 
 Der Service könnte z.B. so aussehen:
 
@@ -830,70 +1079,192 @@ Der Service könnte z.B. so aussehen:
 
 	  constructor(private http: HttpClient) { }
 
-	  getAllUsers(): Observable<User[]>{
-	    return this.http.get<User[]>(this.baseUrl + '/users');
+	  registerUser(user:User): Observable<any> {
+	    return this.http.post(this.baseUrl + '/user/register', user);
 	  }
 
-	  registerUser(user:User): Observable<any> {
-	    return this.http.post(this.baseUrl + '/users/register', user);
+	  loginUser(user: {username: string; password: string;}): Observable<any> {
+	    return this.http.post(this.baseUrl + '/user/login', user);
 	  }
 	}
 	```
 
-und die `submit()`-Funktion in der `register.component.ts` könnte zunächst wie folgt erweitert werden:
+und die `submit()`-Funktion in der `register.component.ts` könnte zunächst wie folgt erweitert werden (in der Klasse noch `private auth = inject(AuthService)` hinzufügen und den Service importieren `import { AuthService } from '../shared/auth.service';`):
 
-```js linenums="26"
-  onSubmit(): void {
-    const values = this.registerForm.value;
-    this.user = {
-      username: values.username!,
-      password: values.password!,
-      email: values.email!,
-      role: values.role!
-    };
-    console.log(this.user)
-    this.auth.registerUser(this.user).subscribe({
-        next: (response) => console.log('response', response),
-        error: (err) => console.log(err),
-        complete: () => console.log('register completed')
-    });
-  }
-```
 
-Wenn nun das Registrierungsformular vollständig ausgefüllt wird und weder `username` noch `email` bereits in der Datenbank existieren, wird ein neuer Datensatz in der Datenbank angelegt. Die neue Nutzerin ist registriert. Wenn jedoch der `username` und/oder die `email` bereits existier(t/en), wird nicht die `next`-Eigenschaft des Observers aufgerufen, sondern die `error`-Eigenschaft. Das heißt, entweder gibt es unter `next` eine `response`, nämlich den neu angelegten `user` oder es gibt unter `error` ein Fehlerobjekt, welches selbst eine `error`-Eigenschaft hat (mit `{ error: 'username and/or email exist(s)'}`) und dessen Status `400` ist. 
+=== "aus register.component.ts"
+	```js linenums="56"
+	  onSubmit(): void {
+	    const values = this.registerForm.value;
+	    this.user = {
+	      username: values.username!,
+	      password: values.password!,
+	      email: values.email!,
+	      role: values.role!
+	    };
+	    console.log(this.user)
+	    this.auth.registerUser(this.user).subscribe({
+	        next: (response) => console.log('response', response),
+	        error: (err) => console.log('HttpErrorResponse : ', err),
+	        complete: () => console.log('register completed')
+	    });
+	  }
+	```
 
-### Modaler Dialog zur Bestätigung
+Wenn nun das Registrierungsformular vollständig ausgefüllt wird und weder `username` noch `email` bereits in der Datenbank existieren, wird ein neuer Datensatz in der Datenbank angelegt. Die neue Nutzerin ist registriert. Wenn jedoch der `username` und/oder die `email` bereits existier(t/en), wird nicht die `next`-Eigenschaft des Observers aufgerufen, sondern die `error`-Eigenschaft. Das heißt, entweder gibt es unter `next` eine `response`, nämlich den neu angelegten `user` oder es gibt unter `error` ein Fehlerobjekt, welches selbst eine `error`-Eigenschaft hat (mit `{ message: 'E-Mail test@test.de and/or username user1 already exists'}` - `test@test.de` und `user1` hier Beispiele) und dessen Status `401` ist. Die Eigenschaften `error`, `ok`, `status` (und weitere) können aus `err` ausgelesen werden. 
 
-Derzeit gibt es keine Rückmeldung darüber, ob die neue Nutzerin registriert wurde oder nicht. Wir wollen dazu einen modalen Dialog öffnen, der die entsprechenden Informationen zur Verfügung stellt. Dieser Dialog wird eine Komponente. Da diese Komponente jedoch ausschließlich von der Registrierungskomponente verwendet wird, erstellen wir sie als *Kindkomponente* der Registrierungskomponente. Wir werden dabei insbesondere lernen, wie wir Daten von Elternkomponenten an Kindkomponenten weiterleiten können. 
+Beachten Sie, dass es im Formular möglich ist, zwischen der Rolle `admin` und `user` zu wählen. Das ist aber nur zu Demonstrationszwecken. Der Endpunkt `POST /user/register` im Backend ignoriert die `role`-Eigenschaft und registriert die neue Nutzerin stets als `user`. 
 
-Zunächst erstellen wir die (Kind-)Komponente `confirm`:
+### Validierungen
 
-```bash
-ng g c register/confirm
-```
+Mit den zusätzlichen Validierungen sehen `register.component.html` und `register.component.ts` wie folgt aus:
 
-Unter dem Ordner `register` entsteht ein weiterer Ordner `confirm`, der die `.html`, `.ts` und `.css` der Kindkomponente `confirm` enthält. Wir verwenden [Dialog](https://material.angular.io/components/dialog/overview) von Material Design. Wir gehen vor, wie in [Dialog Examples](https://material.angular.io/components/dialog/examples) gezeigt. Beachten Sie, dass Sie in `app.module.ts` das Modul `MatDialogModule` (aus `@angular/material/dialog`) importieren müssen!
+
+=== "register.component.html"
+	```html linenums="1" hl_lines="13-17 28-36 50-62 72-80 95-99"
+	<form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()">
+	  <mat-card class="shipping-card">
+	    <mat-card-header>
+	      <mat-card-title>Registrierung</mat-card-title>
+	    </mat-card-header>
+	    <mat-card-content>
+
+	      <div class="row">
+	        <div class="col">
+	          <mat-form-field hintLabel="Einloggen mit Nutzername und Passwort" class="full-width">
+	            <input matInput placeholder="Nutzername" formControlName="username">
+	            <mat-icon matSuffix >person_add</mat-icon>
+	            @if(registerForm.controls['username'].hasError('required')) {
+	              <mat-error>
+	                Nutzername <strong>erforderlich</strong>
+	              </mat-error>
+	            }
+	          </mat-form-field>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div class="col">
+	          <mat-form-field hintLabel="Mind. 8 Zeichen, mind. 1 Groß- und Kleinbuchstaben, Ziffer und Sonderzeichen" class="full-width">
+	            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Passwort" formControlName="password">
+	            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+	              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+	            </button>
+	            @if(registerForm.controls['password'].hasError('required')) {
+	              <mat-error>
+	                Passwort <strong>erforderlich</strong>
+	              </mat-error>
+	            } @else if(registerForm.controls['password'].hasError('minlength')) {
+	              <mat-error>
+	                Passwort muss mind. <strong>8</strong> Zeichen enthalten!
+	              </mat-error>
+	            }
+	          </mat-form-field>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div class="col">
+	          <mat-form-field hintLabel="Dasselbe Passwort wie oben" class="full-width">
+	            <input matInput  
+	            [class.ng-invalid]="differentPassword()" 
+	            [class.ng-valid]="!differentPassword()"
+	            [type]="hide2 ? 'password' : 'text'" placeholder="Passwort wiederholen" formControlName="password2">
+	            <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+	              <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+	            </button>
+	            @if(registerForm.controls['password2'].hasError('required')) {
+	              <mat-error>
+	                Wiederholung Passwort <strong>erforderlich</strong>
+	              </mat-error>
+	            } @else if(registerForm.controls['password2'].hasError('minlength')) {
+	              <mat-error>
+	                Passwort muss mind. <strong>8</strong> Zeichen enthalten!
+	              </mat-error>
+	            } @else if(differentPassword()) {
+	              <mat-error>
+	                Passwörter nicht identisch!
+	              </mat-error>
+	            }
+	          </mat-form-field>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="col">
+	          <mat-form-field hintLabel="E-Mail-Adresse zum Kontaktieren verwendet" class="full-width">
+	            <input matInput placeholder="E-Mail" formControlName="email">
+	            <mat-icon matSuffix>email</mat-icon>
+	            @if(registerForm.controls['email'].hasError('required')) {
+	              <mat-error>
+	                E-Mail-Adresse <strong>erforderlich</strong>
+	              </mat-error>
+	            } @else if(registerForm.controls['email'].hasError('email')) {
+	              <mat-error>
+	                keine <strong>gültige</strong> E-Mail-Adresse 
+	              </mat-error>
+	            }
+	          </mat-form-field>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div class="col">
+	          <mat-form-field hintLabel="Wählen Sie eine der beiden Rollen aus" class="full-width">
+	            <mat-select placeholder="Rolle" formControlName="role">
+	              @for(role of roles; track $index) {
+	                <mat-option [value]="role">
+	                  {{ role }}
+	                </mat-option>
+	              }
+	            </mat-select>
+	            <mat-icon matSuffix>group</mat-icon>
+	            @if(registerForm.controls['role'].hasError('required')) {
+	              <mat-error>
+	                Rolle <strong>erforderlich</strong>
+	              </mat-error>
+	            }
+	          </mat-form-field>
+	        </div>
+	      </div>
+
+	    </mat-card-content>
+	    <mat-card-actions>
+	      <button mat-raised-button color="primary" type="submit">Registrieren</button>
+	    </mat-card-actions>
+	  </mat-card>
+	</form>
+	```
 
 === "register.component.ts"
-	```js linenums="1" hl_lines="4 8-11 45 49 56-58"
-	import { ConfirmComponent } from './confirm/confirm.component';
-	import { Component } from '@angular/core';
-	import { FormControl, FormGroup, Validators } from '@angular/forms';
-	import { MatDialog } from '@angular/material/dialog';
-	import { AuthService } from '../shared/auth.service';
-	import { User } from '../shared/user';
+	```js linenums="1" hl_lines="43-55 57-66 77"
+	import { Component, inject } from '@angular/core';
 
-	export interface DialogData {
-	  headline: string;
-	  info: string;
-	}
+	import { ReactiveFormsModule, FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
+	import { MatInputModule } from '@angular/material/input';
+	import { MatButtonModule } from '@angular/material/button';
+	import { MatSelectModule } from '@angular/material/select';
+	import { MatRadioModule } from '@angular/material/radio';
+	import { MatCardModule } from '@angular/material/card';
+	import { User } from '../shared/user';
+	import { MatIconModule } from '@angular/material/icon';
+	import { AuthService } from '../shared/auth.service';
+
 
 	@Component({
 	  selector: 'app-register',
 	  templateUrl: './register.component.html',
-	  styleUrls: ['./register.component.css']
+	  styleUrl: './register.component.css',
+	  standalone: true,
+	  imports: [
+	    MatIconModule,
+	    MatInputModule,
+	    MatButtonModule,
+	    MatSelectModule,
+	    MatRadioModule,
+	    MatCardModule,
+	    ReactiveFormsModule
+	  ]
 	})
 	export class RegisterComponent {
+	  private auth = inject(AuthService)
 	  registerForm = new FormGroup({
 	    username: new FormControl('', Validators.required),
 	    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -906,7 +1277,30 @@ Unter dem Ordner `register` entsteht ein weiterer Ordner `confirm`, der die `.ht
 	  hide2 = true;
 	  user!: User;
 
-	  constructor(private auth: AuthService, public dialog: MatDialog) {}
+	  valid(): boolean {
+	    const check = 
+	    !this.registerForm.controls['username'].hasError('required') &&
+	    !this.registerForm.controls['password'].hasError('required') &&
+	    !this.registerForm.controls['password'].hasError('minlength') &&
+	    !this.registerForm.controls['password2'].hasError('required') &&
+	    !this.registerForm.controls['password2'].hasError('minlength') &&
+	    !this.registerForm.controls['email'].hasError('required') &&
+	    !this.registerForm.controls['email'].hasError('email') &&
+	    this.registerForm.value.password == this.registerForm.value.password2;
+	    console.log('valid : ', check)
+	    return check;
+	  }
+
+	  differentPassword(): boolean {
+	    const check = this.registerForm.dirty && this.registerForm.value.password != this.registerForm.value.password2;
+	    if(check) {
+	      this.registerForm.controls.password2.setErrors({'incorrect': true});
+	    } else {
+	      this.registerForm.controls.password2.setErrors({'incorrect': false});
+	    }
+	    console.log('check : ', check)
+	    return check;
+	  }
 
 	  onSubmit(): void {
 	    const values = this.registerForm.value;
@@ -917,376 +1311,346 @@ Unter dem Ordner `register` entsteht ein weiterer Ordner `confirm`, der die `.ht
 	      role: values.role!
 	    };
 	    console.log(this.user)
-	    this.auth.registerUser(this.user).subscribe({
-	        next: (response) => {
-	          console.log('response', response)
-	          this.openDialog({ headline: "Erfolg", info: "User " + response.username + " registriert!" });
-	        },
-	        error: (err) => {
-	          console.log('error', err.error.error)
-	          this.openDialog({ headline: "Fehler", info: "username und/oder E-Mail existiert bereits" });
-	        },
+	    if(this.valid()) {
+	      console.log('eingaben gueltig! Registrierung wird vorgenommen')
+	      this.auth.registerUser(this.user).subscribe({
+	        next: (response) => console.log('response', response),
+	        error: (err) => console.log('HttpErrorResponse : ', err),
 	        complete: () => console.log('register completed')
 	    });
+	    } else {
+	      console.log('eingaben ungueltig! Registrierung wird abgelehnt')
+	    }
 
-	  }
-
-	    openDialog(data: DialogData) {
-	      this.dialog.open(ConfirmComponent, { data });
 	  }
 	}
 
 	```
 
+Anstatt die Validität der Eingaben in der `submit()`-Funktion zu prüfen, könnte auch der Button `Registrieren` solange disabled bleiben, solange `valid()` ein `false` zurückgibt (`[disabled]="!valid()!"`). 
+
+### Modaler Dialog zur Bestätigung
+
+Derzeit gibt es keine Rückmeldung darüber, ob die neue Nutzerin registriert wurde oder nicht. Wir wollen dazu einen modalen Dialog öffnen, der die entsprechenden Informationen zur Verfügung stellt. Dieser Dialog wird eine Komponente. Da diese Komponente jedoch ausschließlich von der Registrierungskomponente verwendet wird, erstellen wir sie als *Kindkomponente* der Registrierungskomponente. Wir werden dabei insbesondere die Informationen verwenden, wie wir [Datenfluss und Signals](signals.md#datenfluss-und-signals) eingeführt haben. 
+
+Zunächst erstellen wir die (Kind-)Komponente `confirm`:
+
+```bash
+ng g c register/confirm
+```
+
+Unter dem Ordner `register` entsteht ein weiterer Ordner `confirm`, der die `.html`, `.ts` und `.css` der Kindkomponente `confirm` enthält. Wir verwenden [Dialog](https://material.angular.io/components/dialog/overview) von Material Design. Wir gehen vor, wie in [Dialog Examples](https://material.angular.io/components/dialog/examples) gezeigt. 
+
+=== "register.component.ts"
+	```js linenums="1" hl_lines="12-13 15-18 33 90 94 103-105"
+	import { Component, inject } from '@angular/core';
+
+	import { ReactiveFormsModule, FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
+	import { MatInputModule } from '@angular/material/input';
+	import { MatButtonModule } from '@angular/material/button';
+	import { MatSelectModule } from '@angular/material/select';
+	import { MatRadioModule } from '@angular/material/radio';
+	import { MatCardModule } from '@angular/material/card';
+	import { User } from '../shared/user';
+	import { MatIconModule } from '@angular/material/icon';
+	import { AuthService } from '../shared/auth.service';
+	import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+	import { ConfirmComponent } from './confirm/confirm.component';
+
+	export interface DialogData {
+	  headline: string;
+	  info: string;
+	}
+
+	@Component({
+	  selector: 'app-register',
+	  templateUrl: './register.component.html',
+	  styleUrl: './register.component.css',
+	  standalone: true,
+	  imports: [
+	    MatIconModule,
+	    MatInputModule,
+	    MatButtonModule,
+	    MatSelectModule,
+	    MatRadioModule,
+	    MatCardModule,
+	    ReactiveFormsModule,
+	    MatDialogModule
+	  ]
+	})
+	export class RegisterComponent {
+	  private auth = inject(AuthService)
+	  public dialog = inject(MatDialog)
+	  registerForm = new FormGroup({
+	    username: new FormControl('', Validators.required),
+	    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+	    password2: new FormControl('', [Validators.required, Validators.minLength(8)]),
+	    email: new FormControl('', [Validators.required, Validators.email]),
+	    role: new FormControl('', Validators.required)
+	  });
+	  roles = [ "admin", "user"];
+	  hide = true;
+	  hide2 = true;
+	  user!: User;
+
+	  valid(): boolean {
+	    const check = 
+	    !this.registerForm.controls['username'].hasError('required') &&
+	    !this.registerForm.controls['password'].hasError('required') &&
+	    !this.registerForm.controls['password'].hasError('minlength') &&
+	    !this.registerForm.controls['password2'].hasError('required') &&
+	    !this.registerForm.controls['password2'].hasError('minlength') &&
+	    !this.registerForm.controls['email'].hasError('required') &&
+	    !this.registerForm.controls['email'].hasError('email') &&
+	    this.registerForm.value.password == this.registerForm.value.password2;
+	    console.log('valid : ', check)
+	    return check;
+	  }
+
+	  differentPassword(): boolean {
+	    const check = this.registerForm.dirty && this.registerForm.value.password != this.registerForm.value.password2;
+	    if(check) {
+	      this.registerForm.controls.password2.setErrors({'incorrect': true});
+	    } else {
+	      this.registerForm.controls.password2.setErrors({'incorrect': false});
+	    }
+	    console.log('check : ', check)
+	    return check;
+	  }
+
+	  onSubmit(): void {
+	    const values = this.registerForm.value;
+	    this.user = {
+	      username: values.username!,
+	      password: values.password!,
+	      email: values.email!,
+	      role: values.role!
+	    };
+	    console.log(this.user)
+	    if(this.valid()) {
+	      console.log('eingaben gueltig! Registrierung wird vorgenommen')
+	      this.auth.registerUser(this.user).subscribe({
+	        next: (response) => {
+	          console.log('response', response);
+	          this.openDialog({ headline: "Erfolg", info: "User " + response.username + " registriert!" });
+	        },
+	        error: (err) => {
+	          console.log('HttpErrorResponse : ', err);
+	          this.openDialog({ headline: "Fehler", info: "username und/oder E-Mail existiert bereits" });
+	        },
+	        complete: () => console.log('register completed')
+	    });
+	    } else {
+	      console.log('eingaben ungueltig! Registrierung wird abgelehnt')
+	    }
+	  }
+
+	  openDialog(data: DialogData) {
+	    this.dialog.open(ConfirmComponent, { data: data });
+	  }
+	}
+	```
+
 === "confirm.component.ts"
 	```js linenums="1" 
-	import { Component, Inject } from '@angular/core';
-	import { MAT_DIALOG_DATA} from '@angular/material/dialog';
-	import { DialogData } from '../register.component';
+	import { Component, inject } from '@angular/core';
+	import { MatButtonModule } from '@angular/material/button';
+	import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 
 	@Component({
 	  selector: 'app-confirm',
+	  standalone: true,
+	  imports: [
+	    MatDialogTitle, 
+	    MatDialogContent, 
+	    MatDialogActions, 
+	    MatDialogClose, 
+	    MatButtonModule,
+	  ],
 	  templateUrl: './confirm.component.html',
-	  styleUrls: ['./confirm.component.css']
+	  styleUrl: './confirm.component.css'
 	})
 	export class ConfirmComponent {
-	  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+	  data = inject(MAT_DIALOG_DATA)
 	}
 	```
 
 === "confirm.component.html"
 	```html linenums="1" 
 	<h1 mat-dialog-title>{{ data.headline }}</h1>
-	<div mat-dialog-content>
+	<mat-dialog-content class="mat-typography">
 	  {{ data.info }}
-	</div>
-	<div mat-dialog-actions>
-	  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
-	</div>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+	  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+	</mat-dialog-actions>
 	```
 
 Wenn nun die Registrierung erfolgreich war, erscheint ein entsprechender modaler Dialog und ebenso, wenn die Registrierung nicht erfolgt ist:
 
-![users](./files/280_users.png)
-
-
-## Guards
-
-Mithilfe von [Guards](https://angular.io/guide/router-tutorial-toh#milestone-5-route-guards) können wir festlegen, dass Komponenten z.B. nur dann aufgerufen werden können, wenn man eingelogged ist (aber nicht, wenn man nicht eingelogged ist) oder wenn man z.B. als `admin` eingelogged (und nicht nur als `user`) eingelogged ist. Wir werden hier demonstrieren, wie man solche Guards implementiert und verwendet. Dazu erstellen wir uns zunächst eine weitere Komponente. Die Komponente `userlist` soll alle `user` aus der Datenbank auflisten (als Tabelle). Diese Komponente soll nur aufgerufen werden können, wenn man als `admin` eingelogged ist. Außerdem werden wir den Aufruf der `HomeComponent` nur für den Fall erlauben, dass man eingelogged ist.
-
-### `userlist`-Komponente
-
-Die `userlist`-Komponente erstellen wir mithilfe des Material-Design-Schemas [table](https://material.angular.io/guide/schematics#table-schematic):
-
-```bash
-ng generate @angular/material:table userlist
-```
-
-Für das vereinfachte Beispiel hier haben wir jedoch die z.B. die [Paginierung](https://material.angular.io/components/table/overview#pagination) weggelassen. Viele Beispiele zu Tabellen mit Sortierung, Filterung, Paginierung usw. finden Sie [hier](https://material.angular.io/components/table/overview).
-
-=== "userlist.component.ts"
-	```js linenums="1"
-	import { Component, OnInit } from '@angular/core';
-	import { AuthService } from '../shared/auth.service';
-	import { User } from '../shared/user';
-
-	@Component({
-	  selector: 'app-userlist',
-	  templateUrl: './userlist.component.html',
-	  styleUrls: ['./userlist.component.css']
-	})
-	export class UserlistComponent implements OnInit {
-
-	  users: User[] = [];
-
-	  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-	  displayedColumns = ['username', 'email', 'role'];
-
-	  constructor(private auth: AuthService) {
-
-	  }
-	  ngOnInit(): void {
-	    this.auth.getAllUsers().subscribe({
-	      next: (response) => {
-	        this.users = response;
-	        console.log('this.users', this.users)
-	      }
-	    })
-	  }
-
-	}
-	```
-
-=== "userlist.component.html"
-	```html linenums="1"
-	<div class="mat-elevation-z8">
-	  <table mat-table class="full-width-table" [dataSource]="users" aria-label="Elements">
-	    <!-- username Column -->
-	    <ng-container matColumnDef="username">
-	      <th mat-header-cell *matHeaderCellDef>Nutzername</th>
-	      <td mat-cell *matCellDef="let user">{{user.username}}</td>
-	    </ng-container>
-
-	    <!-- email Column -->
-	    <ng-container matColumnDef="email">
-	      <th mat-header-cell *matHeaderCellDef>E-Mail</th>
-	      <td mat-cell *matCellDef="let user">{{user.email}}</td>
-	    </ng-container>
-
-	    <!-- role Column -->
-	    <ng-container matColumnDef="role">
-	      <th mat-header-cell *matHeaderCellDef>Rolle</th>
-	      <td mat-cell *matCellDef="let user">{{user.role}}</td>
-	    </ng-container>
-
-	    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-	    <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
-	  </table>
-
-	  <mat-paginator #paginator
-	      [length]="users.length"
-	      [pageIndex]="0"
-	      [pageSize]="10"
-	      [pageSizeOptions]="[5, 10, 20]"
-	      aria-label="Select page">
-	  </mat-paginator>
-	</div>
-
-	```
-
-Die Tabelle sieht dann wie folgt aus:
-
-![users](./files/281_users.png)
-
-
-### Guard für den Komponentenzugriff - Logged in
-
-In [Routen absichern mit Guards](routing.md#routen-absichern-mit-guards) haben wir bereits die Grundidee von *Guards* vorgestellt. Wir wollen diese hier anwenden und beschränken uns dabei auf den *Guard-Typ* `CanActivate`. Wir wollen sicherstellen, dass die `HomeComponent` nur aktiviert werden kann, wenn man eingelogged ist und die `RegisterComponent` nur dann, wenn man als `admin` eingelogged ist, um das Prinzip zu verdeutlichen. Wir erstellen uns also einen `CanActivate`-Guard (im Ordner `guards`):
-
-```bash
-ng g guard shared/authguard --implements CanActivate
-```
-
-Diesen `AuthGuard` implementieren wir wie folgt: 
-
-=== "shared/authguard.guards.ts"
-    ```js linenums="1"
-    import { Injectable } from '@angular/core';
-    import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-    import { AuthService } from './auth.service';
-
-    @Injectable({
-      providedIn: 'root'
-    })
-    export class AuthguardGuard implements CanActivate {
-
-      constructor(
-        private as: AuthService,
-        private router: Router
-      ) {}
-
-      canActivate(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): boolean | UrlTree {
-        return this.as.isLoggedin()
-          ? true
-          : this.router.parseUrl('/login');
-      }
-
-    }
-    ```
-
-Dieser *Guard* gibt bei Aufruf der `canActivate()`-Funktion ein `true` zurück, wenn eine Nutzerin eingelogged ist (`isLoggedin()` aus dem `AuthService`). Wenn niemand eingelogged ist, (wenn also `isLoggedin()` ein `false` zurückgibt), dann wird die aktuelle Route nach `/login` umgeleitet. Die Funktion `isLoggedin()` sieht im `auth.service.ts` wie folgt aus (außerdem erweitern wir den Service gleich noch um einige weitere nützliche Funktionen):
-
-=== "shared/auth.service.ts"
-	```js linenums="1"
-	import { HttpClient } from '@angular/common/http';
-	import { Injectable } from '@angular/core';
-	import { Observable } from 'rxjs';
-	import { User } from './user';
-
-	@Injectable({
-	  providedIn: 'root'
-	})
-	export class AuthService {
-	  baseUrl = 'http://localhost:3000';
-	  user!: User | null;
-	  loggedIn = false;
-
-	  constructor(private http: HttpClient) { }
-
-	  getAllUsers(): Observable<User[]>{
-	    return this.http.get<User[]>(this.baseUrl + '/users');
-	  }
-
-	  getOneUser(username: string): Observable<User>{
-	    return this.http.get<User>(this.baseUrl + '/users/' + username);
-	  }
-
-	  registerUser(user:User): Observable<any> {
-	    return this.http.post(this.baseUrl + '/users/register', user);
-	  }
-
-	  isLoggedin(): boolean {
-	    return this.loggedIn;
-	  }
-	  
-	  loginUser(username: string, password: string ): Observable<any>{
-	    return this.http.post(this.baseUrl + '/users/login/', { username: username, password: password }, {observe: 'response'});
-	  }
-
-	  logout(): void {
-	    this.loggedIn = false;
-	    this.user = null;
-	  }
-
-	  getUser(): User | null {
-	    return this.user;
-	  }
-
-	  isAdmin(): boolean {
-	    if(this.user?.role === 'admin')
-	    {
-	      return true;
-	    }
-	    return false;
-	  }
-
-	  isUser(): boolean {
-	    if(this.user?.role === 'user')
-	    {
-	      return true;
-	    }
-	    return false;
-	  }
-	}
-
-	```
-
-Beachten Sie, dass der `post()`-Funktion in `loginUser()` noch die Option `observe: 'response'` hinzugefügt wurde, um die gesamte Response zu erhalten und nicht nur den `body` als `json`. Das gibt uns die Möglichkeit, den `status` der Response auszuwerten. Schauen Sie sich dazu auch den `POST /users/login`-Endpunkt im Backend an. Der schickt verschiedene Status zurück, je nachdem, ob das Login erfolgreich war (`201`) oder nicht (`204` bzw. `400`). 
-
-In der `RegisterComponent` können wir nun auch noch die `login()`-Funktion des Services aufrufen, wenn die Registrierung erfolgreich war:
-
-=== "register.component.ts"
-	```js linenums="33" hl_lines="13-14"
-	  onSubmit(): void {
-    const values = this.registerForm.value;
-    this.user = {
-      username: values.username!,
-      password: values.password!,
-      email: values.email!,
-      role: values.role!
-    };
-    console.log(this.user)
-    this.auth.registerUser(this.user).subscribe({
-        next: (response) => {
-          console.log('response', response)
-          this.user = response;
-          this.auth.login(this.user)
-          this.openDialog({ headline: "Erfolg", info: "User " + response.username + " registriert!" });
-        },
-        error: (err) => {
-          console.log('error', err.error.error)
-          this.openDialog({ headline: "Fehler", info: "username und/oder E-Mail existiert bereits" });
-        },
-        complete: () => console.log('register completed')
-    });
-    ```
-
-Wir fügen diesen Guard nun in die `app-routing.module.ts` ein:
-
-=== "app-routing.module.ts"
-    ```js linenums="1" hl_lines="6 15"
-	import { NgModule } from '@angular/core';
-	import { RouterModule, Routes } from '@angular/router';
-	import { HomeComponent } from './home/home.component';
-	import { LoginComponent } from './login/login.component';
-	import { RegisterComponent } from './register/register.component';
-	import { AuthguardGuard } from './shared/authguard.guard';
-	import { UserlistComponent } from './userlist/userlist.component';
-
-	const routes: Routes = [
-	  	{
-		    path: "",
-		    title: "Home",
-		    component: HomeComponent,
-		    pathMatch: 'full',
-	      	canActivate: [AuthguardGuard]
-		},
-		{
-		    path: "register",
-		    title: "Register",
-		    component: RegisterComponent
-		},
-		{
-		    path: "login",
-		    title: "Login",
-		    component: LoginComponent
-		},
-		{
-		    path: "users",
-		    title: "All Users",
-		    component: UserlistComponent
-		}
-	];
-
-	@NgModule({
-	  imports: [RouterModule.forRoot(routes)],
-	  exports: [RouterModule]
-	})
-	export class AppRoutingModule { }
-
-    ```
-
-Wenn wir nun die Anwendung öffnen, dann kommen wir gar nicht auf `HomeComponent`, sondern werden stets zur `LoginComponent` geleitet. Erst wenn wir eingelogged sind, ist die `HomeComponent` erreichbar. 
+![users](./files/280_users.png){ width="50%" }
 
 ### Login-Komponente
 
-Ehe wir noch einen weiteren Guard zur Erkennung implementieren, ob wir als `admin` eingelogged sind oder nicht, implementieren wir der Vollständigkeit halber noch die Login-Komponente.
+Wir implementieren nun die Login-Komponente, da wir beim Login ein [JWT]() erhalten, mit dem wir einerseits den Zugriff auf Komponenten in unserem Frontend (über [Guards](guards.md#guards)) und andererseits den Zugriff auf Endpunkte in unserem Backend autorisieren wollen.
+
+Die Log-Komponente enthält erneut ein Formular. Das kennen wir bereits aus der Registrierungs-Komponente.
 
 === "login.component.ts"
 	```js linenums="1"
 	import { Component } from '@angular/core';
-	import { FormBuilder, Validators } from '@angular/forms';
-	import { Router } from '@angular/router';
-	import { AuthService } from '../shared/auth.service';
-
+	import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+	import { MatInputModule } from '@angular/material/input';
+	import { MatButtonModule } from '@angular/material/button';
+	import { MatRadioModule } from '@angular/material/radio';
+	import { MatCardModule } from '@angular/material/card';
+	import { MatIconModule } from '@angular/material/icon';
 	@Component({
 	  selector: 'app-login',
+	  standalone: true,
+	  imports: [
+	    MatIconModule,
+	    MatInputModule,
+	    MatButtonModule,
+	    MatRadioModule,
+	    MatCardModule,
+	    ReactiveFormsModule,
+	  ],
 	  templateUrl: './login.component.html',
-	  styleUrls: ['./login.component.css']
+	  styleUrl: './login.component.css'
 	})
 	export class LoginComponent {
+	  loginForm = new FormGroup({
+	    username: new FormControl('', Validators.required),
+	    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+	  });
 	  hide = true;
 
-	  loginForm = this.fb.group({
-	    username: [null, Validators.required],
-	    password: [null, Validators.required]
-	  });
+	  onSubmit() {
 
-	  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
+	  }
 
-	  onSubmit(): void {
+	  valid(): boolean {
+	    const check = 
+	    !this.loginForm.controls['username'].hasError('required') &&
+	    !this.loginForm.controls['password'].hasError('required') &&
+	    !this.loginForm.controls['password'].hasError('minlength')
+	    console.log('valid : ', check)
+	    return check;
+	  }
+	}
+	```
+
+=== "login.component.html"
+	```html linenums="1"
+	<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">    
+	    <mat-card class="shipping-card">
+	        <mat-card-header>
+	            <mat-card-title>Registrierung</mat-card-title>
+	        </mat-card-header>
+	        <mat-card-content>
+	    
+	            <div class="row">
+	                <div class="col">
+	                    <mat-form-field hintLabel="Einloggen mit Nutzername und Passwort" class="full-width">
+	                    <input matInput placeholder="Nutzername" formControlName="username">
+	                    <mat-icon matSuffix >person_add</mat-icon>
+	                    @if(loginForm.controls['username'].hasError('required')) {
+	                        <mat-error>
+	                        Nutzername <strong>erforderlich</strong>
+	                        </mat-error>
+	                    }
+	                    </mat-form-field>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col">
+	                    <mat-form-field hintLabel="Mind. 8 Zeichen, mind. 1 Groß- und Kleinbuchstaben, Ziffer und Sonderzeichen" class="full-width">
+	                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Passwort" formControlName="password">
+	                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+	                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+	                    </button>
+	                    @if(loginForm.controls['password'].hasError('required')) {
+	                        <mat-error>
+	                        Passwort <strong>erforderlich</strong>
+	                        </mat-error>
+	                    } @else if(loginForm.controls['password'].hasError('minlength')) {
+	                        <mat-error>
+	                        Passwort muss mind. <strong>8</strong> Zeichen enthalten!
+	                        </mat-error>
+	                    }
+	                    </mat-form-field>
+	                </div>
+	            </div>
+
+	        </mat-card-content>
+	        <mat-card-actions>
+	        <button mat-raised-button color="primary" type="submit" [disabled]="!valid()!">Login</button>
+	        </mat-card-actions>
+	    </mat-card>
+	</form>
+
+	```
+
+=== "login.component.css"
+	```css linenums="1"
+	.full-width {
+	    width: 100%;
+	}
+
+	.shipping-card {
+	    width: clamp(240px, 80vw, min(80vw, 1200px));
+	    margin: 2% 2% auto 2%;
+	}
+
+	.mat-radio-button {
+	    display: block;
+	    margin: 5px 0;
+	}
+
+	.row {
+	    display: flex;
+	    flex-direction: row;
+	    margin-bottom: 2%;
+	}
+
+	.col {
+	    flex: 1;
+	    margin-right: 20px;
+	}
+	.mat-mdc-card-header {
+	    margin-bottom: 2%;
+	}
+
+	.mat-mdc-card-actions {
+	    margin-top: 2%;
+	}
+
+	.col:last-child {
+	    margin-right: 0;
+	}
+	```
+
+Das ergibt folgende Ansicht:
+
+![users](./files/282_users.png){ width="50%"}
+
+### Service anbinden
+
+Wir implementieren jetzt noch die `submit()`-Funktion. Darin rufen wir die `loginUser()`-Funktion aus dem `AuthService` auf. Dazu muss der Service per `private auth = inject(AuthService)` in die `login.component.ts` injiziert und `AuthService` importiert werden. 
+
+=== "submit() in login.component.ts"
+	```js linenums="31"
+	onSubmit(): void {
 	    const values = this.loginForm.value;
-	    const username = values.username;
-	    const password =  values.password;
-	    console.log('values username', username)
-	    console.log('values password', password)
-
-	    this.auth.loginUser(username!, password!).subscribe({
+	    const username = values.username!;
+	    const password =  values.password!;
+	    
+	    const user = {username: username, password: password}
+	    console.log('user', user)
+	    this.auth.loginUser(user).subscribe({
 	       next: (response) => {
-	          console.log('login response',response);
-	          if(response.status == 201)
-	          {
-	            this.auth.getOneUser(username!).subscribe(
-	              (response) => {
-	                  this.auth.login(response);
-	                  this.router.navigate(['/home'])
-	              }
-	            )
-	          } else {
-	            console.log('kein Login - Nutzername und/oder Passwort stimmen nicht')
-	          }
+	          console.log('user logged in ',response);
 	      },
 	      error: (err) => {
 	        console.log('login error',err);
@@ -1294,267 +1658,142 @@ Ehe wir noch einen weiteren Guard zur Erkennung implementieren, ob wir als `admi
 	      complete: () => console.log('login completed')
 	    }
 	    )
-
-	  }
-	}
-
-	```
-
-=== "login.component.html"
-	```html linenums="1"
-	<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
-	  <mat-card class="shipping-card">
-	    <mat-card-header>
-	      <mat-card-title>Login</mat-card-title>
-	    </mat-card-header>
-	    <mat-card-content>
-	      <p>
-	        <mat-form-field class="full-width">
-	          <mat-label>Nutzername</mat-label>
-	          <input matInput placeholder="Nutzername" formControlName="username">
-	          <mat-icon matSuffix>person</mat-icon>
-	          <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
-	            Nutzername <strong>erforderlich</strong>
-	          </mat-error>
-	        </mat-form-field>
-	      </p>
-	      <p>
-	        <mat-form-field class="full-width" >
-	          <mat-label>Passwort</mat-label>
-	          <input matInput placeholder="Passwort" formControlName="password" [type]="hide ? 'password' : 'text'">
-	          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-	            [attr.aria-pressed]="hide">
-	            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-	          </button>
-	        </mat-form-field>
-	      </p>
-	    </mat-card-content>
-	    <mat-card-actions>
-	      <button mat-raised-button color="primary" type="submit">Login</button>
-	    </mat-card-actions>
-	  </mat-card>
-	</form>
-
-	```
-
-=== "login.component.css"
-	```css linenums="1"
-	mat-card {
-	  margin: 5% 20%;
-	}
-
-	.full-width {
-	  width: 100%;
-	}
-
-	mat-card-header {
-	  margin-bottom: 3%;
 	}
 	```
 
-Das ergibt folgende Ansicht:
 
-![users](./files/282_users.png)
+In der `submit()`-Funktion werden die Werte aus dem Formular ausgelesen. Da der `Login`-Button erst `enabled` ist, wenn die Eingaben valide sind, enthlten die Eingabefelder sicher Werte. Aus den Werten wird ein `user`-Objekt zusammengesetzt und der `loginUser()`-Funktion aus dem Service übergeben. Wir fangen in der `error`-Eigenschaft die mögliche Response ab, dass `username` und/oder `password` nicht korrekt sind. 
 
-Wenn das Login erfolgreich war, wird direkt die `home`-Komponente aufgerufen. Ist das Login nicht erfolgreich, wird bei der Login-Komponente verblieben. Es erfolgt nur eine Nachricht auf der Konsole - hier könnte (sollte!) natürlich auch ein modaler Dialog erscheinen, wie bei der Registrierung.
+Wir überlegen uns nun, wie wir mit der erfolgreichen Response umgehen (also damit, dass eine Nutzerin nun erfolgreich eingeloggt ist). Wir wollen sowohl die Informationen über die Nutzerin speichern als auch insbesondere den JWToken, der zurückgegeben wird. Dazu erweitern wir den `AuthService`.
 
+### Speichern des JWT im Service
 
-### Guard für den Komponentenzugriff - `admin`
-
-
-Wir erstellen noch einen weiteren Guard, um auch abzuprüfen, ob wir als `admin` eingelogged sind und wollen mit diesem Guard die `UserlistComponent` sichern, d.h. diese Komponente soll nur aufgerufen werden dürfen, wenn die eingeloggte Nutzerin die Rolle `admin` besitzt (nicht `user`). 
-
-```bash
-ng g guard shared/adminguard --implements CanActivate
-```
-
-=== "shared/adminguard.guards.ts"
-    ```js linenums="1"
-	import { Injectable } from '@angular/core';
-	import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-	import { AuthService } from './auth.service';
-
-	@Injectable({
-	  providedIn: 'root'
-	})
-	export class AdminguardGuard implements CanActivate {
-
-	  constructor(
-	    private auth: AuthService,
-	    private router: Router
-	  ) {}
-
-	  canActivate(
-	    route: ActivatedRouteSnapshot,
-	    state: RouterStateSnapshot): boolean | UrlTree {
-	    return this.auth.isAdmin()
-	      ? true
-	      : this.router.parseUrl('');
-	  }
-
-	}
-
-    ```
-
-Dieses Mal wird geprüft, ob die Nutzerin eingelogged **und** in der `admin`-Rolle ist. Diesen Guard fügen wir der `/users`-Route hinzu (also für die `UserlistComponent)`. Nur ein `admin` darf alle Nutzerinnen sehen (wird hier exemplarisch angenommen).
-
-
-=== "app-routing.module.ts"
-    ```js linenums="1" hl_lines="3 11 20"
-	import { NgModule } from '@angular/core';
-	import { RouterModule, Routes } from '@angular/router';
-	import { HomeComponent } from './home/home.component';
-	import { LoginComponent } from './login/login.component';
-	import { RegisterComponent } from './register/register.component';
-	import { AdminguardGuard } from './shared/adminguard.guard';
-	import { AuthguardGuard } from './shared/authguard.guard';
-	import { UserlistComponent } from './userlist/userlist.component';
-
-	const routes: Routes = [
-	  	{
-		    path: "",
-		    title: "Home",
-		    component: HomeComponent,
-		    pathMatch: 'full',
-	      canActivate: [AuthguardGuard]
-		  },
-	    { path: 'home',   redirectTo: ''},
-		  {
-		    path: "register",
-		    title: "Register",
-		    component: RegisterComponent
-		  },
-		  {
-		    path: "login",
-		    title: "Login",
-		    component: LoginComponent
-		  },
-		  {
-		    path: "users",
-		    title: "All Users",
-		    component: UserlistComponent,
-	      canActivate: [AdminguardGuard]
-		  },
-	    { path: '**',   redirectTo: '/home'}
-	];
-
-	@NgModule({
-	  imports: [RouterModule.forRoot(routes)],
-	  exports: [RouterModule]
-	})
-	export class AppRoutingModule { }
-
-    ```
-
-Wenn nun eine `admin`-Userin eingelogged ist, kann sie alle Komponenten öffnen. Ist eine `user`-Userin eingelogged, hat sie keinen Zugriff auf die `UserlistComponent`, aber auf alle anderen Komponenten. Ist niemand eingelogged, kann nur die `Login`- und die `RegisterComponent` verwendet werden. 
-
-### Subjects für Login/Logout
-
-Wir wollen in der `nav`-Komponente ein Login-Icon eintegrieren, wenn keine Nutzerin eingelogged ist bzw. den Nutzernamen der eingeloggten Nutzerin. Die `nav`-Komponente muss also darüber informiert werden, wenn sich eine Nutzerin einlogged bzw. auslogged. Dazu verwenden wir [Subjects](https://rxjs.dev/guide/subject).
-
-Wir erweitern dazu den `AuthService`:
+Wir nutzen [Signals](https://angular.dev/guide/signals) zum Speichern des eingeloggten `user` und des dazugehörigen `token` im `AuthService`.
 
 === "auth.service.ts"
-	```js linenums="1" hl_lines="3 12-15 18-23 48 50 56 58"
+	```js linenums="1" hl_lines="2 11-14 18-21 23-26"
 	import { HttpClient } from '@angular/common/http';
-	import { Injectable } from '@angular/core';
-	import { Observable, Subject } from 'rxjs';
+	import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+	import { Observable } from 'rxjs';
 	import { User } from './user';
 
 	@Injectable({
 	  providedIn: 'root'
 	})
-
 	export class AuthService {
 	  baseUrl = 'http://localhost:3000';
-	  user: User = {username: '', password: '', email: '', role: ''};
-	  userChange: Subject<User> = new Subject<User>();
-	  loggedIn = false;
-	  loggedInChange: Subject<boolean> = new Subject<boolean>();
+	  user: WritableSignal<User> = signal({id: 0, username: '', password: '', email: '', role: ''});
+	  token: WritableSignal<string> = signal('');
+	  loggedIn: Signal<boolean> = computed(() => this.user().id && this.user().id! > 0 || false);
+	  isAdmin: Signal<boolean> = computed(() => this.user().role == 'admin' || false);
 
-	  constructor(private http: HttpClient) {
-	    this.loggedInChange.subscribe((value) => {
-	            this.loggedIn = value
-	    });
-	    this.userChange.subscribe((value) => {
-	            this.user = value
-	    });
+	  constructor(private http: HttpClient) { }
+
+	  setUser(token: string, user: User): void {
+	    this.user.set(user);
+	    this.token.set(token);
 	  }
 
-	  getAllUsers(): Observable<User[]>{
-	    return this.http.get<User[]>(this.baseUrl + '/users');
-	  }
-
-	  getOneUser(username: string): Observable<User>{
-	    return this.http.get<User>(this.baseUrl + '/users/' + username);
+	  unsetUser(): void {
+	    this.user.set({id: 0, username: '', password: '', email: '', role: ''});
+	    this.token.set('');
 	  }
 
 	  registerUser(user:User): Observable<any> {
-	    return this.http.post(this.baseUrl + '/users/register', user);
+	    return this.http.post(this.baseUrl + '/user/register', user);
 	  }
 
-	  loginUser(username: string, password: string ): Observable<any>{
-	    return this.http.post(this.baseUrl + '/users/login/', { username: username, password: password }, {observe: 'response'});
-	  }
-
-	  isLoggedin(): boolean {
-	    return this.loggedIn;
-	  }
-
-	  login(user: User): void {
-	    this.loggedIn = true
-	    this.loggedInChange.next(this.loggedIn);
-	    this.user = user;
-	    this.userChange.next(this.user);
-	    console.log('login() : ', this.user);
-	  }
-
-	  logout(): void {
-	    this.loggedIn = false;
-	    this.loggedInChange.next(this.loggedIn);
-	    this.user = {username: '', password: '', email: '', role: ''};
-	    this.userChange.next(this.user);
-	  }
-
-	  isAdmin(): boolean {
-	    if(this.user?.role === 'admin')
-	    {
-	      return true;
-	    }
-	    return false;
-	  }
-
-	  isUser(): boolean {
-	    if(this.user?.role === 'user')
-	    {
-	      return true;
-	    }
-	    return false;
+	  loginUser(user: {username: string; password: string;}): Observable<any> {
+	    return this.http.post(this.baseUrl + '/user/login', user);
 	  }
 	}
-
 	```
 
-Wir haben nun *Subjects*, die darüber informieren (`next()`), wenn sich ein bestimmter Wert ändert. In der `NavComponent` melden wir uns an diese *Subjects* an (`subscribe`):
+Erläuterungen:
+
+- `user` und `token` sind [WritableSignal](https://angular.dev/guide/signals#writable-signals)s. Sie werden mithilfe von `signal()` initialisiert, wobai man den initialen Wert als Parameter übergibt. 
+- `loggedIn` und `isAdmin` sind ebenfalls [Signals](https://angular.dev/guide/signals#what-are-signals), werden aber aus dem Wert des *Signals* `user` berechnet. Immer, wenn `user` einen neuen Wert annimmt, berechnet sich der Wert von `loggedIn` und `isAdmin` neu. 
+- In den Methoden `setUser()` und `unsetUser()` werden die Werte der *Signals* `user` und `token` mithilfe der `set()`-Funktion neu gesetzt. 
+
+Wir werden nun nach einem erfolgreichen Login die Werte der *Signals* mithilfe der `setUser()`-Funktion setzen:
+
+
+=== "submit() in login.component.ts"
+	```js linenums="31" hl_lines="11"
+	  onSubmit(): void {
+	    const values = this.loginForm.value;
+	    const username = values.username!;
+	    const password =  values.password!;
+	    
+	    const user = {username: username, password: password}
+	    console.log('user', user)
+	    this.auth.loginUser(user).subscribe({
+	       next: (response) => {
+	          console.log('user logged in ',response);
+	          this.auth.setUser(response.token, response.user)
+	      },
+	      error: (err) => {
+	        console.log('login error',err);
+	      },
+	      complete: () => console.log('login completed')
+	    }
+	    )
+	  }
+	```
+
+
+### Mögliche Erweiterungen in der Login-Komponente
+
+Wenn das Login erfolgreich war, könnte direkt die `home`-Komponente aufgerufen werden. Ist das Login nicht erfolgreich, wird bei der Login-Komponente verblieben. Es erfolgt nur eine Nachricht auf der Konsole - hier könnte z.B. auch ein modaler Dialog erscheinen, wie bei der Registrierung.
+
+### Nutzen der Signals
+
+Wir zeigen den Nutzen und die Nutzung von *Signals* zunächst an einem einfachen Beispiel anhand unserer `NavComponent`. Derzeit zeigt diese als Menüeintrag stets `Login` an, unabhängig davon, ob eine Nutzerin eingeloggt ist oder nicht. Sinnvoller wäre es hier, dass sich dieser Eintrag auf `Logout` ändert, sobald eine Nutzerin eingeloggt ist. Über diesen Eintrag soll dann jederzeit ein `Logout` möglich sein. 
+
+Außerdem könnte solange rechts oben ein `Login`-Icon angezeigt werden, solange niemand eingeloogt ist und sobald eine Nutzerin eingeloggt ist, erscheint rechts oben ihr `username` und das `Logout`-Icon. 
+
+Wir passen die `NavComponent` entsprechend an:
+
 
 === "nav.component.ts"
-	```js linenums="1" hl_lines="25 28"
-	import { Router } from '@angular/router';
-	import { Component } from '@angular/core';
+	```js linenums="1" hl_lines="33-34 36-37 45-48 50-52"
+	import { Component, computed, inject, Signal } from '@angular/core';
 	import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+	import { AsyncPipe } from '@angular/common';
+	import { MatToolbarModule } from '@angular/material/toolbar';
+	import { MatButtonModule } from '@angular/material/button';
+	import { MatSidenavModule } from '@angular/material/sidenav';
+	import { MatListModule } from '@angular/material/list';
+	import { MatIconModule } from '@angular/material/icon';
 	import { Observable } from 'rxjs';
 	import { map, shareReplay } from 'rxjs/operators';
+	import { Router, RouterLink, RouterOutlet } from '@angular/router';
 	import { AuthService } from '../shared/auth.service';
 	import { User } from '../shared/user';
 
 	@Component({
 	  selector: 'app-nav',
 	  templateUrl: './nav.component.html',
-	  styleUrls: ['./nav.component.css']
+	  styleUrl: './nav.component.css',
+	  standalone: true,
+	  imports: [
+	    MatToolbarModule,
+	    MatButtonModule,
+	    MatSidenavModule,
+	    MatListModule,
+	    MatIconModule,
+	    AsyncPipe,
+	    RouterOutlet,
+	    RouterLink
+	  ]
 	})
 	export class NavComponent {
-	  isLoggedIn = false;
-	  username: string = '';
+	  private breakpointObserver = inject(BreakpointObserver);
+	  private auth = inject(AuthService);
+	  private router = inject(Router);
+	  
+	  loggedIn: Signal<boolean> = computed( () => this.auth.loggedIn() )
+	  user: Signal<User> = computed( () => this.auth.user() )
 
 	  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
 	    .pipe(
@@ -1562,80 +1801,68 @@ Wir haben nun *Subjects*, die darüber informieren (`next()`), wenn sich ein bes
 	      shareReplay()
 	    );
 
-	  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService, private router: Router) {
-	    this.auth.loggedInChange.subscribe( value => {
-	      this.isLoggedIn = value
-	      if(this.isLoggedIn) {
-	        this.auth.userChange.subscribe( val => {
-	          console.log('nav user', val)
-	          this.username = val?.username;
-	          console.log('nav username', this.username)
-	        })
-
-	      }
-	    })
+	  logout() {
+	    this.auth.unsetUser();
+	    this.router.navigate(['/login']);
 	  }
 
-	  callLogin() {
-	    this.router.navigate(['/login'])
+	  login() {
+	    this.router.navigate(['/login']);
 	  }
-
-	  callLogout() {
-	    this.isLoggedIn = false;
-	    this.auth.logout();
-	    this.router.navigate(['/login'])
-	  }
-
 	}
-
 	```
-
 === "nav.component.html"
-	```html linenums="1" hl_lines="25-33"
+	```html linenums="1" hl_lines="12-17 32-42"
 	<mat-sidenav-container class="sidenav-container">
 	  <mat-sidenav #drawer class="sidenav" fixedInViewport
 	      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
 	      [mode]="(isHandset$ | async) ? 'over' : 'side'"
 	      [opened]="(isHandset$ | async) === false">
-	    <mat-toolbar>Menu</mat-toolbar>
+	    <mat-toolbar>
+	        <a href="https://freiheit.f4.htw-berlin.de/webtech/guards/#registrierung-und-login-frontend">WebTech</a>
+	    </mat-toolbar>
 	    <mat-nav-list>
-	        <a mat-list-item [routerLink]="''">Home</a>
-	        <a mat-list-item [routerLink]="'register'">Register</a>
-	        <a mat-list-item [routerLink]="'login'">Login</a>
-	        <a mat-list-item [routerLink]="'users'">All users</a>
+	      <a mat-list-item [routerLink]="['']">Home</a>
+	      <a mat-list-item [routerLink]="['register']">Register</a>
+	      @if(loggedIn()) {
+	       <a mat-list-item (click)="logout()">Logout</a>
+	       <a mat-list-item [routerLink]="['users']">All users</a>
+	      } @else {
+	       <a mat-list-item [routerLink]="['login']">Login</a>
+	      }
 	    </mat-nav-list>
 	  </mat-sidenav>
 	  <mat-sidenav-content>
-	    <mat-toolbar color="primary" class="flex">
-	      <button class="left"
-	        type="button"
-	        aria-label="Toggle sidenav"
-	        mat-icon-button
-	        (click)="drawer.toggle()"
-	        *ngIf="isHandset$ | async">
-	        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-	      </button>
-	      <span class="left">Nutzerinnenverwaltung</span>
-	      <button *ngIf="!isLoggedIn" mat-icon-button class="right" (click)="callLogin()">
-	        <mat-icon>login</mat-icon>
-	      </button>
-	      <div *ngIf="isLoggedIn" class="right">
-	        <span>{{username}} </span>
-	        <button mat-icon-button (click)="callLogout()">
-	          <mat-icon>logout</mat-icon>
-	        </button>
-	      </div>
-
+	    <mat-toolbar color="primary">
+	        @if (isHandset$ | async) {
+	          <button
+	            type="button"
+	            aria-label="Toggle sidenav"
+	            mat-icon-button
+	            (click)="drawer.toggle()">
+	            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+	          </button>
+	        }
+	        <span>Nutzerinnenverwaltung</span>
+	        <span class="example-spacer"></span>
+	        @if(loggedIn()) {
+	          <span class="smalltext">{{ user().username }}</span>
+	          <button mat-icon-button class="example-icon logout-icon" aria-label="logout icon" (click)= "logout()">
+	            <mat-icon>logout</mat-icon>
+	          </button>
+	        } @else {
+	          <button mat-icon-button class="example-icon login-icon" aria-label="login icon" (click)= "login()">
+	            <mat-icon>login</mat-icon>
+	          </button>
+	        }
 	    </mat-toolbar>
 	    <!-- Add Content Here -->
 	    <router-outlet></router-outlet>
 	  </mat-sidenav-content>
 	</mat-sidenav-container>
-
 	```
-
 === "nav.component.css"
-	```css linenums="1"
+	```css linenums="1" hl_lines="24-26 28-30"
 	.sidenav-container {
 	  height: 100%;
 	}
@@ -1654,31 +1881,543 @@ Wir haben nun *Subjects*, die darüber informieren (`next()`), wenn sich ein bes
 	  z-index: 1;
 	}
 
-
-	.flex {
-	  display: flex;
-	  justify-content: space-between;
-	  flex-direction: row;
-	  width: 100%;
+	a {
+	  text-decoration: none;
+	  color: black;
 	}
 
-	.left,
-	.right {
-	  display:block;
+	.example-spacer {
+	  flex: 1 1 auto;
 	}
 
-	.left {
-	  float: left;
+	.smalltext {
+	  font-size: 0.6em;
+	}
+	```
+
+
+Erläuterungen:
+
+- In der `nav.component.ts` definieren wir selbst ein *Signal* `loggedIn`. Der Wert dieses *Signals* berechnet sich aus dem Wert des *Signals* `loggedIn` aus dem `AuthService`. Dieses *Signal* hätte hier auch direkt verwendet werden können, aber wir wollten einmal die `computed()`-Funktion von *Signals* zeigen. 
+- In der `nav.component.html` lesen wir den Wert des *Signals* mithilfe von `loggedIn()` aus. Ist er `true`, wird `Logout` angezeigt, ist er `false`, zeigt das Menü `Login`.
+- Für `Logout` wurde eine Funktion `logout()` definiert, die `user` und `token` im `AuthService` zurücksetzt und die auf die `Login`-Seite navigiert. Die `login()`-Funktion leitet einfach nur auf die `Login`-Seite weiter.
+
+## Guards
+
+Mithilfe von [Guards](https://angular.io/guide/router-tutorial-toh#milestone-5-route-guards) können wir festlegen, dass Komponenten z.B. nur dann aufgerufen werden können, wenn man eingeloggt ist (aber nicht, wenn man nicht eingeloggt ist) oder wenn man z.B. als `admin` eingeloggt (und nicht nur als `user`) eingeloggt ist. Wir werden hier demonstrieren, wie man solche Guards implementiert und verwendet. Dazu erstellen wir uns zunächst eine weitere Komponente. Die Komponente `userlist` soll alle `user` aus der Datenbank auflisten (als Tabelle). Diese Komponente soll nur aufgerufen werden können, wenn man als `admin` eingelogged ist. Außerdem werden wir den Aufruf der `HomeComponent` nur für den Fall erlauben, dass man eingelogged ist.
+
+### `userlist`-Komponente
+
+Die `userlist`-Komponente erstellen wir mithilfe des Material-Design-Schemas [table](https://material.angular.io/guide/schematics#table-schematic):
+
+```bash
+ng generate @angular/material:table userlist
+```
+
+Für das vereinfachte Beispiel hier haben wir jedoch die z.B. die [Paginierung](https://material.angular.io/components/table/overview#pagination) weggelassen. Viele Beispiele zu Tabellen mit Sortierung, Filterung, Paginierung usw. finden Sie [hier](https://material.angular.io/components/table/overview).
+
+
+=== "userlist-datasource.ts"
+	```js linenums="1"
+	import { DataSource } from '@angular/cdk/collections';
+	import { MatPaginator } from '@angular/material/paginator';
+	import { MatSort } from '@angular/material/sort';
+	import { map } from 'rxjs/operators';
+	import { Observable, of as observableOf, merge } from 'rxjs';
+	import { User } from '../shared/user';
+	import { AuthService } from '../shared/auth.service';
+	import { inject } from '@angular/core';
+
+
+	/**
+	 * Data source for the Userlist view. This class should
+	 * encapsulate all logic for fetching and manipulating the displayed data
+	 * (including sorting, pagination, and filtering).
+	 */
+	export class UserlistDataSource extends DataSource<User> {
+	  private auth = inject(AuthService)
+	  data!: User[];
+	  paginator: MatPaginator | undefined;
+	  sort: MatSort | undefined;
+
+	  constructor() {
+	    super();
+	    this.auth.getAllUsers().subscribe({
+	      next: (response) => {
+	        this.data = response;
+	        console.log('this.users', this.data)
+	      },
+	      error: (err) => console.log('error', err),
+	      complete: () => console.log('getAllUsers() complete')
+	  });
+	  }
+
+	  /**
+	   * Connect this data source to the table. The table will only update when
+	   * the returned stream emits new items.
+	   * @returns A stream of the items to be rendered.
+	   */
+	  connect(): Observable<User[]> {
+	    if (this.paginator && this.sort) {
+	      // Combine everything that affects the rendered data into one update
+	      // stream for the data-table to consume.
+	      return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
+	        .pipe(map(() => {
+	          return this.getPagedData(this.getSortedData([...this.data ]));
+	        }));
+	    } else {
+	      throw Error('Please set the paginator and sort on the data source before connecting.');
+	    }
+	  }
+
+	  /**
+	   *  Called when the table is being destroyed. Use this function, to clean up
+	   * any open connections or free any held resources that were set up during connect.
+	   */
+	  disconnect(): void {}
+
+	  /**
+	   * Paginate the data (client-side). If you're using server-side pagination,
+	   * this would be replaced by requesting the appropriate data from the server.
+	   */
+	  private getPagedData(data: User[]): User[] {
+	    if (this.paginator) {
+	      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+	      return data.splice(startIndex, this.paginator.pageSize);
+	    } else {
+	      return data;
+	    }
+	  }
+
+	  /**
+	   * Sort the data (client-side). If you're using server-side sorting,
+	   * this would be replaced by requesting the appropriate data from the server.
+	   */
+	  private getSortedData(data: User[]): User[] {
+	    if (!this.sort || !this.sort.active || this.sort.direction === '') {
+	      return data;
+	    }
+
+	    return data.sort((a, b) => {
+	      const isAsc = this.sort?.direction === 'asc';
+	      switch (this.sort?.active) {
+	        case 'name': return compare(a.username, b.username, isAsc);
+	        case 'role': return compare(a.role, b.role, isAsc);
+	        default: return 0;
+	      }
+	    });
+	  }
 	}
 
-	.right {
-	  text-align: right;
-	  float: right;
+	/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
+	function compare(a: string | number, b: string | number, isAsc: boolean): number {
+	  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 	}
 
 	```
 
-Die `nav`-Komponente hat nun oben rechts ein Login-Icon (Button), wenn niemand eingelogged ist bzw. den `username` und einen Logout-Icon (Button) der Nutzerin, die eingelogged ist. Mithilfe von *Subject* wird sofort darauf reagiert, wenn sich jemand ein- bzw. ausloggt.
+=== "userlist.component.ts"
+	```js linenums="1"
+	import { AfterViewInit, Component, ViewChild } from '@angular/core';
+	import { MatTableModule, MatTable } from '@angular/material/table';
+	import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+	import { MatSortModule, MatSort } from '@angular/material/sort';
+	import { UserlistDataSource } from './userlist-datasource';
+	import { User } from '../shared/user';
+
+	@Component({
+	  selector: 'app-userlist',
+	  templateUrl: './userlist.component.html',
+	  styleUrl: './userlist.component.css',
+	  standalone: true,
+	  imports: [
+	    MatTableModule, 
+	    MatPaginatorModule, 
+	    MatSortModule, 
+	]
+	})
+	export class UserlistComponent implements AfterViewInit {
+	  @ViewChild(MatPaginator) paginator!: MatPaginator;
+	  @ViewChild(MatSort) sort!: MatSort;
+	  @ViewChild(MatTable) table!: MatTable<User>;
+	  dataSource = new UserlistDataSource();
+
+	  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+	  displayedColumns = ['username', 'email', 'role'];
+
+	  ngAfterViewInit(): void {
+	    this.dataSource.sort = this.sort;
+	    this.dataSource.paginator = this.paginator;
+	    this.table.dataSource = this.dataSource;
+	  }
+	}
+	```
+
+=== "userlist.component.html"
+	```html linenums="1"
+	<div class="mat-elevation-z2">
+	  <table mat-table class="full-width-table" matSort aria-label="Elements">
+	    <!-- username Column -->
+	    <ng-container matColumnDef="username">
+	      <th mat-header-cell *matHeaderCellDef mat-sort-header>Account</th>
+	      <td mat-cell *matCellDef="let row">{{row.username}}</td>
+	    </ng-container>
+
+	    <!-- email Column -->
+	    <ng-container matColumnDef="email">
+	      <th mat-header-cell *matHeaderCellDef mat-sort-header>E-Mail</th>
+	      <td mat-cell *matCellDef="let row">{{row.email}}</td>
+	    </ng-container>
+
+	    <!-- role Column -->
+	    <ng-container matColumnDef="role">
+	      <th mat-header-cell *matHeaderCellDef mat-sort-header>Rolle</th>
+	      <td mat-cell *matCellDef="let row">{{row.role}}</td>
+	    </ng-container>
+
+	    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	  </table>
+
+	  <mat-paginator #paginator
+	      [length]="dataSource.data.length"
+	      [pageIndex]="0"
+	      [pageSize]="10"
+	      [pageSizeOptions]="[5, 10, 20]"
+	      aria-label="Select page">
+	  </mat-paginator>
+	</div>
+	```
+
+Die Tabelle sieht dann wie folgt aus:
+
+![users](./files/281_users.png)
+
+
+
+### Guard für den Komponentenzugriff - Logged in
+
+In [Routen absichern mit Guards](routing.md#routen-absichern-mit-guards) haben wir bereits die Grundidee von *Guards* vorgestellt. Wir wollen diese hier anwenden und beschränken uns dabei auf den *Guard-Typ* `CanActivate`. Wir wollen sicherstellen, dass die `HomeComponent` nur aktiviert werden kann, wenn man eingeloggt ist und die `UserlistComponent` nur dann, wenn man als `admin` eingelogged ist, um das Prinzip zu verdeutlichen. Wir erstellen uns also einen `CanActivate`-Guard (im Ordner `shared`):
+
+```bash
+ng g guard shared/authguard --implements CanActivate
+```
+
+Diesen `AuthGuard` implementieren wir wie folgt: 
+
+=== "shared/authguard.guards.ts"
+    ```js linenums="1"
+	import { CanActivateFn, Router } from '@angular/router';
+	import { AuthService } from './auth.service';
+	import { inject } from '@angular/core';
+
+	export const authguardLogin: CanActivateFn = (route, state) => {
+	  return inject(AuthService).loggedIn() ? true : inject(Router).navigate(['/login']);
+	};
+
+	export const authguardAdmin: CanActivateFn = (route, state) => {
+	  return inject(AuthService).isAdmin() ? true : inject(Router).navigate(['/login']);
+	};
+    ```
+
+Erläuterungen: 
+
+- Dieser *Guard* stellt zwei Funktionen zur Verfügung: `authguardLogin` und `authguardAdmin`.
+- `authguardLogin` gibt bei Aufruf ein `true` zurück, wenn eine Nutzerin eingeloggt ist (`loggedIn()` aus dem `AuthService`). Wenn niemand eingeloggt ist, (wenn also `loggedIn()` ein `false` zurückgibt), dann wird die aktuelle Route nach `/login` umgeleitet. 
+- `authguardAdmin` gibt bei Aufruf ein `true` zurück, wenn eine Nutzerin die Rolle `admin` hat (`isAdmin()` aus dem `AuthService`). Wenn nicht, (wenn also `isAdmin()` ein `false` zurückgibt), dann wird die aktuelle Route nach `/login` umgeleitet. 
+
+Hier nochmal der entsprechende `AuthService`:
+
+=== "shared/auth.service.ts"
+	```js linenums="1"
+	import { HttpClient } from '@angular/common/http';
+	import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+	import { Observable } from 'rxjs';
+	import { User } from './user';
+
+	@Injectable({
+	  providedIn: 'root'
+	})
+	export class AuthService {
+	  baseUrl = 'http://localhost:3000';
+	  user: WritableSignal<User> = signal({id: 0, username: '', password: '', email: '', role: ''});
+	  token: WritableSignal<string> = signal('');
+	  loggedIn: Signal<boolean> = computed(() => this.user().id && this.user().id! > 0 || false);
+	  isAdmin: Signal<boolean> = computed(() => this.user().role == 'admin' || false);
+
+	  constructor(private http: HttpClient) { }
+
+	  getAllUsers(): Observable<User[]>{
+	    return this.http.get<User[]>(this.baseUrl + '/user', {
+	      headers: {
+	        'authorization': this.token(),
+	        'username': this.user().username
+	      }
+	    });
+	  }
+
+	  setUser(token: string, user: User): void {
+	    this.user.set(user);
+	    this.token.set(token);
+	  }
+
+	  unsetUser(): void {
+	    this.user.set({id: 0, username: '', password: '', email: '', role: ''});
+	    this.token.set('');
+	  }
+
+	  registerUser(user:User): Observable<any> {
+	    return this.http.post(this.baseUrl + '/user/register', user);
+	  }
+
+	  loginUser(user: {username: string; password: string;}): Observable<any> {
+	    return this.http.post(this.baseUrl + '/user/login', user);
+	  }
+	}
+	```
+
+Wir fügen den `AuthGuard` nun in die `app.routes.ts` ein:
+
+=== "app.routes.ts"
+    ```js linenums="1" hl_lines="14 30"
+	import { Routes } from '@angular/router';
+	import { HomeComponent } from './home/home.component';
+	import { RegisterComponent } from './register/register.component';
+	import { LoginComponent } from './login/login.component';
+	import { UserlistComponent } from './userlist/userlist.component';
+	import { authguardAdmin, authguardLogin } from './shared/authguard.guard';
+
+	export const routes: Routes = [
+	    {
+		    path: "",
+		    title: "Home",
+		    component: HomeComponent,
+		    pathMatch: 'full',
+			canActivate: [authguardLogin]
+		  },
+		  {
+		    path: "register",
+		    title: "Register",
+		    component: RegisterComponent
+		  },
+		  {
+		    path: "login",
+		    title: "Login",
+		    component: LoginComponent
+		  },
+		  {
+			path: "users",
+			title: "All Users",
+			component: UserlistComponent,
+			canActivate: [authguardAdmin]
+		  }
+	];
+    ```
+
+Wenn wir nun die Anwendung öffnen, dann kommen wir gar nicht auf `HomeComponent`, sondern werden stets zur `LoginComponent` geleitet. Erst wenn wir eingeloggt sind, ist die `HomeComponent` erreichbar. Die `UserListComponent` ist nur dann aufrufbar, wenn wir in der Rolle `admin` eingeloggt sind. Ansonsten würden wir auch bei Aufruf `/users` an die `/login`-Route weitergeleitet werden. 
+
+
+### Letzte Anpassung an die NavComponent
+
+Wir passen die Menüeinträge in der `NavComponent` nun noch so an, dass `Home` im Menü erscheint, sobald wir eingeloggt sind (egal, ob als `admin` oder als `user`). Die `UserList` soll stattdessen nur aufrufbar sein, wenn wir als `admin` eingeloggt sind. 
+
+
+=== "nav.component.ts"
+    ```js linenums="1" hl_lines="37"
+	import { Component, computed, inject, Signal } from '@angular/core';
+	import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+	import { AsyncPipe } from '@angular/common';
+	import { MatToolbarModule } from '@angular/material/toolbar';
+	import { MatButtonModule } from '@angular/material/button';
+	import { MatSidenavModule } from '@angular/material/sidenav';
+	import { MatListModule } from '@angular/material/list';
+	import { MatIconModule } from '@angular/material/icon';
+	import { Observable } from 'rxjs';
+	import { map, shareReplay } from 'rxjs/operators';
+	import { Router, RouterLink, RouterOutlet } from '@angular/router';
+	import { AuthService } from '../shared/auth.service';
+	import { User } from '../shared/user';
+
+	@Component({
+	  selector: 'app-nav',
+	  templateUrl: './nav.component.html',
+	  styleUrl: './nav.component.css',
+	  standalone: true,
+	  imports: [
+	    MatToolbarModule,
+	    MatButtonModule,
+	    MatSidenavModule,
+	    MatListModule,
+	    MatIconModule,
+	    AsyncPipe,
+	    RouterOutlet,
+	    RouterLink
+	  ]
+	})
+	export class NavComponent {
+	  private breakpointObserver = inject(BreakpointObserver);
+	  private auth = inject(AuthService);
+	  private router = inject(Router);
+	  
+	  loggedIn: Signal<boolean> = computed( () => this.auth.loggedIn() )
+	  isAdmin: Signal<boolean> = computed( () => this.auth.isAdmin() )
+	  user: Signal<User> = computed( () => this.auth.user() )
+
+	  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+	    .pipe(
+	      map(result => result.matches),
+	      shareReplay()
+	    );
+
+	  logout() {
+	    this.auth.unsetUser();
+	    this.router.navigate(['/login']);
+	  }
+
+	  login() {
+	    this.router.navigate(['/login']);
+	  }
+	}
+    ```
+
+=== "nav.component.html"
+    ```html linenums="1" hl_lines="11-19"
+	<mat-sidenav-container class="sidenav-container">
+	  <mat-sidenav #drawer class="sidenav" fixedInViewport
+	      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+	      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+	      [opened]="(isHandset$ | async) === false">
+	    <mat-toolbar>
+	        <a href="https://freiheit.f4.htw-berlin.de/webtech/guards/#registrierung-und-login-frontend">WebTech</a>
+	    </mat-toolbar>
+	    <mat-nav-list>
+	      <a mat-list-item [routerLink]="['register']">Register</a>
+	      @if(loggedIn()) {
+	       <a mat-list-item [routerLink]="['']">Home</a>
+	       <a mat-list-item (click)="logout()">Logout</a>
+	      } @else {
+	       <a mat-list-item [routerLink]="['login']">Login</a>
+	      }
+	      @if(isAdmin()) {
+	        <a mat-list-item [routerLink]="['users']">All users</a>
+	      }
+	    </mat-nav-list>
+	  </mat-sidenav>
+	  <mat-sidenav-content>
+	    <mat-toolbar color="primary">
+	        @if (isHandset$ | async) {
+	          <button
+	            type="button"
+	            aria-label="Toggle sidenav"
+	            mat-icon-button
+	            (click)="drawer.toggle()">
+	            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+	          </button>
+	        }
+	        <span>Nutzerinnenverwaltung</span>
+	        <span class="example-spacer"></span>
+	        @if(loggedIn()) {
+	          <span class="smalltext">{{ user().username }}</span>
+	          <button mat-icon-button class="example-icon logout-icon" aria-label="logout icon" (click)= "logout()">
+	            <mat-icon>logout</mat-icon>
+	          </button>
+	        } @else {
+	          <button mat-icon-button class="example-icon login-icon" aria-label="login icon" (click)= "login()">
+	            <mat-icon>login</mat-icon>
+	          </button>
+	        }
+	    </mat-toolbar>
+	    <!-- Add Content Here -->
+	    <router-outlet></router-outlet>
+	  </mat-sidenav-content>
+	</mat-sidenav-container>
+    ```
+
+### Home-Komponente
+
+Die `HomeComponent` haben wir ganz schlicht gehalten und dient nur dem Zeigen des Zugriffs sowohl eingeloggt als `user` als auch eingeloggt als `admin`. Hier soll nur das Prinzip gezeigt werden. Für ide `HomeComponent` gilt:
+
+- ist (nur) aufrufbar, wenn man eingeloggt ist (realisiert per *Guard* `authguardLogin()`),
+- zeigt generell eine [Card](https://material.angular.io/components/card/overview),
+- diese *Card* enthält einen *Button* (mit der Weiterleitung zur `UserListComponent`), wenn man als `admin` eingeloggt ist.
+
+
+=== "home.component.ts"
+    ```js linenums="1"
+	import { Component, computed, inject, OnInit, Signal } from '@angular/core';
+	import { MatCardModule } from '@angular/material/card';
+	import { MatChipsModule } from '@angular/material/chips';
+	import { AuthService } from '../shared/auth.service';
+	import { RouterLink } from '@angular/router';
+
+	@Component({
+	  selector: 'app-home',
+	  standalone: true,
+	  imports: [ MatCardModule, MatChipsModule, RouterLink ],
+	  templateUrl: './home.component.html',
+	  styleUrl: './home.component.css'
+	})
+	export class HomeComponent implements OnInit{
+
+	  private auth = inject(AuthService);
+	  isAdmin: Signal<boolean> = computed( () => this.auth.isAdmin());
+
+	  
+	  ngOnInit(): void {
+	  	// braucht man nicht - nur zum Debuggen
+	    console.log('isAdmin : ', this.isAdmin())
+	  }
+	}
+    ```
+
+=== "home.component.html"
+    ```html linenums="1"
+	<div class="space">
+	    <mat-card class="example-card" appearance="outlined">
+	        <mat-card-header>
+	            <mat-card-title>Home-Komponente</mat-card-title>
+	        </mat-card-header>
+	        <mat-card-content>
+	        	<p>Hier ist Ihre eigentliche Anwendung. Die Home-Komponente kann nur aufgerufen werden, 
+	            wenn man eingeloggt ist (egal, ob als <strong>admin</strong> oder <strong>user</strong>.)</p>
+	            <p>Sollten Sie <strong>admin</strong> sein, sehen Sie unten sogar einen Button, der 
+	                Sie zur <strong>UserList</strong>-Komponente weiterleitet.</p>
+	        </mat-card-content>
+	        @if(isAdmin()) {
+	            <mat-card-footer class="example-card-footer">
+	            <mat-chip-set aria-label="link zu login">
+	                <mat-chip><a [routerLink]="['/users']">UserList-Komponente</a></mat-chip>
+	            </mat-chip-set>
+	            </mat-card-footer>
+	        }
+	    </mat-card>
+	</div>
+    ```
+
+=== "home.component.css"
+    ```css linenums="1"
+	.example-card {
+	    width: clamp(max(50vw, 400px), 50vw, min(50vw, 1200px));
+	}
+
+	.example-card p{
+	    padding: 2%;
+	} 
+
+	.example-card-footer {
+	    padding: 2%;
+	}
+
+	.space mat-card {
+	    margin-top: 5%;
+	    margin-left: 5%;
+	}
+
+	a {
+	    text-decoration: none;
+	}
+    ```
+
 
 !!! success
-    Wir haben eine (sehr einfache) Nutzerverwaltung implementiert. Eine Nutzerin kann sich registrieren und einloggen. Die Registrierungsdaten werden in der Datenbank gespeichert. Das Passwort wird verschlüsselt abgelegt. Jeder Nutzerin kann eine Rolle zugewiesen werden. Abhängig davon, ob jemand eingelogged ist bzw. in welcher Rolle, sind die Komponenten unterschiedlich erreichbar. Dies wurde mit Guards realisiert. Für das Layout wurde Angular Material verwendet. Die Nutzerverwaltung ist noch sehr rudimentär. Es fehlt z.B. noch das Ausloggen. Es wäre auch gut, wenn die Nutzerin nach misslungenem Einloggen eine entsprechende Nachricht bekäme. Die Konzepte für eine Dialoggestaltung, für die Erweitereung und Anbindung des Backends sowie für eine Weitereleitung auf eine andere Komponente wurden jedoch alle exemplarisch gezeigt.  
+    Wir haben eine (sehr einfache) Nutzerverwaltung implementiert. Eine Nutzerin kann sich registrieren und einloggen. Die Registrierungsdaten werden in der Datenbank gespeichert. Das Passwort wird verschlüsselt abgelegt. Jeder Nutzerin kann eine Rolle zugewiesen werden. Abhängig davon, ob jemand eingeloggt ist bzw. in welcher Rolle, sind die Komponenten unterschiedlich erreichbar. Dies wurde mit Guards realisiert. Für das Layout wurde Angular Material verwendet. Die Konzepte für eine Dialoggestaltung, für die Erweitereung und Anbindung des Backends sowie für eine Weitereleitung auf eine andere Komponente wurden jedoch alle exemplarisch gezeigt.  

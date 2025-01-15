@@ -928,7 +928,7 @@ In der `table`-Komponente ist das Löschen eines Datensatzes bereits vorbereitet
 Wir implementieren zunächst eine `deleteOne(id)`-Funktion im `BackendService`. Es wird der Endpunkt `DELETE /members/:id` verwendet. 
 
 === "backend.service.ts"
-    ```ts linenums="1" hl_lines="26-28"
+    ```ts linenums="1" hl_lines="39-46"
     import { Injectable } from '@angular/core';
     import { Member } from './member';
 
@@ -984,7 +984,7 @@ Im Gegensatz zu den anderen Endpunkten, wird durch den Endpunkt als `Response` k
 Wir verwenden diese Funktion nun in unserer `table.component.ts`:
 
 === "table.component.ts"
-    ```ts linenums="1" hl_lines="2 13 15 34-51 53-58"
+    ```ts linenums="1" hl_lines="2 15 24-30"
     import { Component, inject, OnInit } from '@angular/core';
     import { BackendService } from '../shared/backend.service';
     import { Member } from '../shared/member';
