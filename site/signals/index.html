@@ -1489,8 +1489,29 @@
 <p>Wichtig ist, dass das <code>click</code>-Ereignis auf den Lösch-Button in der <code>AllComponent</code> durch die <code>delete()</code>-Funktion behandelt und darin das Ereignis an die Elternkomponente <code>CitiesComponent</code> emittiert wird. Es erscheinen in der Konsole demnach beide Ausgaben direkt untereinander:</p>
 <p><img alt="cities" src="../files/296_cities.png" /></p>
 <h2 id="signals">Signals<a class="headerlink" href="#signals" title="Permanent link">&para;</a></h2>
-<p>Nachdem wir <em>Signals</em> nun bereits im Einsatz als <code>input()</code>-Funktion betrachtet haben, schauen wir uns dieses Konzept nun nochmal genauer an. Ein <em>Signal</em> ist ein Wrapper um einen beliebigen Wert, der alle Konsumenten über die Änderung des Wertes informiert. Es gibt schreibbare <em>Signals</em> (<code>WritableSignal</code>) und <em>read-only Signals</em> (<code>Signal</code>).</p>
-<p><a href="https://www.youtube.com/watch?v=XWz8pxQWD8c">https://www.youtube.com/watch?v=XWz8pxQWD8c</a></p>
+<p>Nachdem wir <em>Signals</em> nun bereits im Einsatz als <code>input()</code>-Funktion betrachtet haben, schauen wir uns dieses Konzept nun nochmal genauer an. Ein <em>Signal</em> ist ein Wrapper um einen beliebigen Wert, der alle Konsumenten über die Änderung des Wertes informiert. Es gibt schreibbare <em>Signals</em> (<code>WritableSignal</code>) und <em>read-only Signals</em> (<code>Signal</code>). Die folgenden Beispiele sind aus <a href="https://angular.dev/guide/signals">angular.dev</a>.</p>
+<p>Die Initialisierung eines <code>WritableSignal</code>s erfolgt mithilfe von <code>signal()</code>, z.B.:</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="nx">WritableSignal</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">signal</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Zum Setzen der Werte eines <code>WritableSignal</code>s gibt es zwei Funktionen: <code>set()</code> und <code>update()</code>. Die <code>set()</code>-Funktion setzt direkt einen neuen Wert, während <code>update()</code> aus dem alten Wert einen neuen berechnet, z.B.:</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nx">count</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="mf">3</span><span class="p">);</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1">// Increment the count by 1.</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nx">count</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Den Wert des Signals <code>count</code> lesen wir mit</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nx">count</span><span class="p">()</span>
+</span></code></pre></div>
+<p>aus, d.h. wir rufen das Signal wie eine Funktion auf, um dessen Wert auszulesen.  </p>
+<p><em>Read-only-Signals</em> lasen sich gut als <code>computed()</code> <em>Signals</em> erstellen, die aus den Werten von <code>WritableSignal</code>s berechnet werden, z.B. </p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="nx">WritableSignal</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">signal</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">doubleCount</span><span class="o">:</span><span class="w"> </span><span class="nx">Signal</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">computed</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">count</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Dabei kann <code>doubleCount</code> nicht explizit ein neuer Wert zugewisen werden (weder mit <code>set()</code> noch mit <code>update()</code>), da es sich um ein <em>read-only-Signal</em> handelt. </p>
+<p>Ein recht anschauliches Beispiel für die Verwendung von Signals finden Sie in diesem <a href="https://www.youtube.com/watch?v=XWz8pxQWD8c">youtube-Video</a>.</p>
+<div class="admonition success">
+<p class="admonition-title">Signals</p>
+<p>Der entscheidende Vorteil von Signals ist der, dass eine sofortige Benachrichtigung erfolgt, sobald sich der Wert des Signals ändert. Dies führt zu reaktiven Anwendungen, deren View sich mit der Änderung der Werte von Signals sofort ändert. Wir werden im Abschnitt <a href="../guards/#nutzen-der-signals">Nutzen der Signals</a> dieses Konzept geeignet anwenden.</p>
+</div>
 
 
 

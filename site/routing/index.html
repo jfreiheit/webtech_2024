@@ -592,6 +592,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Routen absichern mit Guards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#erweiterung-des-guards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erweiterung des Guards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -885,6 +900,21 @@
       Routen absichern mit Guards
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Routen absichern mit Guards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#erweiterung-des-guards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erweiterung des Guards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3249,9 +3279,6 @@ aus und fügen dann folgende Zeilen in die <code>angular.json</code> ein:</p>
 </div>
 </div>
 <p>Wir haben den Code also nur um eine Zeile ergänzt. Wenn sich jetzt der Parameter der Route ändert, wird die <code>ngOnInit()</code>-Funktion einfach erneut aufgerufen. Nun funktioniert auch das Blättern zwischen den Städten.  </p>
-<hr />
-<p><strong><em>der folgende Abschnitt muss noch überarbeitet werden; kommt in Kürze</em></strong></p>
-<hr />
 <h2 id="routen-absichern-mit-guards">Routen absichern mit Guards<a class="headerlink" href="#routen-absichern-mit-guards" title="Permanent link">&para;</a></h2>
 <p><em>Guards</em> sind Funktionen, die entscheiden, ob ein Navigationsschritt ausgeführt werden darf oder nicht. Diese Entscheidung wird durch den Rückgabewert der Funktion ausgedrückt. Es gibt drei verschiedene Varainten für den Rückgabewert: </p>
 <ul>
@@ -3267,43 +3294,21 @@ aus und fügen dann folgende Zeilen in die <code>angular.json</code> ein:</p>
 <li><code>CanLoad</code>: entscheidet, ob ein Module (asynchron) geladen werden darf. </li>
 </ul>
 <p>Uns genügt es, <code>CanActivate</code> zu betrachten. Damit wollen wir regulieren, dass nur eine bestimmte <em>Rolle</em> von Nutzern eine bestimmte Komponente verwenden darf. Wir erstellen uns einen solchen Guard mithilfe des Angular CLI und nennen den Guard <code>authguard</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>ng<span class="w"> </span>g<span class="w"> </span>guard<span class="w"> </span>authguard<span class="w"> </span>--implements<span class="w"> </span>CanActivate
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>ng<span class="w"> </span>g<span class="w"> </span>guard<span class="w"> </span>shared/authguard<span class="w"> </span>--implements<span class="w"> </span>CanActivate
 </span></code></pre></div>
-<p>Dadurch entsteht eine Datei <code>authguard.guard.ts</code> mit folgendem Inhalt:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="29:1"><input checked="checked" id="__tabbed_29_1" name="__tabbed_29" type="radio" /><div class="tabbed-labels"><label for="__tabbed_29_1">authguard.guard.ts</label></div>
+<p>Dadurch entsteht eine Datei <code>authguard.guard.ts</code> im Ordner <code>shared</code> mit folgendem Inhalt:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="29:1"><input checked="checked" id="__tabbed_29_1" name="__tabbed_29" type="radio" /><div class="tabbed-labels"><label for="__tabbed_29_1">shared/authguard.guard.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-js highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-56-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-56-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-56-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-56-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-56-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-56-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-56-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-56-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-56-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-56-10">10</a></span>
-<span class="normal"><a href="#__codelineno-56-11">11</a></span>
-<span class="normal"><a href="#__codelineno-56-12">12</a></span>
-<span class="normal"><a href="#__codelineno-56-13">13</a></span>
-<span class="normal"><a href="#__codelineno-56-14">14</a></span>
-<span class="normal"><a href="#__codelineno-56-15">15</a></span>
-<span class="normal"><a href="#__codelineno-56-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Injectable</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ActivatedRouteSnapshot</span><span class="p">,</span><span class="w"> </span><span class="nx">CanActivate</span><span class="p">,</span><span class="w"> </span><span class="nx">RouterStateSnapshot</span><span class="p">,</span><span class="w"> </span><span class="nx">UrlTree</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
-</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Observable</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;rxjs&#39;</span><span class="p">;</span>
-</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4"></a>
-</span><span id="__span-56-5"><a id="__codelineno-56-5" name="__codelineno-56-5"></a><span class="err">@</span><span class="nx">Injectable</span><span class="p">({</span>
-</span><span id="__span-56-6"><a id="__codelineno-56-6" name="__codelineno-56-6"></a><span class="w">  </span><span class="nx">providedIn</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;root&#39;</span>
-</span><span id="__span-56-7"><a id="__codelineno-56-7" name="__codelineno-56-7"></a><span class="p">})</span>
-</span><span id="__span-56-8"><a id="__codelineno-56-8" name="__codelineno-56-8"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AuthguardGuard</span><span class="w"> </span><span class="kr">implements</span><span class="w"> </span><span class="nx">CanActivate</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-56-9"><a id="__codelineno-56-9" name="__codelineno-56-9"></a>
-</span><span id="__span-56-10"><a id="__codelineno-56-10" name="__codelineno-56-10"></a><span class="w">  </span><span class="nx">canActivate</span><span class="p">(</span>
-</span><span id="__span-56-11"><a id="__codelineno-56-11" name="__codelineno-56-11"></a><span class="w">    </span><span class="nx">route</span><span class="o">:</span><span class="w"> </span><span class="nx">ActivatedRouteSnapshot</span><span class="p">,</span>
-</span><span id="__span-56-12"><a id="__codelineno-56-12" name="__codelineno-56-12"></a><span class="w">    </span><span class="nx">state</span><span class="o">:</span><span class="w"> </span><span class="nx">RouterStateSnapshot</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Observable</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">UrlTree</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">UrlTree</span><span class="o">&gt;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kr">boolean</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">UrlTree</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-56-13"><a id="__codelineno-56-13" name="__codelineno-56-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
-</span><span id="__span-56-14"><a id="__codelineno-56-14" name="__codelineno-56-14"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-56-15"><a id="__codelineno-56-15" name="__codelineno-56-15"></a>
-</span><span id="__span-56-16"><a id="__codelineno-56-16" name="__codelineno-56-16"></a><span class="p">}</span>
+<div class="language-js highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-56-1">1</a></span>
+<span class="normal"><a href="#__codelineno-56-2">2</a></span>
+<span class="normal"><a href="#__codelineno-56-3">3</a></span>
+<span class="normal"><a href="#__codelineno-56-4">4</a></span>
+<span class="normal"><a href="#__codelineno-56-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CanActivateFn</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2"></a>
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">authguardGuard</span><span class="o">:</span><span class="w"> </span><span class="nx">CanActivateFn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">route</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-56-5"><a id="__codelineno-56-5" name="__codelineno-56-5"></a><span class="p">};</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 </div>
@@ -3348,62 +3353,29 @@ aus und fügen dann folgende Zeilen in die <code>angular.json</code> ein:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="31:1"><input checked="checked" id="__tabbed_31_1" name="__tabbed_31" type="radio" /><div class="tabbed-labels"><label for="__tabbed_31_1">authguard.guard.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-js highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-59-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-59-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-59-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-59-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-59-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-59-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-59-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-59-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-59-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-59-10">10</a></span>
-<span class="normal"><a href="#__codelineno-59-11">11</a></span>
-<span class="normal"><a href="#__codelineno-59-12">12</a></span>
-<span class="normal"><a href="#__codelineno-59-13">13</a></span>
-<span class="normal"><a href="#__codelineno-59-14">14</a></span>
-<span class="normal"><a href="#__codelineno-59-15">15</a></span>
-<span class="normal"><a href="#__codelineno-59-16">16</a></span>
-<span class="normal"><a href="#__codelineno-59-17">17</a></span>
-<span class="normal"><a href="#__codelineno-59-18">18</a></span>
-<span class="normal"><a href="#__codelineno-59-19">19</a></span>
-<span class="normal"><a href="#__codelineno-59-20">20</a></span>
-<span class="normal"><a href="#__codelineno-59-21">21</a></span>
-<span class="normal"><a href="#__codelineno-59-22">22</a></span>
-<span class="normal"><a href="#__codelineno-59-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Injectable</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ActivatedRouteSnapshot</span><span class="p">,</span><span class="w"> </span><span class="nx">CanActivate</span><span class="p">,</span><span class="w"> </span><span class="nx">Router</span><span class="p">,</span><span class="w"> </span><span class="nx">RouterStateSnapshot</span><span class="p">,</span><span class="w"> </span><span class="nx">UrlTree</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
-</span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AuthService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./shared/auth.service&#39;</span><span class="p">;</span>
+<div class="language-js highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-59-1">1</a></span>
+<span class="normal"><a href="#__codelineno-59-2">2</a></span>
+<span class="normal"><a href="#__codelineno-59-3">3</a></span>
+<span class="normal"><a href="#__codelineno-59-4">4</a></span>
+<span class="normal"><a href="#__codelineno-59-5">5</a></span>
+<span class="normal"><a href="#__codelineno-59-6">6</a></span>
+<span class="normal"><a href="#__codelineno-59-7">7</a></span>
+<span class="normal"><a href="#__codelineno-59-8">8</a></span>
+<span class="normal"><a href="#__codelineno-59-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CanActivateFn</span><span class="p">,</span><span class="w"> </span><span class="nx">Router</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AuthService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./auth.service&#39;</span><span class="p">;</span>
+</span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">inject</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 </span><span id="__span-59-4"><a id="__codelineno-59-4" name="__codelineno-59-4"></a>
-</span><span id="__span-59-5"><a id="__codelineno-59-5" name="__codelineno-59-5"></a><span class="err">@</span><span class="nx">Injectable</span><span class="p">({</span>
-</span><span id="__span-59-6"><a id="__codelineno-59-6" name="__codelineno-59-6"></a><span class="w">  </span><span class="nx">providedIn</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;root&#39;</span>
-</span><span id="__span-59-7"><a id="__codelineno-59-7" name="__codelineno-59-7"></a><span class="p">})</span>
-</span><span id="__span-59-8"><a id="__codelineno-59-8" name="__codelineno-59-8"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AuthguardGuard</span><span class="w"> </span><span class="kr">implements</span><span class="w"> </span><span class="nx">CanActivate</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-59-9"><a id="__codelineno-59-9" name="__codelineno-59-9"></a>
-</span><span id="__span-59-10"><a id="__codelineno-59-10" name="__codelineno-59-10"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span>
-</span><span id="__span-59-11"><a id="__codelineno-59-11" name="__codelineno-59-11"></a><span class="w">    </span><span class="kr">private</span><span class="w"> </span><span class="kr">as</span><span class="o">:</span><span class="w"> </span><span class="nx">AuthService</span><span class="p">,</span>
-</span><span id="__span-59-12"><a id="__codelineno-59-12" name="__codelineno-59-12"></a><span class="w">    </span><span class="kr">private</span><span class="w"> </span><span class="nx">router</span><span class="o">:</span><span class="w"> </span><span class="nx">Router</span>
-</span><span id="__span-59-13"><a id="__codelineno-59-13" name="__codelineno-59-13"></a><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
-</span><span id="__span-59-14"><a id="__codelineno-59-14" name="__codelineno-59-14"></a>
-</span><span id="__span-59-15"><a id="__codelineno-59-15" name="__codelineno-59-15"></a><span class="w">  </span><span class="nx">canActivate</span><span class="p">(</span>
-</span><span id="__span-59-16"><a id="__codelineno-59-16" name="__codelineno-59-16"></a><span class="w">    </span><span class="nx">route</span><span class="o">:</span><span class="w"> </span><span class="nx">ActivatedRouteSnapshot</span><span class="p">,</span>
-</span><span id="__span-59-17"><a id="__codelineno-59-17" name="__codelineno-59-17"></a><span class="w">    </span><span class="nx">state</span><span class="o">:</span><span class="w"> </span><span class="nx">RouterStateSnapshot</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kr">boolean</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">UrlTree</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-59-18"><a id="__codelineno-59-18" name="__codelineno-59-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="kr">as</span><span class="p">.</span><span class="nx">isAuthenticated</span><span class="p">()</span>
-</span><span id="__span-59-19"><a id="__codelineno-59-19" name="__codelineno-59-19"></a><span class="w">      </span><span class="o">?</span><span class="w"> </span><span class="kc">true</span>
-</span><span id="__span-59-20"><a id="__codelineno-59-20" name="__codelineno-59-20"></a><span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">parseUrl</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">);</span>
-</span><span id="__span-59-21"><a id="__codelineno-59-21" name="__codelineno-59-21"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-59-22"><a id="__codelineno-59-22" name="__codelineno-59-22"></a>
-</span><span id="__span-59-23"><a id="__codelineno-59-23" name="__codelineno-59-23"></a><span class="p">}</span>
+</span><span id="__span-59-5"><a id="__codelineno-59-5" name="__codelineno-59-5"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">authguardGuard</span><span class="o">:</span><span class="w"> </span><span class="nx">CanActivateFn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">route</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-59-6"><a id="__codelineno-59-6" name="__codelineno-59-6"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">inject</span><span class="p">(</span><span class="nx">AuthService</span><span class="p">).</span><span class="nx">isAuthenticated</span><span class="p">()</span><span class="w"> </span>
+</span><span id="__span-59-7"><a id="__codelineno-59-7" name="__codelineno-59-7"></a><span class="w">    </span><span class="o">?</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-59-8"><a id="__codelineno-59-8" name="__codelineno-59-8"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="nx">inject</span><span class="p">(</span><span class="nx">Router</span><span class="p">).</span><span class="nx">navigate</span><span class="p">([</span><span class="s1">&#39;/login&#39;</span><span class="p">]);</span>
+</span><span id="__span-59-9"><a id="__codelineno-59-9" name="__codelineno-59-9"></a><span class="p">};</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 </div>
 </div>
-<p>Erläuterungen der Anpassungen:</p>
-<ul>
-<li>Zunächst haben wir die Rückgabetypen der <code>canActivate()</code>-Funktion auf <code>boolean</code> und <code>UrlTree</code> reduziert. Die anderen möglichen Rückgabetypen <code>Observable&lt;boolean | UrlTree&gt; | Promise&lt;boolean | UrlTree&gt;</code> haben wir gelöscht (und somit auch <code>import { Observable } from 'rxjs';</code>) - siehe Zeile <code>17</code>.</li>
-<li>Dann haben wir den <code>AuthService</code> und auch das <code>Router</code>-Modul per <em>dependency injection</em> in den Konstruktor der <code>AuthGuard</code>-Klasse eingefügt, um Beides verwenden zu können (Zeilen <code>10-13</code>). </li>
-<li>Dann haben wir die Berechnung des Rückgabewertes der <code>canActivate</code>-Funktion ergänzt. Der Rückgabewert ist abhängig vom Rückgaewert der <code>isAuthenticated()</code>-Funktion des <code>AuthServices</code>. Liefert diese Funktion ein <code>true</code> zurück, dann gibt auch die <code>canActivate()</code>-Funktion ein <code>true</code> zurück (Zeile <code>19</code>). Ist der Rückgabewert jedoch <code>false</code>, dann liefert die <code>canActivate()</code>-Funktion ein <code>UrlTree</code> in der Form zurück, dass die Navigation auf die Route <code>/login</code> umgeleitet wird. </li>
-</ul>
-<p>Jetzt können wir diesen Guard verwenden und passen dafür die <code>app.routes.ts</code> an. Wir wollen hier exemplarisch demonstrieren, dass die <code>/cities</code>- und <code>/cities/:id</code>-Routen nur dann aktiviert werden können, wenn die <code>canActivate()</code>-Funktion des <code>AuthGuard</code>s ein <code>true</code> zurückliefert. Dazu sind folgende Änderungen in der <code>app.routes.ts</code> notwendig: </p>
+<p>Der Rückgabewertes der <code>authguardGuard</code>-Funktion ist abhängig vom Rückgabewert der <code>isAuthenticated()</code>-Funktion des <code>AuthServices</code>. Liefert diese Funktion ein <code>true</code> zurück, dann gibt auch die <code>authguardGuard()</code>-Funktion ein <code>true</code> zurück. Ist der Rückgabewert jedoch <code>false</code>, dann liefert die <code>authguardGuard()</code>-Funktion ein <code>UrlTree</code> in der Form zurück, dass die Navigation auf die Route <code>/login</code> umgeleitet wird. </p>
+<p>Jetzt können wir diesen Guard verwenden und passen dafür die <code>app.routes.ts</code> an. Wir wollen hier exemplarisch demonstrieren, dass die <code>/cities</code>- und <code>/cities/:id</code>-Routen nur dann aktiviert werden können, wenn die <code>authguardGuard()</code>-Funktion des <code>AuthGuard</code>s ein <code>true</code> zurückliefert. Dazu sind folgende Änderungen in der <code>app.routes.ts</code> notwendig: </p>
 <div class="tabbed-set tabbed-alternate" data-tabs="32:1"><input checked="checked" id="__tabbed_32_1" name="__tabbed_32" type="radio" /><div class="tabbed-labels"><label for="__tabbed_32_1">app.routes.ts</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3439,66 +3411,156 @@ aus und fügen dann folgende Zeilen in die <code>angular.json</code> ein:</p>
 <span class="normal"><a href="#__codelineno-60-30">30</a></span>
 <span class="normal"><a href="#__codelineno-60-31">31</a></span>
 <span class="normal"><a href="#__codelineno-60-32">32</a></span>
-<span class="normal"><a href="#__codelineno-60-33">33</a></span>
-<span class="normal"><a href="#__codelineno-60-34">34</a></span>
-<span class="normal"><a href="#__codelineno-60-35">35</a></span>
-<span class="normal"><a href="#__codelineno-60-36">36</a></span>
-<span class="normal"><a href="#__codelineno-60-37">37</a></span>
-<span class="normal"><a href="#__codelineno-60-38">38</a></span>
-<span class="normal"><a href="#__codelineno-60-39">39</a></span>
-<span class="normal"><a href="#__codelineno-60-40">40</a></span>
-<span class="normal"><a href="#__codelineno-60-41">41</a></span>
-<span class="normal"><a href="#__codelineno-60-42">42</a></span>
-<span class="normal"><a href="#__codelineno-60-43">43</a></span>
-<span class="normal"><a href="#__codelineno-60-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AuthguardGuard</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./authguard.guard&#39;</span><span class="p">;</span>
-</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CityComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./cities/city/city.component&#39;</span><span class="p">;</span>
-</span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">HomeComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./home/home.component&#39;</span><span class="p">;</span>
-</span><span id="__span-60-4"><a id="__codelineno-60-4" name="__codelineno-60-4"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LoginComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./login/login.component&#39;</span><span class="p">;</span>
-</span><span id="__span-60-5"><a id="__codelineno-60-5" name="__codelineno-60-5"></a><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AboutComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./about/about.component&#39;</span><span class="p">;</span>
-</span></span><span id="__span-60-6"><a id="__codelineno-60-6" name="__codelineno-60-6"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NgModule</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-</span><span id="__span-60-7"><a id="__codelineno-60-7" name="__codelineno-60-7"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">RouterModule</span><span class="p">,</span><span class="w"> </span><span class="nx">Routes</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
-</span><span id="__span-60-8"><a id="__codelineno-60-8" name="__codelineno-60-8"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CitiesComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./cities/cities.component&#39;</span><span class="p">;</span>
-</span><span id="__span-60-9"><a id="__codelineno-60-9" name="__codelineno-60-9"></a>
-</span><span id="__span-60-10"><a id="__codelineno-60-10" name="__codelineno-60-10"></a><span class="kd">const</span><span class="w"> </span><span class="nx">routes</span><span class="o">:</span><span class="w"> </span><span class="nx">Routes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-60-11"><a id="__codelineno-60-11" name="__codelineno-60-11"></a><span class="w">  </span><span class="p">{</span>
-</span><span id="__span-60-12"><a id="__codelineno-60-12" name="__codelineno-60-12"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-</span><span id="__span-60-13"><a id="__codelineno-60-13" name="__codelineno-60-13"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">HomeComponent</span><span class="p">,</span>
-</span><span id="__span-60-14"><a id="__codelineno-60-14" name="__codelineno-60-14"></a><span class="w">    </span><span class="nx">pathMatch</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;full&#39;</span>
-</span><span id="__span-60-15"><a id="__codelineno-60-15" name="__codelineno-60-15"></a><span class="w">  </span><span class="p">},</span>
-</span><span id="__span-60-16"><a id="__codelineno-60-16" name="__codelineno-60-16"></a><span class="w">  </span><span class="p">{</span>
-</span><span id="__span-60-17"><a id="__codelineno-60-17" name="__codelineno-60-17"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;about&quot;</span><span class="p">,</span>
-</span><span id="__span-60-18"><a id="__codelineno-60-18" name="__codelineno-60-18"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">AboutComponent</span>
-</span><span id="__span-60-19"><a id="__codelineno-60-19" name="__codelineno-60-19"></a><span class="w">  </span><span class="p">},</span>
-</span><span id="__span-60-20"><a id="__codelineno-60-20" name="__codelineno-60-20"></a><span class="w">  </span><span class="p">{</span>
-</span><span id="__span-60-21"><a id="__codelineno-60-21" name="__codelineno-60-21"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;login&quot;</span><span class="p">,</span>
-</span><span id="__span-60-22"><a id="__codelineno-60-22" name="__codelineno-60-22"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">LoginComponent</span>
-</span><span id="__span-60-23"><a id="__codelineno-60-23" name="__codelineno-60-23"></a><span class="w">  </span><span class="p">},</span>
-</span><span id="__span-60-24"><a id="__codelineno-60-24" name="__codelineno-60-24"></a><span class="w">  </span><span class="p">{</span>
-</span><span id="__span-60-25"><a id="__codelineno-60-25" name="__codelineno-60-25"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;cities&quot;</span><span class="p">,</span>
-</span><span id="__span-60-26"><a id="__codelineno-60-26" name="__codelineno-60-26"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">CitiesComponent</span><span class="p">,</span>
-</span><span id="__span-60-27"><a id="__codelineno-60-27" name="__codelineno-60-27"></a><span class="w">    </span><span class="nx">canActivate</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">AuthguardGuard</span><span class="p">]</span>
-</span><span id="__span-60-28"><a id="__codelineno-60-28" name="__codelineno-60-28"></a><span class="w">  </span><span class="p">},</span>
-</span><span id="__span-60-29"><a id="__codelineno-60-29" name="__codelineno-60-29"></a><span class="w">  </span><span class="p">{</span>
-</span><span id="__span-60-30"><a id="__codelineno-60-30" name="__codelineno-60-30"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;cities/:id&quot;</span><span class="p">,</span>
-</span><span id="__span-60-31"><a id="__codelineno-60-31" name="__codelineno-60-31"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">CityComponent</span><span class="p">,</span>
-</span><span id="__span-60-32"><a id="__codelineno-60-32" name="__codelineno-60-32"></a><span class="w">    </span><span class="nx">canActivate</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">AuthguardGuard</span><span class="p">]</span>
-</span><span id="__span-60-33"><a id="__codelineno-60-33" name="__codelineno-60-33"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-60-34"><a id="__codelineno-60-34" name="__codelineno-60-34"></a><span class="p">];</span>
-</span><span id="__span-60-35"><a id="__codelineno-60-35" name="__codelineno-60-35"></a>
-</span><span id="__span-60-36"><a id="__codelineno-60-36" name="__codelineno-60-36"></a><span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
-</span><span id="__span-60-37"><a id="__codelineno-60-37" name="__codelineno-60-37"></a><span class="w">  </span><span class="nx">declarations</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
-</span><span id="__span-60-38"><a id="__codelineno-60-38" name="__codelineno-60-38"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-60-39"><a id="__codelineno-60-39" name="__codelineno-60-39"></a><span class="w">    </span><span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">routes</span><span class="p">)</span>
-</span><span id="__span-60-40"><a id="__codelineno-60-40" name="__codelineno-60-40"></a><span class="w">  </span><span class="p">],</span>
-</span><span id="__span-60-41"><a id="__codelineno-60-41" name="__codelineno-60-41"></a><span class="w">  </span><span class="nx">exports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">RouterModule</span><span class="p">],</span>
-</span><span id="__span-60-42"><a id="__codelineno-60-42" name="__codelineno-60-42"></a><span class="w">  </span><span class="nx">providers</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span>
-</span><span id="__span-60-43"><a id="__codelineno-60-43" name="__codelineno-60-43"></a><span class="p">})</span>
-</span><span id="__span-60-44"><a id="__codelineno-60-44" name="__codelineno-60-44"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">AppRoutingModule</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="normal"><a href="#__codelineno-60-33">33</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Routes</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">authguardGuard</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./shared/authguard.guard&#39;</span><span class="p">;</span>
+</span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CityComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./cities/city/city.component&#39;</span><span class="p">;</span>
+</span><span id="__span-60-4"><a id="__codelineno-60-4" name="__codelineno-60-4"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">HomeComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./home/home.component&#39;</span><span class="p">;</span>
+</span><span id="__span-60-5"><a id="__codelineno-60-5" name="__codelineno-60-5"></a><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LoginComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./login/login.component&#39;</span><span class="p">;</span>
+</span></span><span id="__span-60-6"><a id="__codelineno-60-6" name="__codelineno-60-6"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AboutComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./about/about.component&#39;</span><span class="p">;</span>
+</span><span id="__span-60-7"><a id="__codelineno-60-7" name="__codelineno-60-7"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CitiesComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./cities/cities.component&#39;</span><span class="p">;</span>
+</span><span id="__span-60-8"><a id="__codelineno-60-8" name="__codelineno-60-8"></a>
+</span><span id="__span-60-9"><a id="__codelineno-60-9" name="__codelineno-60-9"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">routes</span><span class="o">:</span><span class="w"> </span><span class="nx">Routes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-60-10"><a id="__codelineno-60-10" name="__codelineno-60-10"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-60-11"><a id="__codelineno-60-11" name="__codelineno-60-11"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span id="__span-60-12"><a id="__codelineno-60-12" name="__codelineno-60-12"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">HomeComponent</span><span class="p">,</span>
+</span><span id="__span-60-13"><a id="__codelineno-60-13" name="__codelineno-60-13"></a><span class="w">    </span><span class="nx">pathMatch</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;full&#39;</span>
+</span><span id="__span-60-14"><a id="__codelineno-60-14" name="__codelineno-60-14"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-60-15"><a id="__codelineno-60-15" name="__codelineno-60-15"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-60-16"><a id="__codelineno-60-16" name="__codelineno-60-16"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;about&quot;</span><span class="p">,</span>
+</span><span id="__span-60-17"><a id="__codelineno-60-17" name="__codelineno-60-17"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">AboutComponent</span>
+</span><span id="__span-60-18"><a id="__codelineno-60-18" name="__codelineno-60-18"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-60-19"><a id="__codelineno-60-19" name="__codelineno-60-19"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-60-20"><a id="__codelineno-60-20" name="__codelineno-60-20"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;login&quot;</span><span class="p">,</span>
+</span><span id="__span-60-21"><a id="__codelineno-60-21" name="__codelineno-60-21"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">LoginComponent</span>
+</span><span id="__span-60-22"><a id="__codelineno-60-22" name="__codelineno-60-22"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-60-23"><a id="__codelineno-60-23" name="__codelineno-60-23"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-60-24"><a id="__codelineno-60-24" name="__codelineno-60-24"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;cities&quot;</span><span class="p">,</span>
+</span><span id="__span-60-25"><a id="__codelineno-60-25" name="__codelineno-60-25"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">CitiesComponent</span><span class="p">,</span>
+</span><span id="__span-60-26"><a id="__codelineno-60-26" name="__codelineno-60-26"></a><span class="w">    </span><span class="nx">canActivate</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">authguardGuard</span><span class="p">]</span>
+</span><span id="__span-60-27"><a id="__codelineno-60-27" name="__codelineno-60-27"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-60-28"><a id="__codelineno-60-28" name="__codelineno-60-28"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-60-29"><a id="__codelineno-60-29" name="__codelineno-60-29"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;cities/:id&quot;</span><span class="p">,</span>
+</span><span id="__span-60-30"><a id="__codelineno-60-30" name="__codelineno-60-30"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">CityComponent</span><span class="p">,</span>
+</span><span id="__span-60-31"><a id="__codelineno-60-31" name="__codelineno-60-31"></a><span class="w">    </span><span class="nx">canActivate</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">authguardGuard</span><span class="p">]</span>
+</span><span id="__span-60-32"><a id="__codelineno-60-32" name="__codelineno-60-32"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-60-33"><a id="__codelineno-60-33" name="__codelineno-60-33"></a><span class="p">];</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 </div>
 </div>
-<p>Wenn wir nun auf <code>/cities</code> navigieren wollen, dann werden wir direkt auf die <code>/login</code>-Route umgeleitet. Die <code>CitiesComponent</code> und auch die <code>CityComponent</code> bleiben gesperrt solange <code>isAuthenticated()</code> ein <code>false</code> zurückliefert. </p>
+<p>Wenn wir nun auf <code>/cities</code> navigieren wollen, dann werden wir direkt auf die <code>/login</code>-Route umgeleitet. Die <code>CitiesComponent</code> und auch die <code>CityComponent</code> bleiben gesperrt, solange <code>isAuthenticated()</code> ein <code>false</code> zurückliefert. </p>
+<h3 id="erweiterung-des-guards">Erweiterung des Guards<a class="headerlink" href="#erweiterung-des-guards" title="Permanent link">&para;</a></h3>
+<p>Wir prüfen im <em>Guard</em> derzeit (nur), ob eine Nutzerin eingeloggt ist. Angenommen, der <code>AuthService</code> stellt auch eine Funktion <code>isAdmin()</code> zur Verfügung, die ein <code>true</code> zurückgibt, wenn die Nutzerin in der Rolle <code>admin</code> ist und <code>false</code> sonst. Dann könnten wir unseren Guard wir folgt erweitern:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="33:1"><input checked="checked" id="__tabbed_33_1" name="__tabbed_33" type="radio" /><div class="tabbed-labels"><label for="__tabbed_33_1">authguard.guard.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-js highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-61-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-61-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-61-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-61-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-61-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-61-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-61-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-61-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-61-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-61-10">10</a></span>
+<span class="normal"><a href="#__codelineno-61-11">11</a></span>
+<span class="normal"><a href="#__codelineno-61-12">12</a></span>
+<span class="normal"><a href="#__codelineno-61-13">13</a></span>
+<span class="normal"><a href="#__codelineno-61-14">14</a></span>
+<span class="normal"><a href="#__codelineno-61-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CanActivateFn</span><span class="p">,</span><span class="w"> </span><span class="nx">Router</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AuthService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./auth.service&#39;</span><span class="p">;</span>
+</span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">inject</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+</span><span id="__span-61-4"><a id="__codelineno-61-4" name="__codelineno-61-4"></a>
+</span><span id="__span-61-5"><a id="__codelineno-61-5" name="__codelineno-61-5"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">authguardLogin</span><span class="o">:</span><span class="w"> </span><span class="nx">CanActivateFn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">route</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-61-6"><a id="__codelineno-61-6" name="__codelineno-61-6"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">inject</span><span class="p">(</span><span class="nx">AuthService</span><span class="p">).</span><span class="nx">isAuthenticated</span><span class="p">()</span><span class="w"> </span>
+</span><span id="__span-61-7"><a id="__codelineno-61-7" name="__codelineno-61-7"></a><span class="w">    </span><span class="o">?</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-61-8"><a id="__codelineno-61-8" name="__codelineno-61-8"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="nx">inject</span><span class="p">(</span><span class="nx">Router</span><span class="p">).</span><span class="nx">navigate</span><span class="p">([</span><span class="s1">&#39;/login&#39;</span><span class="p">]);</span>
+</span><span id="__span-61-9"><a id="__codelineno-61-9" name="__codelineno-61-9"></a><span class="p">};</span>
+</span><span id="__span-61-10"><a id="__codelineno-61-10" name="__codelineno-61-10"></a>
+</span><span id="__span-61-11"><a id="__codelineno-61-11" name="__codelineno-61-11"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">authguardAdmin</span><span class="o">:</span><span class="w"> </span><span class="nx">CanActivateFn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">route</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-61-12"><a id="__codelineno-61-12" name="__codelineno-61-12"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">inject</span><span class="p">(</span><span class="nx">AuthService</span><span class="p">).</span><span class="nx">isAAdmin</span><span class="p">()</span><span class="w"> </span>
+</span><span id="__span-61-13"><a id="__codelineno-61-13" name="__codelineno-61-13"></a><span class="w">    </span><span class="o">?</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-61-14"><a id="__codelineno-61-14" name="__codelineno-61-14"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="nx">inject</span><span class="p">(</span><span class="nx">Router</span><span class="p">).</span><span class="nx">navigate</span><span class="p">([</span><span class="s1">&#39;/login&#39;</span><span class="p">]);</span>
+</span><span id="__span-61-15"><a id="__codelineno-61-15" name="__codelineno-61-15"></a><span class="p">};</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<p>Wir haben hier übrigens die ursprüngliche <code>authguardGuard()</code>-Funktion in <code>authguardLogin</code> umbenannt und haben eine weitere Funktion hinzugefügt, die nun ein <code>true</code> zurückgibt, wenn es sich um einen <code>admin</code> handelt und ansonsten auf die <code>/login</code>-Route navigiert. </p>
+<p>Angenommen, wir wollen nun, dass man die Route <code>/cities</code> wählen kann, wenn man eingeloggt ist, die Route <code>/cities/:id</code> aber nur, wenn man als <code>admin</code> eingeloggt ist, dann sehe <code>app.routes.ts</code> wie folgt aus:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="34:1"><input checked="checked" id="__tabbed_34_1" name="__tabbed_34" type="radio" /><div class="tabbed-labels"><label for="__tabbed_34_1">app.routes.ts</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-js highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-62-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-62-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-62-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-62-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-62-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-62-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-62-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-62-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-62-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-62-10">10</a></span>
+<span class="normal"><a href="#__codelineno-62-11">11</a></span>
+<span class="normal"><a href="#__codelineno-62-12">12</a></span>
+<span class="normal"><a href="#__codelineno-62-13">13</a></span>
+<span class="normal"><a href="#__codelineno-62-14">14</a></span>
+<span class="normal"><a href="#__codelineno-62-15">15</a></span>
+<span class="normal"><a href="#__codelineno-62-16">16</a></span>
+<span class="normal"><a href="#__codelineno-62-17">17</a></span>
+<span class="normal"><a href="#__codelineno-62-18">18</a></span>
+<span class="normal"><a href="#__codelineno-62-19">19</a></span>
+<span class="normal"><a href="#__codelineno-62-20">20</a></span>
+<span class="normal"><a href="#__codelineno-62-21">21</a></span>
+<span class="normal"><a href="#__codelineno-62-22">22</a></span>
+<span class="normal"><a href="#__codelineno-62-23">23</a></span>
+<span class="normal"><a href="#__codelineno-62-24">24</a></span>
+<span class="normal"><a href="#__codelineno-62-25">25</a></span>
+<span class="normal"><a href="#__codelineno-62-26">26</a></span>
+<span class="normal"><a href="#__codelineno-62-27">27</a></span>
+<span class="normal"><a href="#__codelineno-62-28">28</a></span>
+<span class="normal"><a href="#__codelineno-62-29">29</a></span>
+<span class="normal"><a href="#__codelineno-62-30">30</a></span>
+<span class="normal"><a href="#__codelineno-62-31">31</a></span>
+<span class="normal"><a href="#__codelineno-62-32">32</a></span>
+<span class="normal"><a href="#__codelineno-62-33">33</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Routes</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">authguardLogin</span><span class="p">,</span><span class="w"> </span><span class="nx">authguardAdmin</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./shared/authguard.guard&#39;</span><span class="p">;</span>
+</span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CityComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./cities/city/city.component&#39;</span><span class="p">;</span>
+</span><span id="__span-62-4"><a id="__codelineno-62-4" name="__codelineno-62-4"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">HomeComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./home/home.component&#39;</span><span class="p">;</span>
+</span><span id="__span-62-5"><a id="__codelineno-62-5" name="__codelineno-62-5"></a><span class="hll"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">LoginComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./login/login.component&#39;</span><span class="p">;</span>
+</span></span><span id="__span-62-6"><a id="__codelineno-62-6" name="__codelineno-62-6"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AboutComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./about/about.component&#39;</span><span class="p">;</span>
+</span><span id="__span-62-7"><a id="__codelineno-62-7" name="__codelineno-62-7"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CitiesComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./cities/cities.component&#39;</span><span class="p">;</span>
+</span><span id="__span-62-8"><a id="__codelineno-62-8" name="__codelineno-62-8"></a>
+</span><span id="__span-62-9"><a id="__codelineno-62-9" name="__codelineno-62-9"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">routes</span><span class="o">:</span><span class="w"> </span><span class="nx">Routes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-62-10"><a id="__codelineno-62-10" name="__codelineno-62-10"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-62-11"><a id="__codelineno-62-11" name="__codelineno-62-11"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span id="__span-62-12"><a id="__codelineno-62-12" name="__codelineno-62-12"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">HomeComponent</span><span class="p">,</span>
+</span><span id="__span-62-13"><a id="__codelineno-62-13" name="__codelineno-62-13"></a><span class="w">    </span><span class="nx">pathMatch</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;full&#39;</span>
+</span><span id="__span-62-14"><a id="__codelineno-62-14" name="__codelineno-62-14"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-62-15"><a id="__codelineno-62-15" name="__codelineno-62-15"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-62-16"><a id="__codelineno-62-16" name="__codelineno-62-16"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;about&quot;</span><span class="p">,</span>
+</span><span id="__span-62-17"><a id="__codelineno-62-17" name="__codelineno-62-17"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">AboutComponent</span>
+</span><span id="__span-62-18"><a id="__codelineno-62-18" name="__codelineno-62-18"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-62-19"><a id="__codelineno-62-19" name="__codelineno-62-19"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-62-20"><a id="__codelineno-62-20" name="__codelineno-62-20"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;login&quot;</span><span class="p">,</span>
+</span><span id="__span-62-21"><a id="__codelineno-62-21" name="__codelineno-62-21"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">LoginComponent</span>
+</span><span id="__span-62-22"><a id="__codelineno-62-22" name="__codelineno-62-22"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-62-23"><a id="__codelineno-62-23" name="__codelineno-62-23"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-62-24"><a id="__codelineno-62-24" name="__codelineno-62-24"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;cities&quot;</span><span class="p">,</span>
+</span><span id="__span-62-25"><a id="__codelineno-62-25" name="__codelineno-62-25"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">CitiesComponent</span><span class="p">,</span>
+</span><span id="__span-62-26"><a id="__codelineno-62-26" name="__codelineno-62-26"></a><span class="w">    </span><span class="nx">canActivate</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">authguardLogin</span><span class="p">]</span>
+</span><span id="__span-62-27"><a id="__codelineno-62-27" name="__codelineno-62-27"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-62-28"><a id="__codelineno-62-28" name="__codelineno-62-28"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-62-29"><a id="__codelineno-62-29" name="__codelineno-62-29"></a><span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;cities/:id&quot;</span><span class="p">,</span>
+</span><span id="__span-62-30"><a id="__codelineno-62-30" name="__codelineno-62-30"></a><span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="nx">CityComponent</span><span class="p">,</span>
+</span><span id="__span-62-31"><a id="__codelineno-62-31" name="__codelineno-62-31"></a><span class="w">    </span><span class="nx">canActivate</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">authguardAdmin</span><span class="p">]</span>
+</span><span id="__span-62-32"><a id="__codelineno-62-32" name="__codelineno-62-32"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-62-33"><a id="__codelineno-62-33" name="__codelineno-62-33"></a><span class="p">];</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
 <p>Wir haben die wesentlichsten Konzepte des Routing kennengelernt. Darüber hinaus gibt es noch Themen für Fortgeschrittene, wie z.B. lazy-loading von Modulen (Module erst dann laden, wenn man sie wirklich erst aufruft), Routen für Kindkomponenten, mehrere outlets usw. Aber uns genügen die hier erläuterten wesentlichen Konzepte. </p>

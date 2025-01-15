@@ -455,8 +455,44 @@ Wichtig ist, dass das `click`-Ereignis auf den Lösch-Button in der `AllComponen
 
 ## Signals
 
-Nachdem wir *Signals* nun bereits im Einsatz als `input()`-Funktion betrachtet haben, schauen wir uns dieses Konzept nun nochmal genauer an. Ein *Signal* ist ein Wrapper um einen beliebigen Wert, der alle Konsumenten über die Änderung des Wertes informiert. Es gibt schreibbare *Signals* (`WritableSignal`) und *read-only Signals* (`Signal`).
+Nachdem wir *Signals* nun bereits im Einsatz als `input()`-Funktion betrachtet haben, schauen wir uns dieses Konzept nun nochmal genauer an. Ein *Signal* ist ein Wrapper um einen beliebigen Wert, der alle Konsumenten über die Änderung des Wertes informiert. Es gibt schreibbare *Signals* (`WritableSignal`) und *read-only Signals* (`Signal`). Die folgenden Beispiele sind aus [angular.dev](https://angular.dev/guide/signals).
 
-https://www.youtube.com/watch?v=XWz8pxQWD8c
+Die Initialisierung eines `WritableSignal`s erfolgt mithilfe von `signal()`, z.B.:
+
+```js
+const count: WritableSignal<number> = signal(0);
+```
+
+Zum Setzen der Werte eines `WritableSignal`s gibt es zwei Funktionen: `set()` und `update()`. Die `set()`-Funktion setzt direkt einen neuen Wert, während `update()` aus dem alten Wert einen neuen berechnet, z.B.:
+
+```js
+count.set(3);
+// Increment the count by 1.
+count.update(value => value + 1);
+```
+
+Den Wert des Signals `count` lesen wir mit
+
+```js
+count()
+```
+
+aus, d.h. wir rufen das Signal wie eine Funktion auf, um dessen Wert auszulesen.  
+
+*Read-only-Signals* lasen sich gut als `computed()` *Signals* erstellen, die aus den Werten von `WritableSignal`s berechnet werden, z.B. 
+
+```js
+const count: WritableSignal<number> = signal(0);
+const doubleCount: Signal<number> = computed(() => count() * 2);
+```
+
+Dabei kann `doubleCount` nicht explizit ein neuer Wert zugewisen werden (weder mit `set()` noch mit `update()`), da es sich um ein *read-only-Signal* handelt. 
+
+Ein recht anschauliches Beispiel für die Verwendung von Signals finden Sie in diesem [youtube-Video](https://www.youtube.com/watch?v=XWz8pxQWD8c).
+
+!!! success "Signals"
+
+	Der entscheidende Vorteil von Signals ist der, dass eine sofortige Benachrichtigung erfolgt, sobald sich der Wert des Signals ändert. Dies führt zu reaktiven Anwendungen, deren View sich mit der Änderung der Werte von Signals sofort ändert. Wir werden im Abschnitt [Nutzen der Signals](guards.md#nutzen-der-signals) dieses Konzept geeignet anwenden.
+
 
 

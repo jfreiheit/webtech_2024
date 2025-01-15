@@ -1578,12 +1578,6 @@ Wenn wir nun auf einen solchen Navigationsbutton klicken, dann sehen wir, dass s
 Wir haben den Code also nur um eine Zeile ergänzt. Wenn sich jetzt der Parameter der Route ändert, wird die `ngOnInit()`-Funktion einfach erneut aufgerufen. Nun funktioniert auch das Blättern zwischen den Städten.  
 
 
---- 
-
-***der folgende Abschnitt muss noch überarbeitet werden; kommt in Kürze***
-
----
-
 ## Routen absichern mit Guards
 
 *Guards* sind Funktionen, die entscheiden, ob ein Navigationsschritt ausgeführt werden darf oder nicht. Diese Entscheidung wird durch den Rückgabewert der Funktion ausgedrückt. Es gibt drei verschiedene Varainten für den Rückgabewert: 
@@ -1602,30 +1596,18 @@ Wir haben den Code also nur um eine Zeile ergänzt. Wenn sich jetzt der Paramete
 Uns genügt es, `CanActivate` zu betrachten. Damit wollen wir regulieren, dass nur eine bestimmte *Rolle* von Nutzern eine bestimmte Komponente verwenden darf. Wir erstellen uns einen solchen Guard mithilfe des Angular CLI und nennen den Guard `authguard`:
 
 ```bash
-ng g guard authguard --implements CanActivate
+ng g guard shared/authguard --implements CanActivate
 ```
 
-Dadurch entsteht eine Datei `authguard.guard.ts` mit folgendem Inhalt:
+Dadurch entsteht eine Datei `authguard.guard.ts` im Ordner `shared` mit folgendem Inhalt:
 
-=== "authguard.guard.ts"
+=== "shared/authguard.guard.ts"
 	```js linenums="1"
-	import { Injectable } from '@angular/core';
-	import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-	import { Observable } from 'rxjs';
+	import { CanActivateFn } from '@angular/router';
 
-	@Injectable({
-	  providedIn: 'root'
-	})
-	export class AuthguardGuard implements CanActivate {
-	  
-	  canActivate(
-	    route: ActivatedRouteSnapshot,
-	    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-	    return true;
-	  }
-	  
-	}
-
+	export const authguardGuard: CanActivateFn = (route, state) => {
+	  return true;
+	};
 	```
 
 Um dieses Beispiel etwas realistischer zu gestalten, erstellen wir noch einen `auth`-Service, der später unserer Nutzer- und Rollenverwaltung dient. Wir nennen ihn `auth` und erstellen ihn ebenfalls im `shared`-Ordner:
@@ -1658,51 +1640,32 @@ Diesen Service und davon insbesondere die `isAuthenticated`-Funktion verwenden w
 
 === "authguard.guard.ts"
 	```js linenums="1"
-	import { Injectable } from '@angular/core';
-	import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-	import { AuthService } from './shared/auth.service';
+	import { CanActivateFn, Router } from '@angular/router';
+	import { AuthService } from './auth.service';
+	import { inject } from '@angular/core';
 
-	@Injectable({
-	  providedIn: 'root'
-	})
-	export class AuthguardGuard implements CanActivate {
-
-	  constructor(
-	    private as: AuthService,
-	    private router: Router
-	  ) {}
-
-	  canActivate(
-	    route: ActivatedRouteSnapshot,
-	    state: RouterStateSnapshot): boolean | UrlTree {
-	    return this.as.isAuthenticated()
-	      ? true
-	      : this.router.parseUrl('/login');
-	  }
-
-	}
+	export const authguardGuard: CanActivateFn = (route, state) => {
+	  return inject(AuthService).isAuthenticated() 
+	    ? true
+	    : inject(Router).navigate(['/login']);
+	};
 	```
 
-Erläuterungen der Anpassungen:
+Der Rückgabewertes der `authguardGuard`-Funktion ist abhängig vom Rückgabewert der `isAuthenticated()`-Funktion des `AuthServices`. Liefert diese Funktion ein `true` zurück, dann gibt auch die `authguardGuard()`-Funktion ein `true` zurück. Ist der Rückgabewert jedoch `false`, dann liefert die `authguardGuard()`-Funktion ein `UrlTree` in der Form zurück, dass die Navigation auf die Route `/login` umgeleitet wird. 
 
-- Zunächst haben wir die Rückgabetypen der `canActivate()`-Funktion auf `boolean` und `UrlTree` reduziert. Die anderen möglichen Rückgabetypen `Observable<boolean | UrlTree> | Promise<boolean | UrlTree>` haben wir gelöscht (und somit auch `import { Observable } from 'rxjs';`) - siehe Zeile `17`.
-- Dann haben wir den `AuthService` und auch das `Router`-Modul per *dependency injection* in den Konstruktor der `AuthGuard`-Klasse eingefügt, um Beides verwenden zu können (Zeilen `10-13`). 
-- Dann haben wir die Berechnung des Rückgabewertes der `canActivate`-Funktion ergänzt. Der Rückgabewert ist abhängig vom Rückgaewert der `isAuthenticated()`-Funktion des `AuthServices`. Liefert diese Funktion ein `true` zurück, dann gibt auch die `canActivate()`-Funktion ein `true` zurück (Zeile `19`). Ist der Rückgabewert jedoch `false`, dann liefert die `canActivate()`-Funktion ein `UrlTree` in der Form zurück, dass die Navigation auf die Route `/login` umgeleitet wird. 
-
-Jetzt können wir diesen Guard verwenden und passen dafür die `app.routes.ts` an. Wir wollen hier exemplarisch demonstrieren, dass die `/cities`- und `/cities/:id`-Routen nur dann aktiviert werden können, wenn die `canActivate()`-Funktion des `AuthGuard`s ein `true` zurückliefert. Dazu sind folgende Änderungen in der `app.routes.ts` notwendig: 
+Jetzt können wir diesen Guard verwenden und passen dafür die `app.routes.ts` an. Wir wollen hier exemplarisch demonstrieren, dass die `/cities`- und `/cities/:id`-Routen nur dann aktiviert werden können, wenn die `authguardGuard()`-Funktion des `AuthGuard`s ein `true` zurückliefert. Dazu sind folgende Änderungen in der `app.routes.ts` notwendig: 
 
 === "app.routes.ts"
 	```js linenums="1" hl_lines="5"
-	import { AuthguardGuard } from './authguard.guard';
+	import { Routes } from '@angular/router';
+	import { authguardGuard } from './shared/authguard.guard';
 	import { CityComponent } from './cities/city/city.component';
 	import { HomeComponent } from './home/home.component';
 	import { LoginComponent } from './login/login.component';
 	import { AboutComponent } from './about/about.component';
-	import { NgModule } from '@angular/core';
-	import { RouterModule, Routes } from '@angular/router';
 	import { CitiesComponent } from './cities/cities.component';
 
-	const routes: Routes = [
+	export const routes: Routes = [
 	  {
 	    path: "",
 	    component: HomeComponent,
@@ -1719,29 +1682,84 @@ Jetzt können wir diesen Guard verwenden und passen dafür die `app.routes.ts` a
 	  {
 	    path: "cities",
 	    component: CitiesComponent,
-	    canActivate: [AuthguardGuard]
+	    canActivate: [authguardGuard]
 	  },
 	  {
 	    path: "cities/:id",
 	    component: CityComponent,
-	    canActivate: [AuthguardGuard]
+	    canActivate: [authguardGuard]
 	  }
 	];
-
-	@NgModule({
-	  declarations: [],
-	  imports: [
-	    RouterModule.forRoot(routes)
-	  ],
-	  exports: [RouterModule],
-	  providers: []
-	})
-	export class AppRoutingModule { }
-
 	```
 
 
-Wenn wir nun auf `/cities` navigieren wollen, dann werden wir direkt auf die `/login`-Route umgeleitet. Die `CitiesComponent` und auch die `CityComponent` bleiben gesperrt solange `isAuthenticated()` ein `false` zurückliefert. 
+Wenn wir nun auf `/cities` navigieren wollen, dann werden wir direkt auf die `/login`-Route umgeleitet. Die `CitiesComponent` und auch die `CityComponent` bleiben gesperrt, solange `isAuthenticated()` ein `false` zurückliefert. 
+
+### Erweiterung des Guards
+
+Wir prüfen im *Guard* derzeit (nur), ob eine Nutzerin eingeloggt ist. Angenommen, der `AuthService` stellt auch eine Funktion `isAdmin()` zur Verfügung, die ein `true` zurückgibt, wenn die Nutzerin in der Rolle `admin` ist und `false` sonst. Dann könnten wir unseren Guard wir folgt erweitern:
+
+=== "authguard.guard.ts"
+	```js linenums="1"
+	import { CanActivateFn, Router } from '@angular/router';
+	import { AuthService } from './auth.service';
+	import { inject } from '@angular/core';
+
+	export const authguardLogin: CanActivateFn = (route, state) => {
+	  return inject(AuthService).isAuthenticated() 
+	    ? true
+	    : inject(Router).navigate(['/login']);
+	};
+
+	export const authguardAdmin: CanActivateFn = (route, state) => {
+	  return inject(AuthService).isAAdmin() 
+	    ? true
+	    : inject(Router).navigate(['/login']);
+	};
+	```
+
+Wir haben hier übrigens die ursprüngliche `authguardGuard()`-Funktion in `authguardLogin` umbenannt und haben eine weitere Funktion hinzugefügt, die nun ein `true` zurückgibt, wenn es sich um einen `admin` handelt und ansonsten auf die `/login`-Route navigiert. 
+
+Angenommen, wir wollen nun, dass man die Route `/cities` wählen kann, wenn man eingeloggt ist, die Route `/cities/:id` aber nur, wenn man als `admin` eingeloggt ist, dann sehe `app.routes.ts` wie folgt aus:
+
+=== "app.routes.ts"
+	```js linenums="1" hl_lines="5"
+	import { Routes } from '@angular/router';
+	import { authguardLogin, authguardAdmin } from './shared/authguard.guard';
+	import { CityComponent } from './cities/city/city.component';
+	import { HomeComponent } from './home/home.component';
+	import { LoginComponent } from './login/login.component';
+	import { AboutComponent } from './about/about.component';
+	import { CitiesComponent } from './cities/cities.component';
+
+	export const routes: Routes = [
+	  {
+	    path: "",
+	    component: HomeComponent,
+	    pathMatch: 'full'
+	  },
+	  {
+	    path: "about",
+	    component: AboutComponent
+	  },
+	  {
+	    path: "login",
+	    component: LoginComponent
+	  },
+	  {
+	    path: "cities",
+	    component: CitiesComponent,
+	    canActivate: [authguardLogin]
+	  },
+	  {
+	    path: "cities/:id",
+	    component: CityComponent,
+	    canActivate: [authguardAdmin]
+	  }
+	];
+	```
+
 
 !!! success
 	Wir haben die wesentlichsten Konzepte des Routing kennengelernt. Darüber hinaus gibt es noch Themen für Fortgeschrittene, wie z.B. lazy-loading von Modulen (Module erst dann laden, wenn man sie wirklich erst aufruft), Routen für Kindkomponenten, mehrere outlets usw. Aber uns genügen die hier erläuterten wesentlichen Konzepte. 
+
