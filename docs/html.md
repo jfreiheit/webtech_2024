@@ -1,6 +1,6 @@
 # HTML
 <!-- Matomo Image Tracker-->
-<img referrerpolicy="no-referrer-when-downgrade" src="https://freiheit.f4.htw-berlin.de/matomo/matomo.php?idsite=3&amp;rec=1&amp;action_name=4" style="border:0" alt="" />
+<img referrerpolicy="no-referrer-when-downgrade" src="https://freiheit.f4.htw-berlin.de/matomo/matomo.php?idsite=3&amp;rec=1&amp;action_name=3" style="border:0" alt="" />
 <!-- End Matomo -->
 ## Einleitung
 
