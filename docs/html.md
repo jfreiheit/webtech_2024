@@ -1,5 +1,7 @@
 # HTML
-
+<!-- Matomo Image Tracker-->
+<img referrerpolicy="no-referrer-when-downgrade" src="https://freiheit.f4.htw-berlin.de/matomo/matomo.php?idsite=3&amp;rec=1&amp;action_name=4" style="border:0" alt="" />
+<!-- End Matomo -->
 ## Einleitung
 
 HTML steht für <b>H</b>yper<b>T</b>ext <b>M</b>arkup <b>L</b>anguage. HTML ist eine sogenannte *Auszeichnungssprache*. Das bedeutet, dass Textelementen sogenannte *Tags* (HTML-Elemente) zugeordnet werden, um dem Text, der von einem solchen Tag umschlossen wird, eine Bedeutung zuzuweisen - der Text wird ausgezeichnet.

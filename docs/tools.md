@@ -182,66 +182,6 @@ In Safari müssen Sie zunächst den Menüeintrag `Entwickler` aktivieren. Eine A
 
 ![Entwicklertools](./files/26_tools6.png)
 
-## Curl
-
-[Curl](https://curl.haxx.se/) ist ein Open-Source-Kommandozeilenprogramm, um Daten mittels URL zu transferieren. Curl kann auf der Kommandozeile genutzt werden, um SMTP, HTTP, FTP usw. zu verwenden. Wir werden Curl insbesondere für die HTTP-Anfragemethoden GET und POST verwenden. 
-
-Eine ausführliche Beschreibung von Curl ist im Buch [Everything curl - the book](https://curl.haxx.se/book.html) frei verfügbar. Die Installation von Curl erfolgt über die [Curl Download Seite](https://curl.haxx.se/download.html).
-
-Zum Testen, ob Curl korrekt funktioniert, können Sie im Terminal z.B.
-
-``` bash
-curl freiheit.f4.htw-berlin.de/curl.html
-```
-
-eingeben. Es sollte folgende Ausgabe erscheinen:
-
-```bash
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Curl-Test</title>
-  </head>
-  <body>
-    <p>Hallo FIW!</p>
-  </body>
-</html>
-```
-
-Mit dem `-o`-Flag können Sie die Datei speichern (Sie können einen Dateinamen angeben - hier `curl.html`):
-
-```bash
-curl -o curl.html freiheit.f4.htw-berlin.de/curl.html
-``` 
-
-Da oben die lokale Datei genau so heißt wie die remote-Datei, hätte man auch 
-
-```bash
-curl -O freiheit.f4.htw-berlin.de/curl.html
-``` 
-
-angeben können, also großes `-O`. Mit dem `-d`-Flag können Parameter übergeben und die entsprechende Seite mit einer POST-Anfrage aufgerufen werden. Mit dem zusätzlichen `-G`-Flag erfolgt die Anfrage nicht als POST sondern als GET. Mit dem `-I`-Flag fragen Sie den Header der Anfrage ab, z.B.:
-
-```bash
-curl -I freiheit.f4.htw-berlin.de/curl.html
-``` 
-
-gibt etwas aus in der Art:
-
-```bash
-HTTP/1.1 200 OK
-Date: Thu, 04 Jun 2020 13:59:43 GMT
-Server: Apache/2.4.38 (Debian)
-Last-Modified: Thu, 04 Jun 2020 13:01:59 GMT
-ETag: "78-5a741c004bdb9"
-Accept-Ranges: bytes
-Content-Length: 120
-Vary: Accept-Encoding
-Content-Type: text/html
-
-``` 
-
-Für eine vollständige Übersicht aller Flags von Curl siehe [Curl manpage](https://curl.haxx.se/docs/manpage.html).
 
 ## Postman
 
@@ -294,13 +234,13 @@ Um den Paketmanager `npm` zu installieren, laden sie sich `node.js` [**hier**](h
 node -v
 ```
 
-funktionieren und eine Versionsnummer ausgeben (z.B. `v14.15.0`) als auch 
+funktionieren und eine Versionsnummer ausgeben (z.B. `v20.18.0`) als auch 
 
 ```bash 
 npm -v
 ```
 
-(z.B. `6.14.8`). 
+(z.B. `10.9.0`). 
 
 Außerdem benötigen Sie das *Angular-Command-Line-Interface (CLI)*, das Sie mithilfe des Befehls 
 
@@ -326,21 +266,21 @@ funktionieren und Ihnen etwas in dieser Art ausgeben:
                 |___/
     
 
-Angular CLI: 15.0.0
-Node: 14.20.0
-Package Manager: npm 9.1.2
-OS: darwin x64
+Angular CLI: 18.2.11
+Node: 20.18.0
+Package Manager: npm 10.9.0
+OS: darwin arm64
 
 Angular: 
 ... 
 
 Package                      Version
 ------------------------------------------------------
-@angular-devkit/architect    0.1500.0 (cli-only)
-@angular-devkit/core         15.0.0 (cli-only)
-@angular-devkit/schematics   15.0.0 (cli-only)
-@schematics/angular          15.0.0 (cli-only)
-    
+@angular-devkit/architect    0.1802.11 (cli-only)
+@angular-devkit/core         18.2.11 (cli-only)
+@angular-devkit/schematics   18.2.11 (cli-only)
+@schematics/angular          18.2.11 (cli-only)
+       
 ```
 
 Jetzt können wir unser [erstes Angular-Projekt](angular.md#erstes-projekt-erstellen) erstellen. 
