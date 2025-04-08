@@ -859,7 +859,7 @@
 <p>Die wichtigste Anfragemethode ist <code>GET</code>, denn sie wird in den allermeisten Fällen verwendet, um eine Webseite von einem Webserver anzufragen. Wenn wir in die Konsole bspw. </p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl https://www.htw-berlin.de/
 </span></code></pre></div>
-<p>eingeben, dann erhalten wir vom Webserver der HTW die Webseite der HTW. Für <code>curl</code> siehe <a href="../tools/#curl">hier</a>. Typischerweise werden die Anfragen an den Webserver aber von einem Browser aus durchgeführt. Das heißt, die Anfrage <code>GET https://www.htw-berlin.de/</code> wird von einem Browser durchgeführt, wenn wir in das URL-Eingabefeld <code>https://www.htw-berlin.de/</code> eingeben. Das prinzipielle Szenario ist also wie folgt:</p>
+<p>eingeben, dann erhalten wir vom Webserver der HTW die Webseite der HTW. Für <code>curl</code> siehe <a href="https://curl.se/docs/sslcerts.html">hier</a>. Typischerweise werden die Anfragen an den Webserver aber von einem Browser aus durchgeführt. Das heißt, die Anfrage <code>GET https://www.htw-berlin.de/</code> wird von einem Browser durchgeführt, wenn wir in das URL-Eingabefeld <code>https://www.htw-berlin.de/</code> eingeben. Das prinzipielle Szenario ist also wie folgt:</p>
 <p><img alt="http" src="../files/203_http.png" /> </p>
 <p>Der <em>request</em> beginnt mit einer der obigen Anfragemethoden und der angefragten Ressource (also z.B. <code>GET https://www.htw-berlin.de/index.html</code>). Die <em>response</em> besteht dann genau aus der angefragten Ressource (<code>index.html</code>), wenn sie existiert. Die Ressource muss nicht zwingend eine <code>html</code>-Seite sein, es kann sich auch um eine <code>xml</code>, <code>json</code> oder irgendein anderes Dateiformat handeln. </p>
 <p>Ein konkreter <em>request</em> und eine konkrete <em>response</em> ist im folgenden Bild zu sehen:</p>
@@ -907,7 +907,7 @@
 
 <p>Ganz wichtig ist, dass das HTTProtokoll <strong>zustandslos</strong> ist. Das bedeutet, dass keine Informationen aus früheren Anfragen gespeichert oder anderweitig verwaltet werden. Das bedeutet aber auch, dass bspw. ein befüllter Warenkorb durch HTTP gar nicht unterstützt würde (fühere "Käufe" können durch das Protokoll nicht berücksichtigt werden). Um dieses Zustandslosigkeit zu umgehen, werden z.B. <em>Cookies</em> oder <em>Session-IDs</em> verwendet, um eine Historie der Anfragen beim Webserver erstellen und den Nutzern zuordnen zu können. </p>
 <p><em>HTTPS</em> funktioniert wie HTTP, nur dass die Verbindung zwischen Browser und Webserver mittels <em>Transport Layer Security</em> (<a href="https://de.wikipedia.org/wiki/Transport_Layer_Security">TLS</a>) verschlüsselt wird. </p>
-<p>Ein Programm, welches das HTTProtokoll implementiert hat, ist <a href="../tools/#curl">Curl</a>. Wenn Sie Curl installiert haben und im Terminal bspw. </p>
+<p>Ein Programm, welches das HTTProtokoll implementiert hat, ist <a href="https://curl.se/docs/sslcerts.html">Curl</a>. Wenn Sie Curl installiert haben und im Terminal bspw. </p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span>-v<span class="w"> </span>http://freiheit.f4.htw-berlin.de/WT/index.html
 </span></code></pre></div>
 <p>eingeben (<code>-v</code> steht für den <code>verbose</code>-Modus), dann erhalten Sie</p>
