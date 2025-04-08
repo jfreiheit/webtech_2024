@@ -4,8 +4,8 @@
 
 ??? question "Infrastruktur einrichten"
     - wählen Sie eine [**IDE**](tools.md#integrated-development-environment-ide) aus und installieren Sie diese 
-    - richten Sie sich ein Git-Repository ein (z.B. `WebTech24`)
-    - erstellen Sie im Ordner `WebTech24` eine `index.html` und versuchen Sie darin bereits einige Inhalte einzupflegen, z.B. eine kleine persönliche Webseite oder eine Startseite von der aus alle Übungen erreichbar sind o.ä.
+    - richten Sie sich ein Git-Repository ein (z.B. `WebTech25`)
+    - erstellen Sie im Ordner `WebTech25` eine `index.html` und versuchen Sie darin bereits einige Inhalte einzupflegen, z.B. eine kleine persönliche Webseite oder eine Startseite von der aus alle Übungen erreichbar sind o.ä.
     - commiten und pushen Sie Ihr Repository auf einen zentralen Dienst ([**siehe**](tools.md#git))
     - laden Sie mich zu Ihrem Git-Dienst ein ([**siehe**](tools.md#git))
 
