@@ -41,6 +41,110 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 
 ## Code aus der Vorlesung
 
+??? question "Code aus HTML-Vorlesung"
+	=== "index.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		  <meta charset="UTF-8">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  <title>Erste HTML-Seite</title>
+		</head>
+		<body>
+		  <header>
+		    <h1>Willkommen zu meiner ersten HTML-Seite!</h1>
+		    <h2>etwas kleinere Überschrift</h2>
+		    <h3>noch kleiner</h3>
+		    <h6>am kleinsten</h6>
+		  </header>
+
+		  <main>
+			<p id="p1" class="rotHG gelbFont kursiv">hier ist ein Absatz. </p>
+			<a href="https://www.htw-berlin.de">HTW Berlin</a>
+			<a href="./html/seite1.html">Seite 1</a>
+			<img src="./images/fiw.jpg" alt="FIW-Logo" width="200" />
+			<!--  
+			  kommentar 
+			  
+
+			  kommentar
+			-->
+			<ul>
+			  <li>erster Punkt</li>
+			  <li>zweiter Punkt</li>
+			</ul>
+			<ol>
+			  <li><h1>eins</h1></li>
+			  <li>zwei</li>
+			  <li>drei
+			    <ul>
+			      <li>Unterpunkt 1</li>
+			      <li>Unterpunkt 2</li>
+			    </ul>
+			  </li>
+			  <li>vier</li>
+			</ol>
+
+			<table>
+			  <thead>
+			    <tr>
+			      <th>Spalte 1</th>
+			      <th>Spalte 2</th>
+			      <th>Spalte 3</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td>eins eins</td>
+			      <td>eins zwei</td>
+			      <td>eins drei</td>
+			    </tr>
+			    <tr>
+			      <td>zwei eins</td>
+			      <td>zwei zwei</td>
+			      <td>zwei drei</td>
+			    </tr>
+			    <tr>
+			      <td>drei eins</td>
+			    </tr>
+			    <tr>
+			      <td></td>
+			      <td>vier zwei</td>
+			      <td>vier drei</td>
+			    </tr>
+			  </tbody>
+			</table>
+		  </main>
+		  <footer>
+		    <input type="text" />
+		    <input type="password" />
+		    <input type="checkbox" />
+		    <input type="radio" />
+		    <input type="button" value="Login" />
+		    <input type="datetime-local" />
+		    <input type="range" min="0" max="100" value="10" />
+		    <input type="color">
+		  </footer>
+		</body>
+		</html>
+		```
+	=== "html/seite1.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		  <meta charset="UTF-8">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  <title>Seite</title>
+		</head>
+		<body>
+		  <h4>Seite 1</h4>
+		  <a href="../index.html">zurück zur index.html</a>
+		  <img src="../images/htw.jpg" alt="HTW-Logo" width="200"/>
+		</body>
+		</html>
+		```
 
 
 ## Semesteraufgabe
