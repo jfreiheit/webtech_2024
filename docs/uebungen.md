@@ -849,6 +849,330 @@
         </body>
         </html>
         ```
+    === "NN/hl.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Übung 1</title>
+        </head>
+        <body>
+          <header>
+            <h1>Teilnehmerinnen WebTech</h1>
+            <img src="../../images/fiw.jpg" alt="FIW-Logo" style="width: 53px;">
+          </header>
+          <nav>
+            <a href="../uebung1.html">ALLE</a>
+            <a href="./ag.html">A-G</a>
+            <a href="./hl.html">H-L</a>
+            <a href="./mr.html">M-R</a>
+            <a href="./sz.html">S-Z</a>
+            <a href="../../index.html">Startseite</a>
+          </nav>
+          <section>
+            <h3>H-L</h3>
+            <table>
+              <thead>
+                  <tr>
+                      <th>Vorname</th>
+                      <th>Nachname</th>
+                      <th>E-Mail-Adresse</th>
+                      <th>IP-Adresse</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  
+                  <tr>
+                      <td>Steven</td>
+                      <td>Hamilton</td>
+                      <td>shamiltonu@state.tx.us</td>
+                      <td>38.194.91.201</td>
+                  </tr>
+                  <tr>
+                      <td>Virginia</td>
+                      <td>Hawkins</td>
+                      <td>vhawkinsf@ehow.com</td>
+                      <td>93.120.46.203</td>
+                  </tr>
+                  <tr>
+                      <td>Edward</td>
+                      <td>Hicks</td>
+                      <td>ehicksc@pcworld.com</td>
+                      <td>199.153.27.1</td>
+                  </tr>
+                  <tr>
+                      <td>Mark</td>
+                      <td>Johnson</td>
+                      <td>mjohnsonj@hostgator.com</td>
+                      <td>73.87.135.206</td>
+                  </tr>
+                  <tr>
+                      <td>Ruth</td>
+                      <td>Jordan</td>
+                      <td>rjordan1a@smugmug.com</td>
+                      <td>193.140.80.64</td>
+                  </tr>
+                  <tr>
+                      <td>Antonio</td>
+                      <td>Kim</td>
+                      <td>akim4@odnoklassniki.ru</td>
+                      <td>168.244.191.78</td>
+                  </tr>
+                  
+              </tbody>
+          </table>
+          </section>
+          <footer>
+            Jörn Freiheit
+          </footer>
+          
+        </body>
+        </html>
+        ```
+    === "NN/mr.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Übung 1</title>
+        </head>
+        <body>
+          <header>
+            <h1>Teilnehmerinnen WebTech</h1>
+            <img src="../../images/fiw.jpg" alt="FIW-Logo" style="width: 53px;">
+          </header>
+          <nav>
+            <a href="../uebung1.html">ALLE</a>
+            <a href="./ag.html">A-G</a>
+            <a href="./hl.html">H-L</a>
+            <a href="./mr.html">M-R</a>
+            <a href="./sz.html">S-Z</a>
+            <a href="../../index.html">Startseite</a>
+          </nav>
+          <section>
+            <h3>M-R</h3>
+            <table>
+              <thead>
+                  <tr>
+                      <th>Vorname</th>
+                      <th>Nachname</th>
+                      <th>E-Mail-Adresse</th>
+                      <th>IP-Adresse</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  
+                  <tr>
+                      <td>Jennifer</td>
+                      <td>Marshall</td>
+                      <td>jmarshallt@gnu.org</td>
+                      <td>104.191.49.94</td>
+                  </tr>
+                  <tr>
+                      <td>Eric</td>
+                      <td>Matthews</td>
+                      <td>ematthews5@independent.co.uk</td>
+                      <td>138.194.30.1</td>
+                  </tr>
+                  <tr>
+                      <td>Raymond</td>
+                      <td>Mcdonald</td>
+                      <td>rmcdonald2@ihg.com</td>
+                      <td>161.24.42.24</td>
+                  </tr>
+                  <tr>
+                      <td>Eric</td>
+                      <td>Miller</td>
+                      <td>emillere@creativecommons.org</td>
+                      <td>122.159.17.218</td>
+                  </tr>
+                  <tr>
+                      <td>Jonathan</td>
+                      <td>Morales</td>
+                      <td>jmoralesa@ovh.net</td>
+                      <td>97.65.110.105</td>
+                  </tr>
+                  <tr>
+                      <td>Marie</td>
+                      <td>Morgan</td>
+                      <td>mmorganb@cloudflare.com</td>
+                      <td>226.79.152.112</td>
+                  </tr>
+                  <tr>
+                      <td>Amanda</td>
+                      <td>Nelson</td>
+                      <td>anelson13@indiatimes.com</td>
+                      <td>161.185.121.245</td>
+                  </tr>
+                  <tr>
+                      <td>Lisa</td>
+                      <td>Olson</td>
+                      <td>lolsonr@telegraph.co.uk</td>
+                      <td>77.245.172.100</td>
+                  </tr>
+                  <tr>
+                      <td>Alice</td>
+                      <td>Ortiz</td>
+                      <td>aortizw@histats.com</td>
+                      <td>179.52.222.21</td>
+                  </tr>
+                  <tr>
+                      <td>Peter</td>
+                      <td>Phillips</td>
+                      <td>pphillipss@1688.com</td>
+                      <td>11.158.255.76</td>
+                  </tr>
+                  <tr>
+                      <td>Matthew</td>
+                      <td>Porter</td>
+                      <td>mporter9@europa.eu</td>
+                      <td>174.81.178.88</td>
+                  </tr>
+                  <tr>
+                      <td>Tammy</td>
+                      <td>Ray</td>
+                      <td>trayx@weather.com</td>
+                      <td>192.243.38.190</td>
+                  </tr>
+                  <tr>
+                      <td>Mark</td>
+                      <td>Richardson</td>
+                      <td>mrichardson1d@ihg.com</td>
+                      <td>209.217.14.154</td>
+                  </tr>
+                  <tr>
+                      <td>Joan</td>
+                      <td>Roberts</td>
+                      <td>jroberts12@alibaba.com</td>
+                      <td>4.91.143.62</td>
+                  </tr>
+                  <tr>
+                      <td>Kathleen</td>
+                      <td>Rose</td>
+                      <td>kroseg@pinterest.com</td>
+                      <td>222.172.140.56</td>
+                  </tr>
+                  
+              </tbody>
+          </table>
+          </section>
+          <footer>
+            Jörn Freiheit
+          </footer>
+          
+        </body>
+        </html>
+        ```
+    === "NN/sz.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Übung 1</title>
+        </head>
+        <body>
+          <header>
+            <h1>Teilnehmerinnen WebTech</h1>
+            <img src="../../images/fiw.jpg" alt="FIW-Logo" style="width: 53px;">
+          </header>
+          <nav>
+            <a href="../uebung1.html">ALLE</a>
+            <a href="./ag.html">A-G</a>
+            <a href="./hl.html">H-L</a>
+            <a href="./mr.html">M-R</a>
+            <a href="./sz.html">S-Z</a>
+            <a href="../../index.html">Startseite</a>
+          </nav>
+          <section>
+            <h3>S-Z</h3>
+            <table>
+              <thead>
+                  <tr>
+                      <th>Vorname</th>
+                      <th>Nachname</th>
+                      <th>E-Mail-Adresse</th>
+                      <th>IP-Adresse</th>
+                  </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                      <td>Steve</td>
+                      <td>Sanders</td>
+                      <td>ssanders1b@wikispaces.com</td>
+                      <td>91.61.109.245</td>
+                  </tr>
+                  <tr>
+                      <td>Shirley</td>
+                      <td>Scott</td>
+                      <td>sscottm@macromedia.com</td>
+                      <td>219.237.108.82</td>
+                  </tr>
+                  <tr>
+                      <td>Lillian</td>
+                      <td>Stephens</td>
+                      <td>lstephens19@hugedomains.com</td>
+                      <td>89.85.137.204</td>
+                  </tr>
+                  <tr>
+                      <td>Nicole</td>
+                      <td>Thompson</td>
+                      <td>nthompson3@admin.ch</td>
+                      <td>13.183.208.155</td>
+                  </tr>
+                  <tr>
+                      <td>Marie</td>
+                      <td>Thompson</td>
+                      <td>mthompsonz@yelp.com</td>
+                      <td>162.164.5.231</td>
+                  </tr>
+                  <tr>
+                      <td>Alan</td>
+                      <td>Vasquez</td>
+                      <td>avasquezo@miibeian.gov.cn</td>
+                      <td>178.109.86.172</td>
+                  </tr>
+                  <tr>
+                      <td>Mildred</td>
+                      <td>Watkins</td>
+                      <td>mwatkins0@miibeian.gov.cn</td>
+                      <td>150.67.132.64</td>
+                  </tr>
+                  <tr>
+                      <td>Eugene</td>
+                      <td>Williams</td>
+                      <td>ewilliamsi@deliciousdays.com</td>
+                      <td>67.208.26.182</td>
+                  </tr>
+                  <tr>
+                      <td>Catherine</td>
+                      <td>Williams</td>
+                      <td>cwilliamsl@360.cn</td>
+                      <td>154.87.204.51</td>
+                  </tr>
+              </tbody>
+          </table>
+          </section>
+          <footer>
+            Jörn Freiheit
+          </footer>
+          
+        </body>
+        </html>
+        ```
+
+
+
+
+
+
+
 
 
 #### Übung 2

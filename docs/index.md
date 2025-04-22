@@ -146,6 +146,308 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 		</html>
 		```
 
+??? question "Code aus CSS-Vorlesung"
+	=== "01_cascading.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Cascading</title>
+		    <!-- Einbinden von CSS per externer css-Datei-->
+		    <link rel="stylesheet" href="../styles/mystyles.css">
+		    <style>
+		       h1 {
+		        text-transform: lowercase;  /* CSS-Kommentare */
+		        font-style: italic;
+		       }
+		       
+		       ol {
+		        color: blue;
+		       }
+
+		       .fgYellow {
+		        color: yellow;
+		       }
+
+		       /*
+		       .bgBrown {
+		        background-color: brown;
+		       }
+		        */
+
+		       .freigewaehlt {
+		        font-size: 2em;
+		       }
+
+		       #firstH2 {
+		        text-decoration: underline;
+		       }
+
+		       article p {
+		        color: red;
+		       }
+
+		       section>p {
+		        color: green;
+		       }
+
+		       a {
+		        text-decoration: none;
+		       }
+
+		       a:hover {
+		        background-color: blue;
+		        color: white;
+		       }
+
+		       p::first-letter {
+		        font-size: 3em;
+		       }
+
+		    </style>
+		</head>
+		<body>
+		    <header>
+		        <h1 style="background-color: rgb(50, 140, 140); color: rgb(249, 245, 245);">Cascading Style Sheets - CSS</h1>
+		    </header>
+		    <main>
+		        <section>
+		            <h2 id="firstH2">Section 1</h2>
+		            <article>
+		                <p class="fgYellow bgBrown freigewaehlt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p class="fgYellow bgBrown">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <article class="bgBrown">
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <p>direktes Kind einer section</p>
+		        </section>
+		        <section>
+		            <h2>Section 2</h2>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                hallo ballo
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		        </section>
+		        <ol>
+		            <li>item 1
+		                <ul>
+		                    <li>subitem</li>
+		                    <li>subitem</li>
+		                    <li>subitem</li>
+		                </ul>
+		            </li>
+		            <li>item 2</li>
+		            <li>item 3</li>
+		            <li>item 4</li>
+		            <li>item 5</li>
+		        </ol>
+		    </main>
+		    <aside>
+		        <h2>Aside</h2>
+		        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		    </aside>
+		    <footer>
+		        <p>
+		            <a href="./02_boxmodel.html">Boxmodel</a>&nbsp;&middot;&nbsp;
+		            <a href="./03_rangfolge.html">Rangfolge</a>
+		            <a href="https://www.htw-berlin.de">HTW Berlin</a>
+
+		        </p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+	=== "02_boxmodel.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Box-Model</title>
+		    <style>
+		      * {
+		        box-sizing: content-box;  /* Standard */
+		      }
+
+		      img {
+		        border: 1px solid black;
+		        margin: 100px;
+		    }
+		      div {
+		          width: 322px;
+		          padding: 30px;
+		          border: 5px solid gray;
+		          margin: 0;
+		      }
+		    </style>
+		</head>
+		<body>
+		    <header>
+		        <h1>Box-Model</h1>
+		    </header>
+		    <main>
+		        <img src="../images/fiw.jpg" alt="fiw logo" style="width:350px"/>
+		        <div>Das FIW-Logo hat eine Breite von 350px (width:350px).
+		            Der Inhalt dieser Box hat eine Breite von 320px.
+		            Dazu kommt padding von 10px (auf beiden Seiten)
+		            und ein Rahmen mit der Breite von 5px. Macht zusammen
+		            350px.
+		        </div>
+		    </main>
+		    <footer>
+		        <p><a href="./01_cascading.html">Einführung</a>&nbsp;&middot;&nbsp;<a href="./03_rangfolge.html">Rangfolge</a></p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+	=== "03_rangfolge.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Reihenfolge Selektoren</title>
+		    <style>
+		      a:link {
+		        color: blue; 
+		      }
+
+		      .link {
+		        color: green;
+		      }
+		      #navigation a {
+		        color: red;
+		      }
+
+		      li a {
+		        color: magenta;
+		      }
+		    </style>
+		</head>
+		<body>
+		    <header>
+		        <h1>Reihenfolge Wirkung Selektoren</h1>
+		    </header>
+		    <main>
+		        <h4>Test</h4>
+		        <ul id="navigation">
+		            <li><a href="./01_cascading.html" class="link">Einführung</a></li>
+		            <li><a href="./02_boxmodel.html" class="link">Boxmodel</a></li>
+		        </ul>
+		        <h4>Prinzip</h4>
+		        <dl>
+		            <dt><em>Kategorie A</em></dt>
+		            <dd>erhält den Wert 1, wenn CSS-Definitionen direkt im style-Attribut eines HTML-Elementes notiert sind</dd>
+		            <dt><em>Kategorie B</em></dt>
+		            <dd>erhält den Wert 1 bei Selektoren für Elemente mit id-Attributen</dd>
+		            <dt><em>Kategorie C</em></dt>
+		            <dd>Anzahl der von einem Selektor betroffenen Klassen und Pseudoklassen</dd>
+		            <dt><em>Kategorie D</em></dt>
+		            <dd>Anzahl der von einem Selektor betroffenen Elementnamen und Pseudo-Elemente</dd>
+		        </dl>
+		        <ol>
+		            <li>Bei der Reihenfolge der Sortierung gilt: A > B > C > D, also z.B. 1 0 0 0 vor (größer als) 0 1 2 2.</li>
+		            <li>Bei Gleichheit gilt die letzte Definition</li>
+		        </ol>
+		    </main>
+		    <footer>
+		        <p><a href="./02_boxmodel.html">Boxmodel</a>&nbsp;&middot;&nbsp;<a href="./01_cascading.html">Einführung</a></p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+	=== "04_display.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>display</title>
+		    <style>
+		      p {
+		            color: red;
+		      }
+
+		    p.ex1 {
+		        display: none;
+		    }
+
+		    p.ex2 {
+		        display: inline;
+		    }
+
+		    p.ex4 {
+		        display: inline-block;
+		    }
+		    </style>
+		</head>
+		<body>
+		<header>
+		    <nav>
+		<ul>
+		    <li><a href="./02_boxmodel.html">Boxmodel</a></li>
+		    <li><a href="./01_cascading.html">Cascading</a></li>
+		    <li><a href="#">Display</a></li>
+		    <li><a href="./05_grid">Grid</a></li>
+		</ul>
+		    </nav>
+		</header>
+		<main>
+		<h1>The display Property</h1>
+
+		<h2>display: none:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex1">none!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>
+
+		<h2>display: inline:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex2">inline!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>
+
+		<h2>display: block:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex3">block!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>
+
+		<h2>display: inline-block:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex4">neue Zeile und dann inline!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>   
+
+		<ul>
+		    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display?retiredLocale=de">Gibt noch sehr viele andere</a></li>
+		    <li><a href="./index.html">Zurück</a></li>
+		</ul>
+		</main>
+		    <footer>
+
+		    </footer>
+		</body>
+		</html>
+		```
+
+
+
 
 ## Semesteraufgabe
 
