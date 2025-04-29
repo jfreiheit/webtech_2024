@@ -1168,13 +1168,6 @@
         ```
 
 
-
-
-
-
-
-
-
 #### Übung 2
 
 ??? question "Übungsaufgabe 2 (CSS)"
@@ -1195,6 +1188,67 @@
         - Der `<footer>` ist in HTW-Orange, die Schrift ist schwarz, der Text ist mittig und die Schrift ist kleiner. Die Höhe des footers entsteht dadurch, dass die Schrift einen Abstand (informieren Sie sich über den Unterschied von `margin` und `padding`) nach oben und nach unten von jeweils `20px` hat.
     - Am Ende soll es *ungefähr* so aussehen:  
       ![Uebung2](./files/57_uebung2_3.png) 
+
+
+??? note "Eine mögliche Lösung für Übung 2"
+    === "styles/mystyles.css"
+        ```css
+        body {
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        header {
+          background-color: #AFAFAF;
+          color: #FF5F00;
+          text-align: center;
+          padding: 1%;
+        }
+
+        nav {
+          margin-top: 3%;
+          margin-bottom: 3%;
+
+          a {
+            background-color: #0081D2;
+            padding: 1%;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            border-radius: 7px;
+          }
+          
+          a:hover {
+            background-color: #AFAFAF;
+            color: #FF5F00;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+          }
+        }
+
+        table {
+          border-collapse: collapse;
+          width: 80%;
+
+          thead {
+            background-color: #76B900;
+            color: white;
+
+          }
+          th,
+          td {
+            border: 1px solid black;
+            padding: 1%;
+          }
+        }
+
+        footer {
+          background-color: #FF5F00;
+          color: black;
+          padding: 1%;
+          text-align: center;
+          margin-top: 3%;
+        }
+        ```
 
 
 #### Übung 3
