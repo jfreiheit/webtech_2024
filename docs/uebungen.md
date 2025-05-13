@@ -23,7 +23,7 @@
     - Das einzubindende Logo des Studiengangs liegt [hier](./files/fiw.jpg). Es soll in einen `images`-Ordner gespeichert werden, der in der Ordner-Hierarchie neben dem `Uebung1`-Ordner liegt. Um die Größe des Bildes festzulegen, können Sie mit Hilfe des `style`-Attributes die Höhe und die Breite bestimmen: `style="width:53px; height:48px;"` 
     - Nächste Woche wird Uebung1 um CSS erweitert. 
 
-??? "mockupdata"
+??? abstract "mockupdata"
     ```html
     <table>
         <thead>
@@ -1262,7 +1262,7 @@
     - Ziele der Übung sind die Anwendung von *CSS-Grid* (siehe z.B. [hier](https://css-tricks.com/snippets/css/complete-guide-grid/)) sowie die Verwendung von Größen und Einheiten (siehe z.B. [hier](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)). Lassen Sie Ihrer Kreativität freien Lauf!
 
 
-??? "Vorlage uebung3.html"
+??? abstract "Vorlage uebung3.html"
     ```html
     <!DOCTYPE html>
     <html lang="en">
@@ -1402,6 +1402,205 @@
     ```
 
 
+??? note "Eine mögliche Lösung für Übung 3"
+    === "uebung3.html"
+        ```html
+         <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Uebung 3</title>
+            <style>
+              header {
+                background-color: rgb(93, 119, 54);
+                color: white;
+                text-transform: uppercase;
+                text-align: center;
+                font-weight: bold;
+                padding: 2%;
+                margin-bottom: 2%;
+              }
+
+              .wrapper {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);  /* 1 Spalte bis 800px Viewport-Breite */
+                column-gap: 2%;
+                row-gap: 2%;
+              }
+
+              .citycard {
+                display: grid;
+                grid-template-rows: 4fr 1fr;
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+              }
+
+              .citycard:hover {
+                  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+                  background-color: rgb(238, 237, 235);
+
+                  img {
+                    height: 80%;
+                  }
+                }
+
+              .cityimage {
+                text-align: center;
+
+                img {
+                  height: 70%;
+                  margin-top: 5%;
+                }
+              }
+              .cityname {
+                text-align: center;
+                font-weight: bold;
+                text-transform: uppercase;
+                padding-top: 3%;
+                font-size: 1.3em;
+              }
+
+              @media (min-width: 800px) {
+                .wrapper {
+                  grid-template-columns: repeat(2, 1fr);  /* 2 Spalten ab 800px bis 1200px Viewport-Breite */
+                }
+              }
+
+              @media (min-width: 1200px) {
+                .wrapper {
+                  grid-template-columns: repeat(4, 1fr); /* 4 Spalten ab 1200px Viewport-Breite */
+                }
+              }
+            </style>
+        </head>
+
+        <body>
+            <header>
+                <h2>STÄDTE</h2>
+            </header>
+            <main>
+              <section class="wrapper">
+                
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/berlin.png" alt="Berlin">
+                      </div>
+                      <div class="cityname">
+                          <p>Berlin</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/bernau.png" alt="Bernau">
+                      </div>
+                      <div class="cityname">
+                          <p>Bernau</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/brandenburg.png" alt="Brandenburg">
+                      </div>
+                      <div class="cityname">
+                          <p>Brandenburg</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/bremen.png" alt="Bremen">
+                      </div>
+                      <div class="cityname">
+                          <p>Bremen</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/bremerhaven.png" alt="Bremerhaven">
+                      </div>
+                      <div class="cityname">
+                          <p>Bremerhaven</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/madrid.png" alt="Madrid">
+                      </div>
+                      <div class="cityname">
+                          <p>Madrid</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/magdeburg.png" alt="Magdeburg">
+                      </div>
+                      <div class="cityname">
+                          <p>Magdeburg</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/mainz.png" alt="Mainz">
+                      </div>
+                      <div class="cityname">
+                          <p>Mainz</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/mannheim.png" alt="Mannheim">
+                      </div>
+                      <div class="cityname">
+                          <p>Mannheim</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/Marburg.png" alt="Marburg">
+                      </div>
+                      <div class="cityname">
+                          <p>Marburg</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/newyork.png" alt="New York">
+                      </div>
+                      <div class="cityname">
+                          <p>New York</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/stockholm.png" alt="Stockholm">
+                      </div>
+                      <div class="cityname">
+                          <p>Stockholm</p>
+                      </div>
+                  </div>
+            </section>
+          </main>
+          <footer>
+
+          </footer>
+        </body>
+
+        </html>       
+        ```
+
+
 #### Übung 4
 
 ??? question "Übungsaufgabe 4 (Bootstrap)"
@@ -1409,6 +1608,66 @@
     - Implementieren Sie die `uebung4.html` mithilfe von Bootstrap so, dass *ungefähr* folgendes Aussehen entsteht:
       ![Uebung4](./files/256_uebung4.png){ width="300" } 
     - Ziel der Übung ist die Anwendung von *CSS-Bootstrap* und das Erstellen von Formularen.
+
+
+??? note "Eine mögliche Lösung für Übung 4"
+    === "uebung4.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Übung 4</title>
+          <!-- <link rel="stylesheet" href="../styles/bootstrap/bootstrap.min.css"> -->
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+        </head>
+        <body>
+          <main class="container">
+            <h1 class="m-5">Teilnehmerin Registrierung</h1>
+            <div class="row">
+
+              <div class="col-12 col-md-6 col-xl-3">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="firstName" placeholder="First name">
+                  <label for="firstName">First name</label>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-3">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="lastName" placeholder="Last name">
+                  <label for="lastName">Last name</label>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-3">
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="email" placeholder="E-Mail">
+                  <label for="email">E-Mail</label>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6 col-xl-3">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="ipaddress" placeholder="IP-Address">
+                  <label for="ipaddress">IP-Address</label>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <button type="cancel" class="btn btn-secondary btn-lg w-100">Abbrechen</button>
+              </div>
+
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-lg w-100">Registrieren</button>
+              </div>
+            </div>
+          </main>
+        </body>
+        </html>
+
+        ```
 
 
 
