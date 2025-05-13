@@ -831,6 +831,79 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 
 
 
+??? question "Code aus der JavaScript-Vorlesung"
+	=== "01_index.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>JavaScript</title>
+
+		</head>
+		<body>
+		    <h1>JavaScript</h1>
+		    <main>
+		        <h4>Eigenschaften</h4>
+		        <ul>
+		            <li>Skriptsprache (aus Performanzgründen aber compiliert - z.B. V8 in Chrome, SpiderMonkey in Firefox)</li>
+		            <li>dynamische Typisierung</li>
+		            <li>keine unterschiedlichen Referenztypen</li>
+		            <li>Vererbung durch <code>prototype</code></li>
+		            <li>Objekteigenschaften und -funktionen können einfach dem Objekt hinzugefügt werden</li>
+		        </ul>
+		        <h4>Nützliche Links</h4>
+		        <ul>
+		            <li><a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></li>
+		            <li><a href="https://dom.spec.whatwg.org/">Document Object Model (DOM)</a></li>
+		            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide">JavaScript Guide</a></li>
+		            <li><a href="https://www.w3schools.com/js/default.asp">JavaScript Tutorial</a></li>
+		            <li><a href="https://learnjavascript.online/">Learn JavaScript</a></li>
+		            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference">JavaScript Reference</a></li>
+		        </ul>
+		        <h4>Ergebnisliste</h4>
+		        <ul id="ulresult">
+		            <li id="liresult1"></li>
+		        </ul>
+		        <input type="text" id="input" oninput="inputFunc()" onfocus="changeColor('yellow')" onblur="changeColor('white')" placeholder="Name"/>
+		        <button type="button" onclick="helloFIW()">Klick Mich!</button>
+		    </main>
+		    <script>
+		        function changeColor(color) {
+		            let inputElement = document.querySelector('#input')
+		            console.log('changeColor() : ', inputElement)
+		            inputElement.style.backgroundColor = color
+		        }
+
+		        function inputFunc() {
+		            let inputElement = document.getElementById('input')
+		            console.log(inputElement.value)
+		            let li1 = document.getElementById('liresult1')
+		            li1.textContent = inputElement.value
+		            li1.style.color = "red"
+		        }
+
+		        function helloFIW(name='World') {
+		            const mark = "!"
+		            console.log(`Hello ${name}${mark}`)
+		        }
+
+		        function test(a, b) {
+		            return a + b;
+		        }
+
+		        let test2 = (a, b) => a + b
+
+		        let test1 = test;
+
+		        console.log("3+4=" + test(3,4));
+		        console.log("3+4=" + test1(3,4));
+		        console.log("3+4=" + test2(3,4));
+		    </script>
+		</body>
+		</html>
+		```
 
 
 
