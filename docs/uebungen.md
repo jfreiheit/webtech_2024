@@ -1681,7 +1681,7 @@
     - Prüfen Sie außerdem die Eingaben (siehe [Validation](https://getbootstrap.com/docs/5.3/forms/validation/)): <br/><br/>
         ![Uebung4](./files/293_uebung4.png){ width="300" } 
         ![Uebung4](./files/294_uebung4.png){ width="300" } 
-    - Ziel der Übung ist die Anwendung von *JavaScript*.
+    - **Achtung!** Sollten Ihre Eingabefelder in ein `<form> ... </form>`-Element eingebettet sein und sollte dann noch Ihr `Registrieren`-Button vm `type="submit"` sein, dann sollte als erste Anweisung in Ihrer Funktion `event.preventDefault()` stehen, um die Behandlung des `submit`-Ereignisses zu unterdrücken. (Die Anweisung schadet in keinem Fall - können Sie also sicherheitshalber hinzufügen).
 
 
 
@@ -1690,7 +1690,7 @@
 #### Übung 5
     
 ??? question "Übungsaufgabe 5 (JavaScript, DOM)"
-    - Laden Sie [hier](https://gitlab.rz.htw-berlin.de/freiheit/webtech24/-/blob/main/Uebung5.zip) die Datei `Uebung5.zip` herunter, entpacken Sie sie und schieben den Ordner `Uebung5` in Ihren Projektordner.
+    - Laden Sie [aus Moodle](https://moodle.htw-berlin.de/course/view.php?id=54061) die Datei `uebung5.zip` herunter, entpacken Sie sie und schieben den Ordner `uebung5` in Ihren Projektordner.
     - In der Datei `uebung5.html` sind einige Dinge vorbereitet:
         - eine Tabelle mit leerem `<tbody>`. Der `<tbody>` hat die `id='tbody'`,
         - wird die Seite geladen, wird die `init()`-Funktion aufgerufen (`onload='init()'`),
