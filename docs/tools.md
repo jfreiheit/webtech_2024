@@ -211,9 +211,17 @@ ein. Den Paketmanager `npm` können Sie sich mit `node.js` installieren. Mithilf
 Sollten Sie bei der Installation der Angular-CLI `EACCES errors` erhalten (`permission denied`), dann arbeiten Sie an einem Mac ;-). Geben Sie dann im Terminal ein: 
 
 ```bash
-sudo chown -R `whoami` ~/.npm
-sudo chown -R `whoami` /usr/local/lib/node_modules
+mkdir ~/.npm-global 
+npm config set prefix '~/.npm-global'
 ```
+
+Wechseln Sie in Ihr home-Verzeichnis: `cd ~` und öffnen Sie dort mit `vi` oder `nano` Ihre `.zshrc` (oder falls Sie in der `bash` arbeiten die `.bashrc` oder falls keine `.zshrc` existiert, dann die `.zprofile`) und geben Sie dort 
+
+```bash
+export PATH=~/.npm-global/bin:$PATH
+```
+
+Starten Sie die `zsh` neu, nun sollte bei Eingabe von `npm install -g @angular/cli` kein Fehler mehr erscheinen.
 
 
 Sollten Sie bei der Installation der Angular-CLI `Execution Policy`-Errors erhalten (oder danach bei `ng version`), dann arbeiten Sie an einem Windows-Rechner ;-). Geben Sie dann im Terminal ein: 
