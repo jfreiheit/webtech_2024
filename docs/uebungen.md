@@ -1848,6 +1848,25 @@
 
 
 
+??? note "Eine mögliche Lösung für Übung 5"
+    === "in createTable()"
+        ```js
+        for(let stadtObj of staedtearr) {
+            console.log('stadt : ', stadtObj.jahr)
+            if(stadtObj.stadt.toLowerCase().includes(input.toLowerCase()) || stadtObj.jahr.toString().includes(input)) {
+                tbody.innerHTML += `
+                    <tr>
+                        <td> ${nr} </td> 
+                        <td> ${stadtObj.jahr} </td>
+                        <td> ${stadtObj.stadt} </td>
+                        <td> <a href="${stadtObj.link}" class="btn btn-success btn-sm">Info</a></td>
+                        <td> <img src="${stadtObj.bild}" alt="${stadtObj.stadt}" /></td>
+                    </tr>`
+                nr++;
+            }
+        }
+        ```
+
 
 
 #### Übung 6
