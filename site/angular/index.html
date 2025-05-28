@@ -450,6 +450,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Erstes Projekt erstellen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starten-des-projektes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starten des Projektes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -552,13 +567,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#routing" class="md-nav__link">
+  <a href="#routing-siehe-auch-hier" class="md-nav__link">
     <span class="md-ellipsis">
-      Routing
+      Routing (siehe auch hier)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Routing">
+    <nav class="md-nav" aria-label="Routing (siehe auch hier)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -615,24 +630,15 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#prefix-andern-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prefix ändern - optional
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#httpclient" class="md-nav__link">
+  <a href="#prefix-andern-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      HTTPClient
+      Prefix ändern - optional
     </span>
   </a>
   
@@ -868,6 +874,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Erstes Projekt erstellen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starten-des-projektes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starten des Projektes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -970,13 +991,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#routing" class="md-nav__link">
+  <a href="#routing-siehe-auch-hier" class="md-nav__link">
     <span class="md-ellipsis">
-      Routing
+      Routing (siehe auch hier)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Routing">
+    <nav class="md-nav" aria-label="Routing (siehe auch hier)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1033,24 +1054,15 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#prefix-andern-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prefix ändern - optional
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#httpclient" class="md-nav__link">
+  <a href="#prefix-andern-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      HTTPClient
+      Prefix ändern - optional
     </span>
   </a>
   
@@ -1089,9 +1101,13 @@
   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Set-ExecutionPolicy<span class="w"> </span>-Scope<span class="w"> </span>CurrentUser<span class="w"> </span>-ExecutionPolicy<span class="w"> </span>RemoteSigned
 </span></code></pre></div>
   ein. Sollten Sie bei der Installation der Angular-CLI <code>EACCES errors</code> erhalten (<code>permission denied</code>), dann arbeiten Sie an einem Mac ;-). Geben Sie dann im Terminal ein (Sie finden im Netz auch die Anweisung <code>sudo npm install -g @angular/cli</code> - das sollten Sie aber besser nicht machen) : 
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="sb">`</span>whoami<span class="sb">`</span><span class="w"> </span>~/.npm
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="sb">`</span>whoami<span class="sb">`</span><span class="w"> </span>/usr/local/lib/node_modules
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>mkdir<span class="w"> </span>~/.npm-global<span class="w"> </span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>npm<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>prefix<span class="w"> </span><span class="s1">&#39;~/.npm-global&#39;</span>
 </span></code></pre></div>
+  Wechseln Sie in Ihr home-Verzeichnis: <code>cd ~</code> und öffnen Sie dort mit <code>vi</code> oder <code>nano</code> Ihre <code>.zshrc</code> (oder falls Sie in der <code>bash</code> arbeiten die <code>.bashrc</code> oder falls keine <code>.zshrc</code> existiert, dann die <code>.zprofile</code>) und geben Sie dort 
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>~/.npm-global/bin:<span class="nv">$PATH</span>
+</span></code></pre></div>
+  Starten Sie die <code>zsh</code>  (bzw. <code>bash</code>) neu, nun sollte bei Eingabe von <code>npm install -g @angular/cli</code> kein Fehler mehr erscheinen. 
   Nun sollte <code>npm install -g @angular/cli</code> jeweils funktionieren. </li>
 </ol>
 <h2 id="erstes-projekt-erstellen">Erstes Projekt erstellen<a class="headerlink" href="#erstes-projekt-erstellen" title="Permanent link">&para;</a></h2>
@@ -1107,39 +1123,25 @@ Wechseln in andere Verzeichnisse nutzen Sie den
 <code>cd</code> Befehl (change directory). Um die Anwendung
 <strong>"first"</strong> zu erzeugen, geben Sie folgenden Befehl in das
 Terminal ein:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ng new first
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ng new first
 </span></code></pre></div>
 <p><code>ng</code> steht für Angular. Mit dem Attribut <code>new</code> geben Sie an,
 dass Sie ein neues Projekt erzeugen wollen. <code>first</code> ist der
 Name des Projektes. Wenn Sie nach dem <strong>stylesheet
-format</strong> gefragt werden, können Sie <code>CSS</code> einfach mit <code>Enter</code> bestätigen. Sie können alle Anfragen mit <code>Enter</code> bestätigen, smit teilen Sie auch nicht Ihre Daten mit Google.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>?<span class="w"> </span>Would<span class="w"> </span>you<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>share<span class="w"> </span>pseudonymous<span class="w"> </span>usage<span class="w"> </span>data<span class="w"> </span>about<span class="w"> </span>this<span class="w"> </span>project<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>Angular<span class="w"> </span>Team
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>at<span class="w"> </span>Google<span class="w"> </span>under<span class="w"> </span>Google<span class="err">&#39;</span>s<span class="w"> </span>Privacy<span class="w"> </span>Policy<span class="w"> </span>at<span class="w"> </span>https://policies.google.com/privacy.<span class="w"> </span>For<span class="w"> </span>more
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>details<span class="w"> </span>and<span class="w"> </span>how<span class="w"> </span>to<span class="w"> </span>change<span class="w"> </span>this<span class="w"> </span>setting,<span class="w"> </span>see<span class="w"> </span>https://angular.dev/cli/analytics.
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">   </span>no
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>Global<span class="w"> </span>setting:<span class="w"> </span>disabled
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>Local<span class="w"> </span>setting:<span class="w"> </span>No<span class="w"> </span><span class="nb">local</span><span class="w"> </span>workspace<span class="w"> </span>configuration<span class="w"> </span>file.
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>Effective<span class="w"> </span>status:<span class="w"> </span>disabled
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>?<span class="w"> </span>Which<span class="w"> </span>stylesheet<span class="w"> </span>format<span class="w"> </span>would<span class="w"> </span>you<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>use?<span class="w"> </span>CSS<span class="w">             </span><span class="o">[</span><span class="w"> </span>https://developer.mozilla.org/docs/Web/CSS<span class="w">                     </span><span class="o">]</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>?<span class="w"> </span>Do<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>Server-Side<span class="w"> </span>Rendering<span class="w"> </span><span class="o">(</span>SSR<span class="o">)</span><span class="w"> </span>and<span class="w"> </span>Static<span class="w"> </span>Site<span class="w"> </span>Generation<span class="w"> </span><span class="o">(</span>SSG/Prerendering<span class="o">)</span>?<span class="w"> </span>no
+format</strong> gefragt werden, können Sie <code>CSS</code> einfach mit <code>Enter</code> bestätigen. Auch die nächste Frage können Sie einfach mit <code>Enter</code> verneinen. </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>?<span class="w"> </span>Which<span class="w"> </span>stylesheet<span class="w"> </span>format<span class="w"> </span>would<span class="w"> </span>you<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>use?<span class="w"> </span>CSS<span class="w">             </span><span class="o">[</span><span class="w"> </span>https://developer.mozilla.org/docs/Web/CSS<span class="w">                     </span><span class="o">]</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>?<span class="w"> </span>Do<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>Server-Side<span class="w"> </span>Rendering<span class="w"> </span><span class="o">(</span>SSR<span class="o">)</span><span class="w"> </span>and<span class="w"> </span>Static<span class="w"> </span>Site<span class="w"> </span>Generation<span class="w"> </span><span class="o">(</span>SSG/Prerendering<span class="o">)</span>?<span class="w"> </span>no
 </span></code></pre></div>
 <p>Wenn alles geklappt hat, erhalten Sie im Terminal eine Ausgabe in der Form:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>✔<span class="w"> </span>Packages<span class="w"> </span>installed<span class="w"> </span>successfully.
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>Successfully<span class="w"> </span>initialized<span class="w"> </span>git.
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>✔<span class="w"> </span>Packages<span class="w"> </span>installed<span class="w"> </span>successfully.
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span>Successfully<span class="w"> </span>initialized<span class="w"> </span>git.
 </span></code></pre></div>
+<p>Es kann jedoch auch sein, dass Sie Ihr neues Projekt bereits in einem Ordner erzeugt haben, der bereits von <code>git</code> verwaltet wird. dann teilt Ihnen die CLI mit, dass kein Repository für das neue Projekt erzeugt wurde.</p>
 <p>Es entsteht ein Ordner <code>first</code> in Ihrem Projekte-Verzeichnis. Wechseln Sie
 in dieses Verzeichnis:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>cd first
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cd first
 </span></code></pre></div>
-<p>Führen Sie darin den Befehl:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>npm install
-</span></code></pre></div>
-<p>aus. Damit werden alle Abhängigkeiten, die in der Datei <strong>package.json</strong>
-definiert sind, geladen und das <strong>node_modules</strong>-Verzeichnis erstellt.
-Siehe z.B. <a href="https://www.stackchief.com/tutorials/npm%20install%20%7C%20how%20it%20works">hier</a>.</p>
-<p>Wenn Sie Ihr Projekt mit <code>git</code> verwalten, dann ist es ratsam, das <code>node_modules</code>-Verzeichnis von der <code>git</code>-Verwaltung auszuschließen. Es wird ja immer durch <code>npm install</code> erstellt. In der automatisch erstellten <code>.gitignore</code> ist dafür auch bereits die Zeile <code>/node_modules</code> enthalten. Dadurch wird das <code>node_modules</code>-Verzeichnis in Ihrem Repository ignoriert. </p>
-<p>Die Angular CLI stellt Ihr neues Projekt automatisch unter Git-Verwaltung. Wenn Ihr Ordner bereits Teil eines Git-Repositories ist, können Sie einfach <code>rm -rf .git</code> ausführen. Damit löschen Sie das <code>.git</code>-Verzeichnis im Angular-Projekt-Ordner und das Projekt selbst ist nicht mehr unter Git-Verwaltung (nur durch das übergeordnete Repositoty).</p>
+<h3 id="starten-des-projektes">Starten des Projektes<a class="headerlink" href="#starten-des-projektes" title="Permanent link">&para;</a></h3>
 <p>Danach geben Sie</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ng serve
 </span></code></pre></div>
@@ -1565,7 +1567,7 @@ Inhalt der dargestellten Seite anzupassen und die
 <p>Wir werden uns im weiteren Verlauf immer wieder anschauen, was zu beachten ist, damit ein Angular-Projekt <em>deployed</em>, d.h. ausgeliefert werden kann. Derzeit müssen wir ein Projekt stets mit <code>ng serve</code> starten und schauen uns dabei jeweils den gegenwärtigen Entwicklungsstatus des Projektes an. Irgendwann ist das Projekt aber "fertig" und soll ausgeliefert werden. Das prinzipielle Vorgehen dafür besteht aus zwei Schritten. Der erste Schritt wird als Vorbereitung des Deployments ausgeführt. Er besteht darin, das Projekt zu <em>deployen</em>, dabei auf eventuelle Fehler zu achten und gleichzeitig das <em>deployed</em> Projekt auszuführen und zu "beobachten". Dazu geben Sie im Projektordner (hier <code>first</code>)</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>ng build --watch
 </span></code></pre></div>
-<p>ein. Damit wird das Projekt deployed, wird aber gleichzeitig überwacht, d.h. alle Aktionen auf der Webanwendung werden angezeigt und auch eventuell auftretende Fehler. Dieses Terminal muss während der Anwendung der Webanwendung also gut überwacht werden. Es entsteht ein <code>dist</code>-Ordner in Ihrer Anwendung. Darin ein Ordner, der so heißt, wie Ihr Projekt (also z.B. <code>first</code>) und darin ein ordner <code>browser</code>. Öffnen Sie darin die <code>index.html</code> mit z.B. localhost:3000<code>(beachten Sie den korrekten Pfad zur</code>index.html<code>in der URL (am besten, mit</code>Preview<code>oder ähnlichem öffnen). Sollte ein Fehler auftreten, könnte es sein, dass in der</code>index.html<code>im</code><head>` die Basis-URL nicht richtig gestzt ist: </p>
+<p>ein. Damit wird das Projekt deployed, wird aber gleichzeitig überwacht, d.h. alle Aktionen auf der Webanwendung werden angezeigt und auch eventuell auftretende Fehler. Dieses Terminal muss während der Anwendung der Webanwendung also gut überwacht werden. Es entsteht ein <code>dist</code>-Ordner in Ihrer Anwendung. Darin ein Ordner, der so heißt, wie Ihr Projekt (also z.B. <code>first</code>) und darin ein ordner <code>browser</code>. Öffnen Sie darin die <code>index.html</code> mit z.B. <code>localhost:3000</code> (beachten Sie den korrekten Pfad zur <code>index.html</code> in der URL (am besten, mit <code>Preview</code> oder ähnlichem öffnen). Sollte ein Fehler auftreten, könnte es sein, dass in der <code>index.html</code> im <code>&lt;head&gt;</code> die Basis-URL nicht richtig gestzt ist: </p>
 <div class="language-html highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>...
 </span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="p">&lt;</span><span class="nt">base</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>
 </span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>...
@@ -1851,7 +1853,7 @@ Inhalt der dargestellten Seite anzupassen und die
 </div>
 </div>
 <p>Wir geben dieses Array zunächst einfach nur auf der Konsole aus. Wir sehen aber bereits die Einbindung des Services und die Verwendung der <code>getMembers()</code>-Funktion des Services.</p>
-<h2 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h2>
+<h2 id="routing-siehe-auch-hier">Routing (siehe auch <a href="../routing/#erste-einfache-routen">hier</a>)<a class="headerlink" href="#routing-siehe-auch-hier" title="Permanent link">&para;</a></h2>
 <p><em>Routing</em> ist ein wesentliches Konzept für die Entwicklung von <em>Single-Page-Applikationen</em> (SPA). Bei Single-Page-Applikationen wird genau eine Seite vom Webserver geladen (typischerweise die <code>index.html</code> und alle weiteren, sich ändernden, Inhalte und Sichten werden in diese Seite nachgeladen). Das führt zunächst auch dazu, dass es für die Seite genau eine URL gibt, um auf sie zuzugreifen (z.B. <code>http://www.mydomain.de</code> bzw. <code>http://www.mydomain.de/index.html</code>). Möchte man aber Komponenten direkt in der URL ansprechen, z.B. <code>http://www.mydomain.de/login</code> für die Login-Komponente, so benötigen wir das <em>Routing</em> von Angular.</p>
 <p>Wir betrachten hier ein Beispiel, das <a href="https://angular.dev/guide/routing/common-router-tasks">https://angular.dev/guide/routing/common-router-tasks</a> entnommen ist und nur leicht abgewandelt wurde. Wir erstellen dazu zunächst ein neues Projekt <code>routing-lesson</code>: </p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>ng new routing-lesson
@@ -2424,7 +2426,7 @@ Inhalt der dargestellten Seite anzupassen und die
 </div>
 <p>In der <code>second.component.ts</code> sehen wir in Zeile 11, dass der Service <code>Router</code> per dependency injection eingebunden wird. Der Eigenschaft <code>router</code> stehen die Methoden <code>navigate()</code> bzw. <code>navigateByUrl()</code> zur Verfügung. Wir sehen in den Zeilen 16-20 die Behandlung des <code>Click</code>-Ereignisses des Buttons. In Zeile 17 wird darin programmatisch die Route <code>/first/one</code> aufgerufen. </p>
 <p><img alt="Routing programmatisch wechseln" src="../files/19_routing.png" /></p>
-<h3 id="prefix-andern-optional">Prefix ändern - optional<a class="headerlink" href="#prefix-andern-optional" title="Permanent link">&para;</a></h3>
+<h2 id="prefix-andern-optional">Prefix ändern - optional<a class="headerlink" href="#prefix-andern-optional" title="Permanent link">&para;</a></h2>
 <p><code>app</code>ist dabei ein Prefix, der für die gesamte Anwendung gilt. Diesen Prefix können Sie ändern. Im folgenden ist beschrieben, wie Sie ihn von <code>app</code> auf <code>htw</code> ändern. Öffnen Sie dazu die Datei <code>angular.json</code>, die sich im Projekt-Ordner <code>frontend</code> befindet. Diese Datei enthält die zentrale Konfiguration Ihres Projektes. Sie sieht wie folgt aus (Ausschnitt):</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="28:1"><input checked="checked" id="__tabbed_28_1" name="__tabbed_28" type="radio" /><div class="tabbed-labels"><label for="__tabbed_28_1">angular.json</label></div>
 <div class="tabbed-content">
@@ -2520,16 +2522,6 @@ Inhalt der dargestellten Seite anzupassen und die
 </span><span id="__span-77-8"><a id="__codelineno-77-8" name="__codelineno-77-8"></a><span class="w">  </span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;frontend&#39;</span><span class="p">;</span>
 </span><span id="__span-77-9"><a id="__codelineno-77-9" name="__codelineno-77-9"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="httpclient"><code>HTTPClient</code><a class="headerlink" href="#httpclient" title="Permanent link">&para;</a></h2>
-<p>Wir wissen bereits, dass Angular eine TypeScript-Framework ist, mit dem sich Single-Page-Anwendungen implementieren lassen. Es wird einmalig eine Seite (häufig <code>index.html</code>) vom Server geladen und alle weiteren Inhalte werden sukzessive bzw. durch Nutzerinteraktionen gesteuert in diese eine Seite nachgeladen. Die Steuering wird dabei durch den Browser vorgenommen, der das aus TypeScript übersetzte JavaScript interpretiert und entsprechend die Templates der Komponenten in die Anwendung einbindet. Das bedeutet, dass im Prinzip die gesamte Logik im <em>Client</em>, d.h. im Browser ausgeführt wird. </p>
-<p>Dem gegenüber steht jedoch die in der Anwendung verarbeitete Menge von Daten, die typischerweise in einer Datenbank auf einem Server bereitgestellt werden. Während der Client sich darum kümmert, dass Daten angezeigt oder eingegeben werden, muss sich der Server darum kümmern, dass Daten in die Datenquelle (die Datenbank) neu eingefügt, ausgelesen, aktualisiert und gelöscht werden können. Diese vier Operationen werden mit <strong>CRUD</strong> abgekürzt für:</p>
-<ul>
-<li><b>C</b>reate - neue Daten einfügen </li>
-<li><b>R</b>ead - Daten auslesen</li>
-<li><b>U</b>pdate - Daten aktualisieren</li>
-<li><b>D</b>elete - Daten löschen</li>
-</ul>
-<p>Der Client und der Server müssen dazu nun irgendwie verbunden werden. Diese Verbindung erfolgt mithilfe des <em>Hypertext Transfer Protocols (HTTP)</em>. </p>
 
 
 

@@ -21,9 +21,14 @@ Folgen Sie den Anweisungen der [Setup-local](https://angular.dev/tools/cli/setup
   ```
   ein. Sollten Sie bei der Installation der Angular-CLI `EACCES errors` erhalten (`permission denied`), dann arbeiten Sie an einem Mac ;-). Geben Sie dann im Terminal ein (Sie finden im Netz auch die Anweisung `sudo npm install -g @angular/cli` - das sollten Sie aber besser nicht machen) : 
   ```bash
-  sudo chown -R `whoami` ~/.npm
-  sudo chown -R `whoami` /usr/local/lib/node_modules
+  mkdir ~/.npm-global 
+  npm config set prefix '~/.npm-global'
   ```
+  Wechseln Sie in Ihr home-Verzeichnis: `cd ~` und öffnen Sie dort mit `vi` oder `nano` Ihre `.zshrc` (oder falls Sie in der `bash` arbeiten die `.bashrc` oder falls keine `.zshrc` existiert, dann die `.zprofile`) und geben Sie dort 
+  ```bash
+  export PATH=~/.npm-global/bin:$PATH
+  ```
+  Starten Sie die `zsh`  (bzw. `bash`) neu, nun sollte bei Eingabe von `npm install -g @angular/cli` kein Fehler mehr erscheinen. 
   Nun sollte `npm install -g @angular/cli` jeweils funktionieren. 
 
 ## Erstes Projekt erstellen
@@ -48,17 +53,9 @@ ng new first
 ``ng`` steht für Angular. Mit dem Attribut ``new`` geben Sie an,
 dass Sie ein neues Projekt erzeugen wollen. ``first`` ist der
 Name des Projektes. Wenn Sie nach dem **stylesheet
-format** gefragt werden, können Sie `CSS` einfach mit `Enter` bestätigen. Sie können alle Anfragen mit `Enter` bestätigen, smit teilen Sie auch nicht Ihre Daten mit Google.
+format** gefragt werden, können Sie `CSS` einfach mit `Enter` bestätigen. Auch die nächste Frage können Sie einfach mit `Enter` verneinen. 
 
 ```bash
-? Would you like to share pseudonymous usage data about this project with the Angular Team
-at Google under Google's Privacy Policy at https://policies.google.com/privacy. For more
-details and how to change this setting, see https://angular.dev/cli/analytics.
-
-   no
-Global setting: disabled
-Local setting: No local workspace configuration file.
-Effective status: disabled
 ? Which stylesheet format would you like to use? CSS             [ https://developer.mozilla.org/docs/Web/CSS                     ]
 ? Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)? no
 ```
@@ -70,6 +67,8 @@ Wenn alles geklappt hat, erhalten Sie im Terminal eine Ausgabe in der Form:
     Successfully initialized git.
 ```
 
+Es kann jedoch auch sein, dass Sie Ihr neues Projekt bereits in einem Ordner erzeugt haben, der bereits von `git` verwaltet wird. dann teilt Ihnen die CLI mit, dass kein Repository für das neue Projekt erzeugt wurde.
+
 Es entsteht ein Ordner `first` in Ihrem Projekte-Verzeichnis. Wechseln Sie
 in dieses Verzeichnis:
 
@@ -77,19 +76,8 @@ in dieses Verzeichnis:
 cd first
 ```
 
-Führen Sie darin den Befehl:
 
-```
-npm install
-```
-
-aus. Damit werden alle Abhängigkeiten, die in der Datei **package.json**
-definiert sind, geladen und das **node_modules**-Verzeichnis erstellt.
-Siehe z.B. [hier](https://www.stackchief.com/tutorials/npm%20install%20%7C%20how%20it%20works).
-
-Wenn Sie Ihr Projekt mit `git` verwalten, dann ist es ratsam, das `node_modules`-Verzeichnis von der `git`-Verwaltung auszuschließen. Es wird ja immer durch `npm install` erstellt. In der automatisch erstellten `.gitignore` ist dafür auch bereits die Zeile `/node_modules` enthalten. Dadurch wird das `node_modules`-Verzeichnis in Ihrem Repository ignoriert. 
-
-Die Angular CLI stellt Ihr neues Projekt automatisch unter Git-Verwaltung. Wenn Ihr Ordner bereits Teil eines Git-Repositories ist, können Sie einfach `rm -rf .git` ausführen. Damit löschen Sie das `.git`-Verzeichnis im Angular-Projekt-Ordner und das Projekt selbst ist nicht mehr unter Git-Verwaltung (nur durch das übergeordnete Repositoty).
+### Starten des Projektes
 
 Danach geben Sie
 
@@ -554,7 +542,7 @@ Wir werden uns im weiteren Verlauf immer wieder anschauen, was zu beachten ist, 
 ng build --watch
 ```
 
-ein. Damit wird das Projekt deployed, wird aber gleichzeitig überwacht, d.h. alle Aktionen auf der Webanwendung werden angezeigt und auch eventuell auftretende Fehler. Dieses Terminal muss während der Anwendung der Webanwendung also gut überwacht werden. Es entsteht ein `dist`-Ordner in Ihrer Anwendung. Darin ein Ordner, der so heißt, wie Ihr Projekt (also z.B. `first`) und darin ein ordner `browser`. Öffnen Sie darin die `index.html` mit z.B. localhost:3000` (beachten Sie den korrekten Pfad zur `index.html` in der URL (am besten, mit `Preview` oder ähnlichem öffnen). Sollte ein Fehler auftreten, könnte es sein, dass in der `index.html` im `<head>` die Basis-URL nicht richtig gestzt ist: 
+ein. Damit wird das Projekt deployed, wird aber gleichzeitig überwacht, d.h. alle Aktionen auf der Webanwendung werden angezeigt und auch eventuell auftretende Fehler. Dieses Terminal muss während der Anwendung der Webanwendung also gut überwacht werden. Es entsteht ein `dist`-Ordner in Ihrer Anwendung. Darin ein Ordner, der so heißt, wie Ihr Projekt (also z.B. `first`) und darin ein ordner `browser`. Öffnen Sie darin die `index.html` mit z.B. `localhost:3000` (beachten Sie den korrekten Pfad zur `index.html` in der URL (am besten, mit `Preview` oder ähnlichem öffnen). Sollte ein Fehler auftreten, könnte es sein, dass in der `index.html` im `<head>` die Basis-URL nicht richtig gestzt ist: 
 
 ```html
 ...
@@ -776,7 +764,7 @@ Nun binden wir den Service ein und rufen die `getMembers()`-Funktion auf. Damit 
 Wir geben dieses Array zunächst einfach nur auf der Konsole aus. Wir sehen aber bereits die Einbindung des Services und die Verwendung der `getMembers()`-Funktion des Services.
 
 
-## Routing
+## Routing (siehe auch [hier](routing.md#erste-einfache-routen))
 
 *Routing* ist ein wesentliches Konzept für die Entwicklung von *Single-Page-Applikationen* (SPA). Bei Single-Page-Applikationen wird genau eine Seite vom Webserver geladen (typischerweise die `index.html` und alle weiteren, sich ändernden, Inhalte und Sichten werden in diese Seite nachgeladen). Das führt zunächst auch dazu, dass es für die Seite genau eine URL gibt, um auf sie zuzugreifen (z.B. `http://www.mydomain.de` bzw. `http://www.mydomain.de/index.html`). Möchte man aber Komponenten direkt in der URL ansprechen, z.B. `http://www.mydomain.de/login` für die Login-Komponente, so benötigen wir das *Routing* von Angular.
 
@@ -1244,7 +1232,7 @@ In der `second.component.ts` sehen wir in Zeile 11, dass der Service `Router` pe
 ![Routing programmatisch wechseln](./files/19_routing.png)
 
 
-### Prefix ändern - optional
+## Prefix ändern - optional
 
 `app`ist dabei ein Prefix, der für die gesamte Anwendung gilt. Diesen Prefix können Sie ändern. Im folgenden ist beschrieben, wie Sie ihn von `app` auf `htw` ändern. Öffnen Sie dazu die Datei `angular.json`, die sich im Projekt-Ordner `frontend` befindet. Diese Datei enthält die zentrale Konfiguration Ihres Projektes. Sie sieht wie folgt aus (Ausschnitt):
 
@@ -1302,19 +1290,6 @@ In der `second.component.ts` sehen wir in Zeile 11, dass der Service `Router` pe
   ```
  
 
-
-## `HTTPClient`
-
-Wir wissen bereits, dass Angular eine TypeScript-Framework ist, mit dem sich Single-Page-Anwendungen implementieren lassen. Es wird einmalig eine Seite (häufig `index.html`) vom Server geladen und alle weiteren Inhalte werden sukzessive bzw. durch Nutzerinteraktionen gesteuert in diese eine Seite nachgeladen. Die Steuering wird dabei durch den Browser vorgenommen, der das aus TypeScript übersetzte JavaScript interpretiert und entsprechend die Templates der Komponenten in die Anwendung einbindet. Das bedeutet, dass im Prinzip die gesamte Logik im *Client*, d.h. im Browser ausgeführt wird. 
-
-Dem gegenüber steht jedoch die in der Anwendung verarbeitete Menge von Daten, die typischerweise in einer Datenbank auf einem Server bereitgestellt werden. Während der Client sich darum kümmert, dass Daten angezeigt oder eingegeben werden, muss sich der Server darum kümmern, dass Daten in die Datenquelle (die Datenbank) neu eingefügt, ausgelesen, aktualisiert und gelöscht werden können. Diese vier Operationen werden mit **CRUD** abgekürzt für:
-
-- <b>C</b>reate - neue Daten einfügen 
-- <b>R</b>ead - Daten auslesen
-- <b>U</b>pdate - Daten aktualisieren
-- <b>D</b>elete - Daten löschen
-
-Der Client und der Server müssen dazu nun irgendwie verbunden werden. Diese Verbindung erfolgt mithilfe des *Hypertext Transfer Protocols (HTTP)*. 
 
 
 
