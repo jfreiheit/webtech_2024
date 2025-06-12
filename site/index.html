@@ -317,6 +317,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#einige-readmes-fruherer-abgaben" class="md-nav__link">
+    <span class="md-ellipsis">
+      Einige READMEs früherer Abgaben
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -552,6 +561,26 @@
   
   
     <li class="md-nav__item">
+      <a href="backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Backend (MongoDB)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="backend_pg/" class="md-nav__link">
         
   
@@ -731,6 +760,15 @@
   <a href="#abgabe-und-gesprachstermine" class="md-nav__link">
     <span class="md-ellipsis">
       Abgabe- und Gesprächstermine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#einige-readmes-fruherer-abgaben" class="md-nav__link">
+    <span class="md-ellipsis">
+      Einige READMEs früherer Abgaben
     </span>
   </a>
   
@@ -2026,6 +2064,839 @@
 </li>
 </ul>
 <p>Bitte tragen Sie sich in <a href="https://moodle.htw-berlin.de/mod/wiki/view.php?id=1938265">Moodle</a> in den von Ihnen gewünschten Gesprächstermin ein! Wenn Sie im 1.PZ abgeben, tragen Sie sich im LSF zum ersten PZ zur Prüfung ein, ansonsten im 2.PZ. </p>
+<h2 id="einige-readmes-fruherer-abgaben">Einige READMEs früherer Abgaben<a class="headerlink" href="#einige-readmes-fruherer-abgaben" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>AnimeWatchList <a href="https://anime-watchlist-frontend.vercel.app/anime-uebersicht">deployed</a></summary>
+<h1 id="animewatchlist">🌸 AnimeWatchlist<a class="headerlink" href="#animewatchlist" title="Permanent link">&para;</a></h1>
+<p>AnimeWatchlist is a simple and intuitive platform for managing your personal anime collection. It helps you organize titles by watch status, search and filter your list, and easily update entries as your progress changes.</p>
+<p>Designed for efficiency and clarity, it streamlines your tracking experience — whether you're planning, watching, pausing, or completing an anime.</p>
+<h2 id="screenshots">📸 Screenshots<a class="headerlink" href="#screenshots" title="Permanent link">&para;</a></h2>
+<p><img src="./files/khreis/home.png" width=700 height=400>
+<img src="./files/khreis/form.png" width=700 height=400>
+<img src="./files/khreis/table.png" width=700 height=400></p>
+<h2 id="features">✨ Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>📋 Add, edit, and delete anime entries</p>
+</li>
+<li>
+<p>📂 Sort and filter by title, category, season, status, and more</p>
+</li>
+<li>
+<p>🔍 Search bar with real-time filtering</p>
+</li>
+<li>
+<p>🔄 Status selection via dropdown (e.g., Watching, Planned, Paused, Dropped, Finished)</p>
+</li>
+<li>
+<p>📊 Pagination and sorting support with Angular Material</p>
+</li>
+<li>
+<p>💾 Backend integration for persistent data storage</p>
+</li>
+</ul>
+<h2 id="installation">⚙️ Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<p>Before you begin, make sure the following programs are installed:<br />
+- <a href="https://git-scm.com/downloads">Git</a>
+- <a href="https://nodejs.org/en/download">Node.js</a>
+- <a href="https://angular.dev/installation">Angular CLI</a> — Install it globally via:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@angular/cli
+</span></code></pre></div>
+<h3 id="initialize-git-repository"><strong>Initialize Git Repository</strong><a class="headerlink" href="#initialize-git-repository" title="Permanent link">&para;</a></h3>
+<p>If you don't have a Git repository yet, initialize it by running:  </p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>git<span class="w"> </span>init
+</span></code></pre></div>
+<p><strong>Clone Repositories</strong></p>
+<p>Clone both the backend and frontend repositories:</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.rz.htw-berlin.de/s0549057/anime-watchlist-backend.git
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.rz.htw-berlin.de/s0549057/anime-watchlist-frontend.git
+</span></code></pre></div>
+<strong>Install and Start Backend</strong></p>
+<p>Navigate to the backend directory and install all dependencies:</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">cd</span><span class="w"> </span>anime-watchlist-backend
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>npm<span class="w"> </span>install
+</span></code></pre></div>
+Create a <code>.env</code> file in the root directory of the project with the following variables</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nv">PGUSER</span><span class="o">=</span>your_username
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nv">PGHOST</span><span class="o">=</span>psql.f4.htw-berlin.de
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nv">PGDATABASE</span><span class="o">=</span>anime_watchlist
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="nv">PGPASSWORD</span><span class="o">=</span>your_password
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="nv">PGPORT</span><span class="o">=</span><span class="m">5432</span>
+</span></code></pre></div>
+<p>To start the backend:</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>node<span class="w"> </span>server.js
+</span></code></pre></div>
+Use <code>--watch</code> for restarting the application automatically!</p>
+<p><strong>Install and Start Frontend</strong></p>
+<p>Navigate to the frontend directory and install all dependencies:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nb">cd</span><span class="w"> </span>anime-watchlist-frontend/anime-watchlist
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>npm<span class="w"> </span>install
+</span></code></pre></div>
+<p>To start the frontend:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ng<span class="w"> </span>serve
+</span></code></pre></div>
+<p><strong>Access the Application</strong></p>
+<ul>
+<li><strong>Frontend:</strong> Open your browser and go to <a href="http://localhost:4200">http://localhost:4200</a> to view the frontend.</li>
+</ul>
+<h2 id="deployment">🚀 Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
+<p>This application is deployed and accessible at:</p>
+<p>👉 <a href="https://anime-watchlist-frontend.vercel.app">https://anime-watchlist-frontend.vercel.app</a></p>
+<h2 id="tech-stack">📦 Tech Stack<a class="headerlink" href="#tech-stack" title="Permanent link">&para;</a></h2>
+<p>Technologies used in the project:</p>
+<p><strong>Client (Frontend):</strong> Angular CLI (for building a dynamic and responsive user interface as well managing the Angular application)</p>
+<p><strong>UI Components:</strong> <br>
+<strong>Angular Material</strong> (for modern and consistent UI elements) <br>
+<strong>Bootstrap</strong> (for responsive and mobile-first design)</p>
+<p><strong>Server (Backend):</strong> Node.js (used for the backend logic and API services)</p>
+<h2 id="roadmap">🗺 Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h2>
+<p>The application can be expanded to allow the addition of anime movies alongside anime series. Unlike series, anime movies do not have seasons or episode counts; instead, they are defined by parts and release years. This distinction will be made using an Angular Material stepper. Depending on whether "Anime-Serie" or "Anime-Film" is selected in the first step, the corresponding form will be displayed in the second step.</p>
+<p>Additionally, the application can be enhanced by implementing user registration and login functionality. Registered users will be able to add their own animes and manage their personalized list.</p>
+<p>Another potential feature is the ability for users to upload images for each anime.</p>
+</details>
+<details class="success">
+<summary>whispery - Dein digitales Tagebuch</summary>
+<h1 id="whispery-dein-digitales-tagebuch">whispery – Dein digitales Tagebuch ✨<a class="headerlink" href="#whispery-dein-digitales-tagebuch" title="Permanent link">&para;</a></h1>
+<p><strong>whispery</strong> ist eine moderne Webanwendung zum Führen eines digitalen Tagebuchs.<br />
+Nutzer:innen können sich registrieren, anmelden und persönliche Einträge erstellen, bearbeiten oder löschen – begleitet von Emotionen in Emoji-Form.</p>
+<hr />
+<h2 id="inhaltsverzeichnis">Inhaltsverzeichnis<a class="headerlink" href="#inhaltsverzeichnis" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#features">Features</a>  </li>
+<li><a href="#technologien">Technologien</a>  </li>
+<li><a href="#screenshots">Screenshots</a>  </li>
+<li><a href="#installation--nutzung">Installation &amp; Nutzung</a>  </li>
+<li><a href="#datenbankstruktur">Datenbankstruktur</a>  </li>
+<li><a href="#deployment">Deployment</a>  </li>
+<li><a href="#bekannte-einschränkungen">Bekannte Einschränkungen</a></li>
+<li><a href="#ki-nutzung">KI-Nutzung</a>  </li>
+<li><a href="#autorin">Autorin</a></li>
+</ol>
+<hr />
+<h2 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>📓 Tagebucheinträge erstellen, anzeigen, bearbeiten und löschen (CRUD)</li>
+<li>🔐 Registrierung &amp; Login mit Passwort-Hashing (bcryptjs) und Token-Authentifizierung (JWT)</li>
+<li>🔓 Logout mit Token-Entfernung</li>
+<li>😊 Gefühle durch Emojis ausdrücken</li>
+<li>📅 Datum wird automatisch pro Eintrag gespeichert</li>
+<li>💾 Speicherung aller Einträge in einer MongoDB-Datenbank (MongoDB Atlas)</li>
+<li>🪄 Nutzerfreundliche Popups bei Aktionen</li>
+<li>🎨 Responsive Design mit Bootstrap</li>
+</ul>
+<hr />
+<h2 id="technologien">Technologien<a class="headerlink" href="#technologien" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Frontend</strong>: Angular  </li>
+<li><strong>Backend</strong>: Node.js, Express  </li>
+<li><strong>Datenbank</strong>: MongoDB (Atlas)  </li>
+<li><strong>CSS-Framework</strong>: Bootstrap  </li>
+<li><strong>Deployment</strong>: Netlify (Frontend), Render (Backend)</li>
+</ul>
+<hr />
+<h2 id="screenshots_1">Screenshots<a class="headerlink" href="#screenshots_1" title="Permanent link">&para;</a></h2>
+<h4 id="begruungsseite-von-whispery-mit-moglichkeit-zur-registrierung-oder-login">Begrüßungsseite von whispery mit Möglichkeit zur Registrierung oder Login:<a class="headerlink" href="#begruungsseite-von-whispery-mit-moglichkeit-zur-registrierung-oder-login" title="Permanent link">&para;</a></h4>
+<p><img alt="Startseite" src="files/saritoprak/screenshots/startseite.png" /></p>
+<h4 id="das-formular-zur-registrierung-eines-neuen-accounts">Das Formular zur Registrierung eines neuen Accounts:<a class="headerlink" href="#das-formular-zur-registrierung-eines-neuen-accounts" title="Permanent link">&para;</a></h4>
+<p><img alt="Registrierung" src="files/saritoprak/screenshots/Registrierung.png" /></p>
+<h4 id="popup-nach-erfolgreicher-registrierung">Popup nach erfolgreicher Registrierung:<a class="headerlink" href="#popup-nach-erfolgreicher-registrierung" title="Permanent link">&para;</a></h4>
+<p><img alt="Registrierung erfolgreich" src="files/saritoprak/screenshots/Registrierung-erfolgreich.png" /></p>
+<h4 id="fehlermeldung-bei-bereits-registrierter-e-mail-adresse">Fehlermeldung bei bereits registrierter E-Mail-Adresse:<a class="headerlink" href="#fehlermeldung-bei-bereits-registrierter-e-mail-adresse" title="Permanent link">&para;</a></h4>
+<p><img alt="E-Mail bereits registriert" src="files/saritoprak/screenshots/email-existiert.png" /></p>
+<h4 id="validierungshinweis-fur-ein-sicheres-passwort">Validierungshinweis für ein sicheres Passwort:<a class="headerlink" href="#validierungshinweis-fur-ein-sicheres-passwort" title="Permanent link">&para;</a></h4>
+<p><img alt="Passwortvorgaben" src="files/saritoprak/screenshots/passwort-kurz.png" /></p>
+<h4 id="fehlermeldung-bei-falscher-e-mail">Fehlermeldung bei falscher E-Mail:<a class="headerlink" href="#fehlermeldung-bei-falscher-e-mail" title="Permanent link">&para;</a></h4>
+<p><img alt="Falsche E-Mail" src="files/saritoprak/screenshots/falsche-email-eingabe.png" /></p>
+<h4 id="fehlermeldung-bei-falschem-passwort">Fehlermeldung bei falschem Passwort:<a class="headerlink" href="#fehlermeldung-bei-falschem-passwort" title="Permanent link">&para;</a></h4>
+<p><img alt="Falsches Passwort" src="files/saritoprak/screenshots/falsches-passwort.png" /></p>
+<h4 id="eingabemaske-zur-erstellung-eines-neuen-tagebucheintrags">Eingabemaske zur Erstellung eines neuen Tagebucheintrags:<a class="headerlink" href="#eingabemaske-zur-erstellung-eines-neuen-tagebucheintrags" title="Permanent link">&para;</a></h4>
+<p><img alt="Neuer Eintrag" src="files/saritoprak/screenshots/Neuer-Eintrag.png" /></p>
+<h4 id="popup-nach-dem-erfolgreichen-speichern-eines-neuen-eintrags">Popup nach dem erfolgreichen Speichern eines neuen Eintrags:<a class="headerlink" href="#popup-nach-dem-erfolgreichen-speichern-eines-neuen-eintrags" title="Permanent link">&para;</a></h4>
+<p><img alt="Eintrag gespeichert" src="files/saritoprak/screenshots/Eintrag-gespeichert.png" /></p>
+<h4 id="ubersicht-aller-vorhandenen-tagebucheintrage">Übersicht aller vorhandenen Tagebucheinträge:<a class="headerlink" href="#ubersicht-aller-vorhandenen-tagebucheintrage" title="Permanent link">&para;</a></h4>
+<p><img alt="Alle Eintraege" src="files/saritoprak/screenshots/Eintraege-ansehen.png" /></p>
+<h4 id="bearbeitungsansicht-eines-bestehenden-eintrags">Bearbeitungsansicht eines bestehenden Eintrags:<a class="headerlink" href="#bearbeitungsansicht-eines-bestehenden-eintrags" title="Permanent link">&para;</a></h4>
+<p><img alt="Eintrag bearbeiten" src="files/saritoprak/screenshots/Eintrag-bearbeiten.png" /></p>
+<h4 id="popup-nach-erfolgreicher-bearbeitung-eines-eintrags">Popup nach erfolgreicher Bearbeitung eines Eintrags:<a class="headerlink" href="#popup-nach-erfolgreicher-bearbeitung-eines-eintrags" title="Permanent link">&para;</a></h4>
+<p><img alt="Bearbeitung gespeichert" src="files/saritoprak/screenshots/Bearbeitung-gespeichert.png" /></p>
+<h4 id="bestatigungsdialog-zum-loschen-eines-eintrags">Bestätigungsdialog zum Löschen eines Eintrags:<a class="headerlink" href="#bestatigungsdialog-zum-loschen-eines-eintrags" title="Permanent link">&para;</a></h4>
+<p><img alt="Eintrag loeschen Dialog" src="files/saritoprak/screenshots/Eintrag-loeschen.png" /></p>
+<h4 id="popup-nach-erfolgreichem-loschen-eines-eintrags">Popup nach erfolgreichem Löschen eines Eintrags:<a class="headerlink" href="#popup-nach-erfolgreichem-loschen-eines-eintrags" title="Permanent link">&para;</a></h4>
+<p><img alt="Eintrag geloescht" src="files/saritoprak/screenshots/Eintrag-geloescht.png" /></p>
+<h4 id="popup-nach-dem-ausloggen-des-users">Popup nach dem Ausloggen des Users:<a class="headerlink" href="#popup-nach-dem-ausloggen-des-users" title="Permanent link">&para;</a></h4>
+<p><img alt="Logout" src="files/saritoprak/screenshots/ausgeloggt.png" /></p>
+<hr />
+<h2 id="installation-nutzung">Installation &amp; Nutzung<a class="headerlink" href="#installation-nutzung" title="Permanent link">&para;</a></h2>
+<h3 id="voraussetzungen">Voraussetzungen<a class="headerlink" href="#voraussetzungen" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Node.js</li>
+<li>Angular CLI</li>
+<li>MongoDB Atlas Zugang</li>
+</ul>
+<h3 id="projekt-klonen">Projekt klonen<a class="headerlink" href="#projekt-klonen" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Fuerueze/whispery-frontend.git
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Fuerueze/whispery-backend.git
+</span></code></pre></div>
+<h3 id="backend-starten">Backend starten<a class="headerlink" href="#backend-starten" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">cd</span><span class="w"> </span>whispery-backend
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>npm<span class="w"> </span>install
+</span></code></pre></div>
+<p>Erstelle im Ordner <code>whispery-backend</code> eine Datei namens <code>.env</code> mit folgendem Inhalt:<br />
+<strong>Trage hier deine eigenen Werte ein!</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>MONGO_URI=&lt;deine eigene MongoDB-Verbindungs-URL&gt;
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>JWT_SECRET=&lt;dein eigenes geheimes JWT-Passwort&gt;
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>PORT=5001
+</span></code></pre></div>
+<h4 id="erklarungen-zu-den-variablen">Erklärungen zu den Variablen<a class="headerlink" href="#erklarungen-zu-den-variablen" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>MONGO_URI</code></strong>: Deine eigene MongoDB-Verbindung, z. B. über <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a></li>
+<li><strong><code>JWT_SECRET</code></strong>: Ein beliebiger geheimer String, der zur Signierung der Tokens verwendet wird</li>
+<li><strong><code>PORT</code></strong>: Optional – falls nicht gesetzt, wird automatisch <code>5001</code> verwendet</li>
+</ul>
+<h4 id="backend-starten_1">Backend starten<a class="headerlink" href="#backend-starten_1" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>node<span class="w"> </span>server.js
+</span></code></pre></div>
+<h3 id="frontend-starten">Frontend starten<a class="headerlink" href="#frontend-starten" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nb">cd</span><span class="w"> </span>whispery-frontend
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>npm<span class="w"> </span>install
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>ng<span class="w"> </span>serve<span class="w"> </span>--proxy-config<span class="w"> </span>proxy.conf.json
+</span></code></pre></div>
+<h4 id="anwendung-im-browser-offnen">Anwendung im Browser öffnen:<a class="headerlink" href="#anwendung-im-browser-offnen" title="Permanent link">&para;</a></h4>
+<p><a href="http://localhost:4200">http://localhost:4200</a></p>
+<hr />
+<h2 id="datenbankstruktur">Datenbankstruktur<a class="headerlink" href="#datenbankstruktur" title="Permanent link">&para;</a></h2>
+<p>Die folgende Struktur zeigt das Datenmodell der Anwendung:</p>
+<h3 id="sammlung-users">Sammlung: <code>users</code><a class="headerlink" href="#sammlung-users" title="Permanent link">&para;</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="p">{</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ObjectId&quot;</span><span class="p">,</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string (gehasht mit bcrypt)&quot;</span><span class="p">,</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="w">  </span><span class="nt">&quot;__v&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="sammlung-diaryentries">Sammlung: <code>diaryentries</code><a class="headerlink" href="#sammlung-diaryentries" title="Permanent link">&para;</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="p">{</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ObjectId&quot;</span><span class="p">,</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">  </span><span class="nt">&quot;emoji&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="w">  </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ISODate&quot;</span><span class="p">,</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">  </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ObjectId (Referenz auf User)&quot;</span><span class="p">,</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="w">  </span><span class="nt">&quot;__v&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="deployment_1">Deployment<a class="headerlink" href="#deployment_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Frontend (Netlify)</strong>: <a href="https://whispery-tagebuch.netlify.app">https://whispery-tagebuch.netlify.app</a>  </li>
+<li><strong>Backend (Render)</strong>: <a href="https://whispery-backend.onrender.com">https://whispery-backend.onrender.com</a></li>
+</ul>
+<hr />
+<h2 id="bekannte-einschrankungen">Bekannte Einschränkungen<a class="headerlink" href="#bekannte-einschrankungen" title="Permanent link">&para;</a></h2>
+<p><strong>Hinweis:</strong><br />
+Im aktuellen Deployment über <strong>Netlify</strong> (Frontend) und <strong>Render</strong> (Backend) funktioniert die Registrierung und der Login <strong>derzeit nicht wie erwartet</strong>.</p>
+<p>Es erfolgt keine Rückmeldung bei Klick auf "Registrieren" oder "Einloggen".</p>
+<p><strong>Lokal funktioniert alles korrekt.</strong><br />
+Eine Lösung wird in Kürze nachgereicht.</p>
+<hr />
+<h2 id="ki-nutzung">KI-Nutzung<a class="headerlink" href="#ki-nutzung" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Zweck</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ChatGPT</td>
+<td>Planung, Codeoptimierung, README</td>
+</tr>
+<tr>
+<td>DeepSeek</td>
+<td>Codeoptimierung</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="success">
+<summary>VerseLogic</summary>
+<h1 id="verselogic">VerseLogic<a class="headerlink" href="#verselogic" title="Permanent link">&para;</a></h1>
+<p>VerseLogic ist eine Webanwendung zur Unterstützung des Songwriting-Prozesses.<br />
+Das Projekt verwendet:<br />
+- <strong>Frontend</strong>: Angular (Version 19.0.2)<br />
+- <strong>Backend</strong>: Node.js (Version 22.11.0)</p>
+<h2 id="installation-setup">Installation &amp; Setup<a class="headerlink" href="#installation-setup" title="Permanent link">&para;</a></h2>
+<h3 id="voraussetzungen_1">Voraussetzungen<a class="headerlink" href="#voraussetzungen_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Node.js</strong> </li>
+<li><strong>Angular CLI</strong> (falls nicht installiert: <code>npm install -g @angular/cli</code>) </li>
+<li><strong>Git</strong> (zum Klonen des Repositories)</li>
+<li><strong>PostgreSQL-Datenbank</strong> </li>
+</ul>
+<h3 id="repository-klonen">Repository klonen<a class="headerlink" href="#repository-klonen" title="Permanent link">&para;</a></h3>
+<p>Befehl zum Klonen des Repositories:
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.rz.htw-berlin.de/s0592157/webtech_aufgabe.git
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nb">cd</span><span class="w"> </span>webtech_aufgabe
+</span></code></pre></div></p>
+<h3 id="abhangigkeiten-installieren">Abhängigkeiten installieren<a class="headerlink" href="#abhangigkeiten-installieren" title="Permanent link">&para;</a></h3>
+<p><strong>Frontend:</strong>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nb">cd</span><span class="w"> </span>VerseLogic
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>npm<span class="w"> </span>install
+</span></code></pre></div>
+<strong>Backend:</strong>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nb">cd</span><span class="w"> </span>Backend
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>npm<span class="w"> </span>install
+</span></code></pre></div></p>
+<h3 id="anwendung-starten">Anwendung starten<a class="headerlink" href="#anwendung-starten" title="Permanent link">&para;</a></h3>
+<h4 id="datenbank-initialisieren">Datenbank initialisieren:<a class="headerlink" href="#datenbank-initialisieren" title="Permanent link">&para;</a></h4>
+<p>Bevor die Anwendung gestartet werden kann, muss eine .env-Datei erstellt werden, in der die Verbindungsdaten zu einer Datenbank hinterlegt sind. 
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nb">cd</span><span class="w"> </span>Backend
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>touch<span class="w"> </span>.env
+</span></code></pre></div></p>
+<h4 id="backend-starten_2">Backend starten:<a class="headerlink" href="#backend-starten_2" title="Permanent link">&para;</a></h4>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>node<span class="w"> </span>server.js
+</span></code></pre></div>
+<h4 id="tabellen-erstellen">Tabellen erstellen:<a class="headerlink" href="#tabellen-erstellen" title="Permanent link">&para;</a></h4>
+<p>Um die Tabellen zu initialisieren, rufe im Browser folgenden Link auf:
+<code>http://localhost:3000/init</code></p>
+<h4 id="frontend-starten_1">Frontend starten:<a class="headerlink" href="#frontend-starten_1" title="Permanent link">&para;</a></h4>
+<p>Öffne ein neues Terminalfenster und führe folgende Befehle aus, um das Frontend zu starten.
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nb">cd</span><span class="w"> </span>VerseLogic
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>ng<span class="w"> </span>serve
+</span></code></pre></div></p>
+<p>Sobald das Backend und Frontend laufen, ist die Anwendung unter <code>http://localhost:4200/</code> erreichbar.</p>
+<h2 id="hauptfunktionen">Hauptfunktionen<a class="headerlink" href="#hauptfunktionen" title="Permanent link">&para;</a></h2>
+<ul>
+<li>User-Authentifizierung: Registrierung &amp; Login</li>
+<li>Song-Erstellung: Benutzer können neue Songs mit Namen &amp; Sprache erstellen</li>
+<li>Song-Verwaltung:</li>
+<li>Songs auflisten, nach Name &amp; Status filtern</li>
+<li>Songs löschen oder bearbeiten</li>
+<li>Song-Editor:</li>
+<li>Lyrics-Ansicht: Texte schreiben &amp; speichern, inkl. Link zu einer Reimmaschine</li>
+<li>Tabs-Ansicht: Tabs erstellen und bearbeiten sowie Songstruktur hinzufügen</li>
+<li>Einstellungsansicht: Song-Details konfigurieren (Titel, Status, Sprache)</li>
+</ul>
+<h2 id="screenshots_2">Screenshots<a class="headerlink" href="#screenshots_2" title="Permanent link">&para;</a></h2>
+<p><strong>Login</strong>
+<img alt="Login" src="files/VerseLogic/public/screenshots/login.png" />
+<strong>Registrierung</strong>
+<img alt="Register" src="files/VerseLogic/public/screenshots/register.png" />
+<strong>Startseite</strong>
+<img alt="Home" src="files/VerseLogic/public/screenshots/home.png" />
+<strong>Songansicht - Lyrics</strong>
+<img alt="Lyrics" src="files/VerseLogic/public/screenshots/lyricsEdit.png" />
+<img alt="Lyrics" src="files/VerseLogic/public/screenshots/lyricsSaved.png" />
+<strong>Songansicht - Tabs</strong>
+<img alt="Tabs" src="files/VerseLogic/public/screenshots/tabs.png" />
+<strong>Songansicht - Settings</strong>
+<img alt="Settings" src="files/VerseLogic/public/screenshots/settings.png" />
+<img alt="Settings" src="files/VerseLogic/public/screenshots/settingsEdit.png" /></p>
+<h2 id="verwendete-tools">Verwendete Tools<a class="headerlink" href="#verwendete-tools" title="Permanent link">&para;</a></h2>
+<ul>
+<li>ChatGPT: Unterstützung bei Verständnisfragen, Generierung von Lösungsansätzen</li>
+<li>Codepen: Entwicklung und Gestaltung der Login/Register-Seite</li>
+</ul>
+<h2 id="to-do-nachste-mogliche-features">To-Do / Nächste mögliche Features<a class="headerlink" href="#to-do-nachste-mogliche-features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>KI-gestützte Song-Generierung</li>
+<li>Notenschreibsystem für andere Instrumente als Gitarre</li>
+<li>Möglichkeit, Audioinhalte hinzuzufügen</li>
+<li>Export der Lyrics &amp; Tabs als PDF</li>
+</ul>
+</details>
+<details class="success">
+<summary>TeilEs</summary>
+<h1 id="webtech2025"><span style="color:#2F5264; font-family: 'comfortaa';">WebTech2025</span><a class="headerlink" href="#webtech2025" title="Permanent link">&para;</a></h1>
+<p><img src="./files/Logo/Logo_TeilEs.png" align="center" height="60" width="300"/></p>
+<h2 id="was-ist-teiles"><span style="color:#2F5264; font-family: 'comfortaa';">Was ist TeilEs?</span><a class="headerlink" href="#was-ist-teiles" title="Permanent link">&para;</a></h2>
+<p><strong>Warum kaufen, wenn man es sich auch leihen kann!?</strong> <br>
+TeilEs ist eine Plattform auf der du ganz einfach mit anderen Dinge teilen kann.<br> 
+Du sparst Geld, handelst nachhaltig und kommst mit anderen in Kontakt. </p>
+<p>Suche und finde oder biete etwas an, was du gerne teilen möchtest. Natürlich alles kostenlos.</p>
+<h2 id="inhalt"><span style="color:#2F5264; font-family: 'comfortaa';">Inhalt</span><a class="headerlink" href="#inhalt" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#was-ist-teiles">Was ist TeilEs</a></li>
+<li><a href="#installationsanleitung">Installationsanleitung</a><ul>
+<li><a href="#voraussetzung-und-technologien">Voraussetzung &amp; Technologien</a></li>
+<li><a href="#installation">Installation</a></li>
+</ul>
+</li>
+<li><a href="#screenshots-der-anwendung">Screenshots der Anwendung</a></li>
+<li><a href="#verwendung-von-ki-werkzeugen-und-deren-einsatz">Verwendung von KI-Werkzeugen</a></li>
+<li><a href="#api-dokumentation">API Dokumentation</a></li>
+<li><a href="#weiteres">Weiteres</a></li>
+<li><a href="#entwicklungsteam">Entwicklungsteam</a></li>
+</ol>
+<h2 id="installationsanleitung"><span style="color:#2F5264; font-family: 'comfortaa';">Installationsanleitung</span><a class="headerlink" href="#installationsanleitung" title="Permanent link">&para;</a></h2>
+<h3 id="voraussetzung-und-technologien"><span style="color:#2F5264; font-family: 'comfortaa';">Voraussetzung und Technologien</span><a class="headerlink" href="#voraussetzung-und-technologien" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://nodejs.org/en">Node.js</a> (verwendete Version 22.14.0)</li>
+<li><a href="https://angular.dev">Angular CLI</a> (verwendete Version 19.2.1) - Installation über npm install -g @angular/cli</li>
+<li><a href="https://getbootstrap.com">Bootstrap</a></li>
+<li><a href="https://www.mongodb.com">MongoDB</a> (lokal oder als Cloud-Service) - Datenbank startet automatisch</li>
+</ul>
+<h3 id="installation_1"><span style="color:#2F5264; font-family: 'comfortaa';">Installation</span><a class="headerlink" href="#installation_1" title="Permanent link">&para;</a></h3>
+<p><strong>1. Repository clonen:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>git clone https://gitlab.rz.htw-berlin.de/Olivia.Lawinski/webtech2025.git
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>cd webtech2025
+</span></code></pre></div>
+<p><strong>2. Dependencies installieren</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>cd frontend
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>npm install
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>cd ../backend
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>npm install
+</span></code></pre></div>
+<p><strong>3. Backend starten</strong></p>
+<p>Backend läuft auf dem PORT 3000</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>cd backend
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>node server.js 
+</span></code></pre></div>
+<p><strong>4. Frontend starten</strong> </p>
+<p>Frontend läuft auf dem PORT 4200</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>cd frontend
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>ng serve 
+</span></code></pre></div>
+<p><strong>5. Anwendung im Browser starten</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>http://localhost:4200
+</span></code></pre></div>
+<h2 id="screenshots-der-anwendung"><span style="color:#2F5264; font-family: 'comfortaa';">Screenshots der Anwendung</span><a class="headerlink" href="#screenshots-der-anwendung" title="Permanent link">&para;</a></h2>
+<h4 id="home">Home<a class="headerlink" href="#home" title="Permanent link">&para;</a></h4>
+<p><img alt="Home" src="files/Screenshots_README/01_TeilEs_Home_Ansicht_03.png" /> </p>
+<h4 id="login">Login<a class="headerlink" href="#login" title="Permanent link">&para;</a></h4>
+<p><img alt="Login" src="files/Screenshots_README/02_TeilEs_Login.png" /></p>
+<h4 id="produktliste-mit-aktiver-suche">Produktliste mit aktiver Suche<a class="headerlink" href="#produktliste-mit-aktiver-suche" title="Permanent link">&para;</a></h4>
+<p><img alt="Produktliste_Suche" src="files/Screenshots_README/03_TeilEs_Produktliste_Suche.png" /></p>
+<h4 id="produktdetails-mit-kontaktaufnahme-des-anbieters">Produktdetails mit Kontaktaufnahme des Anbieters<a class="headerlink" href="#produktdetails-mit-kontaktaufnahme-des-anbieters" title="Permanent link">&para;</a></h4>
+<p><img alt="Produktdetails_Kontaktaufnahme" src="files/Screenshots_README/04_TeilEs_Produktdetail_KontaktAufnahme_bearb.png" /></p>
+<h4 id="chat-benachrichtigung-einer-eingegangenen-nachricht">Chat | Benachrichtigung einer eingegangenen Nachricht<a class="headerlink" href="#chat-benachrichtigung-einer-eingegangenen-nachricht" title="Permanent link">&para;</a></h4>
+<p><img alt="Chat_Antwort" src="files/Screenshots_README/08_TeilEs_Chat_Antwort.png" /></p>
+<h4 id="ubersicht-der-eigenen-anzeigen">Übersicht der eigenen Anzeigen<a class="headerlink" href="#ubersicht-der-eigenen-anzeigen" title="Permanent link">&para;</a></h4>
+<p><img alt="Eigene_Produktanzeige" src="files/Screenshots_README/09_TeilEs_Eigene_Produktanzeigen_b_bearb.png" /></p>
+<h2 id="verwendung-von-ki-werkzeugen-und-deren-einsatz"><span style="color:#2F5264; font-family: 'comfortaa';">Verwendung von KI-Werkzeugen und deren Einsatz</span><a class="headerlink" href="#verwendung-von-ki-werkzeugen-und-deren-einsatz" title="Permanent link">&para;</a></h2>
+<p>ChatGPT (OpenAI): 
+-   Unterstützung bei der Implementierung des Codes für den Chat sowie Bildupload (Bildupload nicht final implementiert)
+-   zur Fehleranalyse, z.B. Chat: Namensanzeige des Chatpartner war fehlerhaft und um Tippfehler zu finden
+-   Erstellung der GeoDaten (nicht final implementiert)   </p>
+<h2 id="api-dokumentation"><span style="color:#2F5264; font-family: 'comfortaa';">API Dokumentation</span><a class="headerlink" href="#api-dokumentation" title="Permanent link">&para;</a></h2>
+<p>Dieses Projekt verwendet <strong>Swagger</strong> zur Dokumentation der API.<br>
+Lokal : <a href="http://localhost:3000/api-docs/#/">http://localhost:3000/api-docs/#/</a></p>
+<h2 id="weiteres"><span style="color:#2F5264; font-family: 'comfortaa';">Weiteres</span><a class="headerlink" href="#weiteres" title="Permanent link">&para;</a></h2>
+<h4 id="verwendete-software">Verwendete Software:<a class="headerlink" href="#verwendete-software" title="Permanent link">&para;</a></h4>
+<p><div align="center">
+  <img src="./files/Logos_Software_README/icons8-visual-studio-code-2019-48.png" alt="Visual Studio Code" height="50" hspace="10">
+  <img src="./files/Logos_Software_README/icons8-mongo-db-48.png" alt="MongoDB Compass" height="50" hspace="10">
+  <img src="./files/Logos_Software_README/icons8-postman-inc-48.png" alt="Postman" height="40" hspace="510">
+  <img src="./files/Logos_Software_README/icons8-figma-48.png" alt="Figma" height="40" hspace="10">
+  <img src="./files/Logos_Software_README/icons8-affinity-designer-100.png" alt="Affinity Designer" height="50" hspace="10">
+  <img src="./files/Logos_Software_README/icons8-affinity-photo-100.png" alt="Affinity Photo" height="50" hspace="10">
+  <img src="./files/Logos_Software_README/Swagger.png" alt="Swagger" height="50" hspace="10">
+  <img src="./files/Logos_Software_README/icons8-trello-48.png" alt="Trello" height="50" hspace="510">
+  <img src="./files/Logos_Software_README/icons8-google-docs-48.png" alt="Google Docs" height="50" hspace="10">
+  <img src="./files/Logos_Software_README/icons8-slack-48.png" alt="Slack" height="40" hspace="10">
+  <img src="./files/Logos_Software_README/icons8-zoom-48.png" alt="Zoom" height="50" hspace="10">
+  <img src="./files/Logos_Software_README/icons8-chat-gpt-50.png" alt="Chatgbt" class="tech-logo" height="50" hspace="10">
+</div></p>
+<p><br>
+<br></p>
+<p>Icons by <a target="_blank" href="https://icons8.com">Icons8</a>: <a target="_blank" href="https://icons8.com/icon/0OQR1FYCuA9f/visual-studio-code-2019">Visual Studio Code 2019</a>, <a target="_blank" href="https://icons8.com/icon/bosfpvRzNOG8/mongo-db">Mongo Db</a>, <a target="_blank" href="https://icons8.com/icon/EPbEfEa7o8CB/postman-inc">Postman Inc</a>, <a target="_blank" href="https://icons8.com/icon/zfHRZ6i1Wg0U/figma">Figma</a>, <a target="_blank" href="https://icons8.com/icon/gdT1pX6POU5R/affinity-designer">Affinity Designer</a>, <a target="_blank" href="https://icons8.com/icon/YP2lOU31pp9S/affinity-photo">Affinity Photo</a>, <a target="_blank" href="https://icons8.com/icon/21049/trello">Trello</a>, <a target="_blank" href="https://icons8.com/icon/30464/google-docs">Google Docs</a>, <a target="_blank" href="https://icons8.com/icon/7csVZvHoQrLW/zoom">Zoom</a>, <a target="_blank" href="https://icons8.com/icon/4n94I13nDTyw/slack">Slack</a>, <a target="_blank" href="https://icons8.com/icon/FBO05Dys9QCg/chatgpt">Chat GPT</a>         </p>
+<h4 id="fonts-comfortaa-httpsfontsgooglecomspecimencomfortaa">Fonts:  Comfortaa <a href="https://fonts.google.com/specimen/Comfortaa">https://fonts.google.com/specimen/Comfortaa</a><a class="headerlink" href="#fonts-comfortaa-httpsfontsgooglecomspecimencomfortaa" title="Permanent link">&para;</a></h4>
+<h4 id="bildnachweis-teddy-gr-auf-unsplash">Bildnachweis: <a href="https://unsplash.com/de/@byteddygr?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Teddy GR</a> auf <a href="https://unsplash.com/de/fotos/silberner-imac-auf-weissem-holztisch-mGSs24hZ2CE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a><a class="headerlink" href="#bildnachweis-teddy-gr-auf-unsplash" title="Permanent link">&para;</a></h4>
+</details>
+<details class="success">
+<summary>Game Vault</summary>
+<h1 id="game-vault">Game Vault👾<a class="headerlink" href="#game-vault" title="Permanent link">&para;</a></h1>
+<h2 id="description">Description📜<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
+<p><strong>Game Vault</strong> is your own personal database for storing games with your rating.</p>
+<h2 id="key-features-of-game-vault">Key Features of Game Vault ⭐<a class="headerlink" href="#key-features-of-game-vault" title="Permanent link">&para;</a></h2>
+<ul>
+<li>🔍 <strong>Filter your games</strong> to easily find what you're looking for  </li>
+<li>🖥️ <strong>Responsive design</strong> for a seamless experience on desktops and laptops</li>
+<li>🔐 <strong>Personal database</strong> – each user has their own secure game collection  </li>
+</ul>
+<p><img alt="Game Vault Screenshot" src="files/neubertliedtke/image.png" title="Homepage" />
+<img alt="Screenshot" src="files/neubertliedtke/Screenshot%202025-03-27%20at%2009.59.19.png" title="Dashboard" /></p>
+<h2 id="how-to-install">How to Install 🚀<a class="headerlink" href="#how-to-install" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Connect to the HTW Berlin network via <a href="https://rz.htw-berlin.de/en/tutorials/vpn/">OpenVPN</a></li>
+<li>In your terminal, run:<br>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>setup.sh<span class="w"> </span><span class="c1"># Make it executable (only once)</span>
+</span></code></pre></div>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>./setup.sh<span class="w"> </span><span class="c1"># Run the script</span>
+</span></code></pre></div></li>
+<li>Configurate your <code>.env</code> file:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>PGUSER=&lt;s05...&gt;
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>PGHOST=psql.f4.htw-berlin.de
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>PGPASSWORD=&#39;your_password&#39;
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>PGDATABASE=game_vault
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>PGPORT=5432
+</span></code></pre></div></li>
+</ol>
+<h2 id="use-of-ai-in-this-project">Use of AI in This Project 🤖<a class="headerlink" href="#use-of-ai-in-this-project" title="Permanent link">&para;</a></h2>
+<p>We used Artificial Intelligence for the following points in this project:
+- Understanding concepts
+- Filter games by genres, publishers, platforms
+- Initializing Select2
+- Building complex database structure with JOINS</p>
+<h2 id="support">Support 💬<a class="headerlink" href="#support" title="Permanent link">&para;</a></h2>
+<p>If you have any questions, suggestions, or need assistance, please write us at <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#100;&#97;&#109;&#97;&#114;&#105;&#115;&#46;&#108;&#105;&#101;&#100;&#116;&#107;&#101;&#64;&#115;&#116;&#117;&#100;&#101;&#110;&#116;&#46;&#104;&#116;&#119;&#45;&#98;&#101;&#114;&#108;&#105;&#110;&#46;&#100;&#101;">&#100;&#97;&#109;&#97;&#114;&#105;&#115;&#46;&#108;&#105;&#101;&#100;&#116;&#107;&#101;&#64;&#115;&#116;&#117;&#100;&#101;&#110;&#116;&#46;&#104;&#116;&#119;&#45;&#98;&#101;&#114;&#108;&#105;&#110;&#46;&#100;&#101;</a> or <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#106;&#117;&#108;&#105;&#97;&#46;&#110;&#101;&#117;&#98;&#101;&#114;&#116;&#64;&#115;&#116;&#117;&#100;&#101;&#110;&#116;&#46;&#104;&#116;&#119;&#45;&#98;&#101;&#114;&#108;&#105;&#110;&#46;&#100;&#101;">&#106;&#117;&#108;&#105;&#97;&#46;&#110;&#101;&#117;&#98;&#101;&#114;&#116;&#64;&#115;&#116;&#117;&#100;&#101;&#110;&#116;&#46;&#104;&#116;&#119;&#45;&#98;&#101;&#114;&#108;&#105;&#110;&#46;&#100;&#101;</a> 🤝</p>
+</details>
+<details class="success">
+<summary>Finanzverwaltung mit EasyFinance</summary>
+<h1 id="finanzverwaltung-mit-easyfinance">Finanzverwaltung mit EasyFinance<a class="headerlink" href="#finanzverwaltung-mit-easyfinance" title="Permanent link">&para;</a></h1>
+<h2 id="ubersicht-zur-webanwendung">Übersicht zur Webanwendung:<a class="headerlink" href="#ubersicht-zur-webanwendung" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#allgemeine-infos">Allgemeine Infos</a></li>
+<li><a href="#projektstruktur">Projektstruktur</a></li>
+<li><a href="#beschreibung-der-anwendung-mit-screenshots">Beschreibung der Anwendung mit Screenshots</a></li>
+<li><a href="#datenmodell-mit-er-diagramm-und-konzept">Datenmodell mit ER Diagramm und Konzept</a></li>
+<li><a href="#technologien">Technologien</a></li>
+<li><a href="#verwendete-ki">Verwendete KI</a></li>
+<li><a href="#anleitung-zur-installation">Anleitung zur Installation</a></li>
+<li><a href="#lizenz">Lizenz</a></li>
+<li><a href="#kontakt">Kontakt</a></li>
+</ol>
+<h2 id="1-allgemeine-infos">1. Allgemeine Infos: <a name="allgemeine-infos"></a><a class="headerlink" href="#1-allgemeine-infos" title="Permanent link">&para;</a></h2>
+<p>EasyFinance ist eine Webanwendung,
+die im Kurs Webtechnologien 2024/25
+unter der Leitung von Prof. Freiheit
+von Maryam Mirza entwickelt wurde.
+Das Backend wurde mit Render deployed und ist unter <a href="https://backendwebtech.onrender.com">https://backendwebtech.onrender.com</a>
+erreichbar. Das Frontend ist mit Vercel deployed und
+die Anwendung ist unter <a href="https://frontend-webtech.vercel.app">https://frontend-webtech.vercel.app</a> erreichbar.
+Hinweis: Weil das Backend über Render läuft und Render nach längerer Inaktivität einen Moment braucht, 
+dauert es ca. 1min bis die Tabelle mit den Daten angezeigt wird.</p>
+<p>Die Webanwendung wurde mit Angular, Node.js und PostgreSQL gebaut.</p>
+<h2 id="2-projektstruktur">2.  Projektstruktur <a name="projektstruktur"></a><a class="headerlink" href="#2-projektstruktur" title="Permanent link">&para;</a></h2>
+<p>Backend:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>webtechnologien_backend/
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>│
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>├── controllers/
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>│   ├── kategorien.controller.js      - Logik für CRUD-Operationen auf Kategorien
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>│   └── transaktion.controller.js     - Logik für CRUD-Operationen auf Transaktionen
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>│
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>├── routes/
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>│   ├── kategorie.routes.js           - Definiert die API-Routen für Kategorien
+</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>│   ├── transaktion.routes.js         - Definiert die API-Routen für Transaktionen
+</span><span id="__span-44-10"><a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a>│   └──root.js                       - Beispiel für eine einfache Route
+</span><span id="__span-44-11"><a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a>│
+</span><span id="__span-44-12"><a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a>│
+</span><span id="__span-44-13"><a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a>├── db.js                             - Setzt die Verbindung zur PostgreSQL-Datenbank auf
+</span><span id="__span-44-14"><a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a>├── initdb.js                         - Initialisiert die Datenbank und befüllt sie mit Beispieldaten
+</span><span id="__span-44-15"><a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a>│
+</span><span id="__span-44-16"><a id="__codelineno-44-16" name="__codelineno-44-16" href="#__codelineno-44-16"></a>├── .env                              - Enthält Umgebungsvariablen, z. B. DB-Zugangsdaten (nicht hochladen!)
+</span><span id="__span-44-17"><a id="__codelineno-44-17" name="__codelineno-44-17" href="#__codelineno-44-17"></a>├── .gitignore                        - Definiert Dateien und Ordner, die von Git ignoriert werden sollen
+</span><span id="__span-44-18"><a id="__codelineno-44-18" name="__codelineno-44-18" href="#__codelineno-44-18"></a>├── package.json                      - Beschreibt das Projekt und die installierten Abhängigkeiten
+</span><span id="__span-44-19"><a id="__codelineno-44-19" name="__codelineno-44-19" href="#__codelineno-44-19"></a>├── package-lock.json                 - Speichert die exakte Version der Abhängigkeiten
+</span><span id="__span-44-20"><a id="__codelineno-44-20" name="__codelineno-44-20" href="#__codelineno-44-20"></a>└─ server.js                          - Startpunkt des Servers, konfiguriert Express und Bindet Routen ein
+</span></code></pre></div></p>
+<p>Frontend: 
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>webtechnologien_frontend/
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>│
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>src/
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>│
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>├── app/                                        # Hauptordner für die Anwendungslogik
+</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>│   ├── header/                                 # Header-Komponente
+</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>│   │   ├── header.component.html              
+</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>│   │   ├── header.component.ts                
+</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>│   │   └── header.component.css               
+</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>│   │
+</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>│   ├── footer/                                 # Footer-Komponente
+</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a>│   │   ├── footer.component.html             
+</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a>│   │   ├── footer.component.ts              
+</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>│   │   └── footer.component.css                
+</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a>│   │
+</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a>│   ├── dialog-loeschen/                        # Dialog zum Löschen
+</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a>│   │   ├── dialog-loeschen.component.html      
+</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a>│   │   ├── dialog-loeschen.component.ts        
+</span><span id="__span-45-19"><a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a>│   │   └── dialog-loeschen.component.css       
+</span><span id="__span-45-20"><a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a>│   │
+</span><span id="__span-45-21"><a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a>│   ├── main/                                   # Hauptkomponente
+</span><span id="__span-45-22"><a id="__codelineno-45-22" name="__codelineno-45-22" href="#__codelineno-45-22"></a>│   │   ├── main.component.html                 
+</span><span id="__span-45-23"><a id="__codelineno-45-23" name="__codelineno-45-23" href="#__codelineno-45-23"></a>│   │   ├── main.component.ts                   
+</span><span id="__span-45-24"><a id="__codelineno-45-24" name="__codelineno-45-24" href="#__codelineno-45-24"></a>│   │   └── main.component.css                
+</span><span id="__span-45-25"><a id="__codelineno-45-25" name="__codelineno-45-25" href="#__codelineno-45-25"></a>│   │
+</span><span id="__span-45-26"><a id="__codelineno-45-26" name="__codelineno-45-26" href="#__codelineno-45-26"></a>│   ├── services/                               # Dienste für Daten- und Backend-Logik
+</span><span id="__span-45-27"><a id="__codelineno-45-27" name="__codelineno-45-27" href="#__codelineno-45-27"></a>│   │   ├── backend-kategorien.service.ts       # Service für Kategorien-Backend mit URL
+</span><span id="__span-45-28"><a id="__codelineno-45-28" name="__codelineno-45-28" href="#__codelineno-45-28"></a>│   │   ├── backend-transaktions.service.ts     # Service für Transaktionen-Backend mit URL
+</span><span id="__span-45-29"><a id="__codelineno-45-29" name="__codelineno-45-29" href="#__codelineno-45-29"></a>│   │   ├── kategorien.ts
+</span><span id="__span-45-30"><a id="__codelineno-45-30" name="__codelineno-45-30" href="#__codelineno-45-30"></a>│   │   └── transaktion.ts                      
+</span><span id="__span-45-31"><a id="__codelineno-45-31" name="__codelineno-45-31" href="#__codelineno-45-31"></a>│   │
+</span><span id="__span-45-32"><a id="__codelineno-45-32" name="__codelineno-45-32" href="#__codelineno-45-32"></a>│   ├── transaktionen/                          # Verwaltung und Anzeige von der Tabelle Transaktionen
+</span><span id="__span-45-33"><a id="__codelineno-45-33" name="__codelineno-45-33" href="#__codelineno-45-33"></a>│   │   ├── transaktionen.component.html        
+</span><span id="__span-45-34"><a id="__codelineno-45-34" name="__codelineno-45-34" href="#__codelineno-45-34"></a>│   │   ├── transaktionen.component.ts         
+</span><span id="__span-45-35"><a id="__codelineno-45-35" name="__codelineno-45-35" href="#__codelineno-45-35"></a>│   │   └── transaktionen.component.css         
+</span><span id="__span-45-36"><a id="__codelineno-45-36" name="__codelineno-45-36" href="#__codelineno-45-36"></a>│   │
+</span><span id="__span-45-37"><a id="__codelineno-45-37" name="__codelineno-45-37" href="#__codelineno-45-37"></a>│   ├── transaction-dialog-hinzufuegen/         # Dialog zum Hinzufügen von Transaktionen
+</span><span id="__span-45-38"><a id="__codelineno-45-38" name="__codelineno-45-38" href="#__codelineno-45-38"></a>│   │   ├── transaction-dialog.component.html   
+</span><span id="__span-45-39"><a id="__codelineno-45-39" name="__codelineno-45-39" href="#__codelineno-45-39"></a>│   │   ├── transaction-dialog.component.ts    
+</span><span id="__span-45-40"><a id="__codelineno-45-40" name="__codelineno-45-40" href="#__codelineno-45-40"></a>│   │   └── transaction-dialog.component.css   
+</span><span id="__span-45-41"><a id="__codelineno-45-41" name="__codelineno-45-41" href="#__codelineno-45-41"></a>│   │
+</span><span id="__span-45-42"><a id="__codelineno-45-42" name="__codelineno-45-42" href="#__codelineno-45-42"></a>│   ├── app.component.html                      # Root-Template der Anwendung
+</span><span id="__span-45-43"><a id="__codelineno-45-43" name="__codelineno-45-43" href="#__codelineno-45-43"></a>│   ├── app.component.ts                        # Root-Komponente der Anwendung
+</span><span id="__span-45-44"><a id="__codelineno-45-44" name="__codelineno-45-44" href="#__codelineno-45-44"></a>│   ├── app.component.css                      
+</span><span id="__span-45-45"><a id="__codelineno-45-45" name="__codelineno-45-45" href="#__codelineno-45-45"></a>│   ├── app.module.ts                           # Hauptmodul der Angular-Anwendung
+</span><span id="__span-45-46"><a id="__codelineno-45-46" name="__codelineno-45-46" href="#__codelineno-45-46"></a>│   ├── app.config.ts 
+</span><span id="__span-45-47"><a id="__codelineno-45-47" name="__codelineno-45-47" href="#__codelineno-45-47"></a>│   └── app-routes.ts                           
+</span><span id="__span-45-48"><a id="__codelineno-45-48" name="__codelineno-45-48" href="#__codelineno-45-48"></a>│                                  
+</span><span id="__span-45-49"><a id="__codelineno-45-49" name="__codelineno-45-49" href="#__codelineno-45-49"></a>│
+</span><span id="__span-45-50"><a id="__codelineno-45-50" name="__codelineno-45-50" href="#__codelineno-45-50"></a>├── styles.css                                  # Globale CSS-Dateien der App
+</span><span id="__span-45-51"><a id="__codelineno-45-51" name="__codelineno-45-51" href="#__codelineno-45-51"></a>├── index.html                                  # Startpunkt der Angular-Anwendung
+</span><span id="__span-45-52"><a id="__codelineno-45-52" name="__codelineno-45-52" href="#__codelineno-45-52"></a>├── main.ts                                     # Einstiegspunkt/Bootstrap der Anwendung                        
+</span><span id="__span-45-53"><a id="__codelineno-45-53" name="__codelineno-45-53" href="#__codelineno-45-53"></a>├── .gitignore  
+</span><span id="__span-45-54"><a id="__codelineno-45-54" name="__codelineno-45-54" href="#__codelineno-45-54"></a>├── angular.json                                # CLI-Konfiguration für das Projekt
+</span><span id="__span-45-55"><a id="__codelineno-45-55" name="__codelineno-45-55" href="#__codelineno-45-55"></a>├── package.json  
+</span><span id="__span-45-56"><a id="__codelineno-45-56" name="__codelineno-45-56" href="#__codelineno-45-56"></a>├── package-lock.json  
+</span><span id="__span-45-57"><a id="__codelineno-45-57" name="__codelineno-45-57" href="#__codelineno-45-57"></a>├── README.md
+</span><span id="__span-45-58"><a id="__codelineno-45-58" name="__codelineno-45-58" href="#__codelineno-45-58"></a>├── tsconfig.app.json
+</span><span id="__span-45-59"><a id="__codelineno-45-59" name="__codelineno-45-59" href="#__codelineno-45-59"></a>└── tsconfig.json
+</span></code></pre></div></p>
+<hr />
+<h2 id="3-beschreibung-der-anwendung-mit-screenshots">3. Beschreibung der Anwendung mit Screenshots: <a name="beschreibung-der-anwendung-mit-screenshots"></a><a class="headerlink" href="#3-beschreibung-der-anwendung-mit-screenshots" title="Permanent link">&para;</a></h2>
+<p>EasyFinance ist ein Prototyp, der dafür gedacht ist, sich leicht einen Überblick über die eigenen Finanzen machen zu können.
+Die Idee ist einfach Ausgaben und Einnahmen eintragen zu können und mit Wichtigkeitslabels unnötige Ausgaben direkt zu entdecken.
+So entsteht eine Übersicht wo leicht zu erkennen ist, wo eingespart werden könnte.
+Praktisch ist, dass hier auch Bar Einnahmen und Ausgaben erfasst werden können, was
+bei einem herkömmlichen Kontoauszug nicht erfasst wird.</p>
+<p>Wenn die Anwendung weiterentwickelt werden sollte, wäre eine Registrierung und ein Login zum Datenschutz notwendig.
+Zudem müssten die Daten verschlüsselt werden.</p>
+<h3 id="31-feature-1-transaktion-hinzufuegen">3.1 Feature 1: Transaktion hinzufuegen<a class="headerlink" href="#31-feature-1-transaktion-hinzufuegen" title="Permanent link">&para;</a></h3>
+<p>Um eine Transaktion hinzuzufügen klicke auf Transaktion hinzufügen.
+Es öffnet sich ein Dialog und du kannst alle benötigten
+Werte eingeben. Für die Transaktion gibt es ein Datepicker, sodass du schnell das passende Datum findest.
+Zudem gibt es Kategorien unter denen du per Drop Down auswählen kannst.
+In dem Drop Down Typ gibst du ein, ob es sich um eine Eingabe oder Ausgabe handelt.
+Ob es eine wichtige Ausgabe war, wird automatisch dann per Icon angezeigt, sobald du fertig bist.
+Du kannst die Transaktion auch abbrechen, falls du es dir anders überlegst.</p>
+<p>Ein Hinweis im Dialogfenster erinnert daran, dass alle Felder ausgefüllt werden müssen.
+Erst wenn alle Felder in korrekter Form eingetragen wurden, kann eine Transaktion hinzugefügt werden.
+Das stellt sicher, dass keine fehlerhaften Transaktionen hinzugefügt werden.</p>
+<p>Solange nicht alle Felder korrekt ausgefüllt sind, erscheint ein Hinweis.
+<img alt="" src="bilderReadme/add1.jpg" /></p>
+<p>Sobald alle Felder korrekt ausgefüllt wurden, verschwindet der Hinweis und es kann auf ok geklickt werden.
+<img alt="" src="bilderReadme/add2.jpg" /></p>
+<h3 id="32-feature-2-transaktion-loschen">3.2 Feature 2: Transaktion löschen<a class="headerlink" href="#32-feature-2-transaktion-loschen" title="Permanent link">&para;</a></h3>
+<p>Wenn mit der Maus über den Trash-Icon gehoovert wird, leuchtet das Icon in pinker Farbe auf.
+Sobald zum Löschen drauf geklickt wird, öffnet sich ein Dialog, sodass die Transaktion gelöscht werden kann.
+Der Dialog stellt sicher, dass nicht versehentlich etwas gelöscht wird.</p>
+<p><img alt="" src="bilderReadme/delete.jpg" /></p>
+<h3 id="33-extra-feature">3.3 Extra Feature:<a class="headerlink" href="#33-extra-feature" title="Permanent link">&para;</a></h3>
+<p>Per Hinweis mit Ausrufezeichen-Icon lassen sich unnötige Ausgaben so schnell entdecken.
+Damit erhält die Nutzer:in leicht einen Überblick, wo sie einfach einsparen könnte.
+<img alt="" src="files/bilderReadme/ipadHorizontal.jpeg" />
+Ipad Ansicht mit Wichtigkeitslabel bei Sonnencreme</p>
+<h3 id="34-responsives-design">3.4 Responsives Design:<a class="headerlink" href="#34-responsives-design" title="Permanent link">&para;</a></h3>
+<p>Das Design ist mit Bootstrap resposiv gestaltet, damit Transaktionen auch vom Smartphone oder Tablet verwaltet werden können. 
+Damit die Übersicht der Transaktionen lesbar angezeigt wird, werden auf kleinen Bildschirmen nur die wichtigsten Spalten der Tabelle angezeigt.
+Die Kategorie und das Wichtigkeitslabel sind nur auf größeren Bildschirmen (ab Tabletgröße) sichtbar.</p>
+<p><img alt="" src="files/bilderReadme/addMobile.jpeg" /></p>
+<p>Transaktion hinzufügen - Ansicht auf dem Smartphone</p>
+<p><img alt="" src="files/bilderReadme/UbersichtMobile.jpeg" /></p>
+<p>Übersicht aller Transaktionen - Ansicht auf dem Smartphone</p>
+<h2 id="4-datenmodell-mit-er-diagramm-und-konzept">4. Datenmodell mit ER Diagramm und Konzept <a name="datenmodell-mit-er-diagramm-und-konzept"></a><a class="headerlink" href="#4-datenmodell-mit-er-diagramm-und-konzept" title="Permanent link">&para;</a></h2>
+<h3 id="er-diagramm">ER-Diagramm:<a class="headerlink" href="#er-diagramm" title="Permanent link">&para;</a></h3>
+<p><img alt="" src="files/bilderReadme/ER.jpg" /></p>
+<h3 id="konzept">Konzept:<a class="headerlink" href="#konzept" title="Permanent link">&para;</a></h3>
+<p>Die Webanwendung ist ein Prototyp zur Finanzverwaltung.
+Die eingegebenen Daten sind fiktiv und dienen nur zum Ausprobieren.
+Sie können von allen, die Zugriff auf die Seite haben verändert werden.</p>
+<p>EasyFinance kann mit einer Registrierung und einem Login erweitert werden.
+Damit auch echte persönliche Daten eingegeben werden können, ist ein Login
+sowie eine Verschlüsselung der Datenbank zum Datenschutz notwendig.</p>
+<p>Die Erweiterung könnte zudem noch eine weitere Bearbeiten-CRUD Operation
+sowie Filter für eine detaillierte Analyse beinhalten.</p>
+<h2 id="5-technologien">💻 5. Technologien: <a name="technologien"></a><a class="headerlink" href="#5-technologien" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Entwicklungsumgebung: IntelliJ IDEA 2024.2.4 (Ultimate Edition)</li>
+<li>Datenbank: PostgreSQL Version 16</li>
+<li>Backend: <a href="https://nodejs.org/en">Node.js</a> v22.11.0, Express 4.21.2, JavaScript</li>
+<li>Frontend: Angular <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 19.2.0.</li>
+<li>
+<p>HTML, CSS, Typescript</p>
+</li>
+<li>
+<p>Server für Backend und Datenbank: <a href="https://render.com/">Render</a></p>
+</li>
+<li>Server für Frontend: <a href="https://vercel.com">Vercel</a></li>
+</ul>
+<h2 id="6-verwendete-ki">🤖️ 6. Verwendete KI: <a name="verwendete-ki"></a><a class="headerlink" href="#6-verwendete-ki" title="Permanent link">&para;</a></h2>
+<ul>
+<li>perplexity.ai</li>
+<li>Github Co-Pilot</li>
+<li>Backend: Controller und Routen teilweise mit Perplexity erstellt.</li>
+<li>Frontend: Teilweise mit Perplexity erstellt. Z.B. bei dem Datepicker.</li>
+<li>Frontend: Hinweis im Dialogfenster Transaktion hinzufügen mit Github Co-Pilot sowie Fehlermeldungen damit gefixt und Layout-Design.</li>
+</ul>
+<h2 id="7-anleitung-zur-installation">🛠️ 7. Anleitung zur Installation: <a name="anleitung-zur-installation"></a><a class="headerlink" href="#7-anleitung-zur-installation" title="Permanent link">&para;</a></h2>
+<h3 id="wichtiger-hinweis">Wichtiger Hinweis<a class="headerlink" href="#wichtiger-hinweis" title="Permanent link">&para;</a></h3>
+<p>Die Datenabank wurde mit Render deployed und ist bis zum 06.04.2025 erreichbar. 
+Danach wird sie von Server genommen. 
+Es kann dann stattdessen die Datenbank von ocean der HTW verwendet werden.
+Dazu muss im Backend die .env Datei angepasst werden mit den Umgebungsvariablen und Anmeldeinformation der ocean Datenbank.</p>
+<p>Das Backend ist unter <a href="https://backendwebtech.onrender.com">https://backendwebtech.onrender.com</a> erreichbar.</p>
+<p>Die Frontend-Anwendung ist unter <a href="https://frontend-webtech.vercel.app">https://frontend-webtech.vercel.app</a> erreichbar.</p>
+<h3 id="voraussetzungen_2">Voraussetzungen:<a class="headerlink" href="#voraussetzungen_2" title="Permanent link">&para;</a></h3>
+<p><a href="https://nodejs.org/en">Node.js</a> installiert haben.
+<a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">npm</a> installiert haben.</p>
+<h3 id="repository-klonen-frontend-und-backend">Repository klonen (Frontend und Backend)<a class="headerlink" href="#repository-klonen-frontend-und-backend" title="Permanent link">&para;</a></h3>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.rz.htw-berlin.de/s0591690/webtechnologien_frontend.git
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.rz.htw-berlin.de/s0591690/webtechnologien_backend.git
+</span></code></pre></div></p>
+<p>In das entsprechende Projektverzeichnis mit der Bash wechseln:
+Beispielweise:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="nb">cd</span><span class="w"> </span>webtechnologien_frontend
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nb">cd</span><span class="w"> </span>webtechnologien_backend
+</span></code></pre></div></p>
+<h3 id="abhangigkeiten-installieren_1">Abhängigkeiten installieren<a class="headerlink" href="#abhangigkeiten-installieren_1" title="Permanent link">&para;</a></h3>
+<p>(Frontend und Backend)
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>npm<span class="w"> </span>install
+</span></code></pre></div></p>
+<h3 id="vpn-verbinden">VPN verbinden<a class="headerlink" href="#vpn-verbinden" title="Permanent link">&para;</a></h3>
+<h3 id="backend-starten-mit">Backend starten mit<a class="headerlink" href="#backend-starten-mit" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>node<span class="w"> </span>server.js
+</span></code></pre></div>
+<h3 id="frontend-starten-mit">Frontend starten mit<a class="headerlink" href="#frontend-starten-mit" title="Permanent link">&para;</a></h3>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>ng<span class="w"> </span>serve
+</span></code></pre></div>
+Sobald der Server läuft, öffne deinen Browser und gehe zu <code>http://localhost:4200/</code>. 
+Die Applikation wird automatisch neu laden wenn du die source files veränderst.</p>
+<p>Wenn du das Projekt nicht lokal starten, 
+sondern direkt über den Browser aufrufen möchtest, 
+dann gehe zu <a href="https://frontend-webtech.vercel.app">https://frontend-webtech.vercel.app</a>.</p>
+<h3 id="bauen">Bauen<a class="headerlink" href="#bauen" title="Permanent link">&para;</a></h3>
+<p>Um das Projekt zu deployen muss es vorher gebuildet werden. Das geht im Terminal mit:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>ng<span class="w"> </span>build
+</span></code></pre></div>
+Das kompiliert das Projekt und speichert die Build-Dateien im Verzeichnis <code>dist/</code>. 
+Im dist Verzeichnis ist die fertige Version von der Webanwendung drin.</p>
+<h2 id="8-lizenz">📝 8. Lizenz <a name="lizenz"></a><a class="headerlink" href="#8-lizenz" title="Permanent link">&para;</a></h2>
+<p>Dieses Projekt steht unter der MIT-Lizenz. Weitere Informationen findest du in der LICENSE-Datei.</p>
+</details>
+<details class="success">
+<summary>Produktmanager</summary>
+<h1 id="produktmanager-frontend-backend">Produktmanager Frontend &amp; Backend<a class="headerlink" href="#produktmanager-frontend-backend" title="Permanent link">&para;</a></h1>
+<p>Dieses Projekt ist eine Webanwendung zur Verwaltung von Produkten, die es ermöglicht, Produkte hinzuzufügen, zu aktualisieren, anzuzeigen und zu löschen. Es besteht aus einem <strong>Angular-Frontend</strong> und einem <strong>Node.js-Backend</strong> mit Verbindung zu einer <strong>PostgreSQL-Datenbank</strong>.</p>
+<h1 id="funktionalitaten">Funktionalitäten<a class="headerlink" href="#funktionalitaten" title="Permanent link">&para;</a></h1>
+<p>Das Produktmanager-Projekt ermöglicht folgende Funktionen:</p>
+<ul>
+<li><strong>Produkterstellung:</strong> Benutzer können neue Produkte mit Kategorien, Herstellerinformationen, Zutaten und Nährwertinformationen hinzufügen.</li>
+<li><strong>Produktanzeige:</strong> Eine Liste aller vorhandenen Produkte wird angezeigt, mit Detailansichten für jedes Produkt.</li>
+<li><strong>Produktbearbeitung:</strong> Bereits erstellte Produkte können aktualisiert werden.</li>
+<li><strong>Produktlöschung:</strong> Benutzer können Produkte löschen.</li>
+<li><strong>Datenverwaltung:</strong> Automatische Verbindung zu einer PostgreSQL-Datenbank.</li>
+<li><strong>Benutzerfreundliche Oberfläche:</strong> Verwenden von Angular Material für ein ansprechendes und intuitives Design.</li>
+</ul>
+<h2 id="produktliste">📦 Produktliste<a class="headerlink" href="#produktliste" title="Permanent link">&para;</a></h2>
+<p>Dies ist die Hauptansicht der Produktliste in der Anwendung.</p>
+<p><img alt="Produktliste" src="files/goncalvez/images/produktliste.png" /></p>
+<hr />
+<h2 id="produkt-hinzufugen">➕ Produkt hinzufügen<a class="headerlink" href="#produkt-hinzufugen" title="Permanent link">&para;</a></h2>
+<p>Formular zum Hinzufügen eines neuen Produkts.</p>
+<p><img alt="Produkt hinzufügen" src="files/goncalvez/images/produkt_hinzufuegen.png" /></p>
+<hr />
+<h2 id="produkt-details">🔍 Produkt Details<a class="headerlink" href="#produkt-details" title="Permanent link">&para;</a></h2>
+<p>Detailansicht eines spezifischen Produkts.</p>
+<p><img alt="Produkt Details" src="files/goncalvez/images/produkt_details.png" /></p>
+<h2 id="produkt-bearbeiten">🔍 Produkt Bearbeiten<a class="headerlink" href="#produkt-bearbeiten" title="Permanent link">&para;</a></h2>
+<p>Detailansicht eines spezifischen Produkts.</p>
+<p><img alt="Produkt Details" src="files/goncalvez/images/produkt_bearbeiten.png" /></p>
+<h2 id="installation_2">Installation<a class="headerlink" href="#installation_2" title="Permanent link">&para;</a></h2>
+<h3 id="voraussetzungen_3">Voraussetzungen<a class="headerlink" href="#voraussetzungen_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Node.js (mindestens Version 16)</li>
+<li>npm (mit Node.js installiert)</li>
+<li>PostgreSQL Datenbank</li>
+</ul>
+<h3 id="backend-setup">Backend Setup<a class="headerlink" href="#backend-setup" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Klone das Repository:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="w">  </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/goncabi/produktmanager-backend.git
+</span></code></pre></div>
+<ol>
+<li>Navigiere in das Backend-Verzeichnis:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="w">  </span><span class="nb">cd</span><span class="w"> </span>produktmanager-backend
+</span></code></pre></div>
+<ol>
+<li>Installiere die Abhängigkeiten:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="w">  </span>npm<span class="w"> </span>install
+</span></code></pre></div>
+<ol>
+<li>Erstelle eine <code>.env</code> Datei im Backend-Verzeichnis mit folgendem Inhalt:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>  DB_USER=&lt;DeinBenutzername&gt;
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>  DB_PASSWORD=&lt;DeinPasswort&gt;
+</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>  DB_HOST=&lt;DatenbankHost&gt;
+</span><span id="__span-57-4"><a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a>  DB_NAME=produktmanager
+</span><span id="__span-57-5"><a id="__codelineno-57-5" name="__codelineno-57-5" href="#__codelineno-57-5"></a>  DB_PORT=5432
+</span></code></pre></div>
+<ol>
+<li>Starte den Server:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="w">  </span>node<span class="w"> </span>server.js
+</span></code></pre></div>
+<h3 id="frontend-setup">Frontend Setup<a class="headerlink" href="#frontend-setup" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Klone das Repository:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="w">  </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/goncabi/produktmanager-frontend.git
+</span></code></pre></div>
+<ol>
+<li>Navigiere in das Frontend-Verzeichnis:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="w">  </span><span class="nb">cd</span><span class="w"> </span>produktmanager-frontend
+</span></code></pre></div>
+<ol>
+<li>Installiere die Abhängigkeiten:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="w">  </span>npm<span class="w"> </span>install
+</span></code></pre></div>
+<ol>
+<li>Starte das Frontend:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="w">  </span>ng<span class="w"> </span>serve
+</span></code></pre></div>
+<h3 id="deployment_2">Deployment<a class="headerlink" href="#deployment_2" title="Permanent link">&para;</a></h3>
+<h4 id="backend-deployment-render">Backend Deployment (Render)<a class="headerlink" href="#backend-deployment-render" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Stelle sicher, dass deine Umgebungsvariablen auf Render gesetzt sind (DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT).</li>
+<li>Lade das Repository auf Render hoch und starte die Anwendung.</li>
+</ol>
+<h4 id="frontend-deployment-render">Frontend Deployment (Render)<a class="headerlink" href="#frontend-deployment-render" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Stelle sicher, dass <code>angular.json</code> den richtigen <code>outputPath</code> (<code>dist/frontend/browser</code>) definiert.</li>
+<li>Stelle sicher, dass du <code>ng build</code> ausführst, bevor du deployst.</li>
+<li>Lade die gebauten Dateien (<code>dist/frontend/browser</code>) auf Render hoch.</li>
+</ol>
+<h3 id="verwendung">Verwendung<a class="headerlink" href="#verwendung" title="Permanent link">&para;</a></h3>
+<p>Das Frontend kann auf <code>http://localhost:4200</code> aufgerufen werden. Das Backend läuft auf <code>http://localhost:5000</code>.</p>
+<h3 id="technologien_1">Technologien<a class="headerlink" href="#technologien_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Angular (Frontend)</li>
+<li>Angular Material</li>
+<li>Node.js (Backend)</li>
+<li>Express</li>
+<li>PostgreSQL</li>
+</ul>
+<h3 id="quellen">Quellen<a class="headerlink" href="#quellen" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Wo ChatGPT unterstützt hat:</li>
+<li>Unterstützung bei der Erstellung von Angular-Komponenten.</li>
+<li>Hilfe beim Aufbau von Backend-Routen.</li>
+<li>Beratung bei der Verbindung mit der Datenbank.</li>
+<li>Unterstützung bei der Fehlerbehebung während des Deployments.</li>
+<li>Verbesserung der Projektstruktur und der Kommunikation zwischen Frontend und Backend.</li>
+<li>Optimierung der Datenverarbeitung und Validierung im Backend.</li>
+</ul>
+<p>Viel Spaß beim Verwenden des Produktmanagers! 🚀</p>
+</details>
 
 
 

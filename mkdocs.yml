@@ -82,6 +82,7 @@ nav:
     - Angular - Templates: templates.md
     - Angular -  Routing und Services: routing.md 
     - Angular - Datenfluss und Signals: signals.md
+    - Backend (MongoDB): backend.md
     - Backend (PostgreSQL): backend_pg.md
     - Front- & Backend - Anbindung: fe-be-anbindung.md 
     - Front- & Backend - Guards: guards.md 

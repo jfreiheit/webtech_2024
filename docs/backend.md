@@ -3,9 +3,6 @@
 Die wesentlichsten Konzepte, wie Komponenten, Services und Routing für Angular-Projekte haben wir bereits kennengelernt. Ehe wir uns weiter mit dem Frontend beschäftigen, erstellen wir einen Server, der uns die Daten liefert. Derzeit haben wir unsere Mockup-Daten noch clientseitig von einem Service verwalten lassen. Das wollen wir nun ändern. Die Daten speichern wir in einer Datenbank und stellen sie über eine REST-API bereit. 
 
 
-??? note "Video zur Vorlesung Backend(MongoDB)"
-	<iframe src="https://mediathek.htw-berlin.de/media/embed?key=0aa0f30ec91e4254db1e4a33d0eaff89&width=720&height=540&autoplay=false&controls=true&autolightsoff=false&loop=false&chapters=false&playlist=false&related=false&responsive=false&t=0&loadonclick=true&thumb=true" data-src="https://mediathek.htw-berlin.de/media/embed?key=0aa0f30ec91e4254db1e4a33d0eaff89&width=720&height=540&autoplay=false&controls=true&autolightsoff=false&loop=false&chapters=false&playlist=false&related=false&responsive=false&t=0&loadonclick=true" class="" width="720" height="540" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" aria-label="media embed code" style=""></iframe>
-
 ## REST
 
 Für diese Datenbank stellen wir die Implementierung einer Schnittstelle bereit, so dass wir die wesentlichen Datenbankanfragen darüber ausführen können. Diese wesentlichen Datenbankfragen werden mit [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) abgekürzt, für <strong>C</strong>reate, <strong>R</strong>ead, <strong>U</strong>pdate und <strong>D</strong>elete. Das bedeutet, wir implementieren Funktionalitäten, mit denen wir einen neuen Datensatz in die Datenbank einfügen (*create*), aus der Datenbank auslesen (*read*), in der Datenbank aktualisieren (*update*) und aus der Datenbank löschen (*delete*) können. 
@@ -110,7 +107,10 @@ Sie erhalten eine Meldung in der Form:
 ```bash
 % npm install express --save
 
-added 50 packages, and audited 51 packages in 844ms
+added 66 packages, and audited 67 packages in 1s
+
+14 packages are looking for funding
+  run `npm fund` for details
 
 found 0 vulnerabilities
 ```
@@ -134,7 +134,7 @@ In der `package.json` wurde die entsprechende Abhängigkeit eingetragen:
 	  "author": "J. Freiheit",
 	  "license": "ISC",
 	  "dependencies": {
-	    "express": "^4.18.2"
+	    "express": "^5.1.0"
 	  }
 	}
 	``` 
@@ -276,10 +276,47 @@ router.get('/fiw', async(req, res) => {
 
 ändern, dann ist der GET-Endpunkt `localhost:3000/api/fiw`. 
 
+## MongoDB
 
-### Datenbank erstellen
+Als Datenbankmanagementsystem verwenden wir [MongoDB](https://www.mongodb.com/). MongoDB ist ein Open-Source NoSQL-Datenbankmanagementsystem. *No* steht dabei für *not only*, also *not only SQL*. Es nicht kein relationales sondern ein dokementenbasiertes Datenbankmanagementsystem. Eine Datenbank besteht in MongoDB aus einer oder mehrerer *Collection*s. Eine *Collection* wiederum enthält *Dokumente*. Eine *Collection* kann, im Gegensatz zu relationalen Datenbankmanagementsystemen, völlig unterschiedliche Dokumente enthalten. 
 
-Wenn `mongosh` gestartet ist, erscheint im Terminal `test>`. Das bedeutet, dass Sie auf der Datenbank `test` operieren. Mit dem Befehl `db` können Sie sich die Datenbank anschauen, auf der Sie gerade operieren. Das ist zu Beginn die `test`-Datenbank. Wir wollen eine neue Datenbank `members` erstellen. Dazu nutzen wir den Befehl `use <db>`:
+Um eine MongoDB-Datenbank aufzusetzen haben Sie 2 Möglichkeiten:
+
+1. Sie installieren sich MongoDB auf Ihrem Rechner oder
+2. Sie nutzen die Cloud-Lösung [MongoDB Atlas](https://www.mongodb.com/de-de/atlas).
+
+Für die Verwaltung Ihrer Datenbank(en) können (und sollten) Sie [MongoDB Compass](https://www.mongodb.com/de-de/products/tools/compass) verwenden.
+
+### MongoDB lokal installieren
+
+Um MongoDB lokal auf Ihrem Rechner aufzusetzen installieren Sie die [MongoDB Community Edition](https://www.mongodb.com/de-de/products/self-managed/community-edition). Die jeweilige Installationsanleitung für Ihr Betriebssystem finden Sie [hier](https://www.mongodb.com/docs/manual/administration/install-community/#std-label-install-mdb-community-edition). Unter MacOS sollten Sie z.B. `brew` verwenden, um MongoDB zu installieren. Ein Herunterladen des [MongoDB Community Server](https://www.mongodb.com/try/download/community) ist dann gar nicht notwendig, das geschieht dann mittels `brew install mongodb-community@8.0`. 
+
+### MongoDB Atlas nutzen
+
+Sie müssen MongoDB nicht lokal installieren, sondern können die Cloud-Lösung [MongoDB Atlas]() nutzen. Das hat auch den Vorteil, dass Sie Ihr Projekt später leichter deployen können. Um *MongoDB Atlas* zu nutzen, benötigen Sie einen Account bei MongoDB. Wählen Sie unbedingt einen **kostenlosen** Cluster aus!
+
+Nach Einrichtung sieht es unter dem Menüpunkt `Data Explorer` dann ungefähr so aus (die Datenbanken `members` und `users` haben Sie noch nicht):
+
+![mongodb](./files/321_atlas.png)
+
+Im `Data Explorer` können Sie auch eine Datenbank erstellen. Klicken Sie, wie in der folgenden Abbildung gezeigt, auf das `+` neben `Cluster0` und geben Sie sowohl als `Collection` als auch als Datenbank `members` ein:
+
+
+![mongodb](./files/322_mongodb.png)
+
+### MongoDB Compass installieren
+
+Zur Verwaltung Ihrer Datenbanken können Sie [MongoDB Compass](https://www.mongodb.com/products/tools/compass) nutzen. Nach der Installation stellen Sie in *Compass* eine Verbindung zur MongoDB her. Die Oberfläche von *Compass* sieht nach Verbindungsherstellung ungefähr so aus (die Daten haben Sie noch nicht und auf der Abbildung bin ich sowohl mit der lokalen Installation von MongoDB als auch mit Atlas verbunden):
+
+![mongodb](./files/320_compass.png)
+
+In *Compass* können Sie auch eine Datenbank erstellen. Klicken Sie, wie in der folgenden Abbildung gezeigt, auf das `+` neben Ihrer *Connection* (lokal oder Atlas) und geben Sie sowohl als `Collection` als auch als Datenbank `members` ein:
+
+![mongodb](./files/322_mongodb.png)
+
+### Mongo-Shell verwenden
+
+Sie können anstelle von *Compass* auch die Mongo-Shell `mongosh` verwenden (müssen Sie aber nicht!). Wenn `mongosh` gestartet ist, erscheint im Terminal `test>`. Das bedeutet, dass Sie auf der Datenbank `test` operieren. Mit dem Befehl `db` können Sie sich die Datenbank anschauen, auf der Sie gerade operieren. Das ist zu Beginn die `test`-Datenbank. Wir wollen eine neue Datenbank `members` erstellen. Dazu nutzen wir den Befehl `use <db>`:
 
 ```bash
 > use members
@@ -297,6 +334,322 @@ members
 members> 
 ```
 
+### Befüllen der Datenbank `members`
+
+Wir wollen die Datenbank `members` mit folgenden Einträgen befüllen:
+
+??? note "members.members.json"
+	```json
+	[{
+	  "firstname": "Alan",
+	  "lastname": "Bradley",
+	  "email": "abradley1c@globo.com",
+	  "ipaddress": "229.152.117.127"
+	},
+	{
+	  "firstname": "Lillian",
+	  "lastname": "Stephens",
+	  "email": "lstephens19@hugedomains.com",
+	  "ipaddress": "89.85.137.204"
+	},
+	{
+	  "firstname": "Marie",
+	  "lastname": "Morgan",
+	  "email": "mmorganb@cloudflare.com",
+	  "ipaddress": "226.79.152.112"
+	},
+	{
+	  "firstname": "Peter",
+	  "lastname": "Phillips",
+	  "email": "pphillipss@1688.com",
+	  "ipaddress": "11.158.255.76"
+	},
+	{
+	  "firstname": "Adam",
+	  "lastname": "Anderson",
+	  "email": "aanderson8@google.fr",
+	  "ipaddress": "118.93.83.157"
+	},
+	{
+	  "firstname": "Matthew",
+	  "lastname": "Porter",
+	  "email": "mporter9@europa.eu",
+	  "ipaddress": "174.81.178.88"
+	},
+	{
+	  "firstname": "Susan",
+	  "lastname": "Andrews",
+	  "email": "sandrewsn@google.co.jp",
+	  "ipaddress": "228.214.9.251"
+	},
+	{
+	  "firstname": "Catherine",
+	  "lastname": "Andrews",
+	  "email": "candrewsp@noaa.gov",
+	  "ipaddress": "112.111.87.178"
+	},
+	{
+	  "firstname": "Edward",
+	  "lastname": "Hicks",
+	  "email": "ehicksc@pcworld.com",
+	  "ipaddress": "199.153.27.1"
+	},
+	{
+	  "firstname": "Margaret",
+	  "lastname": "Evans",
+	  "email": "mevansh@pcworld.com",
+	  "ipaddress": "162.10.86.196"
+	},
+	{
+	  "firstname": "Steven",
+	  "lastname": "Hamilton",
+	  "email": "shamiltonu@state.tx.us",
+	  "ipaddress": "38.194.91.201"
+	},
+	{
+	  "firstname": "Eric",
+	  "lastname": "Miller",
+	  "email": "emillere@creativecommons.org",
+	  "ipaddress": "122.159.17.218"
+	},
+	{
+	  "firstname": "Mildred",
+	  "lastname": "Watkins",
+	  "email": "mwatkins0@miibeian.gov.cn",
+	  "ipaddress": "150.67.132.64"
+	},
+	{
+	  "firstname": "Marie",
+	  "lastname": "Thompson",
+	  "email": "mthompsonz@yelp.com",
+	  "ipaddress": "162.164.5.231"
+	},
+	{
+	  "firstname": "Steve",
+	  "lastname": "Sanders",
+	  "email": "ssanders1b@wikispaces.com",
+	  "ipaddress": "91.61.109.245"
+	},
+	{
+	  "firstname": "Anne",
+	  "lastname": "Brooks",
+	  "email": "abrooks16@bravesites.com",
+	  "ipaddress": "243.159.39.234"
+	},
+	{
+	  "firstname": "Andrea",
+	  "lastname": "Gardner",
+	  "email": "agardnerv@woothemes.com",
+	  "ipaddress": "179.91.0.30"
+	},
+	{
+	  "firstname": "Sean",
+	  "lastname": "Gibson",
+	  "email": "sgibsony@alexa.com",
+	  "ipaddress": "48.114.103.55"
+	},
+	{
+	  "firstname": "Roy",
+	  "lastname": "Campbell",
+	  "email": "rcampbell1@geocities.com",
+	  "ipaddress": "237.232.34.20"
+	},
+	{
+	  "firstname": "Bonnie",
+	  "lastname": "Coleman",
+	  "email": "bcoleman11@fc2.com",
+	  "ipaddress": "109.150.122.102"
+	},
+	{
+	  "firstname": "Amanda",
+	  "lastname": "Nelson",
+	  "email": "anelson13@indiatimes.com",
+	  "ipaddress": "161.185.121.245"
+	},
+	{
+	  "firstname": "Sean",
+	  "lastname": "Cruz",
+	  "email": "scruz10@answers.com",
+	  "ipaddress": "92.255.49.227"
+	},
+	{
+	  "firstname": "Ruth",
+	  "lastname": "Jordan",
+	  "email": "rjordan1a@smugmug.com",
+	  "ipaddress": "193.140.80.64"
+	},
+	{
+	  "firstname": "Mark",
+	  "lastname": "Richardson",
+	  "email": "mrichardson1d@ihg.com",
+	  "ipaddress": "209.217.14.154"
+	},
+	{
+	  "firstname": "Antonio",
+	  "lastname": "Kim",
+	  "email": "akim4@odnoklassniki.ru",
+	  "ipaddress": "168.244.191.78"
+	},
+	{
+	  "firstname": "Virginia",
+	  "lastname": "Graham",
+	  "email": "vgrahamk@aol.com",
+	  "ipaddress": "165.219.171.1"
+	},
+	{
+	  "firstname": "Russell",
+	  "lastname": "Brown",
+	  "email": "rbrownq@nifty.com",
+	  "ipaddress": "215.38.120.242"
+	},
+	{
+	  "firstname": "Kathleen",
+	  "lastname": "Rose",
+	  "email": "kroseg@pinterest.com",
+	  "ipaddress": "222.172.140.56"
+	},
+	{
+	  "firstname": "Ernest",
+	  "lastname": "Coleman",
+	  "email": "ecoleman15@businessweek.com",
+	  "ipaddress": "213.173.4.7"
+	},
+	{
+	  "firstname": "Virginia",
+	  "lastname": "Hawkins",
+	  "email": "vhawkinsf@ehow.com",
+	  "ipaddress": "93.120.46.203"
+	},
+	{
+	  "firstname": "Russell",
+	  "lastname": "Campbell",
+	  "email": "rcampbell17@eventbrite.com",
+	  "ipaddress": "251.2.92.63"
+	},
+	{
+	  "firstname": "Jennifer",
+	  "lastname": "Marshall",
+	  "email": "jmarshallt@gnu.org",
+	  "ipaddress": "104.191.49.94"
+	},
+	{
+	  "firstname": "Rebecca",
+	  "lastname": "Cunningham",
+	  "email": "rcunninghamd@mac.com",
+	  "ipaddress": "65.79.191.52"
+	},
+	{
+	  "firstname": "Joan",
+	  "lastname": "Roberts",
+	  "email": "jroberts12@alibaba.com",
+	  "ipaddress": "4.91.143.62"
+	},
+	{
+	  "firstname": "Alan",
+	  "lastname": "Vasquez",
+	  "email": "avasquezo@miibeian.gov.cn",
+	  "ipaddress": "178.109.86.172"
+	},
+	{
+	  "firstname": "Shirley",
+	  "lastname": "Scott",
+	  "email": "sscottm@macromedia.com",
+	  "ipaddress": "219.237.108.82"
+	},
+	{
+	  "firstname": "Nicole",
+	  "lastname": "Thompson",
+	  "email": "nthompson3@admin.ch",
+	  "ipaddress": "13.183.208.155"
+	},
+	{
+	  "firstname": "Jeffrey",
+	  "lastname": "Ford",
+	  "email": "jford14@cnet.com",
+	  "ipaddress": "210.216.54.14"
+	},
+	{
+	  "firstname": "Deborah",
+	  "lastname": "George",
+	  "email": "dgeorge6@furl.net",
+	  "ipaddress": "201.76.47.162"
+	},
+	{
+	  "firstname": "Eric",
+	  "lastname": "Matthews",
+	  "email": "ematthews5@independent.co.uk",
+	  "ipaddress": "138.194.30.1"
+	},
+	{
+	  "firstname": "Raymond",
+	  "lastname": "Mcdonald",
+	  "email": "rmcdonald2@ihg.com",
+	  "ipaddress": "161.24.42.24"
+	},
+	{
+	  "firstname": "Richard",
+	  "lastname": "Cruz",
+	  "email": "rcruz7@unc.edu",
+	  "ipaddress": "235.124.23.221"
+	},
+	{
+	  "firstname": "Mark",
+	  "lastname": "Johnson",
+	  "email": "mjohnsonj@hostgator.com",
+	  "ipaddress": "73.87.135.206"
+	},
+	{
+	  "firstname": "Lisa",
+	  "lastname": "Olson",
+	  "email": "lolsonr@telegraph.co.uk",
+	  "ipaddress": "77.245.172.100"
+	},
+	{
+	  "firstname": "Eugene",
+	  "lastname": "Williams",
+	  "email": "ewilliamsi@deliciousdays.com",
+	  "ipaddress": "67.208.26.182"
+	},
+	{
+	  "firstname": "Ryan",
+	  "lastname": "Burton",
+	  "email": "rburton18@foxnews.com",
+	  "ipaddress": "159.60.107.14"
+	},
+	{
+	  "firstname": "Alice",
+	  "lastname": "Ortiz",
+	  "email": "aortizw@histats.com",
+	  "ipaddress": "179.52.222.21"
+	},
+	{
+	  "firstname": "Jonathan",
+	  "lastname": "Morales",
+	  "email": "jmoralesa@ovh.net",
+	  "ipaddress": "97.65.110.105"
+	},
+	{
+	  "firstname": "Tammy",
+	  "lastname": "Ray",
+	  "email": "trayx@weather.com",
+	  "ipaddress": "192.243.38.190"
+	}]
+	```	
+
+Speichern Sie dieses JSON-Array in einer Datei `members.json`.
+
+#### Befüllen in Compass
+
+Wählen Sie in der linken Spalte die *Datenbank* `members` und darin die *Collection* `members` aus. Klicken Sie dann auf `ADD DATA` und darin `Import JSON or CSV file`. Wählen Sie die Datei `members.json` aus. Es werden alle Datensätze eingefügt. 
+
+
+#### Befüllen in Atlas
+
+Atlas bietet die gleiche Funktionalität wie Compass in sehr ähnlicher Nutzeroberfläche. Wählen Sie auch hier in der linken Spalte die *Datenbank* `members` und darin die *Collection* `members` aus. Klicken Sie dann auf `ADD DATA` und darin `Insert documents`. Kopieren Sie nun das obige JSON-Array in das Fenster und klicken dann `Insert`. Es werden alle Datensätze eingefügt. 
+
+
+#### Befüllen in der Mongo-Shell
+
 Wir befüllen diese Datenbank unter Verwendung des Befehls:
 
 ```bash
@@ -305,261 +658,304 @@ db.collection.insertMany(
 )
 ```
 
-Dabei sind die `<documente>` Objekte in [JavaScript Object Notation (JSON)](objekte.md#javascript-object-notation-json) und `collection` stellt einen Namen (ähnlich einer Tabelle in relationalen Datenbanken) dar. Insgesamt sieht der befehl mit unseren Daten so aus:
+Dabei sind die `<documente>` Objekte in [JavaScript Object Notation (JSON)](objekte.md#javascript-object-notation-json) und `collection` stellt einen Namen (ähnlich einer Tabelle in relationalen Datenbanken) dar. Insgesamt sieht der Befehl mit unseren Daten so aus:
 
 ??? "Daten einfügen"
 		db.members.insertMany([
 			{
-			 "forename": "Catherine",
-			 "surname": "Williams",
-			 "email": "cwilliamsl@360.cn"
+			  "firstname": "Alan",
+			  "lastname": "Bradley",
+			  "email": "abradley1c@globo.com",
+			  "ipaddress": "229.152.117.127"
 			},
 			{
-			 "forename": "Adam",
-			 "surname": "Anderson",
-			 "email": "aanderson8@google.fr"
+			  "firstname": "Lillian",
+			  "lastname": "Stephens",
+			  "email": "lstephens19@hugedomains.com",
+			  "ipaddress": "89.85.137.204"
 			},
 			{
-			 "forename": "Susan",
-			 "surname": "Andrews",
-			 "email": "sandrewsn@google.co.jp"
+			  "firstname": "Marie",
+			  "lastname": "Morgan",
+			  "email": "mmorganb@cloudflare.com",
+			  "ipaddress": "226.79.152.112"
 			},
 			{
-			 "forename": "Catherine",
-			 "surname": "Andrews",
-			 "email": "candrewsp@noaa.gov"
+			  "firstname": "Peter",
+			  "lastname": "Phillips",
+			  "email": "pphillipss@1688.com",
+			  "ipaddress": "11.158.255.76"
 			},
 			{
-			 "forename": "Alan",
-			 "surname": "Bradley",
-			 "email": "abradley1c@globo.com"
+			  "firstname": "Adam",
+			  "lastname": "Anderson",
+			  "email": "aanderson8@google.fr",
+			  "ipaddress": "118.93.83.157"
 			},
 			{
-			 "forename": "Anne",
-			 "surname": "Brooks",
-			 "email": "abrooks16@bravesites.com"
+			  "firstname": "Matthew",
+			  "lastname": "Porter",
+			  "email": "mporter9@europa.eu",
+			  "ipaddress": "174.81.178.88"
 			},
 			{
-			 "forename": "Russell",
-			 "surname": "Brown",
-			 "email": "rbrownq@nifty.com"
+			  "firstname": "Susan",
+			  "lastname": "Andrews",
+			  "email": "sandrewsn@google.co.jp",
+			  "ipaddress": "228.214.9.251"
 			},
 			{
-			 "forename": "Ryan",
-			 "surname": "Burton",
-			 "email": "rburton18@foxnews.com"
+			  "firstname": "Catherine",
+			  "lastname": "Andrews",
+			  "email": "candrewsp@noaa.gov",
+			  "ipaddress": "112.111.87.178"
 			},
 			{
-			 "forename": "Roy",
-			 "surname": "Campbell",
-			 "email": "rcampbell1@geocities.com"
+			  "firstname": "Edward",
+			  "lastname": "Hicks",
+			  "email": "ehicksc@pcworld.com",
+			  "ipaddress": "199.153.27.1"
 			},
 			{
-			 "forename": "Russell",
-			 "surname": "Campbell",
-			 "email": "rcampbell17@eventbrite.com"
+			  "firstname": "Margaret",
+			  "lastname": "Evans",
+			  "email": "mevansh@pcworld.com",
+			  "ipaddress": "162.10.86.196"
 			},
 			{
-			 "forename": "Bonnie",
-			 "surname": "Coleman",
-			 "email": "bcoleman11@fc2.com"
+			  "firstname": "Steven",
+			  "lastname": "Hamilton",
+			  "email": "shamiltonu@state.tx.us",
+			  "ipaddress": "38.194.91.201"
 			},
 			{
-			 "forename": "Ernest",
-			 "surname": "Coleman",
-			 "email": "ecoleman15@businessweek.com"
+			  "firstname": "Eric",
+			  "lastname": "Miller",
+			  "email": "emillere@creativecommons.org",
+			  "ipaddress": "122.159.17.218"
 			},
 			{
-			 "forename": "Richard",
-			 "surname": "Cruz",
-			 "email": "rcruz7@unc.edu"
+			  "firstname": "Mildred",
+			  "lastname": "Watkins",
+			  "email": "mwatkins0@miibeian.gov.cn",
+			  "ipaddress": "150.67.132.64"
 			},
 			{
-			 "forename": "Sean",
-			 "surname": "Cruz",
-			 "email": "scruz10@answers.com"
+			  "firstname": "Marie",
+			  "lastname": "Thompson",
+			  "email": "mthompsonz@yelp.com",
+			  "ipaddress": "162.164.5.231"
 			},
 			{
-			 "forename": "Rebecca",
-			 "surname": "Cunningham",
-			 "email": "rcunninghamd@mac.com"
+			  "firstname": "Steve",
+			  "lastname": "Sanders",
+			  "email": "ssanders1b@wikispaces.com",
+			  "ipaddress": "91.61.109.245"
 			},
 			{
-			 "forename": "Margaret",
-			 "surname": "Evans",
-			 "email": "mevansh@pcworld.com"
+			  "firstname": "Anne",
+			  "lastname": "Brooks",
+			  "email": "abrooks16@bravesites.com",
+			  "ipaddress": "243.159.39.234"
 			},
 			{
-			 "forename": "Jeffrey",
-			 "surname": "Ford",
-			 "email": "jford14@cnet.com"
+			  "firstname": "Andrea",
+			  "lastname": "Gardner",
+			  "email": "agardnerv@woothemes.com",
+			  "ipaddress": "179.91.0.30"
 			},
 			{
-			 "forename": "Andrea",
-			 "surname": "Gardner",
-			 "email": "agardnerv@woothemes.com"
+			  "firstname": "Sean",
+			  "lastname": "Gibson",
+			  "email": "sgibsony@alexa.com",
+			  "ipaddress": "48.114.103.55"
 			},
 			{
-			 "forename": "Deborah",
-			 "surname": "George",
-			 "email": "dgeorge6@furl.net"
+			  "firstname": "Roy",
+			  "lastname": "Campbell",
+			  "email": "rcampbell1@geocities.com",
+			  "ipaddress": "237.232.34.20"
 			},
 			{
-			 "forename": "Sean",
-			 "surname": "Gibson",
-			 "email": "sgibsony@alexa.com"
+			  "firstname": "Bonnie",
+			  "lastname": "Coleman",
+			  "email": "bcoleman11@fc2.com",
+			  "ipaddress": "109.150.122.102"
 			},
 			{
-			 "forename": "Virginia",
-			 "surname": "Graham",
-			 "email": "vgrahamk@aol.com"
+			  "firstname": "Amanda",
+			  "lastname": "Nelson",
+			  "email": "anelson13@indiatimes.com",
+			  "ipaddress": "161.185.121.245"
 			},
 			{
-			 "forename": "Steven",
-			 "surname": "Hamilton",
-			 "email": "shamiltonu@state.tx.us"
+			  "firstname": "Sean",
+			  "lastname": "Cruz",
+			  "email": "scruz10@answers.com",
+			  "ipaddress": "92.255.49.227"
 			},
 			{
-			 "forename": "Virginia",
-			 "surname": "Hawkins",
-			 "email": "vhawkinsf@ehow.com"
+			  "firstname": "Ruth",
+			  "lastname": "Jordan",
+			  "email": "rjordan1a@smugmug.com",
+			  "ipaddress": "193.140.80.64"
 			},
 			{
-			 "forename": "Edward",
-			 "surname": "Hicks",
-			 "email": "ehicksc@pcworld.com"
+			  "firstname": "Mark",
+			  "lastname": "Richardson",
+			  "email": "mrichardson1d@ihg.com",
+			  "ipaddress": "209.217.14.154"
 			},
 			{
-			 "forename": "Mark",
-			 "surname": "Johnson",
-			 "email": "mjohnsonj@hostgator.com"
+			  "firstname": "Antonio",
+			  "lastname": "Kim",
+			  "email": "akim4@odnoklassniki.ru",
+			  "ipaddress": "168.244.191.78"
 			},
 			{
-			 "forename": "Ruth",
-			 "surname": "Jordan",
-			 "email": "rjordan1a@smugmug.com"
+			  "firstname": "Virginia",
+			  "lastname": "Graham",
+			  "email": "vgrahamk@aol.com",
+			  "ipaddress": "165.219.171.1"
 			},
 			{
-			 "forename": "Antonio",
-			 "surname": "Kim",
-			 "email": "akim4@odnoklassniki.ru"
+			  "firstname": "Russell",
+			  "lastname": "Brown",
+			  "email": "rbrownq@nifty.com",
+			  "ipaddress": "215.38.120.242"
 			},
 			{
-			 "forename": "Jennifer",
-			 "surname": "Marshall",
-			 "email": "jmarshallt@gnu.org"
+			  "firstname": "Kathleen",
+			  "lastname": "Rose",
+			  "email": "kroseg@pinterest.com",
+			  "ipaddress": "222.172.140.56"
 			},
 			{
-			 "forename": "Eric",
-			 "surname": "Matthews",
-			 "email": "ematthews5@independent.co.uk"
+			  "firstname": "Ernest",
+			  "lastname": "Coleman",
+			  "email": "ecoleman15@businessweek.com",
+			  "ipaddress": "213.173.4.7"
 			},
 			{
-			 "forename": "Raymond",
-			 "surname": "Mcdonald",
-			 "email": "rmcdonald2@ihg.com"
+			  "firstname": "Virginia",
+			  "lastname": "Hawkins",
+			  "email": "vhawkinsf@ehow.com",
+			  "ipaddress": "93.120.46.203"
 			},
 			{
-			 "forename": "Eric",
-			 "surname": "Miller",
-			 "email": "emillere@creativecommons.org"
+			  "firstname": "Russell",
+			  "lastname": "Campbell",
+			  "email": "rcampbell17@eventbrite.com",
+			  "ipaddress": "251.2.92.63"
 			},
 			{
-			 "forename": "Jonathan",
-			 "surname": "Morales",
-			 "email": "jmoralesa@ovh.net"
+			  "firstname": "Jennifer",
+			  "lastname": "Marshall",
+			  "email": "jmarshallt@gnu.org",
+			  "ipaddress": "104.191.49.94"
 			},
 			{
-			 "forename": "Marie",
-			 "surname": "Morgan",
-			 "email": "mmorganb@cloudflare.com"
+			  "firstname": "Rebecca",
+			  "lastname": "Cunningham",
+			  "email": "rcunninghamd@mac.com",
+			  "ipaddress": "65.79.191.52"
 			},
 			{
-			 "forename": "Amanda",
-			 "surname": "Nelson",
-			 "email": "anelson13@indiatimes.com"
+			  "firstname": "Joan",
+			  "lastname": "Roberts",
+			  "email": "jroberts12@alibaba.com",
+			  "ipaddress": "4.91.143.62"
 			},
 			{
-			 "forename": "Lisa",
-			 "surname": "Olson",
-			 "email": "lolsonr@telegraph.co.uk"
+			  "firstname": "Alan",
+			  "lastname": "Vasquez",
+			  "email": "avasquezo@miibeian.gov.cn",
+			  "ipaddress": "178.109.86.172"
 			},
 			{
-			 "forename": "Alice",
-			 "surname": "Ortiz",
-			 "email": "aortizw@histats.com"
+			  "firstname": "Shirley",
+			  "lastname": "Scott",
+			  "email": "sscottm@macromedia.com",
+			  "ipaddress": "219.237.108.82"
 			},
 			{
-			 "forename": "Peter",
-			 "surname": "Phillips",
-			 "email": "pphillipss@1688.com"
+			  "firstname": "Nicole",
+			  "lastname": "Thompson",
+			  "email": "nthompson3@admin.ch",
+			  "ipaddress": "13.183.208.155"
 			},
 			{
-			 "forename": "Matthew",
-			 "surname": "Porter",
-			 "email": "mporter9@europa.eu"
+			  "firstname": "Jeffrey",
+			  "lastname": "Ford",
+			  "email": "jford14@cnet.com",
+			  "ipaddress": "210.216.54.14"
 			},
 			{
-			 "forename": "Tammy",
-			 "surname": "Ray",
-			 "email": "trayx@weather.com"
+			  "firstname": "Deborah",
+			  "lastname": "George",
+			  "email": "dgeorge6@furl.net",
+			  "ipaddress": "201.76.47.162"
 			},
 			{
-			 "forename": "Mark",
-			 "surname": "Richardson",
-			 "email": "mrichardson1d@ihg.com"
+			  "firstname": "Eric",
+			  "lastname": "Matthews",
+			  "email": "ematthews5@independent.co.uk",
+			  "ipaddress": "138.194.30.1"
 			},
 			{
-			 "forename": "Joan",
-			 "surname": "Roberts",
-			 "email": "jroberts12@alibaba.com"
+			  "firstname": "Raymond",
+			  "lastname": "Mcdonald",
+			  "email": "rmcdonald2@ihg.com",
+			  "ipaddress": "161.24.42.24"
 			},
 			{
-			 "forename": "Kathleen",
-			 "surname": "Rose",
-			 "email": "kroseg@pinterest.com"
+			  "firstname": "Richard",
+			  "lastname": "Cruz",
+			  "email": "rcruz7@unc.edu",
+			  "ipaddress": "235.124.23.221"
 			},
 			{
-			 "forename": "Steve",
-			 "surname": "Sanders",
-			 "email": "ssanders1b@wikispaces.com"
+			  "firstname": "Mark",
+			  "lastname": "Johnson",
+			  "email": "mjohnsonj@hostgator.com",
+			  "ipaddress": "73.87.135.206"
 			},
 			{
-			 "forename": "Shirley",
-			 "surname": "Scott",
-			 "email": "sscottm@macromedia.com"
+			  "firstname": "Lisa",
+			  "lastname": "Olson",
+			  "email": "lolsonr@telegraph.co.uk",
+			  "ipaddress": "77.245.172.100"
 			},
 			{
-			 "forename": "Lillian",
-			 "surname": "Stephens",
-			 "email": "lstephens19@hugedomains.com"
+			  "firstname": "Eugene",
+			  "lastname": "Williams",
+			  "email": "ewilliamsi@deliciousdays.com",
+			  "ipaddress": "67.208.26.182"
 			},
 			{
-			 "forename": "Nicole",
-			 "surname": "Thompson",
-			 "email": "nthompson3@admin.ch"
+			  "firstname": "Ryan",
+			  "lastname": "Burton",
+			  "email": "rburton18@foxnews.com",
+			  "ipaddress": "159.60.107.14"
 			},
 			{
-			 "forename": "Marie",
-			 "surname": "Thompson",
-			 "email": "mthompsonz@yelp.com"
+			  "firstname": "Alice",
+			  "lastname": "Ortiz",
+			  "email": "aortizw@histats.com",
+			  "ipaddress": "179.52.222.21"
 			},
 			{
-			 "forename": "Alan",
-			 "surname": "Vasquez",
-			 "email": "avasquezo@miibeian.gov.cn"
+			  "firstname": "Jonathan",
+			  "lastname": "Morales",
+			  "email": "jmoralesa@ovh.net",
+			  "ipaddress": "97.65.110.105"
 			},
 			{
-			 "forename": "Mildred",
-			 "surname": "Watkins",
-			 "email": "mwatkins0@miibeian.gov.cn"
-			},
-			{
-			 "forename": "Eugene",
-			 "surname": "Williams",
-			 "email": "ewilliamsi@deliciousdays.com"
-			}
-		 ])
+			  "firstname": "Tammy",
+			  "lastname": "Ray",
+			  "email": "trayx@weather.com",
+			  "ipaddress": "192.243.38.190"
+			}])
 
 
 Im Terminal erscheint eine Ausgabe in der folgenden Form:
@@ -659,9 +1055,37 @@ members>
 
 Falls Sie *Visual Studio Code* verwenden und darin die [MongoDB for VS Code](https://code.visualstudio.com/docs/azure/mongodb)-Erweiterung installiert haben, können Sie auf der linken Seite auf das MongoDB-Blatt klicken und das `Advanced Connection Settings` mit dem Formular `Open form` anklicken.
 
-Sie geben `mongodb://127.0.0.1:27017` ein und dass Sie keine Authentifizierung verwenden. Öffnen Sie die `connection` und darin `members` und es erscheint
+Sie geben `mongodb://127.0.0.1:27017` ein (falls Sie MongoDB lokal installiert haben) und dass Sie keine Authentifizierung verwenden. Öffnen Sie die `connection` und darin `members` und es erscheint
 
 ![mongodb](./files/220_mongodb.png)
+
+## Node-Projekt mit MongoDB verbinden
+
+Zur Anbindung der Datenbank an unser Node.js-Projekt verwenden wir [Mongoose](https://www.npmjs.com/package/mongoose). Siehe dazu auch [mongoosejs.com](https://mongoosejs.com/). *Mongoose* ist ein *Object Modeling* Werkzeug und interpretiert die Dokumente einer MongoDB als Objekte. Wir installieren *Mongoose* mittels
+
+```bash
+npm i mongoose
+```
+
+Es erscheint 
+
+```bash
+added 17 packages, and audited 84 packages in 2s
+
+15 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+
+und in der `package.json`
+
+```json linenums="16" hl_lines="3"
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.15.1"
+  }
+```
 
 Um sich in Node.js mit der MongoDB zu verbinden, geben Sie 
 
@@ -731,7 +1155,7 @@ oder für die Atlas-Verbindung
 	```
 
 
-Beachten Sie, dass der Wert nicht in Hochkomma steht und dass auch kein Semikolon folgt! 
+Beachten Sie, dass der Wert nicht in Hochkomma steht (kann aber! - ist bei Sonderzeichen sogar notwendig) und dass auch kein Semikolon folgt! 
 Wir fügen `dotenv` n die `server.js` ein und greifen mithilfe von `process.env.DB_CONNECTION` auf den Wert von `DB_CONNECTION` zu (und mit `process.env.DATEBASE` auf den Wert von `DATABASE`) :
 
 === "server.js"
@@ -772,7 +1196,7 @@ Beachten Sie, die `.env`-Datei in die `.gitignore` einzutragen. Die `.env`-Datei
 
 ### Ein Model erstellen
 
-Mongoose ist Schema-basiert. Ein Schema kann man sich wie ein Datenmodell vorstellen. Tatsächlich wird es verwendet, um ein entsprechendes Mongoose-Model zu erstellen. Ein Schema wird unter Aufruf des Konstruktors (`new Schema()`) in Mongoose erstellt. Unter Verwendung des Schemas wird dann mithilfe der `model()`-Funktion das Datenmodell erzeugt. 
+Mongoose ist [Schema](https://mongoosejs.com/docs/guide.html)-basiert. Ein Schema kann man sich wie ein Datenmodell vorstellen. Tatsächlich wird es verwendet, um ein entsprechendes Mongoose-Model zu erstellen. Ein Schema wird unter Aufruf des Konstruktors (`new Schema()`) in Mongoose erstellt. Unter Verwendung des Schemas wird dann mithilfe der `model()`-Funktion das Datenmodell erzeugt. 
 
 Wir werden im Folgenden zeigen, wie ein Schema für `members` erstellt wird. Das Datenmodell heißt dann `Member`. Um später auch weitere Schemata, z.B. für `user` o.ä. zu entwicklen und diese zu trennen, erstellen wir das Schema in einem eigenen Ordner `models`. Das bedeutet, wir erstellen im Projektordner 
 
@@ -905,7 +1329,7 @@ Probieren Sie auch einmal `GET http://localhost:3000/members/0` aus, um die Fehl
 
 #### U - update
 
-Um einen bereits existierenden Datensatz zu ändern, kann entweder die HTTP-Anfrage `PUT` oder `PATCH` verwendet werden. Zur Unterscheidung zwischen `PUT` und `PATCH` siehe z.B. [hier](https://www.geeksforgeeks.org/difference-between-put-and-patch-request/) oder [hier](https://stackoverflow.com/questions/21660791/what-is-the-main-difference-between-patch-and-put-request). Um einen Datensatz in der MongoDB zu ändern, stehen prinzipiell mehrere Funktionen zur Verfüging:
+Um einen bereits existierenden Datensatz zu ändern, kann entweder die HTTP-Anfrage `PUT` oder `PATCH` verwendet werden. Zur Unterscheidung zwischen `PUT` und `PATCH` siehe z.B. [hier](https://www.geeksforgeeks.org/difference-between-put-and-patch-request/) oder [hier](https://stackoverflow.com/questions/21660791/what-is-the-main-difference-between-patch-and-put-request). Um einen Datensatz in der MongoDB zu ändern, stehen verschiedene Funktionen zur Verfügung:
 
 - `updateOne()`: ändert einzelne (oder alle) Teile eines Datensatzes und sendet die `_id` zurück, falls ein neur Datensatz angelegt wurde,
 - `findOneAndUpdate()`: ändert einzelne (oder alle) Teile eines Datensatzes und sendet den kompletten Datensatz zurück,
