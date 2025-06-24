@@ -1894,7 +1894,11 @@
 
 
 
+??? note "Eine mögliche Lösung für Übung 6 (und folgende)"
+    Lösungen finden Sie unter [https://gitlab.rz.htw-berlin.de/freiheit/wete25](https://gitlab.rz.htw-berlin.de/freiheit/wete25)
 
+    - beim ersten Mal clonen: `git clone https://gitlab.rz.htw-berlin.de/freiheit/wete25.git`
+    - dann immer nur noch pullen: `git pull`
 
 
 #### Übung 7
@@ -2175,10 +2179,10 @@
 
 #### Übung 8
     
-??? question "Übungsaufgabe 8 (REST-API mit PostgreSQL)"
+??? question "Übungsaufgabe 8 (REST-API mit MongoDB)"
 
     <ul>
-    <li>Erstellen Sie eine [REST-API](backend_pg.md#rest-api) mit folgenden Endpunkten:</li>
+    <li>Erstellen Sie eine [REST-API](backend.md#rest-api) mit folgenden Endpunkten:</li>
 
     <table>
         <thead>
@@ -2238,40 +2242,43 @@
          <td>[dotenv](https://www.npmjs.com/package/dotenv) </td>
          </tr>
          <tr>
-         <td>`npm i cors`  </td>        
-         <td>[cors](https://www.npmjs.com/package/cors)  </td>
-         </tr>
-         <tr>
-         <td>`npm i pg`  </td>        
-         <td>[pg](https://www.npmjs.com/package/pg) </td>
-         </tr>
-         <tr>
-         <td>`npm i pg-format`  </td>        
-         <td>[pg-format](https://www.npmjs.com/package/pg-format) (brauchen Sie hier aber nicht)</td>
+         <td>`npm i mongoose`  </td>        
+         <td>[mongoose](https://www.npmjs.com/package/mongoose) </td>
          </tr>
         </tbody>
     </table>
 
-    <li>Vewenden Sie [PostgreSQL](https://www.postgresql.org) als Datenbankmanagementsystem. Sie können sich entweder eine lokale Instanz [installieren](https://www.postgresql.org/download/) oder den HTW-Server [Ocean.f4.htw-berlin.de](https://ocean.f4.htw-berlin.de/) nutzen. </li>
+    <li>Vewenden Sie [MongoDB](https://www.mongodb.com/) als Datenbankmanagementsystem. Sie können sich entweder eine lokale Instanz [installieren](https://www.mongodb.com/de-de/products/self-managed/community-edition) oder die Cloud-Lösung [Atlas](https://www.mongodb.com/de-de/atlas) nutzen. </li>
 
     <li>Implementieren Sie obige CRUD-Funktionalitäten. </li>
 
     <li>Beachten Sie!: Es soll **kein** neuer `User` angelegt werden, wenn der `username` bereits verwendet wird und/oder wenn die `email` bereits verwendet wird:
         <ul>
-        <li>Weder `username` noch `email` exitieren bereits (Response-Body-Datensatz hier von MongoDB erstellt - sieht in Postgres etwas anders aus `_id`, `__v`):</li>
+        <li>Weder `username` noch `email` exitieren bereits:</li>
             ![Uebung7](./files/268_uebung7.png){ width=50% }
         <li>`username` existiert bereits:</li>
             ![Uebung7](./files/269_uebung7.png){ width=50% }
         <li>`email` existiert bereits:</li>
             ![Uebung7](./files/270_uebung7.png){ width=50% }
         </ul></li>
-    <li>`GET /user/:name` sucht nach dem `username` (Response-Body-Datensatz hier von MongoDB erstellt - sieht in Postgres etwas anders aus `_id`, `__v`):</li>        
+    <li>`GET /user/:name` sucht nach dem `username`:</li>        
             ![Uebung7](./files/272_uebung7.png){ width=50% } 
 
-    <li>Die `SQL-Query` für die Erstellung der **Tabelle** `users` kann so aussehen: `let query = '
-            DROP TABLE IF EXISTS users;
-            CREATE TABLE users(id serial PRIMARY KEY, username VARCHAR(50), password VARCHAR(50), email VARCHAR(50), role VARCHAR(50));'
-            `; </li>
+    <li>Das `Schema` für `Users` kann z.B. so aussehen: </li>
+
+    ```js
+    const mongoose = require('mongoose');
+
+    const schema = new mongoose.Schema({
+        username: String,
+        password: String,
+        email: String,
+        role: String
+    });
+
+    module.exports = mongoose.model('User', schema);
+    ```
+
     </ul>
 
 

@@ -19,7 +19,7 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 | 7. | 19.-23.05.2025 | [Angular (Einführung und Komponenten)](angular.md#angular) | [Übung 6](uebungen.md#ubung-6) | Schnittstelle | 27.05.2025 | 
 | 8. | 26.-30.05.2025 | [Templates (Bindings)](templates.md#templates-bindings) | [Übung 7](uebungen.md#ubung-7) | Frontend (c+r)| 03.06.2025 | 
 | 9. | 02.-06.06.2025 | [Angular (Routing und Services)](routing.md#routing-und-services) | [Übung 8](uebungen.md#ubung-8) | Frontend (u+d)| 10.06.2025 | 
-| 10. | 09.-13.06.2025 | [Node.js + Express (REST-Server PostgreSQL)](backend_pg.md#rest-api) |  [Übung 9](uebungen.md#ubung-9)| Frontend fertig | 17.06.2025 | 
+| 10. | 09.-13.06.2025 | [Node.js + Express (REST-Server MongoDB)](backend.md#rest-api) |  [Übung 9](uebungen.md#ubung-9)| Frontend fertig | 17.06.2025 | 
 | 11. | 16.-20.06.2025 | [Angular (Anbindung ans Backend)](fe-be-anbindung.md#frontend-backend-anbindung) | [Übung 10](uebungen.md#ubung-10) | Backend ( c ) | 24.06.2025 | 
 | 12. | 23.-27.06.2025 | [Nutzerverwaltung und Material](guards.md#subject-observable-observer-und-guards) | - | Backend (r + u) | 01.07.2025 |
 | 13. | 30.-04.07.2025 | Signals  | - | Backend (d + fertig)| 08.07.2025 |
@@ -1077,6 +1077,11 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 		```
 
 
+??? question "Zugang zum Repo mit allen Code-Beispielen aus der Vorlesung"
+    Die Vorlesungsbeispiele finden Sie unter [https://gitlab.rz.htw-berlin.de/freiheit/wete25](https://gitlab.rz.htw-berlin.de/freiheit/wete25)
+
+    - beim ersten Mal clonen: `git clone https://gitlab.rz.htw-berlin.de/freiheit/wete25.git`
+    - dann immer nur noch pullen: `git pull`
 
 ## Semesteraufgabe
 
