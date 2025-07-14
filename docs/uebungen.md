@@ -2288,7 +2288,7 @@
 
     - Erstellen Sie ein neues Angular-Projekt `Uebung9`.
 
-    - Wechseln Sie in den `Uebung9`-Ordner und fügen Sie dem Projekt mithilfe von `ng add @angular/material@18` [Material Design](https://material.angular.io/guide/getting-started) hinzu. **Achtung:** die `@18` ist wichtig (Stand Januar 2025)! Sie werden gefragt, ob Sie `material` installieren wollen (`Enter`). Die anschließenden Fragen können Sie mit `Enter` (Theme), `Y` (Typography) und `Enter` (Animations) beantworten.  
+    - Wechseln Sie in den `Uebung9`-Ordner und fügen Sie dem Projekt mithilfe von `ng add @angular/material` [Material Design](https://material.angular.io/guide/getting-started) hinzu. Sie werden gefragt, ob Sie `material` installieren wollen (`Enter`). Die anschließenden Fragen können Sie mit `Enter` (Theme), `Y` (Typography) und `Enter` (Animations) beantworten.  
 
     - Testen Sie, ob [Material Design](https://material.angular.io/guide/getting-started) funktioniert, indem Sie in der `app.component.html` alles löschen und stattdessen `<mat-slide-toggle>Toggle me!</mat-slide-toggle>` hinzufügen. In der `app.component.ts` muss das `MatSlideToggleModule` importiert werden:
 
@@ -2310,13 +2310,58 @@
             }
             ```
 
+    - Erzeugen Sie sich wie folgt die drei Komponenten `nav`, `form` und `table` (siehe [Schematics](https://material.angular.dev/guide/schematics)):
+
+        ```bash
+        ng generate @angular/material:navigation nav
+        ng generate @angular/material:address-form form  
+        ng generate @angular/material:table table          
+        ```
+
+    - Erzeugen Sie sich auch eine einfache `home`-Komponente (oder Sie probieren dafür das [`Dashboard`-Schema](https://material.angular.dev/guide/schematics#dashboard-schematic) aus). 
+
+    - Fügen Sie in die `app.component.html` den Aufruf der `NavComponent` ein:
+
+        === "app.component.html"
+            ```html
+            <app-nav />
+            ```
+
+    - Vergessen Sie nicht, die `NavComponent` in der `app.component.ts` zu importieren:
+
+        === "app.component.ts"
+            ```js
+            import { Component } from '@angular/core';
+            import { RouterOutlet } from '@angular/router';
+            import { NavComponent } from './nav/nav.component';
+
+            @Component({
+              selector: 'app-root',
+              standalone: true,
+              imports: [RouterOutlet, NavComponent],
+              templateUrl: './app.component.html',
+              styleUrl: './app.component.css'
+            })
+            export class AppComponent {
+              title = 'uebung9';
+            }
+            ```
+
     - Starten Sie das Projekt mit `ng serve`. Je nachdem, welches Farbschema Sie gewählt haben, sieht die Seite nun ungefähr so aus: 
 
         ![uebung9](./files/291_uebung9.png)
 
         Sie können Ihr Farbschema in der `angular.json` im `styles`-Array ändern (siehe [hier](https://material.angular.io/guide/theming#using-a-pre-built-theme))
 
-    - Erzeugen Sie drei Komponenten `home`, `table` und `form` und binden diese über die Routen `''`, `read` und `create` dynamisch ein. Suchen Sie in der `nav.component.html` nach den Menüeinträgen und passen Sie das Menü so an, dass die drei Komponenten darüber aufgerufen werden können.
+    - Erzeugen Sie für die drei Komponenten `home`, `table` und `form` die Routen `''`, `read` und `create` dynamisch ein. Suchen Sie in der `nav.component.html` nach den Menüeinträgen und passen Sie das Menü so an, dass die drei Komponenten darüber aufgerufen werden können.
+
+    - Schauen Sie sich die `FormComponent` und die `TableComponent` genauer an und versuchen Sie, die Komponenten an Ihre Bedürfnisse anzupassen.
+
+    ---- 
+
+    ***folgende Erläuterungen, falls `FormComponent` nicht mit Schematics erzeugt wurde***
+
+    ---
 
     - In der `FormComponent` erzeugen wir uns ein Formular. Schauen Sie sich dazu den Abschnitt [Reactive Forms](https://angular.dev/guide/forms/reactive-forms) unter [Angular.dev](https://angular.dev/overview) sowie die Abschnitte [Form fields](https://material.angular.io/components/form-field/overview) und [Input](https://material.angular.io/components/input/overview) unter [Angular Material](https://material.angular.io/) an. 
 

@@ -76,14 +76,16 @@ Wir passen unsere `nav`-Komponente an und können dabei gleich mal überprüfen,
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="http://freiheit.f4.htw-berlin.de/webtech/fe-be-anbindung/">WebTech</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed"
+              data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
+              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link"[routerLink]="['/']">Home</a>
-              <a class="nav-link" [routerLink]="['/table']">Table</a>
-              <a class="nav-link" [routerLink]="['/create']">Create</a>
+              <a class="nav-link"[routerLink]="['/']" (click)="isMenuCollapsed = true">Home</a>
+              <a class="nav-link" [routerLink]="['/table']" (click)="isMenuCollapsed = true">Table</a>
+              <a class="nav-link" [routerLink]="['/create']" (click)="isMenuCollapsed = true">Create</a>
             </div>
           </div>
         </div>
@@ -103,7 +105,7 @@ Wir passen unsere `nav`-Komponente an und können dabei gleich mal überprüfen,
       styleUrl: './nav.component.css'
     })
     export class NavComponent {
-
+        isMenuCollapsed: boolean = true;
     }
     ```
 
@@ -383,7 +385,7 @@ Die Bootstrap-Klassen für eine Tablle können [hier](https://getbootstrap.com/d
 
 === "table.component.html"
     ```html linenums="1"
-    <div class="conatiner m-5">
+    <div class="container m-5">
         <h1>Alle Teilnehmer*innen</h1>
 
         <table class="table table-striped table-responsive mt-5">
