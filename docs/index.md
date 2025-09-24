@@ -1106,7 +1106,7 @@ Am Ende des Kurses geben Sie eine Webanwendung ab. Diese wird bewertet und bilde
 
 	Datenbankeinträge können Bücher, CDs, ToDos, Einkaufslisten, Vorlesungen, Kühlschrankinhalte usw. sein - wie gesagt, Ihrer Kreativität sind keine Grenzen gesetzt. Backend, Frontend und Datenbank müssen sich schon von dem unterscheiden, was wir in der Vorlesung und in der Übung gemacht haben (und somit vom Skript). 
 
-	Die Anwendung soll in einem Git-Dienst (GitHub, GitLab, ...) verfügbar sein. 
+	Die Anwendung soll in einem Git-Dienst (GitHub, GitLab, ...) verfügbar sein. Aus der Commit-Historie **muss** die fortlaufende Entwicklung Ihrer Anwendung sichtbar sein! Typisch sind 50-100 Commits über einen Zeitraum von mehreren Wochen (ohne Commits für die Readme).
 
 	Verwenden Sie ein CSS-Framework, wie z.B. Materialize, Bootstrap o.ä.! Ihre Anwendung soll "modern" aussehen und responsive sein. 
 
