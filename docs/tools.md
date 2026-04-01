@@ -27,7 +27,7 @@ Gewähren Sie mir Zugriff auf Ihr zentrales Repository. Auf GitHub finden Sie mi
 
 ### Repository initial anlegen
 
-Wir zeigen das Erstellen eines Repositories exemplarisch für `GitHub`. ***Die Beispiele hier sind für das Jahr 2020, funktionieren aber noch genau so. Ersetzen Sie einfach  `20` durch `24`.***
+Wir zeigen das Erstellen eines Repositories exemplarisch für `GitHub`. ***Die Beispiele hier sind für das Jahr 2020, funktionieren aber noch genau so. Ersetzen Sie einfach  `20` durch `26`.***
 
 #### Option A: Repository zunächst in Github anlegen, dann clonen
 
@@ -52,15 +52,15 @@ Geben Sie dort nun ein:
 
 ```bash
 jornfreiheit@Jorns-MacBook-Pro Sites % git clone https://github.com/jfreiheit/Webtech20.git
-Cloning into 'Webtech20'...
+Cloning into 'Webtech26'...
 warning: You appear to have cloned an empty repository.
 ```
 
-also `git clone` gefolgt von dem Remote-Pfad aus Ihrer Zwischenablage. Wenn Sie in Github weder `README.md` noch `.gitignore` ausgewählt hatten, dann erhalten Sie eine Warnung, dass Sie ein leeres Repository clonen. Das ist aber kein Problem. Sie können aber auch beide Datein in Ihr Repository integrieren, die `.gitignore`verwenden wir auf jeden Fall. In dem Ordner, in den Sie geclont haben, wird nun ein Ordner `Webtech20` angelegt. Diesen Ordner können Sie nun als Workspace Ihrer IDE verwenden. Also z.B. mit `IntelliJ IDEA`:
+also `git clone` gefolgt von dem Remote-Pfad aus Ihrer Zwischenablage. Wenn Sie in Github weder `README.md` noch `.gitignore` ausgewählt hatten, dann erhalten Sie eine Warnung, dass Sie ein leeres Repository clonen. Das ist aber kein Problem. Sie können aber auch beide Datein in Ihr Repository integrieren, die `.gitignore`verwenden wir auf jeden Fall. In dem Ordner, in den Sie geclont haben, wird nun ein Ordner `Webtech26` angelegt. Diesen Ordner können Sie nun als Workspace Ihrer IDE verwenden. Also z.B. mit `IntelliJ IDEA`:
 
 ![GitHub](./files/46_git3.png)
 
-öffnen Sie das Projekt (`Open or import`) `Webtech20`. Es erscheint:
+öffnen Sie das Projekt (`Open or import`) `Webtech26`. Es erscheint:
 
 ![GitHub](./files/47_git4.png)
 
@@ -77,22 +77,17 @@ Hier können Sie wählen, dass neue Dateien immer automatisch zum Git-Repoitory 
     <body>
     <h1>Willkommen</h1>
     <p>Das ist die Datei index.html. Sie liegt bei mir
-        unter /Users/jornfreiheit/Sites/Webtech20.
-        Der Ordner /Users/jornfreiheit/Sites ist mein
-        DocumentRoot, deshalb kann ich diese Datei im Browser
-        unter localhost/Webtech20/index.html aufrufen.
-        Der Ordner Webtech20 wird von Git verwaltet. </p>
+        unter /Users/jornfreiheit/Sites/Webtech26.
+        Der Ordner Webtech26 wird von Git verwaltet. </p>
     </body>
     </html>
     ```
 
-Da der Ordner `Sites` bei mir DocumentRoot ist und sich der `Webtech20`-Ordner (in dem die neue `index.html` ist) direkt darunter befindet, kann ich mir die Datei im Browser unter `localhost/Webtech20/index.html` anzeigen lassen. Das nat nichts mit Git zu tun, sondern mit dem DocumentRoot des lokalen Webservers.
-
-Wir fügen im Terminal im `Webtech20`-Ordner diese Datei dem Git-Repoitory hinzu (falls noch nicht automatisch durch unsere IDE passiert):
+Wir fügen im Terminal im `Webtech26`-Ordner diese Datei dem Git-Repoitory hinzu (falls noch nicht automatisch durch unsere IDE passiert):
 
 ```bash
-jornfreiheit@Jorns-MacBook-Pro Webtech20 % git add index.html
-jornfreiheit@Jorns-MacBook-Pro Webtech20 % git status
+jornfreiheit@Jorns-MacBook-Pro Webtech26 % git add index.html
+jornfreiheit@Jorns-MacBook-Pro Webtech26 % git status
 On branch master
 
 No commits yet
@@ -100,16 +95,16 @@ No commits yet
 Changes to be committed:
   (use "git rm --cached <file>..." to unstage)
   new file:   .idea/.gitignore
-  new file:   .idea/Webtech20.iml
+  new file:   .idea/Webtech26.iml
   new file:   .idea/misc.xml
   new file:   .idea/modules.xml
   new file:   .idea/vcs.xml
   new file:   index.html
 
-jornfreiheit@Jorns-MacBook-Pro Webtech20 % 
+jornfreiheit@Jorns-MacBook-Pro Webtech26 % 
 ```
 
-Außerdem sollten wir den `.idea`-Ordner von der Git-Verwaltung ausschließen. Dazu erstellen wir im `Webtech20`-Ordner eine Datei `.gitignore`, falls diese noch nicht existiert und tragen dort `.idea` ein. Fügen Sie die Datei `.gitignore` Ihrem repository hinzu, führen Sie Ihr erstes Commit aus und pushen Ihr Repository nach Github:
+Außerdem sollten wir den `.idea`-Ordner von der Git-Verwaltung ausschließen. Dazu erstellen wir im `Webtech26`-Ordner eine Datei `.gitignore`, falls diese noch nicht existiert und tragen dort `.idea` ein. Fügen Sie die Datei `.gitignore` Ihrem repository hinzu, führen Sie Ihr erstes Commit aus und pushen Ihr Repository nach Github:
 
 ```bash
 git add .ignore
@@ -126,11 +121,11 @@ In Zukunft fügen Sie Ihre neu erstellten Dateien und Ordner immer mit `git add 
 
 #### Option B: Repository in Github anlegen und lokal anlegen, dann verbinden
 
-1. Legen Sie sich wie oben beschrieben ein Repository unter GitHub an. Kopieren Sie die *Remote-URL* (z.B. `https://github.com/jfreiheit/Webtech20.git`). 
-2. Erstellen Sie sich lokal einen Ordner (am besten in Ihrem *DocumentRoot*), z.B. `Webtech20` (`mkdir Webtech20`). Wechseln Sie in diesen Ordner (`cd Webtech20`) und führen Sie dort `git init` aus. Es entsteht ein `.git`-Ordner. 
-3. Fügen Sie diesem lokalen Repository alle Ihre bisher in `Webtech20` erstellten Dateien mit `git add .` hinzu. 
+1. Legen Sie sich wie oben beschrieben ein Repository unter GitHub an. Kopieren Sie die *Remote-URL* (z.B. `https://github.com/jfreiheit/Webtech26.git`). 
+2. Erstellen Sie sich lokal einen Ordner (am besten in Ihrem *workspace*), z.B. `Webtech26` (`mkdir Webtech26`). Wechseln Sie in diesen Ordner (`cd Webtech26`) und führen Sie dort `git init` aus. Es entsteht ein `.git`-Ordner. 
+3. Fügen Sie diesem lokalen Repository alle Ihre bisher in `Webtech26` erstellten Dateien mit `git add .` hinzu. 
 4. Erstellen Sie ein Commit, z.B. `git commit -m "initial commit"`.
-5. Verbinden Sie Ihr lokales Repository mit dem remote-Repository auf Github durch `git remote add origin https://github.com/jfreiheit/Webtech20.git` (für `https://...` setzen Sie Ihre *Remote-URL* ein).
+5. Verbinden Sie Ihr lokales Repository mit dem remote-Repository auf Github durch `git remote add origin https://github.com/jfreiheit/Webtech26.git` (für `https://...` setzen Sie Ihre *Remote-URL* ein).
 6. Pushen Sie die Dateien auf Ihr remote-Repository: `git push --set-upstream origin master`. 
 
 In Zukunft fügen Sie Ihre neu erstellten Dateien und Ordner immer mit `git add .` hinzu, erstellen neue Commits mit `git commit -m "Commit-Nachricht"` und pushen dann nach Github mit `git push`. 
