@@ -24,9 +24,10 @@ Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst).
 | 22.-26.6.2026 | [Nutzerverwaltung und Material](guards.md#subject-observable-observer-und-guards) | - | Backend-Frontend-Anbindung | 
 | 29.-03.7.2026 | Signals  | - | Backend fertig | 
 | 06.-10.7.2026  | Wiederholung | - | fertig stellen | 
-| 20.-24.7.2026 | - | Fragen | - | 
-| 27.-31.7.2026 | - | Fragen | Abgabe 1.PZ 3.8., Gespräche 4.8.2026  |
-|  |  |  |  |Abgabe 2.PZ 28.9.2026, Gespräche 29.9.2026 (evtl. auch 30.9.2026)| - |
+| 20.-24.7.2026  | Fragen | - | - |
+| 27.-31.7.2026  | Fragen | - | - |
+| - | - | Abgabe 1.PZ 3.8., Gespräche 4.8.2026  |
+| - | - | Abgabe 2.PZ 28.9.2026, Gespräche 29.9.2026 (evtl. auch 30.9.2026) |
 
 
 Die Erfahrung zeigt, dass die Mehrheit der Abgeben im 2.PZ erfolgt. Sie sollten allerdings bedenken, dass es zwischen dem 1. und dem 2.PZ keine Konsultationen gibt. 

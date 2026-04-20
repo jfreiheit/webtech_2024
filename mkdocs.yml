@@ -88,4 +88,5 @@ nav:
     - Front- & Backend - Guards: guards.md 
     - Front- & Backend - Deployment: deployment.md 
     - Übungen: uebungen.md
+    - Git: git.md 
     - Werkzeuge: tools.md
