@@ -4,7 +4,7 @@ Herzlich willkommen zur WebTech-Veranstaltung im Sommersemester 2026!
 
 ### Grober Inhalt
 
-In dieser Veranstaltung lernen Sie, was das World Wide Web ist und wie man eigene Webseiten und -anwendungen realisiert. Sie lernen die Protokolle und Sprachen ``http``, ``HTML``, ``CSS``, ``JavaScript`` und `TypeScript` kennen und machen sich mit ``Angular``, ``Node.js`` und ``REST`` vertraut. Zentrales Thema ist der sogenannte [MEAN](https://www.ibm.com/cloud/learn/mean-stack-explained)-Stack, d.h. Sie lernen die Entwicklung mithilfe von <b>M</b>ongoDB, <b>E</b>xpress.js, <b>A</b>ngular und <b>N</b>ode.js kennen. Allerdings verwenden wir statt `MongoDB` hier als Datenbank `PostgreSQL`, um dichter an unserem Datenbankmodul im Studiengang zu sein. Der Stack heißt komischerweise trotzdem `MEAN` (und nicht `PEAN`). 
+In dieser Veranstaltung lernen Sie, was das World Wide Web ist und wie man eigene Webseiten und -anwendungen realisiert. Sie lernen die Protokolle und Sprachen ``http``, ``HTML``, ``CSS``, ``JavaScript`` und `TypeScript` kennen und machen sich mit ``Angular``, ``Node.js`` und ``REST`` vertraut. Zentrales Thema ist der sogenannte [MEAN](https://www.ibm.com/cloud/learn/mean-stack-explained)-Stack, d.h. Sie lernen die Entwicklung mithilfe von <b>M</b>ongoDB, <b>E</b>xpress.js, <b>A</b>ngular und <b>N</b>ode.js kennen. 
 
 Nachfolgend der vorläufige Wochenplan (wird eventuell angepasst). 
 
@@ -309,6 +309,921 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 		</body>
 		</html>
 		```
+
+??? hint "Vorbereitung Vorlesung CSS"
+
+	=== "01_cascading.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Cascading</title>
+		</head>
+		<body>
+		    <header>
+		        <h1>Cascading Style Sheets - CSS</h1>
+		    </header>
+		    <main>
+		        <section>
+		            <h2 class="blaueSchrift roterHintergrund">Section 1</h2>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet <span>consectetur</span> adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <p>direktes Kind einer section</p>
+		        </section>
+		        <section id="section2">
+		            <h2 class="blaueSchrift">Section 2</h2>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                hallo ballo
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		        </section>
+		        <ol>
+		            <li>item 1
+		                <ul>
+		                    <li>subitem 1</li>
+		                    <li>subitem 2</li>
+		                    <li>subitem 3</li>
+		                </ul>
+		            </li>
+		            <li>item 2</li>
+		            <li>item 3</li>
+		            <li>item 4</li>
+		            <li>item 5</li>
+		        </ol>
+		    </main>
+		    <aside>
+		        <h2 class="roterHintergrund">Aside</h2>
+		        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		    </aside>
+		    <footer>
+		        <p>
+		            <a href="./02_boxmodel.html">Boxmodel</a>&nbsp;&middot;&nbsp;
+		            <a href="./03_rangfolge.html">Rangfolge</a>&nbsp;&middot;&nbsp;
+		            <a href="https://www.htw-berlin.de">HTW Berlin</a>
+
+		        </p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+	=== "02_boxmodel.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Box-Model</title>
+		    <style>
+		      * {
+		        box-sizing: content-box;  /* Standard */
+		      }
+
+		      img {
+		        border: 1px solid black;
+		    }
+		      div {
+		          width: 280px;
+		          padding: 30px;
+		          border: 5px solid gray;
+		          margin: 0;
+		      }
+		    </style>
+		</head>
+		<body>
+		    <header>
+		        <h1>Box-Model</h1>
+		    </header>
+		    <main>
+		        <img src="../images/fiw.jpg" alt="fiw logo" style="width:348px"/>
+		        <div>Das FIW-Logo hat eine Breite von 350px (width:348px + 2 x 1px Border).
+		            Der Inhalt dieser Box hat eine Breite von 280px.
+		            Dazu kommt padding von 30px (auf beiden Seiten)
+		            und ein Rahmen mit der Breite von 5px. Macht zusammen
+		            350px.
+		        </div>
+		    </main>
+		    <footer>
+		        <p><a href="./01_cascading.html">Einführung</a>&nbsp;&middot;&nbsp;<a href="./03_rangfolge.html">Rangfolge</a></p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+	=== "03_rangfolge.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Reihenfolge Selektoren</title>
+		    <style>
+		      a:link {
+		        color: blue; 
+		      }
+
+		      .link {
+		        color: green;	/* CSS-Kommentar */
+		      }
+		      #navigation a {
+		        color: red;
+		      }
+
+		      li a {
+		        color: magenta;
+		      }
+		    </style>
+		</head>
+		<body>
+				<!-- HTML-Kommentar 				-->
+		    <header>
+		        <h1>Reihenfolge Wirkung Selektoren</h1>
+		    </header>
+
+		    <main>
+		        <h4>Test</h4>
+		        <ul id="navigation">
+		            <li><a href="./01_cascading.html" class="link">Einführung</a></li>
+		            <li><a href="./02_boxmodel.html" class="link">Boxmodel</a></li>
+		        </ul>
+		        <h4>Prinzip</h4>
+		        <dl>
+		            <dt><em>Kategorie A</em></dt>
+		            <dd>erhält den Wert 1, wenn CSS-Definitionen direkt im style-Attribut eines HTML-Elementes notiert sind</dd>
+		            <dt><em>Kategorie B</em></dt>
+		            <dd>erhält den Wert 1 bei Selektoren für Elemente mit id-Attributen</dd>
+		            <dt><em>Kategorie C</em></dt>
+		            <dd>Anzahl der von einem Selektor betroffenen Klassen und Pseudoklassen</dd>
+		            <dt><em>Kategorie D</em></dt>
+		            <dd>Anzahl der von einem Selektor betroffenen Elementnamen und Pseudo-Elemente</dd>
+		        </dl>
+		        <ol>
+		            <li>Bei der Reihenfolge der Sortierung gilt: A > B > C > D, also z.B. 1 0 0 0 vor (größer als) 0 1 2 2.</li>
+		            <li>Bei Gleichheit gilt die letzte Definition</li>
+		        </ol>
+		    </main>
+		    <footer>
+		        <p><a href="./02_boxmodel.html">Boxmodel</a>&nbsp;&middot;&nbsp;<a href="./01_cascading.html">Einführung</a></p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+	=== "04_display.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>display</title>
+		    <style>
+		      p {
+		        color: red;
+		      }
+
+          p.ex1 {
+            display: none;
+          }
+
+          p.ex2 {
+            display: inline;
+          }
+
+          p.ex4 {
+						display: inline-block;
+						padding: 10px;
+						border: 1px solid red;
+						margin: 20px;
+          }
+		    </style>
+		</head>
+		<body>
+		<header>
+		    <nav>
+		<ul>
+		    <li><a href="./02_boxmodel.html">Boxmodel</a></li>
+		    <li><a href="./01_cascading.html">Cascading</a></li>
+		    <li><a href="#">Display</a></li>
+		    <li><a href="./05_grid">Grid</a></li>
+		</ul>
+		    </nav>
+		</header>
+		<main>
+		<h1>The display Property</h1>
+
+		<h2>display: none:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex1">none!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>
+
+		<h2>display: inline:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex2">inline!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>
+
+		<h2>display: block:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex3">block!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>
+
+		<h2>display: inline-block:</h2>
+		<div>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex4">inline, aber mit padding und margin</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+		</div>   
+
+		<ul>
+		    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display?retiredLocale=de">Gibt noch sehr viele andere</a></li>
+		    <li><a href="./index.html">Zurück</a></li>
+		</ul>
+		</main>
+		    <footer>
+
+		    </footer>
+		</body>
+		</html>
+		```
+
+	=== "05_grid.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>CSS-Grid</title>
+		    <style>
+
+		        .orange {
+		            background-color: orange;
+		            opacity: 0.5;
+		            border: 2px solid gray;
+		            border-radius: 5px;
+		            padding: 30px;
+		        }
+						
+		    </style>
+		</head>
+		<body>
+		    <header>
+		        <h1>CSS-Grid</h1>
+		    </header>
+		    <main class="wrapper">
+		        <div class="one orange">One</div>
+		        <div class="two orange">Two</div>
+		        <div class="three orange">Three</div>
+		        <div class="four orange">Four</div>
+		        <div class="five orange">Five</div>
+		        <div class="six orange">Six</div>
+		    </main>
+		    <footer>
+		        <p><a href="https://www.w3schools.com/cssref/pr_grid.php">grid</a></p>
+		        <p><a href="https://www.w3schools.com/cssref/pr_grid-template-columns.php">grid-template-columns</a></p>
+		        <p><a href="https://css-tricks.com/introduction-fr-css-unit/">fr - fraction</a></p>
+		        <p><a href="./index.html">Zurück</a></p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+
+??? hint "CSS-Vorlesung 21.04.2026"
+
+	=== "01_cascading.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>Cascading</title>
+			<link rel="stylesheet" href="./styles/mystyles.css" />
+		    <style>
+					main {
+						color: red;
+					}
+					 section>p {
+						color: green;
+					}
+
+					.blaueSchrift {
+						color: blue;
+					}
+
+					.roterHintergrund {
+						background-color: red;
+					}
+
+					#section2 {
+						background-color: rgb(185, 218, 166)
+					}
+
+					ul>li {
+						background-color: rgb(131, 131, 72)
+					}
+				</style>
+		</head>
+		<body>
+		    <header>
+		        <h1>Cascading Style Sheets - CSS</h1>
+		    </header>
+		    <main>
+		        <section>
+		            <h2 class="blaueSchrift roterHintergrund">Section 1</h2>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet <span>consectetur</span> adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <p>direktes Kind einer section</p>
+		        </section>
+		        <section id="section2">
+		            <h2 class="blaueSchrift">Section 2</h2>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                hallo ballo
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		            <article>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		            </article>
+		        </section>
+		        <ol>
+		            <li>item 1
+		                <ul>
+		                    <li>subitem 1</li>
+		                    <li>subitem 2</li>
+		                    <li>subitem 3</li>
+		                </ul>
+		            </li>
+		            <li>item 2</li>
+		            <li>item 3</li>
+		            <li>item 4</li>
+		            <li>item 5</li>
+		        </ol>
+		    </main>
+		    <aside>
+		        <h2 class="roterHintergrund">Aside</h2>
+		        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
+		    </aside>
+		    <footer>
+		        <p>
+		            <a href="./02_boxmodel.html">Boxmodel</a>&nbsp;&middot;&nbsp;
+		            <a href="./03_rangfolge.html">Rangfolge</a>&nbsp;&middot;&nbsp;
+		            <a href="https://www.htw-berlin.de">HTW Berlin</a>
+
+		        </p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+	=== "styles/mystyles.css"
+		```css
+		ol>li {
+		  background-color: greenyellow;
+		}
+		```
+
+	=== "Showcase Ein- und Ausschalten CSS - html"
+		```html
+		<!DOCTYPE html>
+		<html lang="de">
+		<head>
+		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <title>HTML Einführung - Lerne die Grundlagen</title>
+		    <link id="stylesheet" rel="stylesheet" href="./css/style.css">
+		</head>
+		<body>
+
+		    <header>
+		        <h1>Willkommen zur HTML-Einführung</h1>
+		        <p>HTML enthält alle Inhalte</p>
+		        <input id="cssToggle" type="checkbox" checked onchange="toggleCSS(this)"/>
+		        <label id="cssLabel" for="cssToggle">mit CSS</label>
+		    </header>
+
+		    <nav>
+		        <h3>Inhaltsverzeichnis</h3>
+		        <ul>
+		            <li><a href="#struktur">Die Grundstruktur</a></li>
+		            <li><a href="#texte">Texte und Formatierung</a></li>
+		            <li><a href="#medien">Bilder und Links</a></li>
+		            <li><a href="#tabellen">Tabellen</a></li>
+		            <li><a href="#details">Akkordeon</a></li>
+		            <li><a href="#dialog">Modaler Dialog</a></li>
+		        </ul>
+		    </nav>
+
+		    <main>
+		        <section id="struktur">
+		            <h2>1. Die Grundstruktur</h2>
+		            <p>Jedes HTML-Dokument beginnt mit dem <code>&lt;!DOCTYPE html&gt;</code>. Dies sagt dem Browser, dass es sich um ein modernes HTML5-Dokument handelt.</p>
+		            <p>Die wichtigsten "Eltern-Elemente" sind:</p>
+		            <ul>
+		                <li><strong>&lt;html&gt;</strong>: Die Wurzel des Dokuments.</li>
+		                <li><strong>&lt;head&gt;</strong>: Enthält Metadaten (nicht sichtbar auf der Seite).</li>
+		                <li><strong>&lt;body&gt;</strong>: Hier kommt alles rein, was die Nutzerin sieht.</li>
+		            </ul>
+		        </section>
+
+		        <section id="texte">
+		            <h2>2. Texte und Listen</h2>
+		            <p>Man nutzt Überschriften von <code>&lt;h1&gt;</code> bis <code>&lt;h6&gt;</code>, um Inhalte zu strukturieren.</p>
+		            
+		            <h3>Geordnete Liste (Beispiel)</h3>
+		            <ol>
+		                <li>HTML lernen</li>
+		                <li>CSS lernen</li>
+		                <li>JavaScript lernen</li>
+		            </ol>
+		        </section>
+
+		        <section id="medien">
+		            <h2>3. Bilder und Verweise</h2>
+		            <p>Ein Link wird mit dem <span class="highlight">Anchor-Tag</span> <code>&lt;a&gt;</code> erstellt:</p>
+		            <a href="https://www.htw-berlin.de/" target="_blank">Dies ist ein externer Link zur HTW-Seite</a>
+
+		            <h3>Ein Bild einbinden</h3>
+		            <p>Bilder benötigen ein <code>src</code> (Quelle) und ein <code>alt</code> (Alternative für Screenreader) Attribut.</p>
+		            <img src="../images/htw.jpg" alt="Beispielbild">
+		        </section>
+
+		        <section id="tabellen">
+		            <h2>4. Daten in Tabellen strukturieren</h2>
+		            <p>Tabellen werden in HTML Zeile für Zeile aufgebaut. Hier sind die wichtigsten Tags:</p>
+		            <ul>
+		                <li><code>&lt;table&gt;</code>: Das umschließende Element.</li>
+		                <li><code>&lt;tr&gt;</code>: Eine Tabellenzeile (Table Row).</li>
+		                <li><code>&lt;th&gt;</code>: Eine Kopfzelle (Table Header) – der Text ist meist fett und zentriert.</li>
+		                <li><code>&lt;td&gt;</code>: Eine normale Datenzelle (Table Data).</li>
+		            </ul>
+
+		            <table border="1" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+		                <thead>
+		                    <tr style="background-color: #eee;">
+		                        <th>Tag</th>
+		                        <th>Beschreibung</th>
+		                        <th>Beispiel</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                    <tr>
+		                        <td><code>&lt;tr&gt;</code></td>
+		                        <td>Table Row</td>
+		                        <td>Definiert eine Zeile</td>
+		                    </tr>
+		                    <tr>
+		                        <td><code>&lt;th&gt;</code></td>
+		                        <td>Table Header</td>
+		                        <td>Überschrift in der Tabelle</td>
+		                    </tr>
+		                    <tr>
+		                        <td><code>&lt;td&gt;</code></td>
+		                        <td>Table Data</td>
+		                        <td>Inhalt einer Zelle</td>
+		                    </tr>
+		                </tbody>
+		            </table>
+		        </section>
+
+		        <section id="formular">
+		            <h2>5. Interaktion (Formulare)</h2>
+		            <form>
+		                <div>
+		                  <label for="name">Vollständiger Name:</label><br>
+		                  <input type="text" id="name" name="name" placeholder="Erika Musterfrau" required>
+		                </div>
+
+		                <div>
+		                    <label for="email">Passwort:</label><br>
+		                    <input type="password" id="email" name="email" placeholder="musterfrau@htw-berlin.de">
+		                </div>
+
+		                <div>
+		                    <label for="alter">Alter:</label><br>
+		                    <input type="number" id="alter" name="alter" min="18" max="99" value="25">
+		                </div>
+
+		                <div>
+		                    <label for="termin">Gewünschtes Datum:</label><br>
+		                    <input type="date" id="termin" name="termin">
+		                </div>
+
+		                <div>
+		                    <label for="zufriedenheit">Zufriedenheit (1-10):</label><br>
+		                    <input type="range" id="zufriedenheit" name="zufriedenheit" min="1" max="10">
+		                </div>
+
+		                <div>
+		                    <label for="farbe">Lieblingsfarbe:</label><br>
+		                    <input type="color" id="farbe" name="farbe" value="#3498db">
+		                </div>
+
+		                <div>
+		                    <label for="datei">Profilbild hochladen:</label><br>
+		                    <input type="file" id="datei" name="datei" accept="image/*">
+		                </div>
+
+		                <div>
+		                  <label>Lieblingssprache:</label><br>
+		                  <input type="radio" id="html" name="fav" value="HTML"> <label for="html">HTML</label><br>
+		                  <input type="radio" id="radio-css" name="fav" value="CSS"> <label for="radio-css">CSS</label><br><br>
+		                </div>
+
+		                <button type="button" onclick="alert('HTML ist super!')">Abschicken</button>
+		            </form>
+		        </section>
+
+		        <section id="details">
+		          <h2>6. Akkordeon</h2>
+		          <details>
+		              <summary>Was ist der Vorteil von nativem HTML?</summary>
+		              <div class="details-content">
+		                  <p>Es spart JavaScript, verbessert die Performance und ist von Haus aus barrierefrei (zugänglich für Screenreader).</p>
+		              </div>
+		          </details>
+		        </section>
+
+		        <section id="dialog">
+		            <h2>7. Interaktives Dialog-Fenster</h2>
+		            <p>Klicke auf den Button, um das native HTML-Modal zu testen:</p>
+
+		            <button onclick="meinModal.showModal()">Modal öffnen</button>
+
+		            <dialog class="btn-open" id="meinModal" style="">
+		                <h3>Dies ist ein natives Modal!</h3>
+		                <p>Ich liege über allen anderen Elementen.</p>
+		                
+		                <form method="dialog">
+		                    <button class="btn-close">Schließen</button>
+		                </form>
+		            </dialog>
+		        </section>
+		    </main>
+
+		    <script>
+		        function toggleCSS(checkbox) {
+		            const link = document.getElementById('stylesheet');
+		            const label = document.getElementById('cssLabel');
+		            link.disabled = !checkbox.checked;
+		            label.textContent = checkbox.checked ? 'mit CSS' : 'ohne CSS';
+		        }
+		    </script>
+
+		    <footer>
+		        <p>&copy; 2026 - WebTech - HTML-Einführung</p>
+		    </footer>
+
+		</body>
+		</html>
+		```
+
+	=== "Showcase Ein- und Ausschalten CSS - css"
+		```css
+		body {
+		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		    line-height: 1.6;
+		    color: #333;
+		    max-width: 800px;
+		    margin: 0 auto;
+		    padding: 20px;
+		    background-color: #f4f4f9;
+		}
+		header {
+		    background: #2c3e50;
+		    color: white;
+		    padding: 1rem;
+		    text-align: center;
+		    border-radius: 8px;
+		}
+		section {
+		    background: white;
+		    padding: 20px;
+		    margin-top: 20px;
+		    border-radius: 8px;
+		    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+		code {
+		    background: #eee;
+		    padding: 2px 5px;
+		    border-radius: 4px;
+		    font-family: monospace;
+		}
+		.highlight {
+		    color: #e67e22;
+		    font-weight: bold;
+		}
+		footer {
+		    text-align: center;
+		    margin-top: 40px;
+		    font-size: 0.9em;
+		    color: #777;
+		}
+		img {
+		  width: 50%;
+		  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		}
+		table {
+		    width: 100%;
+		    border-collapse: collapse;
+		    margin: 20px 0;
+		}
+		th, td {
+		    border: 1px solid #ddd;
+		    padding: 12px;
+		    text-align: left;
+		}
+		th {
+		    background-color: #2c3e50;
+		    color: white;
+		}
+		tr:nth-child(even) {
+		    background-color: #f9f9f9;
+		}
+		dialog {
+		  border-radius: 8px; 
+		  border: 1px solid #ccc; 
+		  padding: 20px;
+		}
+		dialog::backdrop {
+		    background-color: rgba(0, 0, 0, 0.5);
+		    backdrop-filter: blur(4px); /* geht nicht bei Safari */
+		}
+		form {
+		  display: grid; 
+		  gap: 15px; 
+		  max-width: 400px;
+		}
+
+		details {
+		    background: #ffffff;
+		    border: 1px solid #e2e8f0;
+		    border-radius: 8px;
+		    margin-bottom: 1rem;
+		    overflow: hidden;
+		    transition: box-shadow 0.3s ease;
+		}
+
+		details[open] {
+		    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+		}
+
+		summary {
+		    padding: 1rem;
+		    font-weight: 600;
+		    cursor: pointer;
+		    list-style: none; 
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    background-color: #f8fafc;
+		}
+
+		summary::after {
+		    content: '+';
+		    font-size: 1.2rem;
+		    color: #64748b;
+		    transition: transform 0.3s ease;
+		}
+
+		details[open] summary::after {
+		    transform: rotate(45deg);
+		    content: '+'; 
+		}
+
+		.details-content {
+		    padding: 1rem;
+		    border-top: 1px solid #e2e8f0;
+		    line-height: 1.6;
+		    animation: slideDown 0.3s ease-out;
+		}
+
+		@keyframes slideDown {
+		    from { opacity: 0; transform: translateY(-10px); }
+		    to { opacity: 1; transform: translateY(0); }
+		}
+
+		button {
+		    font-family: 'Segoe UI', sans-serif;
+		    font-size: 1rem;
+		    padding: 10px 20px;
+		    border: none;
+		    border-radius: 6px;
+		    cursor: pointer;
+		    transition: all 0.2s ease;
+		    display: inline-flex;
+		    align-items: center;
+		    justify-content: center;
+		}
+
+		.btn-open {
+		    background-color: #3498db;
+		    color: white;
+		    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+		}
+
+		.btn-open:hover {
+		    background-color: #2980b9;
+		    transform: translateY(-1px);
+		    box-shadow: 0 6px 8px rgba(52, 152, 219, 0.3);
+		}
+
+		.btn-open:active {
+		    transform: translateY(0);
+		}
+
+		.btn-close {
+		    background-color: #ecf0f1;
+		    color: #2c3e50;
+		    font-weight: 500;
+		    margin-top: 15px;
+		}
+
+		.btn-close:hover {
+		    background-color: #bdc3c7;
+		}
+
+		#cssToggle {
+		    -webkit-appearance: none;
+		    appearance: none;
+		    position: absolute;
+		    opacity: 0;
+		    width: 0;
+		    height: 0;
+		}
+
+		#cssLabel {
+		    position: relative;
+		    display: inline-flex;
+		    align-items: center;
+		    padding-left: 58px;
+		    cursor: pointer;
+		    color: white;
+		    -webkit-user-select: none;
+		    user-select: none;
+		    min-height: 28px;
+		    line-height: 28px;
+		}
+
+		#cssLabel::before {
+		    content: '';
+		    position: absolute;
+		    left: 0;
+		    top: 50%;
+		    transform: translateY(-50%);
+		    width: 50px;
+		    height: 26px;
+		    border-radius: 13px;
+		    background-color: #aaa;
+		    transition: background-color 0.3s ease;
+		}
+
+		#cssLabel::after {
+		    content: '';
+		    position: absolute;
+		    left: 3px;
+		    top: 50%;
+		    transform: translateY(-50%);
+		    width: 20px;
+		    height: 20px;
+		    border-radius: 50%;
+		    background-color: white;
+		    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+		    transition: left 0.3s ease;
+		}
+
+		#cssToggle:checked + #cssLabel::before {
+		    background-color: #2eb1cc;
+		}
+
+		#cssToggle:checked + #cssLabel::after {
+		    left: 27px;
+		}
+
+		input:not([type="range"]):not([type="color"]):not([type="radio"]) {
+		    width: 100%;
+		    padding: 8px;
+		    border: 1px solid #ccc;
+		    border-radius: 4px;
+		    box-sizing: border-box; 
+		}
+
+		input:focus {
+		    border-color: #3498db;
+		    outline: none;
+		    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+		}
+		```
+
+
+??? hint "Vorbereitung Vorlesung CSS"
+
+	=== "rwd1.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+	      <head>
+	          <meta charset="UTF-8">
+	          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	          <title>Media Queries</title>
+	          <style>
+
+	              div {
+	                  width: 100vw;
+	                  height: 100vh;
+	                  text-align: center;
+	                  background-color: red;
+	                  padding-top: 20%;
+	                  padding-bottom: 20%;
+	                  font-size: medium;
+	              }
+
+	          </style>
+	      </head>
+	      <body>
+	          <div>Ändern Sie die Breite des Browsers, um den Effekt zu sehen.</div>
+	      </body>
+		</html>
+		```
+
+	=== "rwd2.html"
+		```html
+		<!DOCTYPE html>
+		<html lang="en">
+	      <head>
+	          <meta charset="UTF-8">
+	          <meta name="viewport" content="width=device-width, initial-scale=1">
+	          <title>Responsive Webdesign 2</title>
+	      </head>
+	      <body>
+	          <main>
+	              <p>
+	                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+	                  sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+	                  ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+	                  At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+	                  eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+	              </p>
+	              <p>
+	                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+	                  sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+	                  ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+	                  At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+	                  eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+	              </p>
+	              <p>
+	                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+	                  sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+	                  ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+	                  At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+	                  eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+	              </p>
+	              <p>
+	                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+	                  sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+	                  ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+	                  At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore
+	                  eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
+	              </p>
+	          </main>
+	      </body>
+		</html>
+		```
+
 
 
 ## Semesteraufgabe

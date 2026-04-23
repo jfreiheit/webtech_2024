@@ -276,103 +276,14 @@ Es gibt noch viele weitere Werte für `display`, auf die wir aber nicht näher e
 
 Wir werden für das Layout unserer Webseiten in Zukunft CSS-Frameworks, wie z.B. [**Bootstrap**](https://getbootstrap.com/) oder [**Materialize**](https://materializecss.com/) oder [**SemanticUI**](https://semantic-ui.com/) verwenden. Für das Layout stellen diese Frameworks insbesondere ein Grid-Konzept zur Verfügung, das recht einfach nutzbar ist und sogar für eine responsive Darstellung sorgt. Zunächst wollen wir jedoch die Prinzipien verstehen, auf denen diese Frameworks (und deren Grid-Konzept) basieren.
 
-### Mehrspaltig mithilfe von float
 
-Generell werden Container untereinander dargestellt, in der Reihenfolge ihres Auftretens im HTML. Betrachten wir ein einfaches Beispiel:
+### Flexbox
 
-```html
-<body>
-<p id="p1"><img src="./images/fiw.jpg" alt="fiw-logo" style="width:100px;"/></p>
-<p id="p2">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-    sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-    rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-    ipsum dolor sit amet.</p>
-<p id="p3">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-    sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-    rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-    ipsum dolor sit amet.</p>
-</body>
-```
-
-Untereinander definiert sind 3 Block-Elemente (`<p>`-Elemente), die jeweils eine eigene `id` besitzen. Der erste Absatz enthält ein Bild mit der Breite `100px`. Dies führt zu folgender Ansicht: 
-
-![float](./files/52_float_1.png)
-
-Alle drei Block-Elemente sind also, wie erwartet, untereinander. 
-
-#### Umfließen lassen: `float`
-
-Angenommen, wir wollen nun, dass das Bild von Text umflossen wird, dass also der Absatz mit dem Bild **neben** den danach folgenden Absätzen erscheint. Dann kommt die CSS-Eigenschaft `float` ins Spiel. Wir können entscheiden, ob das Bild links sein soll und umflossen wird (`float: left;`) oder rechts sein und dort vom Text umflossen werden soll (`float: right;`). Wir fügen exemplarisch folgende Eigenschaft (für die id `p1`) hinzu:
-
-```css
-#p1 {
-    float:left;
-    margin-right:15px;
-}
-```
-
-Damit legen wir fest, dass der erste Absatz umflossen werden soll (und links bleibt - `float: left;`). Mit der `margin-right`-Eigenschaft sorgen wir für einen Abstand zum unfließenden Text. Es entsteht folgende Ansicht: 
-
-![float](./files/53_float_2.png)
-
-Das heißt, dass alle folgenden Absätze den ersten Absatz umfließen. 
-
-
-#### Umfließen stoppen: `clear`
-
-Das Umfließen kann auch wieder gestoppt werden. Dies geschieht mithilfe der `clear`-Eigenschaft. Um `float: left` zu stoppen, wird `clear: left` verwendet und um `float: right` zu stoppen, wird `clear: right` verwendet. Sollte es mehrere Elemente mit einer `float`-Eigenschaft geben, kann zum Stoppen `clear: both` verwendet werden. 
-
-Wenn wir nun also für den dritten Absatz definieren: 
-
-```css
-#p3 {
-    clear: left;
-}
-```
-
-![float](./files/54_float_3.png)
-
-, dann beginnt der dritte Absatz wieder am Beginn einer neuen Zeile unterhalb der beiden Absätze `p1` und `p2`. 
-
-#### mehr als 2 Spalten
-
-Wenn wir nun alle 3 Absätze nebeneinander setzen wollen, dann definieren wir einfach für alle 3 Absätze `float:left;`. Damit alle 3 Absätze die gleiche Breite haben, geben wir noch für jeden Absatz an, dass er `33.33%` des Viewports einnimmt (`width: 31.33%` + `padding:1%` - links und rechts):
-
-```css
-#p1, #p2, #p3 {
-    float:left;
-    width: 31.33%;
-    padding:1%;
-}
-```
-
-Beachten Sie dazu noch folgende Änderung beim `<img>`-Element. Wir ändern die Breite des Bildes von `100px` (feste Breite) auf `100%` (relative Breite - relativ zum Elternelement, das ist `<p id="p1">`). 
-
-```html
-<p id="p1"><img src="./images/fiw.jpg" alt="fiw-logo" style="width:100%;"/></p>
-```	
-
-Schöner - und üblicher, weil später auch so beim Grid-Konzept - ist es, den Elementen, die man nebeneinander anordnen möchte, eine CSS-Klasse zuzuweisen, z.B. `class="column"`und für diese Klasse dann die `float`-Eigenschaft mit zugehöriger relativer Breite zu definieren. Außerdem fügt man oft um die Spalten einen weiteren Container mit einer Klasse `class="row"` (Beispiel) und kann dann für diese Klasse (`.row:after` die `clear`-Eigenschaft definieren). Ein solches Beispiel nochmal hier:
-
-<iframe width="100%" height="300" src="//jsfiddle.net/jfreiheit/sfdztn0c/12/embedded/html,css,result/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
-
-#### Flexbox
-
-Wir werden sehen, dass das Grid-Konzept, das wir zukünftig verwenden werden, auf der `float`-Eigenschaft (zusammen mit `width`) basiert. Ein Konzept, welches von der Komplexität "zwischen" `float` und dem Grid-Konzept liegt, ist `flexbox`. Mit `flexbox` ist das Nebeneinanderpositionieren von Containern recht einfach - insbesondere lassen sich auch recht leicht unterschiedliche Spaltenbreiten definieren- Wir gehen hier nicht weiter auf `flexbox` ein, sondern verweisen auf z.B. [**A Guide to Flexbox**](https://css-tricks.com/snippets/css/a-guide-to-flexbox). 
+Mit `flexbox` ist das Nebeneinanderpositionieren von Containern recht einfach - insbesondere lassen sich auch recht leicht unterschiedliche Spaltenbreiten definieren- Wir gehen hier nicht weiter auf `flexbox` ein, sondern verweisen auf z.B. [**A Guide to Flexbox**](https://css-tricks.com/snippets/css/a-guide-to-flexbox). Stattdessen verwenden wir gleich [Grid](#grid).
 
 ### Grid
 
-`flexbox` verwendet `float` und `CSS Grid` (oder nur `Grid`) verwendet `flexbox`. Während `flexbox` nur in ein Dimension das Layout gestaltet (nämlich horizontal), kann `Grid` für einen vollständigen Layout-Entwurf verwendet werden (nämlich horizontal und vertikal). Dazu wird unsere Webseite als eine Matrix verstanden, bestehend aus *Zellen*, die in *Zeilen* und *Spalten* angeordnet sind. Am besten, wir betrachten ein [Beispiel](https://developer.mozilla.org/de/docs/Web/CSS/CSS_Grid_Layout):
+Während `flexbox` nur in ein Dimension das Layout gestaltet (nämlich horizontal), kann `Grid` für einen vollständigen Layout-Entwurf verwendet werden (nämlich horizontal und vertikal). Dazu wird unsere Webseite als eine Matrix verstanden, bestehend aus *Zellen*, die in *Zeilen* und *Spalten* angeordnet sind. Am besten, wir betrachten ein [Beispiel](https://developer.mozilla.org/de/docs/Web/CSS/CSS_Grid_Layout):
 
 === "HTML"
 	```html linenums="1"
@@ -476,12 +387,17 @@ Numerische Werte können in CSS absolut oder relativ angegeben werden, je nach v
 | `%` 	  | relativ  | relativ entweder zur elementeigenen Größe, zur Größe des Elternelements oder zum allegemeinen Kontext |
 | `cm` 	  | absolut | Zentimenter |
 | `em` | relativ | Schriftgröße des Elements (bei font-size aber Schriftgröße des Elternelements) | 
+| `rem` | relativ | Schriftgröße des Root-Elements (des `<html>`-Dokumentes) | 
 | `ex` | relativ | Höhe des Kleinbuchstabens `x` im Element (bei font-size aber die Schriftgröße von `x` im Elternelement) | 
 | `in` | absolut | inch (1 inch = 2,54 cm) | 
 | `mm` | absolut | Milimeter | 
 | `pc` | absolut | pica (1 pc = 12 Punkt) | 
 | `pt` | absolut | Punkt (1 Punkt = 1/72 inch) | 
 | `px` | absolut und relativ | absolut auf ein und dasselbe Ausgabegerät bezogen und relativ von Ausgabegerät zu Ausgabegerät (Pixeldichte) | 
+| `vw` | relativ | `1vw` entspricht `1%` der Viewport-Breite | 
+| `vh` | relativ | `1vh` entspricht `1%` der Viewport-Höhe | 
+
+In Bezug auf `vh` und `vw` 
 
 Sie sollten absolute Angaben nur in Ausnahmefällen verwenden. Wann immer es geht, ist eine relative Größenangabe vorzuziehen. Somit werden am häufigsten `%`-Angaben und am zweithäufigsten `px`-Angaben verwendet. `em` sieht man auch noch recht häufig. Von allen anderen Einheiten ist eher abzuraten.
 

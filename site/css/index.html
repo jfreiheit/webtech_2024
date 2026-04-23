@@ -381,53 +381,11 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mehrspaltig-mithilfe-von-float" class="md-nav__link">
-    <span class="md-ellipsis">
-      Mehrspaltig mithilfe von float
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Mehrspaltig mithilfe von float">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#umflieen-lassen-float" class="md-nav__link">
-    <span class="md-ellipsis">
-      Umfließen lassen: float
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#umflieen-stoppen-clear" class="md-nav__link">
-    <span class="md-ellipsis">
-      Umfließen stoppen: clear
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mehr-als-2-spalten" class="md-nav__link">
-    <span class="md-ellipsis">
-      mehr als 2 Spalten
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#flexbox" class="md-nav__link">
     <span class="md-ellipsis">
       Flexbox
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -897,53 +855,11 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mehrspaltig-mithilfe-von-float" class="md-nav__link">
-    <span class="md-ellipsis">
-      Mehrspaltig mithilfe von float
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Mehrspaltig mithilfe von float">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#umflieen-lassen-float" class="md-nav__link">
-    <span class="md-ellipsis">
-      Umfließen lassen: float
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#umflieen-stoppen-clear" class="md-nav__link">
-    <span class="md-ellipsis">
-      Umfließen stoppen: clear
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mehr-als-2-spalten" class="md-nav__link">
-    <span class="md-ellipsis">
-      mehr als 2 Spalten
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#flexbox" class="md-nav__link">
     <span class="md-ellipsis">
       Flexbox
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1466,129 +1382,69 @@
 <p>Es gibt noch viele weitere Werte für <code>display</code>, auf die wir aber nicht näher eingehen wollen. Eine Übersicht finden Sie z.B. <a href="https://www.w3schools.com/cssref/pr_class_display.asp"><strong>hier</strong></a>.</p>
 <h2 id="layout-gestalten-mithilfe-von-css">Layout gestalten mithilfe von CSS<a class="headerlink" href="#layout-gestalten-mithilfe-von-css" title="Permanent link">&para;</a></h2>
 <p>Wir werden für das Layout unserer Webseiten in Zukunft CSS-Frameworks, wie z.B. <a href="https://getbootstrap.com/"><strong>Bootstrap</strong></a> oder <a href="https://materializecss.com/"><strong>Materialize</strong></a> oder <a href="https://semantic-ui.com/"><strong>SemanticUI</strong></a> verwenden. Für das Layout stellen diese Frameworks insbesondere ein Grid-Konzept zur Verfügung, das recht einfach nutzbar ist und sogar für eine responsive Darstellung sorgt. Zunächst wollen wir jedoch die Prinzipien verstehen, auf denen diese Frameworks (und deren Grid-Konzept) basieren.</p>
-<h3 id="mehrspaltig-mithilfe-von-float">Mehrspaltig mithilfe von float<a class="headerlink" href="#mehrspaltig-mithilfe-von-float" title="Permanent link">&para;</a></h3>
-<p>Generell werden Container untereinander dargestellt, in der Reihenfolge ihres Auftretens im HTML. Betrachten wir ein einfaches Beispiel:</p>
-<div class="language-html highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;p1&quot;</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./images/fiw.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;fiw-logo&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width:100px;&quot;</span><span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;p2&quot;</span><span class="p">&gt;</span>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>    rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    ipsum dolor sit amet.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;p3&quot;</span><span class="p">&gt;</span>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>    sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>    rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>    ipsum dolor sit amet.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-</span></code></pre></div>
-<p>Untereinander definiert sind 3 Block-Elemente (<code>&lt;p&gt;</code>-Elemente), die jeweils eine eigene <code>id</code> besitzen. Der erste Absatz enthält ein Bild mit der Breite <code>100px</code>. Dies führt zu folgender Ansicht: </p>
-<p><img alt="float" src="../files/52_float_1.png" /></p>
-<p>Alle drei Block-Elemente sind also, wie erwartet, untereinander. </p>
-<h4 id="umflieen-lassen-float">Umfließen lassen: <code>float</code><a class="headerlink" href="#umflieen-lassen-float" title="Permanent link">&para;</a></h4>
-<p>Angenommen, wir wollen nun, dass das Bild von Text umflossen wird, dass also der Absatz mit dem Bild <strong>neben</strong> den danach folgenden Absätzen erscheint. Dann kommt die CSS-Eigenschaft <code>float</code> ins Spiel. Wir können entscheiden, ob das Bild links sein soll und umflossen wird (<code>float: left;</code>) oder rechts sein und dort vom Text umflossen werden soll (<code>float: right;</code>). Wir fügen exemplarisch folgende Eigenschaft (für die id <code>p1</code>) hinzu:</p>
-<div class="language-css highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">#</span><span class="nn">p1</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">float</span><span class="p">:</span><span class="kc">left</span><span class="p">;</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="k">margin-right</span><span class="p">:</span><span class="mi">15</span><span class="kt">px</span><span class="p">;</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>Damit legen wir fest, dass der erste Absatz umflossen werden soll (und links bleibt - <code>float: left;</code>). Mit der <code>margin-right</code>-Eigenschaft sorgen wir für einen Abstand zum unfließenden Text. Es entsteht folgende Ansicht: </p>
-<p><img alt="float" src="../files/53_float_2.png" /></p>
-<p>Das heißt, dass alle folgenden Absätze den ersten Absatz umfließen. </p>
-<h4 id="umflieen-stoppen-clear">Umfließen stoppen: <code>clear</code><a class="headerlink" href="#umflieen-stoppen-clear" title="Permanent link">&para;</a></h4>
-<p>Das Umfließen kann auch wieder gestoppt werden. Dies geschieht mithilfe der <code>clear</code>-Eigenschaft. Um <code>float: left</code> zu stoppen, wird <code>clear: left</code> verwendet und um <code>float: right</code> zu stoppen, wird <code>clear: right</code> verwendet. Sollte es mehrere Elemente mit einer <code>float</code>-Eigenschaft geben, kann zum Stoppen <code>clear: both</code> verwendet werden. </p>
-<p>Wenn wir nun also für den dritten Absatz definieren: </p>
-<div class="language-css highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">#</span><span class="nn">p3</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="k">clear</span><span class="p">:</span><span class="w"> </span><span class="kc">left</span><span class="p">;</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">}</span>
-</span></code></pre></div>
-<p><img alt="float" src="../files/54_float_3.png" /></p>
-<p>, dann beginnt der dritte Absatz wieder am Beginn einer neuen Zeile unterhalb der beiden Absätze <code>p1</code> und <code>p2</code>. </p>
-<h4 id="mehr-als-2-spalten">mehr als 2 Spalten<a class="headerlink" href="#mehr-als-2-spalten" title="Permanent link">&para;</a></h4>
-<p>Wenn wir nun alle 3 Absätze nebeneinander setzen wollen, dann definieren wir einfach für alle 3 Absätze <code>float:left;</code>. Damit alle 3 Absätze die gleiche Breite haben, geben wir noch für jeden Absatz an, dass er <code>33.33%</code> des Viewports einnimmt (<code>width: 31.33%</code> + <code>padding:1%</code> - links und rechts):</p>
-<div class="language-css highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">#</span><span class="nn">p1</span><span class="o">,</span><span class="w"> </span><span class="p">#</span><span class="nn">p2</span><span class="o">,</span><span class="w"> </span><span class="p">#</span><span class="nn">p3</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="k">float</span><span class="p">:</span><span class="kc">left</span><span class="p">;</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mf">31.33</span><span class="kt">%</span><span class="p">;</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="mi">1</span><span class="kt">%</span><span class="p">;</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>Beachten Sie dazu noch folgende Änderung beim <code>&lt;img&gt;</code>-Element. Wir ändern die Breite des Bildes von <code>100px</code> (feste Breite) auf <code>100%</code> (relative Breite - relativ zum Elternelement, das ist <code>&lt;p id="p1"&gt;</code>). </p>
-<div class="language-html highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">&lt;</span><span class="nt">p</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;p1&quot;</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./images/fiw.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;fiw-logo&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width:100%;&quot;</span><span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</span></code></pre></div>
-<p>Schöner - und üblicher, weil später auch so beim Grid-Konzept - ist es, den Elementen, die man nebeneinander anordnen möchte, eine CSS-Klasse zuzuweisen, z.B. <code>class="column"</code>und für diese Klasse dann die <code>float</code>-Eigenschaft mit zugehöriger relativer Breite zu definieren. Außerdem fügt man oft um die Spalten einen weiteren Container mit einer Klasse <code>class="row"</code> (Beispiel) und kann dann für diese Klasse (<code>.row:after</code> die <code>clear</code>-Eigenschaft definieren). Ein solches Beispiel nochmal hier:</p>
-<iframe width="100%" height="300" src="//jsfiddle.net/jfreiheit/sfdztn0c/12/embedded/html,css,result/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
-
-<h4 id="flexbox">Flexbox<a class="headerlink" href="#flexbox" title="Permanent link">&para;</a></h4>
-<p>Wir werden sehen, dass das Grid-Konzept, das wir zukünftig verwenden werden, auf der <code>float</code>-Eigenschaft (zusammen mit <code>width</code>) basiert. Ein Konzept, welches von der Komplexität "zwischen" <code>float</code> und dem Grid-Konzept liegt, ist <code>flexbox</code>. Mit <code>flexbox</code> ist das Nebeneinanderpositionieren von Containern recht einfach - insbesondere lassen sich auch recht leicht unterschiedliche Spaltenbreiten definieren- Wir gehen hier nicht weiter auf <code>flexbox</code> ein, sondern verweisen auf z.B. <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox"><strong>A Guide to Flexbox</strong></a>. </p>
+<h3 id="flexbox">Flexbox<a class="headerlink" href="#flexbox" title="Permanent link">&para;</a></h3>
+<p>Mit <code>flexbox</code> ist das Nebeneinanderpositionieren von Containern recht einfach - insbesondere lassen sich auch recht leicht unterschiedliche Spaltenbreiten definieren- Wir gehen hier nicht weiter auf <code>flexbox</code> ein, sondern verweisen auf z.B. <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox"><strong>A Guide to Flexbox</strong></a>. Stattdessen verwenden wir gleich <a href="#grid">Grid</a>.</p>
 <h3 id="grid">Grid<a class="headerlink" href="#grid" title="Permanent link">&para;</a></h3>
-<p><code>flexbox</code> verwendet <code>float</code> und <code>CSS Grid</code> (oder nur <code>Grid</code>) verwendet <code>flexbox</code>. Während <code>flexbox</code> nur in ein Dimension das Layout gestaltet (nämlich horizontal), kann <code>Grid</code> für einen vollständigen Layout-Entwurf verwendet werden (nämlich horizontal und vertikal). Dazu wird unsere Webseite als eine Matrix verstanden, bestehend aus <em>Zellen</em>, die in <em>Zeilen</em> und <em>Spalten</em> angeordnet sind. Am besten, wir betrachten ein <a href="https://developer.mozilla.org/de/docs/Web/CSS/CSS_Grid_Layout">Beispiel</a>:</p>
+<p>Während <code>flexbox</code> nur in ein Dimension das Layout gestaltet (nämlich horizontal), kann <code>Grid</code> für einen vollständigen Layout-Entwurf verwendet werden (nämlich horizontal und vertikal). Dazu wird unsere Webseite als eine Matrix verstanden, bestehend aus <em>Zellen</em>, die in <em>Zeilen</em> und <em>Spalten</em> angeordnet sind. Am besten, wir betrachten ein <a href="https://developer.mozilla.org/de/docs/Web/CSS/CSS_Grid_Layout">Beispiel</a>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">HTML</label><label for="__tabbed_4_2">CSS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-html highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
-<span class="normal"><a href="#__codelineno-17-2">2</a></span>
-<span class="normal"><a href="#__codelineno-17-3">3</a></span>
-<span class="normal"><a href="#__codelineno-17-4">4</a></span>
-<span class="normal"><a href="#__codelineno-17-5">5</a></span>
-<span class="normal"><a href="#__codelineno-17-6">6</a></span>
-<span class="normal"><a href="#__codelineno-17-7">7</a></span>
-<span class="normal"><a href="#__codelineno-17-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;wrapper&quot;</span><span class="p">&gt;</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;one orange&quot;</span><span class="p">&gt;</span>One<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;two orange&quot;</span><span class="p">&gt;</span>Two<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;three orange&quot;</span><span class="p">&gt;</span>Three<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;four orange&quot;</span><span class="p">&gt;</span>Four<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;five orange&quot;</span><span class="p">&gt;</span>Five<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;six orange&quot;</span><span class="p">&gt;</span>Six<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="language-html highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span>
+<span class="normal"><a href="#__codelineno-12-7">7</a></span>
+<span class="normal"><a href="#__codelineno-12-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;wrapper&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;one orange&quot;</span><span class="p">&gt;</span>One<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;two orange&quot;</span><span class="p">&gt;</span>Two<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;three orange&quot;</span><span class="p">&gt;</span>Three<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;four orange&quot;</span><span class="p">&gt;</span>Four<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;five orange&quot;</span><span class="p">&gt;</span>Five<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;six orange&quot;</span><span class="p">&gt;</span>Six<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="language-css highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="p">.</span><span class="nc">wrapper</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="nf">repeat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">);</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">  </span><span class="n">grid-gap</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">  </span><span class="k">grid-auto-rows</span><span class="p">:</span><span class="w"> </span><span class="nf">minmax</span><span class="p">(</span><span class="mi">100</span><span class="kt">px</span><span class="p">,</span><span class="w"> </span><span class="kc">auto</span><span class="p">);</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="p">}</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="p">.</span><span class="nc">one</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="p">}</span>
-</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="p">.</span><span class="nc">two</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="p">}</span>
-</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="p">.</span><span class="nc">three</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
-</span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="p">}</span>
-</span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="p">.</span><span class="nc">four</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-18-20"><a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-</span><span id="__span-18-21"><a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-</span><span id="__span-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="p">}</span>
-</span><span id="__span-18-23"><a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a><span class="p">.</span><span class="nc">five</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-18-24"><a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
-</span><span id="__span-18-25"><a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-</span><span id="__span-18-26"><a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a><span class="p">}</span>
-</span><span id="__span-18-27"><a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a><span class="p">.</span><span class="nc">six</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-18-28"><a id="__codelineno-18-28" name="__codelineno-18-28" href="#__codelineno-18-28"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-</span><span id="__span-18-29"><a id="__codelineno-18-29" name="__codelineno-18-29" href="#__codelineno-18-29"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-</span><span id="__span-18-30"><a id="__codelineno-18-30" name="__codelineno-18-30" href="#__codelineno-18-30"></a><span class="p">}</span>
-</span><span id="__span-18-31"><a id="__codelineno-18-31" name="__codelineno-18-31" href="#__codelineno-18-31"></a>
-</span><span id="__span-18-32"><a id="__codelineno-18-32" name="__codelineno-18-32" href="#__codelineno-18-32"></a><span class="p">.</span><span class="nc">orange</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-18-33"><a id="__codelineno-18-33" name="__codelineno-18-33" href="#__codelineno-18-33"></a><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">orange</span><span class="p">;</span>
-</span><span id="__span-18-34"><a id="__codelineno-18-34" name="__codelineno-18-34" href="#__codelineno-18-34"></a><span class="w">    </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
-</span><span id="__span-18-35"><a id="__codelineno-18-35" name="__codelineno-18-35" href="#__codelineno-18-35"></a><span class="w">    </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">gray</span><span class="p">;</span>
-</span><span id="__span-18-36"><a id="__codelineno-18-36" name="__codelineno-18-36" href="#__codelineno-18-36"></a><span class="w">    </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
-</span><span id="__span-18-37"><a id="__codelineno-18-37" name="__codelineno-18-37" href="#__codelineno-18-37"></a><span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
-</span><span id="__span-18-38"><a id="__codelineno-18-38" name="__codelineno-18-38" href="#__codelineno-18-38"></a><span class="p">}</span>
+<div class="language-css highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">.</span><span class="nc">wrapper</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="nf">repeat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">);</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="n">grid-gap</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span><span class="k">grid-auto-rows</span><span class="p">:</span><span class="w"> </span><span class="nf">minmax</span><span class="p">(</span><span class="mi">100</span><span class="kt">px</span><span class="p">,</span><span class="w"> </span><span class="kc">auto</span><span class="p">);</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">}</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">.</span><span class="nc">one</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="p">}</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="p">.</span><span class="nc">two</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="p">}</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="p">.</span><span class="nc">three</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="p">}</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="p">.</span><span class="nc">four</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="p">}</span>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="p">.</span><span class="nc">five</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a><span class="p">}</span>
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a><span class="p">.</span><span class="nc">six</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="w">  </span><span class="k">grid-column</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a><span class="w">  </span><span class="k">grid-row</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a><span class="p">}</span>
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>
+</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a><span class="p">.</span><span class="nc">orange</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">orange</span><span class="p">;</span>
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a><span class="w">    </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span>
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a><span class="w">    </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">gray</span><span class="p">;</span>
+</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a><span class="w">    </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+</span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a><span class="w">    </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
+</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a><span class="p">}</span>
 </span></code></pre></div>
 </div>
 </div>
@@ -1600,12 +1456,12 @@
 
 <h4 id="erlauterung-des-codes">Erläuterung des Codes<a class="headerlink" href="#erlauterung-des-codes" title="Permanent link">&para;</a></h4>
 <p>Wir erkennen, dass sechs Zellen in einer Matrix angeordnet werden. Umschlossen sind diese Zellen durch ein <code>div</code> der CSS-Klasse <code>wrapper</code>. Für diese Klasse <code>wrapper</code> wird CSS-Grid wie folgt definiert:</p>
-<div class="language-css highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="w">    </span><span class="p">.</span><span class="nc">wrapper</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">      </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">      </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="nf">repeat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">);</span>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">      </span><span class="n">grid-gap</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">      </span><span class="k">grid-auto-rows</span><span class="p">:</span><span class="w"> </span><span class="nf">minmax</span><span class="p">(</span><span class="mi">100</span><span class="kt">px</span><span class="p">,</span><span class="w"> </span><span class="kc">auto</span><span class="p">);</span>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">    </span><span class="p">}</span>
+<div class="language-css highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="w">    </span><span class="p">.</span><span class="nc">wrapper</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">      </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">      </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="nf">repeat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">);</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">      </span><span class="n">grid-gap</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">      </span><span class="k">grid-auto-rows</span><span class="p">:</span><span class="w"> </span><span class="nf">minmax</span><span class="p">(</span><span class="mi">100</span><span class="kt">px</span><span class="p">,</span><span class="w"> </span><span class="kc">auto</span><span class="p">);</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="p">}</span>
 </span></code></pre></div>
 <ul>
 <li>Der umschließende Container wird mithilfe von <code>display: grid;</code> als Grid-Container definiert. </li>
@@ -1649,6 +1505,11 @@
 <td> Schriftgröße des Elements (bei font-size aber Schriftgröße des Elternelements)</td>
 </tr>
 <tr>
+<td> <code>rem</code></td>
+<td>relativ</td>
+<td> Schriftgröße des Root-Elements (des <code>&lt;html&gt;</code>-Dokumentes)</td>
+</tr>
+<tr>
 <td> <code>ex</code></td>
 <td> relativ</td>
 <td> Höhe des Kleinbuchstabens <code>x</code> im Element (bei font-size aber die Schriftgröße von <code>x</code> im Elternelement)</td>
@@ -1678,31 +1539,42 @@
 <td>absolut und relativ</td>
 <td> absolut auf ein und dasselbe Ausgabegerät bezogen und relativ von Ausgabegerät zu Ausgabegerät (Pixeldichte)</td>
 </tr>
+<tr>
+<td> <code>vw</code></td>
+<td> relativ</td>
+<td> <code>1vw</code> entspricht <code>1%</code> der Viewport-Breite</td>
+</tr>
+<tr>
+<td> <code>vh</code></td>
+<td> relativ</td>
+<td> <code>1vh</code> entspricht <code>1%</code> der Viewport-Höhe</td>
+</tr>
 </tbody>
 </table>
+<p>In Bezug auf <code>vh</code> und <code>vw</code> </p>
 <p>Sie sollten absolute Angaben nur in Ausnahmefällen verwenden. Wann immer es geht, ist eine relative Größenangabe vorzuziehen. Somit werden am häufigsten <code>%</code>-Angaben und am zweithäufigsten <code>px</code>-Angaben verwendet. <code>em</code> sieht man auch noch recht häufig. Von allen anderen Einheiten ist eher abzuraten.</p>
 <h3 id="custom-properties">Custom Properties<a class="headerlink" href="#custom-properties" title="Permanent link">&para;</a></h3>
 <p>Sie können sich eigene Variablen für die Verwendung in CSS-Definitionen erstellen. Es ist üblich, solche Variablen in einem "großen" Scope zu definieren, da sie auf den definierten Scope beschränkt sind. D.h., dass man solche Variablen typischerweise für <code>*</code> (also alle Elemente) oder <code>body</code> definiert. Die Variablen beginnen stets mit <code>--</code>, also z.B. <code>--variablenname</code>. Der Zugriff auf die Variablen erfolgt mit <code>var()</code>, also z.B. <code>var(--variablenname)</code>. Hier ein Beispiel für die Definition von HTW-Farben und -Font:</p>
-<div class="language-css highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="o">*</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="nv">--htw-gruen</span><span class="p">:</span><span class="w"> </span><span class="mh">#76B900</span><span class="p">;</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="nv">--htw-grau</span><span class="p">:</span><span class="mh">#AFAFAF</span><span class="p">;</span>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="nv">--htw-orange</span><span class="p">:</span><span class="mh">#FF5F00</span><span class="p">;</span>
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="nv">--htw-blau</span><span class="p">:</span><span class="mh">#0082D1</span><span class="p">;</span>
-</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">    </span><span class="nv">--htw-font</span><span class="p">:</span><span class="n">Verdana</span><span class="p">,</span><span class="w"> </span><span class="n">Geneva</span><span class="p">,</span><span class="w"> </span><span class="kc">sans-serif</span><span class="p">;</span>
-</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="p">}</span>
-</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>
-</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">    </span><span class="k">font-family</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--htw-font</span><span class="p">);</span>
-</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="p">}</span>
-</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="nt">h1</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--htw-gruen</span><span class="p">);</span>
-</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="p">}</span>
-</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="nt">li</span><span class="w"> </span><span class="nt">a</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--htw-orange</span><span class="p">);</span>
-</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="p">}</span>
-</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a><span class="p">.</span><span class="nc">active</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-20-19"><a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--htw-gruen</span><span class="p">);</span>
-</span><span id="__span-20-20"><a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a><span class="p">}</span>
+<div class="language-css highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="o">*</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="nv">--htw-gruen</span><span class="p">:</span><span class="w"> </span><span class="mh">#76B900</span><span class="p">;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="nv">--htw-grau</span><span class="p">:</span><span class="mh">#AFAFAF</span><span class="p">;</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="nv">--htw-orange</span><span class="p">:</span><span class="mh">#FF5F00</span><span class="p">;</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="nv">--htw-blau</span><span class="p">:</span><span class="mh">#0082D1</span><span class="p">;</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="nv">--htw-font</span><span class="p">:</span><span class="n">Verdana</span><span class="p">,</span><span class="w"> </span><span class="n">Geneva</span><span class="p">,</span><span class="w"> </span><span class="kc">sans-serif</span><span class="p">;</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="k">font-family</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--htw-font</span><span class="p">);</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="p">}</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="nt">h1</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--htw-gruen</span><span class="p">);</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="p">}</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="nt">li</span><span class="w"> </span><span class="nt">a</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--htw-orange</span><span class="p">);</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="p">}</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="p">.</span><span class="nc">active</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--htw-gruen</span><span class="p">);</span>
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="gewichtung-der-selektoren">Gewichtung der Selektoren<a class="headerlink" href="#gewichtung-der-selektoren" title="Permanent link">&para;</a></h3>
 <p>Insbesondere, wenn Sie noch CSS-Frameworks einbinden und/oder viele CSS-Definitionen haben, stellt sich die Frage, welche der Definitionen überhaupt wirken. Eine große Hilfe sind hier die <a href="../tools/#developer-tools"><strong>Entwicklertools der Browser</strong></a>. Im folgenden Screenshot sehen Sie die Developer tools von Chrome. Im rechten unteren Fenster sind die definierten Styles angezeigt. Die nicht wirksamen Styledefinitionen sind durchgestrichen. </p>
@@ -1711,9 +1583,9 @@
 <iframe width="100%" height="300" src="//jsfiddle.net/jfreiheit/sfdztn0c/17/embedded/html,css,result/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 <p>Wenn Sie sich zunächst nur die CSS-Definitionen anschauen, dann sehen Sie, dass einem Link fünf verschiedene Farben zugewiesen werden. Die Links sind aber rot. Es muss also aus einem bestimmten Grund die Definition </p>
-<div class="language-css highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">#</span><span class="nn">navigation</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">link</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">}</span>
+<div class="language-css highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">#</span><span class="nn">navigation</span><span class="w"> </span><span class="nt">a</span><span class="p">.</span><span class="nc">link</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>am stärksten wirken, d.h. der Selektor <code>#navigation a.link</code> hat in unserem Beispiel die stärkste Gewichtung. Um die <em>Gewichtung der Selektoren</em> zu ermitteln, werden diese kategorisiert:</p>
 <ul>
@@ -1732,7 +1604,7 @@
 <li><code>#navigation li a</code> :    <strong>0 1 0 2</strong> (Element mit <code>id</code>-Attribut, zwei Elemente)</li>
 </ul>
 <p>Es gilt <strong>0 1 1 1</strong> &gt; <strong>0 1 0 2</strong> &gt; <strong>0 0 1 1</strong> &gt; <strong>0 0 1 0</strong> &gt; <strong>0 0 0 2</strong> und deshalb sind die Links rot. In unserem Beispiel kommt kein <code>style</code>-Attribut vor, deshalb ist bei keinem Selektor die Kategorie A besetzt. Wäre bei einem Link im HTML beispielsweise: </p>
-<div class="language-html highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;startseite.html&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;link&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: orange;&quot;</span><span class="p">&gt;</span>Startseite<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;startseite.html&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;link&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color: orange;&quot;</span><span class="p">&gt;</span>Startseite<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <p>dann wäre dieser Link orange. </p>
 <h2 id="weitere-informationen-uber-css">Weitere Informationen über CSS<a class="headerlink" href="#weitere-informationen-uber-css" title="Permanent link">&para;</a></h2>
