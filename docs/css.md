@@ -397,9 +397,9 @@ Numerische Werte können in CSS absolut oder relativ angegeben werden, je nach v
 | `vw` | relativ | `1vw` entspricht `1%` der Viewport-Breite | 
 | `vh` | relativ | `1vh` entspricht `1%` der Viewport-Höhe | 
 
-In Bezug auf `vh` und `vw` 
+In Bezug auf `vh` und `vw` sind auch `vmin` und `vmax` interessant. `1vim` ist `1%` der schmaleren Seite, d.h. im Portrait-Modus entspricht `1vmin == 1vw` und im Landscape-Modus ist `1vomin == 1vh`. Für `vmax` ist der Bezug die breitere Seite. 
 
-Sie sollten absolute Angaben nur in Ausnahmefällen verwenden. Wann immer es geht, ist eine relative Größenangabe vorzuziehen. Somit werden am häufigsten `%`-Angaben und am zweithäufigsten `px`-Angaben verwendet. `em` sieht man auch noch recht häufig. Von allen anderen Einheiten ist eher abzuraten.
+Sie sollten absolute Angaben nur in Ausnahmefällen verwenden. Wann immer es geht, ist eine relative Größenangabe vorzuziehen. Somit werden am häufigsten `%`-, `em/rem`- und `vh/vw`-Angaben und am zweithäufigsten `px`-Angaben verwendet. Von allen anderen Einheiten ist eher abzuraten. Zu Einheiten siehe auch [hier](https://developer.mozilla.org/de/docs/Learn_web_development/Core/Styling_basics/Values_and_units).
 
 ### Custom Properties
 

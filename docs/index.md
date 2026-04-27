@@ -1149,7 +1149,7 @@ Für die Kommunikation untereinander verwenden wir [**Slack**](https://slack.com
 		```
 
 
-??? hint "Vorbereitung Vorlesung CSS"
+??? hint "Vorbereitung Vorlesung RWD"
 
 	=== "rwd1.html"
 		```html
