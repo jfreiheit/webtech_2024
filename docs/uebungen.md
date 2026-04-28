@@ -68,6 +68,130 @@
 
     - Committen und pushen Sie Ihre Lösung in Ihr Remote-Repo!
 
+
+
+??? hint "eine mögliche Lösung für Übung 1 (HTML)"
+
+    === "uebung1/index.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Übung 1</title>
+        </head>
+        <body>
+          <header>
+            <img title="FIW-Logo" src="./bilder/fiw.jpg" alt="FIW-Logo">
+            <span>WebTech2026</span>
+          </header>
+          <main>
+            <h1>Willkommen in WebTech!</h1>
+            <img src="./bilder/campus_wh.jpg" alt="Campus Wilhelminenhof">
+            <h3>Die ersten Schritte</h3>
+            <ul>
+              <li>
+                <a href="https://developer.mozilla.org/de/docs/Web/HTML">
+                  HTML lernen
+                </a>
+              </li>
+              <li>
+                <a href="https://freiheit.f4.htw-berlin.de/webtech/uebungen/#ubung-1">Übung 1 absolvieren</a>
+              </li>
+              <li>
+                Lösung ins Git-Repository pushen
+              </li>
+            </ul>
+
+            <p>Hier findest Du meinen <a href="./unterseiten/plan.html">aktuellen Semesterplan</a></p>
+          
+            <hr />
+
+            <p>Externe Links: 
+              <a target="_blank" href="https://www.stw.berlin/mensen/einrichtungen/hochschule-f%C3%BCr-technik-und-wirtschaft-berlin/mensa-htw-wilhelminenhof.html">
+                Speiseplan
+              </a> 
+            </p>
+          
+          </main>
+          <footer>
+            <span>J. Freiheit</span>
+          </footer>
+        </body>
+        </html>
+        ```
+
+    === "uebung1/unterseiten/plan.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document</title>
+        </head>
+        <body>
+          <header>
+            <img title="FIW-Logo" src="../bilder/fiw.jpg" alt="FIW-Logo">
+            <span>WebTech2026</span>
+          </header>
+          <main>
+          <h3>2. Semester</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Modulnr.</th>
+                <th>Modulname</th>
+                <th>LP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <td>B21</td>
+                  <td>Programmierung 2</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B22</td>
+                  <td>Mathematik 2</td>
+                  <td>6</td>
+                </tr>
+                <tr>
+                  <td>B23</td>
+                  <td>Software-Engineering 1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B24</td>
+                  <td>Webtechnologien</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B25</td>
+                  <td>BWL 2: Rechnungswesen</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B26</td>
+                  <td>1. Fremdsprache 2</td>
+                  <td>4</td>
+                </tr>
+            </tbody>
+          </table>
+          <p>
+            <a href="../index.html">Zurück zur Startseite</a>
+          </p>
+          </main>
+          <footer>
+            <span>J. Freiheit</span>
+          </footer>
+        </body>
+        </html>
+        ```
+
+
+
 #### Übung 2
 
 ??? question "Übungsaufgabe 2 (CSS)"
