@@ -222,6 +222,255 @@
     - Committen und pushen Sie Ihre Lösung in Ihr Remote-Repo!
 
 
+
+??? hint "nach der Dienstagsübung 5.5.2026 (uebung_b)"
+
+    === "uebung2/index.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Übung 2</title>
+          <link rel="stylesheet" href="./styles/mystyles.css">
+        </head>
+        <body>
+          <header>
+            <img title="FIW-Logo" src="./bilder/fiw.jpg" alt="FIW-Logo">
+            <span>WebTech2026</span>
+          </header>
+          <main id="indexmain">
+            <section>
+              <h1>Willkommen in WebTech!</h1>
+              <img src="./bilder/campus_wh.jpg" alt="Campus Wilhelminenhof" />
+              <h3>Die ersten Schritte</h3>
+              <ul>
+                <li>
+                  <a href="https://developer.mozilla.org/de/docs/Web/HTML">
+                    HTML lernen
+                  </a>
+                </li>
+                <li title="https://freiheit.f4.htw-berlin.de/webtech/uebungen/#ubung-1">
+                  <a href="https://freiheit.f4.htw-berlin.de/webtech/uebungen/#ubung-1">
+                    Übung 1 absolvieren
+                  </a>
+                </li>
+                <li>
+                  Lösung ins Git-Repository pushen
+                </li>
+              </ul>
+          </section>
+          <aside>
+            <a href="./unterseiten/plan.html">
+              <img src="./bilder/plan.png" alt="semesterplan">
+            </a>
+          
+            <a target="_blank" href="https://www.stw.berlin/mensen/einrichtungen/hochschule-f%C3%BCr-technik-und-wirtschaft-berlin/mensa-htw-wilhelminenhof.html">
+                <img src="./bilder/essen.png" alt="essen">
+            </a> 
+            </p>
+          </aside>
+          </main>
+          <footer>
+            <span>J. Freiheit</span>
+          </footer>
+          </body>
+        </html>
+        ```
+
+    === "uebung2/plan.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Semesterplan</title>
+          <link rel="stylesheet" href="../styles/mystyles.css">
+        </head>
+        <body>
+          <header>
+            <img title="FIW-Logo" src="../bilder/fiw.jpg" alt="FIW-Logo">
+            <span>WebTech2026</span>
+          </header>
+          <main>
+            <h3>2. Semester</h3>
+            <!-- ein HTML-Kommentar -->
+            <table>
+              <thead>
+                <tr>
+                  <th>Modulnr.</th>
+                  <th>Modulname</th>
+                  <th>LP</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>B21</td>
+                  <td>Programmierung 2</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B22</td>
+                  <td>Mathematik 2</td>
+                  <td>6</td>
+                </tr>
+                <tr>
+                  <td>B23</td>
+                  <td>Software-Engineering 1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B24</td>
+                  <td>Webtechnologien</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B25</td>
+                  <td>BWL 2: Rechnungswesen</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B26</td>
+                  <td>1. Fremdsprache 2</td>
+                  <td>4</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p><a href="../index.html">Zurück zur Startseite</a></p>
+          </main>
+          <footer>
+            J. Freiheit
+          </footer>
+          
+        </body>
+        </html>
+        ```
+
+    === "uebung2/styles/mystyles.css"
+        ```css
+        :root {
+          --htw-grau: #AFAFAF;
+          --htw-blau: #0082D1;
+          --htw-gruen:  #76B900;
+        }
+
+        body {
+          font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        header {
+          background-color: var(--htw-grau);
+          color: white;
+          /*
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          */
+          display: flex;
+          justify-content: space-between;
+
+          img {
+            width: 2em;
+            padding: 1%;
+          }
+
+          span {
+            /*text-align: right;*/
+            padding: 1%;
+          }
+        }
+
+        h1 {
+          color: var(--htw-blau);
+        }
+
+        h3 {
+          margin-left: 4%;
+        }
+
+        ul {
+          list-style: none;
+        }
+
+        ul>li {
+          border: 2px solid black;
+          border-radius: 1rem;
+          margin: 1%;
+          padding: 1%;
+          width: 30%;
+
+          a {
+            color: black;
+            text-decoration: none;
+          }
+
+          a:hover {
+            font-weight: bold;
+          }
+        }
+
+        ul>li:hover {
+            background-color: rgb(201, 201, 219);
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+            a {
+              color: var(--htw-blau);
+            }
+        }
+
+        #indexmain {
+          background-color: rgb(226, 240, 226);
+          display: grid;
+          grid-template-columns: 4fr 1fr;
+        }
+
+        #indexmain>aside {
+          background-color: rgb(196, 226, 196);
+          text-align: center;
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+
+          a {
+            margin: auto;
+          }
+
+          img {
+            width: 50%;
+          }
+        }
+
+        table {
+             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+             border-collapse: collapse;
+             width: 60%;
+
+             thead tr {
+              background-color: var(--htw-gruen);
+             }
+
+             tbody tr:nth-child(even) {
+              background-color: rgb(230, 225, 225);
+             } 
+
+             tbody tr:nth-child(odd) {
+              background-color: rgb(247, 215, 215);
+             }
+
+             tbody tr:hover {
+              box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+             }
+
+             td,th {
+              padding: 2%;
+             }
+        }
+
+        ```
+
+
+
 #### Übung 3
 
 ??? question "Übungsaufgabe 3 (Grid und Einheiten)"
