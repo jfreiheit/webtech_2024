@@ -222,7 +222,6 @@
     - Committen und pushen Sie Ihre Lösung in Ihr Remote-Repo!
 
 
-
 ??? hint "nach der Dienstagsübung 5.5.2026 (uebung_b)"
 
     === "uebung2/index.html"
@@ -467,6 +466,257 @@
              }
         }
 
+        ```
+
+
+??? hint "nach der Mittwochsübung 6.5.2026 (uebung_a)"
+
+    === "uebung2/index.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Übung 2</title>
+          <link rel="stylesheet" href="./styles/mystyles.css">
+        </head>
+        <body>
+          <header>
+            <img title="FIW-Logo" src="./bilder/fiw.jpg" alt="FIW-Logo">
+            <span>WebTech2026</span>
+          </header>
+          <main id="indexmain">
+            <section>
+              <h1>Willkommen in WebTech!</h1>
+              <img src="./bilder/campus_wh.jpg" alt="Campus Wilhelminenhof">
+              <h3>Die ersten Schritte</h3>
+              <ul>
+                <li>
+                  <a href="https://developer.mozilla.org/de/docs/Web/HTML">
+                    HTML lernen
+                  </a>
+                </li>
+                <li>
+                  <a href="https://freiheit.f4.htw-berlin.de/webtech/uebungen/#ubung-1">Übung 1 absolvieren</a>
+                </li>
+                <li>
+                  Lösung ins Git-Repository pushen
+                </li>
+              </ul>
+            </section>
+
+            <aside>
+              <a href="./unterseiten/plan.html">
+                <img src="./bilder/plan.png" alt="Plan">
+              </a>
+
+              <a target="_blank" href="https://www.stw.berlin/mensen/einrichtungen/hochschule-f%C3%BCr-technik-und-wirtschaft-berlin/mensa-htw-wilhelminenhof.html">
+                <img src="./bilder/essen.png" alt="Essen">
+              </a> 
+            </aside>
+
+          </main>
+          <footer>
+            <span>J. Freiheit</span>
+          </footer>
+        </body>
+        </html>
+        ```
+
+    === "uebung2/plan.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Semesterplan</title>
+          <link rel="stylesheet" href="../styles/mystyles.css">
+        </head>
+        <body>
+          <header>
+            <img title="FIW-Logo" src="../bilder/fiw.jpg" alt="FIW-Logo">
+            <span>WebTech2026</span>
+          </header>
+          <main>
+          <h3>2. Semester</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Modulnr.</th>
+                <th>Modulname</th>
+                <th>LP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <td>B21</td>
+                  <td>Programmierung 2</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B22</td>
+                  <td>Mathematik 2</td>
+                  <td>6</td>
+                </tr>
+                <tr>
+                  <td>B23</td>
+                  <td>Software-Engineering 1</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B24</td>
+                  <td>Webtechnologien</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B25</td>
+                  <td>BWL 2: Rechnungswesen</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>B26</td>
+                  <td>1. Fremdsprache 2</td>
+                  <td>4</td>
+                </tr>
+            </tbody>
+          </table>
+          <p>
+            <a href="../index.html">Zurück zur Startseite</a>
+          </p>
+          </main>
+          <footer>
+            <span>J. Freiheit</span>
+          </footer>
+        </body>
+        </html>
+        ```
+
+    === "uebung2/styles/mystyles.css"
+        ```css
+        :root {
+          --htw-gruen: #76B900;
+          --htw-gruen-hell: #f9fcf4;
+          --htw-gruen-mittel: #edf5df;
+          --htw-blau: #0082D1;
+          --htw-grau: #AFAFAF;
+        }
+
+        body {
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        header {
+          background-color: var(--htw-grau);
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+
+          img {
+            width: 3rem;
+            margin: 0.5rem;
+          }
+
+          span {
+            text-align: right;
+            margin: .5rem;
+            padding: .5rem;
+          }
+        }
+
+        main h1 {
+          color: var(--htw-blau);
+        }
+
+        main h3 {
+          margin-left: 2rem;
+        }
+
+        ul {
+          list-style-type: none;
+
+          li {
+            border: 2px solid black;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border-radius: .5rem;
+            margin-top: .4rem;
+            margin-bottom: .4rem;
+            margin-left: -.4rem;
+            padding: .4rem;
+            width: 30vw;
+
+            a {
+              text-decoration: none;
+            }
+
+            a:visited {
+              text-decoration: none;
+              color: var(--htw-blau);
+            }
+
+            a:link {
+              text-decoration: none;
+              color: red;
+            }
+          }
+
+          li:hover {
+              background-color: rgb(191, 206, 191);
+              border-color: green;
+              color: green;
+              font-weight: bold;
+
+              a:visited {
+                color: green;
+              }
+
+              a:link {
+                color: green;
+              }
+            }
+        }
+
+        #indexmain {
+          display: grid;
+          grid-template-columns: 4fr 1fr;
+          background-color: var(--htw-gruen-hell);
+
+          aside {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            justify-items: center;
+            align-items: center;
+            background-color: var(--htw-gruen-mittel);
+            text-align: center;
+          }
+
+          img {
+            width: 40%;
+          }
+        }
+
+        table {
+          border-collapse: collapse;
+
+          thead {
+            background-color: var(--htw-gruen);
+
+            tr th {
+              padding: .5rem;
+            }
+          }
+
+          tbody {
+
+            tr:nth-child(even) {
+              background-color: rgb(187, 185, 185);
+            }
+
+            tr:nth-child(odd) {
+              background-color: rgb(237, 230, 230);
+            }
+          }
+        }
         ```
 
 
