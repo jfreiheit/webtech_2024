@@ -872,6 +872,359 @@
     ```
 
 
+??? note "Eine mögliche Lösung für Übung 3"
+    === "uebung3.html"
+        ```html
+         <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Uebung 3</title>
+            <style>
+              header {
+                background-color: rgb(93, 119, 54);
+                color: white;
+                text-transform: uppercase;
+                text-align: center;
+                font-weight: bold;
+                padding: 2%;
+                margin-bottom: 2%;
+              }
+
+              .wrapper {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);  /* 1 Spalte bis 800px Viewport-Breite */
+                column-gap: 2%;
+                row-gap: 2%;
+              }
+
+              .citycard {
+                display: grid;
+                grid-template-rows: 4fr 1fr;
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+              }
+
+              .citycard:hover {
+                  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+                  background-color: rgb(238, 237, 235);
+
+                  img {
+                    height: 80%;
+                  }
+                }
+
+              .cityimage {
+                text-align: center;
+
+                img {
+                  height: 70%;
+                  margin-top: 5%;
+                }
+              }
+              .cityname {
+                text-align: center;
+                font-weight: bold;
+                text-transform: uppercase;
+                padding-top: 3%;
+                font-size: 1.3em;
+              }
+
+              @media (min-width: 800px) {
+                .wrapper {
+                  grid-template-columns: repeat(2, 1fr);  /* 2 Spalten ab 800px bis 1200px Viewport-Breite */
+                }
+              }
+
+              @media (min-width: 1200px) {
+                .wrapper {
+                  grid-template-columns: repeat(4, 1fr); /* 4 Spalten ab 1200px Viewport-Breite */
+                }
+              }
+            </style>
+        </head>
+
+        <body>
+            <header>
+                <h2>STÄDTE</h2>
+            </header>
+            <main>
+              <section class="wrapper">
+                
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/berlin.png" alt="Berlin">
+                      </div>
+                      <div class="cityname">
+                          <p>Berlin</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/bernau.png" alt="Bernau">
+                      </div>
+                      <div class="cityname">
+                          <p>Bernau</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/brandenburg.png" alt="Brandenburg">
+                      </div>
+                      <div class="cityname">
+                          <p>Brandenburg</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/bremen.png" alt="Bremen">
+                      </div>
+                      <div class="cityname">
+                          <p>Bremen</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/bremerhaven.png" alt="Bremerhaven">
+                      </div>
+                      <div class="cityname">
+                          <p>Bremerhaven</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/madrid.png" alt="Madrid">
+                      </div>
+                      <div class="cityname">
+                          <p>Madrid</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/magdeburg.png" alt="Magdeburg">
+                      </div>
+                      <div class="cityname">
+                          <p>Magdeburg</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/mainz.png" alt="Mainz">
+                      </div>
+                      <div class="cityname">
+                          <p>Mainz</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/mannheim.png" alt="Mannheim">
+                      </div>
+                      <div class="cityname">
+                          <p>Mannheim</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/Marburg.png" alt="Marburg">
+                      </div>
+                      <div class="cityname">
+                          <p>Marburg</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/newyork.png" alt="New York">
+                      </div>
+                      <div class="cityname">
+                          <p>New York</p>
+                      </div>
+                  </div>
+
+                  <div class="citycard">
+                      <div class="cityimage">
+                          <img src="./images/stockholm.png" alt="Stockholm">
+                      </div>
+                      <div class="cityname">
+                          <p>Stockholm</p>
+                      </div>
+                  </div>
+            </section>
+          </main>
+          <footer>
+
+          </footer>
+        </body>
+
+        </html>       
+        ```
+
+
+
+??? note "Eine mögliche Lösung für Übung 3 mit Bootstrap"
+    === "uebung3_bs.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+            <title>Uebung 3 - Bootstrap</title>
+        </head>
+
+        <body class="container">
+            <header>
+                <h2>STÄDTE</h2>
+            </header>
+            <main>
+
+
+                <section class="row">
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                            <img class="w-25 my-5 d-block mx-auto" src="./images/berlin.png" alt="Berlin">
+
+                            <div class="card-text mt-auto text-center">
+                                <p>Berlin</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/bernau.png" alt="Bernau">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Bernau</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/brandenburg.png" alt="Brandenburg">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Brandenburg</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/bremen.png" alt="Bremen">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Bremen</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/bremerhaven.png" alt="Bremerhaven">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Bremerhaven</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/madrid.png" alt="Madrid">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Madrid</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/magdeburg.png" alt="Magdeburg">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Magdeburg</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/mainz.png" alt="Mainz">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Mainz</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/mannheim.png" alt="Mannheim">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Mannheim</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/Marburg.png" alt="Marburg">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Marburg</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/newyork.png" alt="New York">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>New York</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mb-3">
+                        <div class="card h-100 shadow">
+                          <img class="w-25 my-5 d-block mx-auto" src="./images/stockholm.png" alt="Stockholm">
+
+                          <div class="card-text mt-auto text-center">
+                              <p>Stockholm</p>
+                          </div>
+                        </div>
+                    </div>
+
+                </section>
+            </main>
+            <footer>
+
+            </footer>
+        </body>
+
+        </html>
+        ```
+
+
 
 #### Übung 4
 
@@ -883,69 +1236,64 @@
 
 
 
-??? hint "eine mögliche Lösung für Übung 4"
+??? note "Eine mögliche Lösung für Übung 4"
+    === "uebung4.html"
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Übung 4</title>
+          <!-- <link rel="stylesheet" href="../styles/bootstrap/bootstrap.min.css"> -->
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        </head>
+        <body>
+          <main class="container">
+            <h1 class="m-5">Teilnehmerin Registrierung</h1>
+            <div class="row">
 
-    ```html
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Übung 4</title>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-     
-    </head>
-    <body class="container">
-      <h1 class="my-5">Teilnehmerin Registrierung</h1>
+              <div class="col-12 col-md-6 col-xl-3">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="firstName" placeholder="First name">
+                  <label for="firstName">First name</label>
+                </div>
+              </div>
 
-      <div class="row">
+              <div class="col-12 col-md-6 col-xl-3">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="lastName" placeholder="Last name">
+                  <label for="lastName">Last name</label>
+                </div>
+              </div>
 
-        <div class="col-12 col-md-6 col-xl-3">
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="firstName" placeholder="First name">
-            <label for="firstName">First name</label>
-          </div>
-        </div>
+              <div class="col-12 col-md-6 col-xl-3">
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="email" placeholder="E-Mail">
+                  <label for="email">E-Mail</label>
+                </div>
+              </div>
 
-        <div class="col-12 col-md-6 col-xl-3">
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="lastName" placeholder="Last name">
-            <label for="lastName">Last name</label>
-          </div>
-        </div>
+              <div class="col-12 col-md-6 col-xl-3">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="ipaddress" placeholder="IP-Address">
+                  <label for="ipaddress">IP-Address</label>
+                </div>
+              </div>
 
-        <div class="col-12 col-md-6 col-xl-3">
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="emailID" placeholder="E-Mail">
-            <label for="emailID">E-Mail</label>
-          </div>
-        </div>
+              <div class="col-6">
+                <button type="cancel" class="btn btn-secondary btn-lg w-100">Abbrechen</button>
+              </div>
 
-        <div class="col-12 col-md-6 col-xl-3">
-          <div class="form-floating mb-3 col">
-            <input type="text" class="form-control" id="lastName" placeholder="IP address">
-            <label for="lastName">IP address</label>
-          </div>
-        </div>
-      </div>
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-lg w-100">Registrieren</button>
+              </div>
+            </div>
+          </main>
+        </body>
+        </html>
 
-      <div class="row">
-        <div class="col d-grid gap-2">
-          <button type="button" class="btn btn-secondary">Abbrechen</button>
-        </div>
-        <div class="col d-grid gap-2">
-          <button type="button" class="btn btn-success">Registrieren</button>
-        </div>
-      </div>
-
-      <h2>Eingebene Werte</h2>
-
-      <ul id="inputList">
-
-      </ul>
-    </body>
-    </html>
-    ```
+        ```
 
 
 
