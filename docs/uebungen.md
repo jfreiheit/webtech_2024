@@ -883,6 +883,71 @@
 
 
 
+??? hint "eine mögliche Lösung für Übung 4"
+
+  ```html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Übung 4</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   
+  </head>
+  <body class="container">
+    <h1 class="my-5">Teilnehmerin Registrierung</h1>
+
+    <div class="row">
+
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="firstName" placeholder="First name">
+          <label for="firstName">First name</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="lastName" placeholder="Last name">
+          <label for="lastName">Last name</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="emailID" placeholder="E-Mail">
+          <label for="emailID">E-Mail</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="form-floating mb-3 col">
+          <input type="text" class="form-control" id="lastName" placeholder="IP address">
+          <label for="lastName">IP address</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col d-grid gap-2">
+        <button type="button" class="btn btn-secondary">Abbrechen</button>
+      </div>
+      <div class="col d-grid gap-2">
+        <button type="button" class="btn btn-success">Registrieren</button>
+      </div>
+    </div>
+
+    <h2>Eingebene Werte</h2>
+
+    <ul id="inputList">
+
+    </ul>
+  </body>
+  </html>
+  ```
+
+
 #### Übung 4a
 
 ??? question "Übungsaufgabe 4a (JavaScript)"
