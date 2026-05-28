@@ -1314,7 +1314,7 @@
 #### Übung 5
     
 ??? question "Übungsaufgabe 5 (JavaScript, DOM)"
-    - Laden Sie [aus Moodle](https://moodle.htw-berlin.de/course/view.php?id=54061) die Datei `uebung5.zip` herunter, entpacken Sie sie und schieben den Ordner `uebung5` in Ihren Projektordner.
+    - Laden Sie die Datei [uebung5.zip](./files/uebung5.zip) herunter, entpacken Sie sie und schieben den Ordner `uebung5` in Ihren Projektordner.
     - In der Datei `uebung5.html` sind einige Dinge vorbereitet:
         - eine Tabelle mit leerem `<tbody>`. Der `<tbody>` hat die `id='tbody'`,
         - wird die Seite geladen, wird die `init()`-Funktion aufgerufen (`onload='init()'`),
