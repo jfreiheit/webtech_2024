@@ -17,13 +17,13 @@ import { Component } from '@angular/core';
   templateUrl: './lesson.component.html',
   styleUrl: './lesson.component.css'
 })
-export class LessonComponent {
+export class Lesson {
   headline = 'Hallo';
   name = 'Jörn Freiheit';
 }
 ```
 
-Im obigen Beispiel hat die Komponente `LessonComponent` zwei Eigenschaften (Objektvariablen): `headline` und `name`. Auf diese Eigenschaften können wir mithilfe von *Interpolation* im HTML zugreifen:
+Im obigen Beispiel hat die Komponente `Lesson` zwei Eigenschaften (Objektvariablen): `headline` und `name`. Auf diese Eigenschaften können wir mithilfe von *Interpolation* im HTML zugreifen:
 
 
 === "lesson.component.html"
@@ -173,7 +173,7 @@ import { Component } from '@angular/core';
   templateUrl: './lesson.component.html',
   styleUrl: './lesson.component.css'
 })
-export class LessonComponent {
+export class Lesson {
   headline = 'Hallo';
   name = 'Jörn Freiheit';
   weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
@@ -288,7 +288,7 @@ import { Component } from '@angular/core';
   templateUrl: './lesson.component.html',
   styleUrl: './lesson.component.css'
 })
-export class LessonComponent {
+export class Lesson {
   haltbarkeitsdatum = '2024-12-24'
 
 }

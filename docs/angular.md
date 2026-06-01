@@ -127,7 +127,7 @@ ein. Folgende Seite sollte erscheinen:
 `first` auf, klappen Sie den Ordner `src` und dann den Ordner
 `app` auf. Der Projektexplorer zeigt folgendes Bild:
 
-![Projektstruktur eines Angular-Projektes](./files/02_projekt.png){: style="height:300px"}
+![Projektstruktur eines Angular-Projektes](./files/02_projekt.png){: style="height:400px"}
 
 - Die meiste Arbeit wird im `src`-Ordner erledigt. Darin befindet sich (wird sich befinden) der Code unserer Anwendung.
 - Darin der wichtigste Ordner ist der `app`-Ordner.
@@ -205,7 +205,9 @@ Das Element `<app-root>` ist dabei ein sogenannter *Tag-Selektor* (auch *Element
 
 ### Komponenten-Selektoren
 
-Nochmal zurück zu unserer `index.html` - der single page, die vom Webserver geladen wird und in die alle weiteren Komponenten eingebunden werden. Wir haben dort nun also den Komponenten-Selektor `<htw-root></htw-root>`. In diesen Selektor wird nun dir `root`-Komponente (`app.component`) geladen. Dieser Selektor wird durch die `root`-Komponente ersetzt. Das ist unsere `app/app.*`. Eine solche Komponente besteht immer aus einer `css`-, einer `html`- und einer `ts`-Datei. Es wird also in diesen Komponenten-Selektor der HTML-Code der `app.html` eingebunden. Das sehen Sie auch, wenn Sie die Developer-Tools an Ihrem Browser öffnen und sich den Quellcode der aktuellen Anwendung anschauen:  ![angular](./files/04_angular_2.png) 
+Nochmal zurück zu unserer `index.html` - der single page, die vom Webserver geladen wird und in die alle weiteren Komponenten eingebunden werden. Wir haben dort nun also den Komponenten-Selektor `<htw-root></htw-root>`. In diesen Selektor wird nun dir `root`-Komponente (`app.component`) geladen. Dieser Selektor wird durch die `root`-Komponente ersetzt. Das ist unsere `app/app.*`. Eine solche Komponente besteht immer aus einer `css`-, einer `html`- und einer `ts`-Datei. Es wird also in diesen Komponenten-Selektor der HTML-Code der `app.html` eingebunden. Das sehen Sie auch, wenn Sie die Developer-Tools an Ihrem Browser öffnen und sich den Quellcode der aktuellen Anwendung anschauen:  
+
+![angular](./files/04_angular_2.png){: style="width:300px"}
 
 ## Komponenten
 
@@ -218,18 +220,17 @@ Neben der <strong>\*.html</strong>- und der <strong>\*.ts</strong>-Datei einer K
 Um eine Komponente der gesamten Anwendung als Komponente bekannt zu machen, wird der *Decorator* `@Component`verwendet. Decoratoren erkennt man am führenden `@`-Zeichen. Sie werden verwendet, um Metadaten der Anwendung zu verwalten. Der typische Aufbau einer Komponente (hier `AppComponent` - `app.ts`):
 
 ```javascript
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class AppComponent {
-  title = 'first';
+export class App {
+  protected readonly title = signal('first');
 }
 ```
 
@@ -282,12 +283,11 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [],
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrl: './header.css',
 })
-export class HeaderComponent {
+export class Header {
 
 }
 ```
@@ -302,10 +302,10 @@ Wir ändern auch diese Datei zunächst nicht und öffnen die `app.html` - die HT
 
 ```html
 <h1>This is app</h1>
-<router-outlet></router-outlet>
+<router-outlet />
 ```
 
-Wir fügen in die Datei den Selektor `htw-header` unserer neuen `header`-Komponente als HTML-Element ein:
+Wir fügen in die Datei den Selektor `app-header` unserer neuen `header`-Komponente als HTML-Element ein:
 
 ```html
 <app-header></app-header>
@@ -313,30 +313,29 @@ Wir fügen in die Datei den Selektor `htw-header` unserer neuen `header`-Kompone
 <router-outlet />
 ```
 
-Dieses Element dient als "Platzhalter" für das Template unserer neuen Komponente. Das bedeutet, dass in dieses Element der HTML-Code aus `header.html` eingefügt wird. Jedoch kennt die `AppComponent` unsere `HeaderComponent` noch nicht. Deshalb erhalten wir im Browser noch eine entsprechende Fehlermeldung.
+Dieses Element dient als "Platzhalter" für das Template unserer neuen Komponente. Das bedeutet, dass in dieses Element der HTML-Code aus `header.html` eingefügt wird. Jedoch kennt die `AppComponent` unsere `Header`-Component noch nicht. Deshalb erhalten wir im Browser noch eine entsprechende Fehlermeldung.
 
 #### Importieren der neuen Komponente
 
 Um eine Komponente über ihren Selektor einzubinden, müssen wir diese neue Komponente in die Komponente importieren, die diese neue Komponente einbindet. In unserem Fall binden wir die `HeaderComponent` in die `AppComponent` ein (siehe oben `app.html`). Um die `headerComponent` in die `AppComponent` zu importieren, öffnen wir die `app.ts` und fügen folgende Änderungen ein:
 
-```javascript linenums="1" hl_lines="3 8"
-import { Component } from '@angular/core';
+```javascript linenums="1" hl_lines="3 7"
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
+import { Header } from './header/header';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [RouterOutlet, Header],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class AppComponent {
-  title = 'first';
+export class App {
+  protected readonly title = signal('first');
 }
 ```
 
-Geben Sie am besten zuerst `HeaderComponent` in das `imports`-Array ein (zeile `8`) und wählen dann `QuickFix` aus. Dadurch entsteht Zeile `3` mit der korrekten `import`-Anweisung.
+Geben Sie am besten zuerst `Header` in das `imports`-Array ein (Zeile `7`) und wählen dann `QuickFix` aus. Dadurch entsteht Zeile `3` mit der korrekten `import`-Anweisung.
 
 
 Wechseln Sie in den Browser auf den Tab mit Ihrer Anwendung (http://localhost:4200/). Sie sehen folgendes Bild:
@@ -347,7 +346,7 @@ Oberhalb der Überschrift (`<h1>This is app</h1>`) wurde also der Absatz `<p>hea
 
 ![quelltext](./files/10_entwicklertools.png)
 
-Wir können hier die Attribute der HTML-Elemente vernachlässigen (also z.B. `_nghost-ng-c31...` oder `ng-version="18.2.11"`). Aber es wird folgende HTML-Struktur sichtbar:
+Wir können hier die Attribute der HTML-Elemente vernachlässigen (also z.B. `_nghost-ng-c31...` oder `ng-version="21.2.15"`). Aber es wird folgende HTML-Struktur sichtbar:
 
 ```html
 <app-root>
@@ -359,7 +358,7 @@ Wir können hier die Attribute der HTML-Elemente vernachlässigen (also z.B. `_n
 </app-root>
 ```
 
-Das Element `<htw-root>` fungiert als Platzhalter für die gesamte App. In dieses Element wird der gesamte Inhalt der Anwendung eingebunden (siehe `app.html`). Dies ist hier zunächst eine Überschrift `<h1>`, die von dem Element für die `header`-Komponente gefolgt wird. Das bedeutet, dass in das Element `<htw-header>` der Inhalt der Komponente `header` eingebunden wird. Das ist hier nur ein Absatz `<p>` (siehe dazu `header.html`). Das Element `<router-outlet>` soll uns an dieser Stelle noch nicht interessieren. Das wird erst interessant, wenn wir über das *Routing* in einer Angular-Anwendung sprechen.  
+Das Element `<app-root>` fungiert als Platzhalter für die gesamte App. In dieses Element wird der gesamte Inhalt der Anwendung eingebunden (siehe `app.html`). Dies ist hier zunächst eine Überschrift `<h1>`, die von dem Element für die `header`-Komponente gefolgt wird. Das bedeutet, dass in das Element `<app-header>` der Inhalt der Komponente `header` eingebunden wird. Das ist hier nur ein Absatz `<p>` (siehe dazu `header.html`). Das Element `<router-outlet />` soll uns an dieser Stelle noch nicht interessieren. Das wird erst interessant, wenn wir über das *Routing* in einer Angular-Anwendung sprechen.  
 
 Zur weiteren Übung erzeugen wir uns noch weitere Komponenten. Zunächst eine Komponenten zur Navigation `nav`:
 
@@ -405,21 +404,19 @@ und in die `app.ts` ein:
 
 
 === "app.ts"
-    ```js linenums="1" hl_lines="4 9"
-    import { Component } from '@angular/core';
+    ```js linenums="1" hl_lines="3 7"
     import { RouterOutlet } from '@angular/router';
-    import { HeaderComponent } from './header/header';
-    import { NavComponent } from './nav/nav';
+    import { Header } from './header/header';
+    import { Nav } from './nav/nav';
 
     @Component({
       selector: 'app-root',
-      standalone: true,
-      imports: [RouterOutlet, HeaderComponent, NavComponent],
+      imports: [RouterOutlet, Header, Nav],
       templateUrl: './app.html',
       styleUrl: './app.css'
     })
-    export class AppComponent {
-      title = 'first';
+    export class App {
+      protected readonly title = signal('first');
     }
     ```
 
@@ -437,7 +434,7 @@ ng g c main/right
 
 Beachten Sie, dass die `left`- und die `right`-Komponente hier explizit als Kindkomponenten von `main` erstellt werden. 
 
-![first](./files/215_first.png)
+![first](./files/215_first.png){: style="height:300px"}
 
 Wir binden die `main`-Komponente in die `app`-Komponente ein und die Komponenten `left` und `right` in die `main`-Komponente:
 
@@ -451,22 +448,21 @@ Wir binden die `main`-Komponente in die `app`-Komponente ein und die Komponenten
     ```
 
 === "app.ts"
-    ```js linenums="1" hl_lines="5 10"
-    import { Component } from '@angular/core';
+    ```js linenums="1" hl_lines="5 9"
+    import { Component, signal } from '@angular/core';
     import { RouterOutlet } from '@angular/router';
-    import { HeaderComponent } from './header/header';
-    import { NavComponent } from './nav/nav';
-    import { MainComponent } from './main/main';
+    import { Header } from './header/header';
+    import { Nav } from './nav/nav';
+    import { Main } from './main/main';
 
     @Component({
       selector: 'app-root',
-      standalone: true,
-      imports: [RouterOutlet, HeaderComponent, NavComponent, MainComponent],
+      imports: [RouterOutlet, Header, Nav, Main],
       templateUrl: './app.html',
       styleUrl: './app.css'
     })
-    export class AppComponent {
-      title = 'first';
+    export class App {
+      protected readonly title = signal('firstV');
     }
     ```
 
@@ -490,19 +486,18 @@ Wir binden die `main`-Komponente in die `app`-Komponente ein und die Komponenten
     ```
 
 === "main.ts"
-    ```js linenums="1" hl_lines="2 3 8"
+    ```js linenums="1" hl_lines="2 3 7"
     import { Component } from '@angular/core';
-    import { LeftComponent } from './left/left';
-    import { RightComponent } from './right/right';
+    import { Left } from './left/left';
+    import { Right } from './right/right';
 
     @Component({
       selector: 'app-main',
-      standalone: true,
-      imports: [LeftComponent, RightComponent],
+      imports: [Left, Right],
       templateUrl: './main.html',
-      styleUrl: './main.css'
+      styleUrl: './main.css',
     })
-    export class MainComponent {
+    export class Main {
 
     }
     ```
@@ -523,10 +518,14 @@ Wir binden die `main`-Komponente in die `app`-Komponente ein und die Komponenten
 
     #left {
       background-color: rgb(235, 235, 240);
+      text-align: center;
+      padding: 1%;
     }
 
     #right {
       background-color: rgb(191, 191, 243);
+      text-align: center;
+      padding: 1%;
     }
     ```
 
@@ -566,7 +565,7 @@ ng build
 
 Diese Anwendung erzeugt (genau wie `ng build --watch`) den `dist`-Ordner. Den darin befindlichen Ordner (hier: `first`) können Sie z.B. auf den Webserver kopieren und von dort die `first/index.html` aufrufen (bzw. Sie benennen den `first`-Ordner dort um). Beachten Sie, dass Sie in der `index.html` die Basis-Refereferenz-URL anpassen müssen, also den Eintrag `<base href="">` anpassen. 
 
-In meinem Fall ist es z.B. so, dass in meinem *DocumentRoot* folgende Ordnerstruktur existiert: `/WT24/Angular/first/dist/browser/`. Das heißt, mein Eintrag in der `index.html` muss dann lauten:
+In meinem Fall ist es z.B. so, dass in meinem *DocumentRoot* folgende Ordnerstruktur existiert: `/WT26/Angular/first/dist/first/browser/`. Das heißt, mein Eintrag in der `index.html` muss dann lauten:
 
 ```html linenums="1" hl_lines="6"
 <!DOCTYPE html>
@@ -574,7 +573,7 @@ In meinem Fall ist es z.B. so, dass in meinem *DocumentRoot* folgende Ordnerstru
   <head>
     <meta charset="utf-8">
     <title>First</title>
-    <base href="/WT24/Angular/first/dist/browser/">
+    <base href="/WT26/Angular/first/dist/first/browser/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.ef46db3751d8e999.css">
@@ -592,7 +591,7 @@ In meinem Fall ist es z.B. so, dass in meinem *DocumentRoot* folgende Ordnerstru
 Um die Basis-Refereferenz-URL nicht nachträglich anpassen zu müssen, können Sie auch gleich
 
 ```
-ng build --base-href=/WT24/Angular/first/dist/browser/
+ng build --base-href=/WT26/Angular/first/dist/first/browser/
 ```
 
 angeben. 
@@ -640,125 +639,123 @@ In dem Decorator `@Injectable()` wird mittels `providedIn: root` angegeben, dass
     import { Injectable } from '@angular/core';
 
     @Injectable({
-      providedIn: 'root'
+      providedIn: 'root',
     })
-    export class MyService {
-
-      constructor() {
-      }
+    export class My {
+      
     }
     ```
 
-Der Service kann dann mittels *dependency injection* von einer Komponente verwendet werden. Beispiel:
+Der Service kann dann mittels [Dependency Injection](https://angular.dev/guide/di) unter Verwendung von [inject](https://angular.dev/api/core/inject) von einer Komponente verwendet werden. Beispiel:
 
 === "example.ts"
     ```javascript
-    import {Component, OnInit} from '@angular/core';
-
-    import {MyService} from './shared/my.service';
+    import { Component, inject } from '@angular/core';
+    import { My } from '../shared/my';
 
     @Component({
       selector: 'app-example',
+      imports: [],
       templateUrl: './example.html',
-      styleUrls: ['./example.css']
+      styleUrl: './example.css',
     })
-    export class ExampleComponent implements OnInit {
+    export class Example {
 
-      constructor(private myService: MyService) { }
-
-      ngOnInit(): void {
-        this.myService.methodOfMyService();
-      }
-
+      private myservice = inject(My)
     }
     ```
 
-Für weiterführende Informationen zu Services siehe [https://angular.dev/guide/di/creating-injectable-service](https://angular.dev/guide/di/creating-injectable-service). Wir werden Services ausgiebig nutzen. Für ein erstes kleines einführendes Beispiel nehmen wir an, dass folgende Datei [members.json](./files/members.json) im `public`-Ordner unseres Projektes liegt. Diese Datei laden wir mithilfe von `fetch()` innerhalb unserer `shared/my.ts`:
+Für weiterführende Informationen zu Services siehe [https://angular.dev/guide/di/creating-and-using-services](https://angular.dev/guide/di/creating-and-using-services). Wir werden Services ausgiebig nutzen. Für ein erstes kleines einführendes Beispiel nehmen wir an, dass folgende Datei [members.json](./files/members.json) im `public`-Ordner unseres Projektes liegt. Diese Datei laden wir mithilfe von `fetch()` innerhalb unserer `shared/my.ts`:
 
 === "shared/my.ts"
     ```javascript linenums="1"
-    import { Injectable } from '@angular/core';
+    export class My {
+      private members: any;
 
-    @Injectable({
-      providedIn: 'root'
-    })
-    export class MyService {
-      members: any;
-
-      constructor() {}
-
-      getMembers() {
-        fetch('members.json')
-        .then( res => res.json() )
-        .then( jsonData => {
+      getMembers(): Promise<any> {
+        return fetch('members.json')
+        .then(response => response.json())
+        .then(jsonData => {
           this.members = jsonData;
-          console.log('getQuestions', this.members);
-
-        })
-        return this.members;
+          console.log('all members in my : ', this.members);
+          return this.members;
+        });
       }
 
+      /* mit neuerer async await -Syntax:
+
+      async getMembers(): Promise<any> {
+        const response = await fetch('members.json');
+        this.members = await response.json();
+        console.log('all members in my : ', this.members);
+        return this.members;
+      }
+      */
     }
     ```
 
-Der Service stellt somit eine Funktion `getMembers()` für alle Komponenten zur Verfügung und stellt über diese Funktion das `members`-Array bereit. Wir könnten dieses Array z.B. in der `main.ts` einlesen. (Sollte Ihre `MainComponent` nicht die Komponenten `Left` und `Right` einbinden, können Sie diese auch erstmal ignorieren - ist noch aus dem Beispiel von oben).
+Der Service stellt somit eine Funktion `getMembers()` für alle Komponenten zur Verfügung und stellt über diese Funktion das `members`-Array bereit (als [Promise](). Wir könnten dieses Array z.B. in der `main.ts` einlesen. (Sollte Ihre `Main`-Component nicht die Komponenten `Left` und `Right` einbinden, können Sie diese auch erstmal ignorieren - ist noch aus dem Beispiel von oben).
 
-Öffnen Sie dazu zunächst die `main.ts` und geben hinter `export class MainComponent` noch `implements OnInit` ein (wir implementieren das Interface `OnInit`). Dann ist die Klasse `MainComponent` zunächst nicht ausführbar. Klicken Sie mit Rechtsklick auf die Klasse und wählen `Quick Fix...`. Es erscheint die Implementierung der `ngOnInit()`-Funktion (dabei wird auch das Interface `OnInit` importiert):
+Öffnen Sie dazu zunächst die `main.ts` und geben hinter `export class Main` noch `implements OnInit` ein (wir implementieren das Interface `OnInit`). Dann ist die Klasse `Main` zunächst nicht ausführbar. Klicken Sie mit Rechtsklick auf die Klasse und wählen `Quick Fix...`. Es erscheint die Implementierung der `ngOnInit()`-Funktion (dabei wird auch das Interface `OnInit` importiert):
 
 
 === "main.ts"
-    ```javascript linenums="1" hl_lines="1 12 14-16"
-    import { Component, OnInit } from '@angular/core';
-    import { LeftComponent } from './left/left';
-    import { RightComponent } from './right/right';
+    ```javascript linenums="1" hl_lines="1 11 13-15"
+    import { Component, inject, OnInit } from '@angular/core';
+    import { Left } from './left/left';
+    import { Right } from './right/right';
 
     @Component({
       selector: 'app-main',
-      standalone: true,
-      imports: [LeftComponent, RightComponent],
+      imports: [Left, Right],
       templateUrl: './main.html',
-      styleUrl: './main.css'
+      styleUrl: './main.css',
     })
-    export class MainComponent implements OnInit{
-      
+    export class Main implements OnInit{
+
       ngOnInit(): void {
         throw new Error('Method not implemented.');
       }
-
     }
+
     ```
 
 Nun binden wir den Service ein und rufen die `getMembers()`-Funktion auf. Damit wird die Variable `members` befüllt:
 
 === "main.ts"
-    ```javascript linenums="1" hl_lines="14 15 18 21 22"
+    ```javascript linenums="1" hl_lines="13 14 17-21"
     import { Component, inject, OnInit } from '@angular/core';
-    import { LeftComponent } from './left/left';
-    import { RightComponent } from './right/right';
-    import { MyService } from '../shared/my';
+    import { Left } from './left/left';
+    import { Right } from './right/right';
+    import { My } from '../shared/my';
 
     @Component({
       selector: 'app-main',
-      standalone: true,
-      imports: [LeftComponent, RightComponent],
+      imports: [Left, Right],
       templateUrl: './main.html',
-      styleUrl: './main.css'
+      styleUrl: './main.css',
     })
-    export class MainComponent implements OnInit{
-      myservice: MyService;
-      members: any;
-
-      constructor() {
-        this.myservice = inject(MyService);
-      }
+    export class Main implements OnInit{
+      private myservice = inject(My)
+      private members: any;
 
       ngOnInit(): void {
-        this.members = this.myservice.getMembers();
-        console.log(this.members)
+        this.myservice.getMembers()
+        .then(members => {
+          this.members = members;
+          console.log('all members in main : ', this.members);
+        });
       }
 
-    }
+      /* mit neuerer async await -Syntax:
 
+      async ngOnInit(): Promise<void> {
+        this.members = await this.myservice.getMembers();
+        console.log('all members in main : ', this.members);
+      }
+
+      */
+    }
     ```
 
 Wir geben dieses Array zunächst einfach nur auf der Konsole aus. Wir sehen aber bereits die Einbindung des Services und die Verwendung der `getMembers()`-Funktion des Services.
@@ -799,28 +796,28 @@ Das Array `routes` aus der Datei `app.routes.ts` enthält später die Pfadangabe
 { path: 'mypath', component: MyComponent }
 ```
 
-Diese Angabe bewirkt, dass unter der URL `http://www.mydomain.de/mypath` die Komponente `MyComponent` aufgerufen wird. Angenommen, wir wollen, dass unsere Komponente `FirstComponent` unter dem Pfad `/first` aufgerufen wird und `SecondComponent` unter dem Pfad `/second`, dann sieht unsere Datei `app.routes.ts` wie folgt aus:
+Diese Angabe bewirkt, dass unter der URL `http://www.mydomain.de/mypath` die Komponente `MyComponent` aufgerufen wird. Angenommen, wir wollen, dass unsere Komponente `First` unter dem Pfad `/first` aufgerufen wird und `Second` unter dem Pfad `/second`, dann sieht unsere Datei `app.routes.ts` wie folgt aus:
 
 === "app.routes.ts"
     ``` javascript linenums="1" hl_lines="2 3 6 7"
     import { Routes } from '@angular/router';
-    import { FirstComponent } from './first/first';
-    import { SecondComponent } from './second/second';
+    import { First} from './first/first';
+    import { Second } from './second/second';
 
     export const routes: Routes = [
-        { path: 'first', component: FirstComponent},
-        { path: 'second', component: SecondComponent }
+        { path: 'first', component: First},
+        { path: 'second', component: Second }
     ];
     ```
 
-In den Zeilen 6 und 7 sind die beiden Routen definiert. Beachten Sie, dass die Pfadangaben ohne vorangestelltes Slash `/` erfolgen! Unter Verwendung der Selektoren `<app-first>` bzw. `<app-second>` könnten wir unsere Komponenten nun (statisch) in unsere Anwendung einbinden. Wollen wir das jedoch dem *Routing* überlassen, die Komponenten also dynamisch - abhängig von dem jeweils gewählten Pfad - einbinden lassen, verwenden wir stattdessen den Selektor `<router-outlet>`. Auch dieser ist bei gewähltem *Routing* bereits Teil des `AppComponent`-Templates:
+In den Zeilen 6 und 7 sind die beiden Routen definiert. Beachten Sie, dass die Pfadangaben ohne vorangestelltes Slash `/` erfolgen! Unter Verwendung der Selektoren `<app-first>` bzw. `<app-second>` könnten wir unsere Komponenten nun (statisch) in unsere Anwendung einbinden. Wollen wir das jedoch dem *Routing* überlassen, die Komponenten also dynamisch - abhängig von dem jeweils gewählten Pfad - einbinden lassen, verwenden wir stattdessen den Selektor `<router-outlet>`. Auch dieser ist bei gewähltem *Routing* bereits Teil des `App`-Templates:
 
 === "app.html"
     ``` html
     <!-- hier wurde viel vom ursprünglichen -->
     <!-- Template gelöscht                  -->
   
-    <h1>Hier ist AppComponent</h1>
+    <h1>Hier ist App</h1>
     <router-outlet />
     ```
 
@@ -828,14 +825,14 @@ Obiges Listing zeigt, dass das Template von `AppComponent` zunächst eine `<h1>`
 
 === "first.html"
     ``` html
-    <h3>Hier ist FirstComponent</h3>
+    <h3>Hier ist First</h3>
     ```
 === "second.html"
     ``` html
-    <h3>Hier ist SecondComponent</h3>
+    <h3>Hier ist Second</h3>
     ```
 
-Starten wir nun unsere Anwendung, dann sehen wir zunächst (URL: `http://localhost:4200/`) nur die View der `AppComponent`, nämlich die `<h1>`-Überschrift. Der Platzhalter `<router-outlet>` bleibt leer, da keine der angegebenen Pfade aus der `app.routes.ts` angegeben wurde. Geben wir jedoch als URL `http://localhost:4200/first` ein, so wird das Template der `FirstComponent` in diesen Platzhalter geladen, nämlich die `<h3`-Überschrift `Hier ist FirstComponent`. Geben wir als URL stattdessen `http://localhost:4200/second` ein, so wird das Template der `SecondComponent` in den Platzhalter `<router-outlet>` geladen, nämlich die `<h3`-Überschrift `Hier ist SecondComponent`. Die folgende Abbildung zeigt die Views der drei Fälle:
+Starten wir nun unsere Anwendung, dann sehen wir zunächst (URL: `http://localhost:4200/`) nur die View der `App`, nämlich die `<h1>`-Überschrift. Der Platzhalter `<router-outlet>` bleibt leer, da keine der angegebenen Pfade aus der `app.routes.ts` angegeben wurde. Geben wir jedoch als URL `http://localhost:4200/first` ein, so wird das Template der `First` in diesen Platzhalter geladen, nämlich die `<h3`-Überschrift `Hier ist First`. Geben wir als URL stattdessen `http://localhost:4200/second` ein, so wird das Template der `Second` in den Platzhalter `<router-outlet>` geladen, nämlich die `<h3`-Überschrift `Hier ist Second`. Die folgende Abbildung zeigt die Views der drei Fälle:
 
 ![Routing](./files/17_routing.png)
 
@@ -847,7 +844,7 @@ Wir kennen nun die möglichen Pfade unserer Anwendung `http://localhost:4200/`, 
 
 === "app.html"
     ``` html
-    <h1>Hier ist AppComponent</h1>
+    <h1>Hier ist App</h1>
     <ul>
       <li>
         <a href="/">home</a>
@@ -868,7 +865,7 @@ Das Nachladen wird vermieden, wenn wir als Attribut für unsere Pfade nicht `hre
 
 === "app.html"
     ``` html
-    <h1>Hier ist AppComponent</h1>
+    <h1>Hier ist App</h1>
     <ul>
       <li>
         <a routerLink="/">home</a>
@@ -897,7 +894,7 @@ Nun funktioniert jedoch das Aufrufen der Komponenten zunächst nicht mehr. **Wic
       templateUrl: './app.html',
       styleUrl: './app.css'
     })
-    export class AppComponent {
+    export class App {
       title = 'routing-lesson';
     }
     ```
@@ -972,13 +969,13 @@ Wir führen dazu zunächst kleinere Änderungen an unserem obigen Beispiel der `
     ``` javascript linenums="1"
     import { NgModule } from '@angular/core';
     import { Routes, RouterModule } from '@angular/router';
-    import {FirstComponent} from './first/first';
-    import {SecondComponent} from './second/second';
+    import {First} from './first/first';
+    import {Second} from './second/second';
 
     const routes: Routes = [
-      { path: 'first', component: FirstComponent},
-      { path: 'first/:id', component: FirstComponent},
-      { path: 'second', component: SecondComponent }
+      { path: 'first', component: First},
+      { path: 'first/:id', component: First},
+      { path: 'second', component: Second }
     ];
 
     @NgModule({
@@ -1007,7 +1004,7 @@ Im Template der `FirstComponent` haben wir einen Absatz eingefügt, der als Inha
       templateUrl: './first.html',
       styleUrls: ['./first.css']
     })
-    export class FirstComponent implements OnInit {
+    export class First implements OnInit {
       id: string;
 
       constructor(private route: ActivatedRoute) { }
@@ -1041,7 +1038,7 @@ Damit das *Observable* aber überhaupt den aktuellen Router permanent beobachtet
       templateUrl: './first.html',
       styleUrls: ['./first.css']
     })
-    export class FirstComponent implements OnInit {
+    export class First implements OnInit {
       id: string;
 
       constructor(private route: ActivatedRoute) { }
@@ -1065,8 +1062,8 @@ Für den Fall, dass eine "falsche" Route eingegeben wird, also z.B. `localhost:4
     ```js
     export const routes: Routes = [
         { path: '', component: HomeComponent},
-        { path: 'first', component: FirstComponent},
-        { path: 'second', component: SecondComponent }
+        { path: 'first', component: First},
+        { path: 'second', component: Second }
     ];
     ```
 
@@ -1076,10 +1073,10 @@ Es gibt also auch noch eine `HomeComponent` in diesem Beispiel. Sie haben für "
 === "app.routes.ts - nur routes-Array" 
     ```js
     export const routes: Routes = [
-        { path: '', component: HomeComponent},
-        { path: 'first', component: FirstComponent},
-        { path: 'second', component: SecondComponent },
-        { path: '**', component: PageNotFoundComponent, pathMatch: 'full' }
+        { path: '', component: Home},
+        { path: 'first', component: First},
+        { path: 'second', component: Second },
+        { path: '**', component: PageNotFound, pathMatch: 'full' }
     ];
     ```
 
@@ -1088,9 +1085,9 @@ oder Sie leiten alle "falschen" Routen zu einer anderen Route um, z.B. zur Route
 === "app.routes.ts - nur routes-Array" 
     ```js
     export const routes: Routes = [
-        { path: '', component: HomeComponent},
-        { path: 'first', component: FirstComponent},
-        { path: 'second', component: SecondComponent },
+        { path: '', component: Home},
+        { path: 'first', component: First},
+        { path: 'second', component: Second },
         { path: '**', redirectTo: '', pathMatch: 'full' }
     ];
     ```
@@ -1102,9 +1099,9 @@ Angenommen, wir haben zwei weitere Komponenten `OneComponent` und `TwoComponent`
 
 Wir wollen nun aber folgendes:
 
-- die Route `/first` verweist auf die `FirstComponent`
-- die Route `/first/one` verweist auf die `FirstComponent` und deren Kindkomponente `OneComponent`
-- die Route `/first/two` verweist auf die `FirstComponent` und deren Kindkomponente `TwoComponent`
+- die Route `/first` verweist auf die `First`-Component
+- die Route `/first/one` verweist auf die `First`-Component und deren Kindkomponente `One`-Component
+- die Route `/first/two` verweist auf die `First`-Component und deren Kindkomponente `Two`-Component
 
 Wir wollen also, dass auch die beiden Kindkomponenten mittels Routing in die Elternkomponente eingefügt werden. Das erreichen wir mit 2 Anpassungen:
 
@@ -1114,18 +1111,18 @@ Wir wollen also, dass auch die beiden Kindkomponenten mittels Routing in die Elt
 === "app.routes.ts"
     ``` javascript linenums="1"
     import { Routes, RouterModule } from '@angular/router';
-    import {FirstComponent} from './first/first';
-    import {SecondComponent} from './second/second';
-    import {OneComponent} from './first/one/one';
-    import {TwoComponent} from './first/two/two';
+    import {First} from './first/first';
+    import {Second} from './second/second';
+    import {One} from './first/one/one';
+    import {Two} from './first/two/two';
 
     const routes: Routes = [
-      { path: 'first', component: FirstComponent, children: [
-          { path: 'one', component: OneComponent },
-          { path: 'two', component: TwoComponent },
+      { path: 'first', component: First, children: [
+          { path: 'one', component: One },
+          { path: 'two', component: Two },
         ]},
-      { path: 'first/:id', component: FirstComponent},
-      { path: 'second', component: SecondComponent }
+      { path: 'first/:id', component: First },
+      { path: 'second', component: Second }
     ];
 
     @NgModule({
@@ -1146,7 +1143,7 @@ Wir wollen also, dass auch die beiden Kindkomponenten mittels Routing in die Elt
     ```
 === "app.html"
     ``` html linenums="1"
-    <h1>Hier ist AppComponent</h1>
+    <h1>Hier ist App</h1>
     <ul>
       <li>
         <a [routerLink]="['/']">home</a>
@@ -1284,7 +1281,7 @@ In der `second.ts` sehen wir in Zeile 11, dass der Service `Router` per dependen
     templateUrl: './app.html',
     styleUrls: ['./app.css']
   })
-  export class AppComponent {
+  export class App {
     title = 'frontend';
   }
   ```
